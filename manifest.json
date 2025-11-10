@@ -1,0 +1,21 @@
+{
+  "name": "WEC CGPA Tracker",
+  "short_name": "WEC CGPA",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#d8e8ff",
+  "theme_color": "#a4b8ff",
+  "description": "Track your semester GPA and CGPA - by S.Sabitha 🎓",
+  "icons": [
+    {
+      "src": "images/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
