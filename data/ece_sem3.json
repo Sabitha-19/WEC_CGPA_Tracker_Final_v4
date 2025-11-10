@@ -1,0 +1,16 @@
+{
+  "department": "ECE",
+  "semester": 3,
+  "subjects": [
+    { "code": "MAA105", "name": "Linear Algebra, Numerical Methods and Random Processes", "credits": 4 },
+    { "code": "ECA101", "name": "Circuits and Networks", "credits": 3 },
+    { "code": "ECA102", "name": "Electronic Devices and Circuits", "credits": 3 },
+    { "code": "ECA103", "name": "Electromagnetic Waves and Fields", "credits": 3 },
+    { "code": "ECA104", "name": "Digital System Design", "credits": 3 },
+    { "code": "CSA134", "name": "Data Structures and Object-Oriented Programming", "credits": 3 },
+    { "code": "ECA105", "name": "Electronic Devices and Networks Laboratory", "credits": 1.5 },
+    { "code": "CSA135", "name": "Data Structures and Object-Oriented Programming Laboratory", "credits": 1.5 },
+    { "code": "SHA102", "name": "Indian Constitution", "credits": 0 },
+    { "code": "ZZA3XX", "name": "Open Elective", "credits": 3 }
+  ]
+}

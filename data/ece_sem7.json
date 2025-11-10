@@ -1,0 +1,16 @@
+{
+  "department": "ECE",
+  "semester": 7,
+  "subjects": [
+    { "code": "ECA123", "name": "Wireless Communication", "credits": 3 },
+    { "code": "ECA124", "name": "Information Theory and Coding", "credits": 3 },
+    { "code": "ECA125", "name": "Embedded System", "credits": 3 },
+    { "code": "ECA2XX", "name": "Professional Elective – IV", "credits": 3 },
+    { "code": "ECA2XY", "name": "Professional Elective – V", "credits": 3 },
+    { "code": "ECA126", "name": "Wireless Communication Laboratory", "credits": 1.5 },
+    { "code": "ECA127", "name": "Embedded System Laboratory", "credits": 1.5 },
+    { "code": "ECA128", "name": "Mini Project", "credits": 1 },
+    { "code": "ECA129", "name": "Professional Ethics", "credits": 0 },
+    { "code": "ZZA3XX", "name": "Open Elective", "credits": 3 }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "department": "ISE",
+  "semester": 5,
+  "subjects": [
+    { "code": "ISA114", "name": "Database Management System", "credits": 3 },
+    { "code": "ISA115", "name": "Information Theory and Coding Techniques", "credits": 4 },
+    { "code": "ISA116", "name": "Computer Networks", "credits": 3 },
+    { "code": "ISA117", "name": "Machine Learning", "credits": 3 },
+    { "code": "ISA118", "name": "Database Management System Laboratory", "credits": 1.5 },
+    { "code": "ISA119", "name": "Computer Networks Laboratory", "credits": 1.5 },
+    { "code": "ISA120", "name": "Machine Learning Laboratory", "credits": 1.5 },
+    { "code": "SHA103", "name": "Essence of Indian Traditional Knowledge", "credits": 0 },
+    { "code": "ZZA3XX", "name": "Open Elective / Honors / Minor Course", "credits": 3 }
+  ]
+}

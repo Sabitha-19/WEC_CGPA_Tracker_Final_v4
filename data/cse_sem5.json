@@ -1,0 +1,15 @@
+{
+  "department": "CSE",
+  "semester": 5,
+  "subjects": [
+    { "code": "HSA102", "name": "Industrial Economics and Management", "credits": 3 },
+    { "code": "CSA115", "name": "Platform Technologies", "credits": 3 },
+    { "code": "CSA116", "name": "Computer Networks", "credits": 3 },
+    { "code": "CSA117", "name": "Automata Theory and Compiler Design", "credits": 4 },
+    { "code": "CSA2XX", "name": "Professional Elective Course - I", "credits": 3 },
+    { "code": "CSA118", "name": "Platform Technologies Laboratory", "credits": 1.5 },
+    { "code": "CSA119", "name": "Computer Networks Laboratory", "credits": 1.5 },
+    { "code": "SHA103", "name": "Essence of Indian Traditional Knowledge", "credits": 0 },
+    { "code": "ZZA3XX", "name": "Open Elective Course", "credits": 3 }
+  ]
+}

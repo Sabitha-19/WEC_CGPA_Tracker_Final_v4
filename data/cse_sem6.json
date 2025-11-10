@@ -1,0 +1,15 @@
+{
+  "department": "CSE",
+  "semester": 6,
+  "subjects": [
+    { "code": "EPA101", "name": "Entrepreneurship", "credits": 3 },
+    { "code": "CSA120", "name": "Microprocessors and Microcontrollers", "credits": 3 },
+    { "code": "CSA121", "name": "Web Technologies", "credits": 3 },
+    { "code": "CSA122", "name": "Information Security", "credits": 4 },
+    { "code": "CSA2XX", "name": "Professional Elective Course - II", "credits": 3 },
+    { "code": "CSA2XX", "name": "Professional Elective Course - III", "credits": 3 },
+    { "code": "CSA123", "name": "Microprocessors and Microcontrollers Laboratory", "credits": 1.5 },
+    { "code": "CSA124", "name": "Web Technologies Laboratory", "credits": 1.5 },
+    { "code": "ZZA3XX", "name": "Open Elective Course", "credits": 3 }
+  ]
+}

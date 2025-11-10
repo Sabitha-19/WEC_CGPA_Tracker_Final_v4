@@ -1,0 +1,14 @@
+{
+  "department": "EEE",
+  "semester": 6,
+  "subjects": [
+    { "code": "EEA122", "name": "Power System Analysis", "credits": 4 },
+    { "code": "EEA123", "name": "Microprocessors and Microcontrollers", "credits": 3 },
+    { "code": "EEA2XX", "name": "Program Elective - I", "credits": 3 },
+    { "code": "EEA2XY", "name": "Program Elective - II", "credits": 3 },
+    { "code": "EPA101", "name": "Entrepreneurship", "credits": 3 },
+    { "code": "EEA124", "name": "Microprocessors and Microcontrollers Laboratory", "credits": 1.5 },
+    { "code": "EEA125", "name": "Power Electronics Laboratory", "credits": 1.5 },
+    { "code": "SHA103", "name": "Essence of Indian Traditional Knowledge", "credits": 0 }
+  ]
+}

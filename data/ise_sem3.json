@@ -1,0 +1,15 @@
+{
+  "department": "ISE",
+  "semester": 3,
+  "subjects": [
+    { "code": "ECA133", "name": "Digital System Design", "credits": 3 },
+    { "code": "ISA101", "name": "Python Programming", "credits": 3 },
+    { "code": "ISA102", "name": "Data Structures", "credits": 3 },
+    { "code": "ISA103", "name": "Introduction to Information Science", "credits": 3 },
+    { "code": "SHA101", "name": "Biology for Engineers", "credits": 2 },
+    { "code": "ISA104", "name": "Python Programming Laboratory", "credits": 1.5 },
+    { "code": "ISA105", "name": "Data Structures Laboratory", "credits": 1.5 },
+    { "code": "ISA106", "name": "Statistics with R Laboratory", "credits": 1.5 },
+    { "code": "SHA102", "name": "Indian Constitution", "credits": 0 }
+  ]
+}

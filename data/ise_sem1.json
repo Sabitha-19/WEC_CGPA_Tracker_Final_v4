@@ -1,0 +1,46 @@
+{
+  "department": "ISE",
+  "semester": 1,
+  "subjects": [
+    {
+      "code": "FYA101",
+      "name": "Induction Programme",
+      "credits": 0
+    },
+    {
+      "code": "MAA101",
+      "name": "Mathematics I",
+      "credits": 4
+    },
+    {
+      "code": "PHA101",
+      "name": "Physics",
+      "credits": 4
+    },
+    {
+      "code": "CYA101",
+      "name": "Chemistry",
+      "credits": 4
+    },
+    {
+      "code": "HSA101",
+      "name": "English for Communication",
+      "credits": 3
+    },
+    {
+      "code": "MEA101",
+      "name": "Workshop & Manufacturing Practice",
+      "credits": 1.5
+    },
+    {
+      "code": "PHA102",
+      "name": "Physics Laboratory",
+      "credits": 1.5
+    },
+    {
+      "code": "CYA102",
+      "name": "Chemistry Laboratory",
+      "credits": 1.5
+    }
+  ]
+}

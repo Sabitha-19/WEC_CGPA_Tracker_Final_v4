@@ -1,0 +1,11 @@
+{
+  "department": "ECE",
+  "semester": 8,
+  "subjects": [
+    { "code": "SWA3XX", "name": "Open Elective through SWAYAM", "credits": 2 },
+    { "code": "SWA3XY", "name": "Open Elective through SWAYAM", "credits": 2 },
+    { "code": "ECA130", "name": "Comprehensive Test", "credits": 1 },
+    { "code": "ECA131", "name": "Internship", "credits": 2 },
+    { "code": "ECA132", "name": "Project Work", "credits": 8 }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "department": "ECE",
+  "semester": 4,
+  "subjects": [
+    { "code": "ECA106", "name": "Transmission Lines and Waveguides", "credits": 3 },
+    { "code": "ECA107", "name": "Electronic Circuit Design", "credits": 3 },
+    { "code": "ECA108", "name": "Signals and Systems", "credits": 4 },
+    { "code": "ECA109", "name": "Analog Communication", "credits": 3 },
+    { "code": "ECA2XX", "name": "Professional Elective – I", "credits": 3 },
+    { "code": "SHA101", "name": "Biology for Engineers", "credits": 2 },
+    { "code": "ECA110", "name": "Digital System Design Laboratory", "credits": 1.5 },
+    { "code": "ECA111", "name": "Electronic Circuit Design Laboratory", "credits": 1.5 },
+    { "code": "ECA112", "name": "Analog Communication Laboratory", "credits": 1.5 },
+    { "code": "ZZA3XX", "name": "Open Elective", "credits": 3 }
+  ]
+}

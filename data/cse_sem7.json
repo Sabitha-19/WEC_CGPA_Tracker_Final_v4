@@ -1,0 +1,15 @@
+{
+  "department": "CSE",
+  "semester": 7,
+  "subjects": [
+    { "code": "CSA125", "name": "Artificial Intelligence", "credits": 3 },
+    { "code": "CSA126", "name": "Parallel and Distributed Systems", "credits": 4 },
+    { "code": "CSA127", "name": "Data Science Essentials", "credits": 4 },
+    { "code": "CSA2XX", "name": "Professional Elective Course - IV", "credits": 3 },
+    { "code": "CSA2XX", "name": "Professional Elective Course - V", "credits": 3 },
+    { "code": "CSA128", "name": "Artificial Intelligence Laboratory", "credits": 1.5 },
+    { "code": "CSA129", "name": "Seminar", "credits": 1 },
+    { "code": "CSA130", "name": "Professional Ethics", "credits": 0 },
+    { "code": "ZZA3XX", "name": "Open Elective Course", "credits": 3 }
+  ]
+}

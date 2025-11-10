@@ -1,0 +1,16 @@
+{
+  "department": "ISE",
+  "semester": 7,
+  "subjects": [
+    { "code": "ISA128", "name": "Artificial Intelligence", "credits": 3 },
+    { "code": "ISA129", "name": "Full Stack Development", "credits": 3 },
+    { "code": "HSA102", "name": "Industrial Economics and Management", "credits": 3 },
+    { "code": "ISA2XX", "name": "Program Elective – IV", "credits": 3 },
+    { "code": "ISA2XY", "name": "Program Elective – V", "credits": 3 },
+    { "code": "ISA130", "name": "Artificial Intelligence Laboratory", "credits": 1.5 },
+    { "code": "ISA131", "name": "Full Stack Development Laboratory", "credits": 1.5 },
+    { "code": "ISA132", "name": "Seminar", "credits": 1 },
+    { "code": "ISA133", "name": "Professional Ethics", "credits": 0 },
+    { "code": "ZZA3XX", "name": "Open Elective / Honors / Minor Course", "credits": 3 }
+  ]
+}

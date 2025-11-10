@@ -1,0 +1,14 @@
+{
+  "department": "ISE",
+  "semester": 4,
+  "subjects": [
+    { "code": "MAA106", "name": "Mathematics for Computing", "credits": 4 },
+    { "code": "ISA107", "name": "Operating Systems", "credits": 3 },
+    { "code": "ISA108", "name": "Object Oriented Programming with Java", "credits": 3 },
+    { "code": "ISA109", "name": "Foundations of Data Science", "credits": 3 },
+    { "code": "ISA110", "name": "Design and Analysis of Algorithms", "credits": 3 },
+    { "code": "ISA111", "name": "Operating Systems Laboratory with UNIX / Linux", "credits": 1.5 },
+    { "code": "ISA112", "name": "Object Oriented Programming with Java Laboratory", "credits": 1.5 },
+    { "code": "ISA113", "name": "Algorithms Laboratory", "credits": 1.5 }
+  ]
+}

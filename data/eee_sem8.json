@@ -1,0 +1,11 @@
+{
+  "department": "EEE",
+  "semester": 8,
+  "subjects": [
+    { "code": "SWA3XX", "name": "Open Elective through SWAYAM", "credits": 2 },
+    { "code": "SWA3XY", "name": "Open Elective through SWAYAM", "credits": 2 },
+    { "code": "EEA132", "name": "Comprehensive Test", "credits": 1 },
+    { "code": "EEA133", "name": "Internship", "credits": 2 },
+    { "code": "EEA134", "name": "Project Work", "credits": 8 }
+  ]
+}

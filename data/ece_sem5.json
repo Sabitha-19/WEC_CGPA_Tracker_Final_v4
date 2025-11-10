@@ -1,0 +1,15 @@
+{
+  "department": "ECE",
+  "semester": 5,
+  "subjects": [
+    { "code": "ECA113", "name": "Digital Signal Processing and DSP Processors", "credits": 4 },
+    { "code": "ECA114", "name": "Digital Communication", "credits": 3 },
+    { "code": "ECA2XX", "name": "Professional Elective – II", "credits": 3 },
+    { "code": "CSA136", "name": "Microprocessors and Microcontrollers", "credits": 3 },
+    { "code": "EPA101", "name": "Entrepreneurship", "credits": 2 },
+    { "code": "ECA115", "name": "Digital Signal Processing Laboratory", "credits": 1.5 },
+    { "code": "ECA116", "name": "Digital Communication Laboratory", "credits": 1.5 },
+    { "code": "CSA137", "name": "Microprocessors and Microcontrollers Laboratory", "credits": 1.5 },
+    { "code": "ZZA3XX", "name": "Open Elective", "credits": 3 }
+  ]
+}

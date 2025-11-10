@@ -1,0 +1,16 @@
+{
+  "department": "EEE",
+  "semester": 7,
+  "subjects": [
+    { "code": "EEA126", "name": "Power System Operation and Control", "credits": 3 },
+    { "code": "EEA127", "name": "Protection and Switchgear", "credits": 3 },
+    { "code": "EEA128", "name": "Solid State Drives", "credits": 3 },
+    { "code": "EEA2XX", "name": "Program Elective – III", "credits": 3 },
+    { "code": "EEA2XY", "name": "Program Elective – IV", "credits": 3 },
+    { "code": "EEA2XZ", "name": "Program Elective – V", "credits": 3 },
+    { "code": "EEA129", "name": "Power Systems Laboratory", "credits": 2 },
+    { "code": "EEA130", "name": "Seminar", "credits": 1 },
+    { "code": "EEA131", "name": "Professional Ethics", "credits": 0 },
+    { "code": "ZZA3XX", "name": "Open Elective", "credits": 3 }
+  ]
+}
