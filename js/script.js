@@ -105,23 +105,41 @@ document.getElementById('calculate').onclick=function(){
   feedback.textContent=msg;
 };
 
-document.getElementById('save').onclick=function(){
-  if(!state.dept||!state.sem)return;
-  const gpa=parseFloat(gpaEl.textContent);
-  state.saved[`${state.dept}_sem${state.sem}`]=gpa;
-  localStorage.setItem('wec_saved',JSON.stringify(state.saved));
+document.getElementById('save').onclick = function() {
+  if (!state.dept || !state.sem) {
+    feedback.textContent = "Select department and semester before saving.";
+    return;
+  }
+  const gpa = parseFloat(gpaEl.textContent);
+  if (isNaN(gpa) || gpa === 0) {
+    feedback.textContent = "Please calculate GPA before saving.";
+    return;
+  }
+
+  // Save GPA to localStorage
+  state.saved[`${state.dept}_sem${state.sem}`] = gpa;
+  localStorage.setItem("wec_saved", JSON.stringify(state.saved));
+
+  // Re-render saved semesters + CGPA
   renderSaved();
+  feedback.textContent = "✅ Semester saved successfully!";
+  showTab("saved");
 };
 
-function renderSaved(){
-  const data=state.saved;
-  savedList.innerHTML='';
-  let tot=0,cnt=0;
-  for(const [k,v] of Object.entries(data)){
-    const li=document.createElement('li');
-    li.textContent=`${k.toUpperCase()}: GPA ${v}`;
+
+function renderSaved() {
+  const data = state.saved;
+  savedList.innerHTML = '';
+  let total = 0, count = 0;
+
+  for (const [key, val] of Object.entries(data)) {
+    const li = document.createElement('li');
+    li.textContent = `${key.toUpperCase()}: GPA ${val.toFixed(2)}`;
     savedList.appendChild(li);
-    tot+=v; cnt++;
+    total += val;
+    count++;
   }
-  cgpaEl.textContent=cnt?(tot/cnt).toFixed(2):"0.00";
+
+  const cgpa = count ? (total / count).toFixed(2) : '0.00';
+  cgpaEl.textContent = cgpa;
 }
