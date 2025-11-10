@@ -1,0 +1,15 @@
+{
+  "department": "AA",
+  "semester": 3,
+  "subjects": [
+    { "code": "SHA101", "name": "Biology for Engineers", "credits": 2 },
+    { "code": "AAA101", "name": "Fundamentals of Architecture", "credits": 3 },
+    { "code": "AAA102", "name": "History of World Architecture", "credits": 3 },
+    { "code": "AAA103", "name": "Solid Mechanics", "credits": 3 },
+    { "code": "AAA104", "name": "Building Services - I", "credits": 3 },
+    { "code": "AAA105", "name": "Basic Design", "credits": 3 },
+    { "code": "AAA106", "name": "Architectural Graphics", "credits": 1.5 },
+    { "code": "AAA107", "name": "Building Construction and Detailing - I", "credits": 2 },
+    { "code": "ZZA3XX", "name": "Open Elective", "credits": 3 }
+  ]
+}
