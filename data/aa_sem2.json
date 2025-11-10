@@ -1,0 +1,41 @@
+{
+  "department": "AA",
+  "semester": 2,
+  "subjects": [
+    {
+      "code": "MAA102",
+      "name": "Mathematics II",
+      "credits": 4
+    },
+    {
+      "code": "EEA101",
+      "name": "Basic Electrical Engineering",
+      "credits": 4
+    },
+    {
+      "code": "CSA101",
+      "name": "Programming for Problem Solving",
+      "credits": 3
+    },
+    {
+      "code": "MEA102",
+      "name": "Engineering Graphics and CAD",
+      "credits": 3
+    },
+    {
+      "code": "CEA101",
+      "name": "Environmental Science",
+      "credits": 0
+    },
+    {
+      "code": "EEA102",
+      "name": "Basic Electrical Eng Lab",
+      "credits": 1.5
+    },
+    {
+      "code": "CSA102",
+      "name": "Programming Laboratory",
+      "credits": 1.5
+    }
+  ]
+}
