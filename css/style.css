@@ -90,13 +90,19 @@ button.primary:hover { opacity: 0.9; }
 /* Footer fixed with glow */
 footer {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(to right, #b784f2, #80bfff);
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(183, 132, 242, 0.85);
+  background: linear-gradient(to right, rgba(183,132,242,0.85), rgba(128,191,255,0.85));
   color: #fff;
-  text-shadow: 0 0 8px #caa0ff;
-  padding: 10px 0;
+  text-shadow: 0 0 10px #d6b6ff;
+  padding: 8px 16px;
+  border-radius: 20px;
   font-size: 14px;
   font-weight: 600;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 10px rgba(128,128,255,0.4);
+  z-index: 100;
 }
+
