@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WEC CGPA Tracker</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/png" href="images/logo.png" />
+</head>
+<body>
+  <!-- Splash screen -->
+  <div id="splash">
+    <h1>🎓 Welcome to <br>WEC CGPA Tracker</h1>
+    <p>by S.Sabitha</p>
+  </div>
+
+  <!-- Home tab -->
+  <section id="home" class="tab active">
+    <h2>Welcome to WEC CGPA Tracker 🎓</h2>
+    <p>Track your semester GPA and overall CGPA easily.</p>
+    <button id="startBtn" class="primary">Get Started</button>
+  </section>
+
+  <!-- Department selection -->
+  <section id="dept" class="tab">
+    <h2>Select Your Department</h2>
+    <div id="deptList" class="grid"></div>
+  </section>
+
+  <!-- Semester selection -->
+  <section id="sem" class="tab">
+    <h2>Select Semester</h2>
+    <div id="semList" class="grid"></div>
+  </section>
+
+  <!-- GPA Calculator -->
+  <section id="calc" class="tab">
+    <h2 id="calc-title"></h2>
+    <div id="subjects"></div>
+    <p>Total Credits: <span id="totalCredits">0</span></p>
+    <p>Your GPA: <span id="gpa">0.00</span></p>
+    <p id="feedback" class="feedback"></p>
+    <button id="calculate" class="primary">Calculate GPA</button>
+    <button id="save">Save Semester</button>
+  </section>
+
+  <!-- Saved CGPA -->
+  <section id="saved" class="tab">
+    <h2>Saved Semesters</h2>
+    <ul id="savedList"></ul>
+    <p>Your CGPA: <span id="cgpa">0.00</span></p>
+    <button id="clearSaved">Clear All</button>
+  </section>
+
+  <!-- Fixed glowing footer -->
+  <footer>
+    🌟 Powered by 🎓 S.Sabitha B.Tech ISE
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
