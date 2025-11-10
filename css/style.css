@@ -30,7 +30,14 @@ body {
 }
 
 /* Tabs */
-.tab { display: none; padding: 20px; width: 90%; max-width: 600px; }
+.tab {
+  display: none;
+  padding: 20px;
+  width: 90%;
+  max-width: 600px;
+  padding-bottom: 80px; /* extra space so footer doesn't overlap */
+}
+
 .tab.active { display: block; }
 
 .grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(130px,1fr)); gap: 10px; }
