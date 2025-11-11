@@ -256,5 +256,34 @@ footer {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+/* Glittering animated gradient buttons */
+button, .dept-btn, .sem-btn, .nav-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Sparkling effect layer */
+button::before, .dept-btn::before, .sem-btn::before, .nav-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: skewX(-25deg);
+  animation: shimmer 3s infinite;
+}
+
+/* Smooth shimmer movement */
+@keyframes shimmer {
+  0% { left: -75%; }
+  50% { left: 125%; }
+  100% { left: 125%; }
+}
+#calculate, #save {
+  box-shadow: 0 0 25px rgba(180, 150, 255, 0.7);
+  animation: pulseGlow 2.5s infinite ease-in-out;
+}
 
 
