@@ -72,11 +72,12 @@ body {
 }
 
 /* 🔮 Gradient Buttons (Dept & Semester) */
+/* Fixed Department and Semester Buttons */
 button.dept-btn,
 button.sem-btn {
   position: relative;
-  background: linear-gradient(135deg, #e6e6ff, #dbe8ff);
-  color: black;
+  background: linear-gradient(135deg, #f7f7ff, #dce6ff); /* light pastel */
+  color: #222; /* visible dark text */
   font-weight: 600;
   border: none;
   padding: 12px 25px;
@@ -87,40 +88,38 @@ button.sem-btn {
   overflow: hidden;
 }
 
-/* Hover / Active states */
+/* Hover and Active Styles */
 button.dept-btn:hover,
-button.sem-btn:hover {
-  background: linear-gradient(135deg, #a78bfa, #60a5fa);
-  color: white;
-  transform: scale(1.05);
-}
+button.sem-btn:hover,
 button.dept-btn.active,
 button.sem-btn.active {
   background: linear-gradient(135deg, #a78bfa, #60a5fa);
-  color: white;
+  color: #fff; /* white text only when active or hovered */
+  transform: scale(1.05);
   box-shadow: 0 0 15px rgba(167, 139, 250, 0.8);
 }
 
-/* ✨ Glitter / Shimmer Effect */
+/* Shimmer Effect */
 button::before,
 .dept-btn::before,
-.sem-btn::before,
-.nav-btn::before {
+.sem-btn::before {
   content: "";
   position: absolute;
   top: 0;
   left: -75%;
   width: 50%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.25);
   transform: skewX(-25deg);
   animation: shimmer 3s infinite;
 }
+
 @keyframes shimmer {
   0% { left: -75%; }
   50% { left: 125%; }
   100% { left: 125%; }
 }
+
 
 /* 🩵 Soft Pulse Glow Animation */
 @keyframes pulseGlow {
