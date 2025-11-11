@@ -4,7 +4,6 @@ html {
   scroll-behavior: smooth;
 }
 
-
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
@@ -17,7 +16,7 @@ body {
   text-align: center;
 }
 
-/* Splash */
+/* Splash Screen */
 #splash {
   position: fixed;
   inset: 0;
@@ -44,95 +43,97 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-
 /* Tabs */
 .tab {
   display: none;
   padding: 20px;
   width: 90%;
   max-width: 600px;
-  padding-bottom: 80px; /* extra space so footer doesn't overlap */
+  padding-bottom: 80px;
 }
 .tab.active {
   display: block;
   animation: fadeSlideIn 0.8s ease-in-out;
-  background: rgba(255,255,255,0.6);
+  background: rgba(255, 255, 255, 0.6);
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
-
 
 @keyframes fadeSlideIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+}
 
-.tab.active { display: block; }
-
-.grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(130px,1fr)); gap: 10px; }
-
-/* General button styling */
+/* 🔮 Gradient Buttons (Dept & Semester) */
 button.dept-btn,
 button.sem-btn {
+  position: relative;
   background: linear-gradient(135deg, #e6e6ff, #dbe8ff);
-  color: black; /* ✅ Text is now visible */
+  color: black;
   font-weight: 600;
   border: none;
   padding: 12px 25px;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   cursor: pointer;
+  overflow: hidden;
 }
 
-/* When hovered */
+/* Hover / Active states */
 button.dept-btn:hover,
 button.sem-btn:hover {
   background: linear-gradient(135deg, #a78bfa, #60a5fa);
-  color: white; /* ✅ Contrast when hovered */
+  color: white;
   transform: scale(1.05);
 }
-
-/* When clicked (active) */
 button.dept-btn.active,
 button.sem-btn.active {
   background: linear-gradient(135deg, #a78bfa, #60a5fa);
-  color: white; /* ✅ Active color stays white */
-  box-shadow: 0 0 12px rgba(167,139,250,0.8);
+  color: white;
+  box-shadow: 0 0 15px rgba(167, 139, 250, 0.8);
 }
 
+/* ✨ Glitter / Shimmer Effect */
+button::before,
+.dept-btn::before,
+.sem-btn::before,
+.nav-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: skewX(-25deg);
+  animation: shimmer 3s infinite;
+}
+@keyframes shimmer {
+  0% { left: -75%; }
+  50% { left: 125%; }
+  100% { left: 125%; }
+}
 
-/* Animation pulse for all key buttons */
+/* 🩵 Soft Pulse Glow Animation */
 @keyframes pulseGlow {
-  0% { box-shadow: 0 0 10px rgba(211, 164, 255, 0.3); }
-  50% { box-shadow: 0 0 25px rgba(211, 164, 255, 0.8); }
-  100% { box-shadow: 0 0 10px rgba(211, 164, 255, 0.3); }
+  0% { box-shadow: 0 0 10px rgba(180, 150, 255, 0.3); }
+  50% { box-shadow: 0 0 25px rgba(180, 150, 255, 0.8); }
+  100% { box-shadow: 0 0 10px rgba(180, 150, 255, 0.3); }
 }
 
-/* Apply soft pulse animation to main action buttons */
 button, .dept-btn, .sem-btn {
   animation: pulseGlow 3s infinite ease-in-out;
 }
 
-button.primary {
-  animation: fadeInButtons 1s ease-in-out;
-}
-
-@keyframes fadeInButtons {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-
-.dept-btn, .sem-btn {
-  background: white;
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  cursor: pointer;
-}
-
+/* 🎓 Subjects */
 .subject {
   background: rgba(255,255,255,0.85);
   border-radius: 12px;
@@ -141,16 +142,15 @@ button.primary {
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
   animation: subjectPop 0.5s ease-in-out;
 }
-
 @keyframes subjectPop {
   from { opacity: 0; transform: scale(0.95) translateY(10px); }
   to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-
+/* Grades */
 .grade-grid {
   display: grid;
-  grid-template-columns: repeat(7,1fr);
+  grid-template-columns: repeat(7, 1fr);
   gap: 5px;
   margin-top: 8px;
 }
@@ -165,47 +165,31 @@ button.primary {
   color: white;
 }
 
-.feedback { margin-top: 10px; font-weight: 500; }
-
-/* Footer fixed with glow */
+/* Footer */
 footer {
   position: fixed;
   bottom: 15px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(to right, rgba(183,132,242,0.85), rgba(128,191,255,0.85));
+  background: linear-gradient(to right, rgba(183,132,242,0.9), rgba(128,191,255,0.9));
   color: #fff;
   text-shadow: 0 0 10px #d6b6ff;
-  padding: 8px 16px;
-  border-radius: 20px;
+  padding: 8px 18px;
+  border-radius: 25px;
   font-size: 14px;
   font-weight: 600;
   backdrop-filter: blur(6px);
-  box-shadow: 0 0 10px rgba(128,128,255,0.4);
+  box-shadow: 0 0 15px rgba(128,128,255,0.5);
   z-index: 100;
   opacity: 0;
   animation: fadeInFooter 1.8s ease-in-out forwards;
 }
-
 @keyframes fadeInFooter {
   from { opacity: 0; transform: translate(-50%, 25px); }
   to { opacity: 1; transform: translate(-50%, 0); }
 }
-.backBtn {
-  background: none;
-  border: none;
-  color: #6b6bff;
-  font-size: 16px;
-  cursor: pointer;
-  margin-bottom: 10px;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-.backBtn:hover {
-  color: #9fd0ff;
-  text-decoration: underline;
-}
 
+/* Back Button */
 .back-icon {
   position: fixed;
   top: 15px;
@@ -221,19 +205,14 @@ footer {
   cursor: pointer;
   box-shadow: 0 4px 15px rgba(123,123,255,0.3);
   z-index: 999;
-  animation: fadeIn 0.6s ease;
   transition: all 0.3s ease;
 }
-
 .back-icon:hover {
   transform: scale(1.1);
   box-shadow: 0 0 25px rgba(155,125,255,0.6);
 }
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
 
+/* Home Button */
 .home-icon {
   position: fixed;
   bottom: 20px;
@@ -249,45 +228,17 @@ footer {
   box-shadow: 0 4px 20px rgba(123, 123, 255, 0.4);
   z-index: 999;
   transition: all 0.3s ease;
-  animation: fadeIn 0.6s ease;
 }
-
 .home-icon:hover {
   transform: scale(1.1);
   box-shadow: 0 0 25px rgba(155, 125, 255, 0.6);
 }
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-/* Glittering animated gradient buttons */
-button, .dept-btn, .sem-btn, .nav-btn {
-  position: relative;
-  overflow: hidden;
-}
 
-/* Sparkling effect layer */
-button::before, .dept-btn::before, .sem-btn::before, .nav-btn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -75%;
-  width: 50%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.3);
-  transform: skewX(-25deg);
-  animation: shimmer 3s infinite;
-}
-
-/* Smooth shimmer movement */
-@keyframes shimmer {
-  0% { left: -75%; }
-  50% { left: 125%; }
-  100% { left: 125%; }
-}
+/* Highlighted Calculate and Save buttons */
 #calculate, #save {
   box-shadow: 0 0 25px rgba(180, 150, 255, 0.7);
   animation: pulseGlow 2.5s infinite ease-in-out;
 }
+
 
 
