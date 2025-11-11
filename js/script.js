@@ -1,3 +1,6 @@
+function goBack(target) {
+  showTab(target);
+}
 const DEPARTMENTS = ['ISE','CSE','ECE','EEE','AA'];
 let state = { dept:null, sem:null, subjects:[], saved:{} };
 
