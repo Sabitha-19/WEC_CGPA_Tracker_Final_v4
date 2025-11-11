@@ -67,6 +67,15 @@ button.primary:active {
   transform: scale(0.97);
   box-shadow: 0 0 15px rgba(155, 125, 255, 0.6);
 }
+button.primary {
+  animation: fadeInButtons 1s ease-in-out;
+}
+
+@keyframes fadeInButtons {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 
 .dept-btn, .sem-btn {
   background: white;
