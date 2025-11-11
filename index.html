@@ -38,12 +38,14 @@
   <section id="dept" class="tab">
     <h2>Select Your Department</h2>
     <div id="deptList" class="grid"></div>
+    <button class="backBtn" onclick="goBack('home')">← Back</button>
   </section>
 
   <!-- Semester selection -->
   <section id="sem" class="tab">
     <h2>Select Semester</h2>
     <div id="semList" class="grid"></div>
+    <button class="backBtn" onclick="goBack('dept')">← Back</button>
   </section>
 
   <!-- GPA Calculator -->
@@ -54,6 +56,7 @@
     <p>Your GPA: <span id="gpa">0.00</span></p>
     <p id="feedback" class="feedback"></p>
     <button id="calculate" class="primary">Calculate GPA</button>
+    <button class="backBtn" onclick="goBack('sem')">← Back</button>
     <button id="save">Save Semester</button>
   </section>
 
