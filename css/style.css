@@ -46,12 +46,27 @@ button.primary {
   background: linear-gradient(to right, #7b7bff, #9fd0ff);
   border: none;
   color: white;
-  padding: 10px 20px;
-  border-radius: 8px;
+  padding: 12px 24px;
+  border-radius: 10px;
   font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
+  box-shadow: 0 0 10px rgba(155, 125, 255, 0.4);
+  transition: all 0.3s ease-in-out;
 }
-button.primary:hover { opacity: 0.9; }
+
+/* Hover + glow effect */
+button.primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(155, 125, 255, 0.8);
+  opacity: 1;
+}
+
+/* Pressed (click) animation */
+button.primary:active {
+  transform: scale(0.97);
+  box-shadow: 0 0 15px rgba(155, 125, 255, 0.6);
+}
 
 .dept-btn, .sem-btn {
   background: white;
