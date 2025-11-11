@@ -93,7 +93,6 @@ footer {
   bottom: 15px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(183, 132, 242, 0.85);
   background: linear-gradient(to right, rgba(183,132,242,0.85), rgba(128,191,255,0.85));
   color: #fff;
   text-shadow: 0 0 10px #d6b6ff;
@@ -104,5 +103,12 @@ footer {
   backdrop-filter: blur(6px);
   box-shadow: 0 0 10px rgba(128,128,255,0.4);
   z-index: 100;
+  opacity: 0;
+  animation: fadeInFooter 1.5s ease-in-out forwards;
 }
 
+/* Footer fade-in animation */
+@keyframes fadeInFooter {
+  from { opacity: 0; transform: translate(-50%, 20px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
