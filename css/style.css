@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
 html {
   scroll-behavior: smooth;
 }
@@ -54,7 +56,11 @@ body {
 .tab.active {
   display: block;
   animation: fadeSlideIn 0.8s ease-in-out;
+  background: rgba(255,255,255,0.6);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
 }
+
 
 @keyframes fadeSlideIn {
   from { opacity: 0; transform: translateY(20px); }
@@ -190,4 +196,47 @@ footer {
   from { opacity: 0; transform: translate(-50%, 25px); }
   to { opacity: 1; transform: translate(-50%, 0); }
 }
+.backBtn {
+  background: none;
+  border: none;
+  color: #6b6bff;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+.backBtn:hover {
+  color: #9fd0ff;
+  text-decoration: underline;
+}
+
+.back-icon {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: linear-gradient(135deg, #7b7bff, #9fd0ff);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(123,123,255,0.3);
+  z-index: 999;
+  animation: fadeIn 0.6s ease;
+  transition: all 0.3s ease;
+}
+
+.back-icon:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px rgba(155,125,255,0.6);
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 
