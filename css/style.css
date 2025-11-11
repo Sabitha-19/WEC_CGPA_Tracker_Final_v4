@@ -73,31 +73,35 @@ body {
 .grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(130px,1fr)); gap: 10px; }
 
 /* General button styling */
-button, .dept-btn, .sem-btn, .nav-btn {
-  background: linear-gradient(135deg, #d3a4ff, #6a5acd);
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  padding: 12px 18px;
-  font-size: 16px;
+button.dept-btn,
+button.sem-btn {
+  background: linear-gradient(135deg, #e6e6ff, #dbe8ff);
+  color: black; /* ✅ Text is now visible */
   font-weight: 600;
-  cursor: pointer;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(106, 90, 205, 0.3);
+  cursor: pointer;
 }
 
-/* Hover effect (glitter glow) */
-button:hover, .dept-btn:hover, .sem-btn:hover, .nav-btn:hover {
+/* When hovered */
+button.dept-btn:hover,
+button.sem-btn:hover {
+  background: linear-gradient(135deg, #a78bfa, #60a5fa);
+  color: white; /* ✅ Contrast when hovered */
   transform: scale(1.05);
-  box-shadow: 0 0 25px rgba(211, 164, 255, 0.6);
-  background: linear-gradient(135deg, #e1b8ff, #836fff);
 }
 
-/* Active/Clicked */
-button:active, .dept-btn:active, .sem-btn:active, .nav-btn:active {
-  transform: scale(0.97);
-  background: linear-gradient(135deg, #c8a2ff, #594baf);
+/* When clicked (active) */
+button.dept-btn.active,
+button.sem-btn.active {
+  background: linear-gradient(135deg, #a78bfa, #60a5fa);
+  color: white; /* ✅ Active color stays white */
+  box-shadow: 0 0 12px rgba(167,139,250,0.8);
 }
+
 
 /* Animation pulse for all key buttons */
 @keyframes pulseGlow {
