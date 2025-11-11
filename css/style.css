@@ -67,23 +67,42 @@ body {
 .grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(130px,1fr)); gap: 10px; }
 
 button.primary {
-  background: linear-gradient(to right, #7b7bff, #9fd0ff);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg, #7b7bff, #9fd0ff);
+  color: #fff;
   border: none;
-  color: white;
-  padding: 12px 24px;
   border-radius: 10px;
+  padding: 12px 24px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(155,125,255,0.4);
+  box-shadow: 0 0 15px rgba(155,125,255,0.4);
   transition: all 0.3s ease-in-out;
-  animation: pulse 2s infinite alternate;
+}
+
+/* moving glitter stripe */
+button.primary::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%; height: 100%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0.2) 100%);
+  transform: skewX(-20deg);
+  animation: glitter 3s linear infinite;
+}
+
+@keyframes glitter {
+  0% { left: -75%; }
+  50% { left: 125%; }
+  100% { left: 125%; }
 }
 
 button.primary:hover {
-  transform: scale(1.06);
-  box-shadow: 0 0 20px rgba(155,125,255,0.9);
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(155,125,255,0.8);
 }
+
 
 button.primary:active {
   transform: scale(0.97);
