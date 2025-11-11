@@ -72,52 +72,43 @@ body {
 
 .grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(130px,1fr)); gap: 10px; }
 
-button.primary {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(90deg, #7b7bff, #9fd0ff);
+/* General button styling */
+button, .dept-btn, .sem-btn, .nav-btn {
+  background: linear-gradient(135deg, #d3a4ff, #6a5acd);
   color: #fff;
   border: none;
-  border-radius: 10px;
-  padding: 12px 24px;
+  border-radius: 12px;
+  padding: 12px 18px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 0 15px rgba(155,125,255,0.4);
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(106, 90, 205, 0.3);
 }
 
-/* moving glitter stripe */
-button.primary::before {
-  content: "";
-  position: absolute;
-  top: 0; left: -75%;
-  width: 50%; height: 100%;
-  background: linear-gradient(120deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0.2) 100%);
-  transform: skewX(-20deg);
-  animation: glitter 3s linear infinite;
-}
-
-@keyframes glitter {
-  0% { left: -75%; }
-  50% { left: 125%; }
-  100% { left: 125%; }
-}
-
-button.primary:hover {
+/* Hover effect (glitter glow) */
+button:hover, .dept-btn:hover, .sem-btn:hover, .nav-btn:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 25px rgba(155,125,255,0.8);
+  box-shadow: 0 0 25px rgba(211, 164, 255, 0.6);
+  background: linear-gradient(135deg, #e1b8ff, #836fff);
 }
 
-
-button.primary:active {
+/* Active/Clicked */
+button:active, .dept-btn:active, .sem-btn:active, .nav-btn:active {
   transform: scale(0.97);
-  box-shadow: 0 0 15px rgba(155,125,255,0.6);
+  background: linear-gradient(135deg, #c8a2ff, #594baf);
 }
 
-@keyframes pulse {
-  from { box-shadow: 0 0 10px rgba(155,125,255,0.4); }
-  to { box-shadow: 0 0 25px rgba(155,125,255,0.7); }
+/* Animation pulse for all key buttons */
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 10px rgba(211, 164, 255, 0.3); }
+  50% { box-shadow: 0 0 25px rgba(211, 164, 255, 0.8); }
+  100% { box-shadow: 0 0 10px rgba(211, 164, 255, 0.3); }
+}
+
+/* Apply soft pulse animation to main action buttons */
+button, .dept-btn, .sem-btn {
+  animation: pulseGlow 3s infinite ease-in-out;
 }
 
 button.primary {
