@@ -1,0 +1,10 @@
+{
+  "subjects": [
+    { "code": "CC17", "name": "Income Tax Law and Practice – II", "credits": 5 },
+    { "code": "CC18", "name": "Fundamentals of Investment", "credits": 5 },
+    { "code": "CC19", "name": "Principles and Practice of Insurance", "credits": 5 },
+    { "code": "CC20", "name": "International Trade and Export Management", "credits": 5 },
+    { "code": "DSE4A", "name": "Industrial Relations and Labour Laws or Organizational Behaviour", "credits": 6 },
+    { "code": "SEC4", "name": "Entrepreneurship Development", "credits": 4 }
+  ]
+}
