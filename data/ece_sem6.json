@@ -1,15 +1,49 @@
 {
-  "department": "ECE",
-  "semester": 6,
   "subjects": [
-    { "code": "ECA117", "name": "Control Systems", "credits": 3 },
-    { "code": "ECA118", "name": "VLSI Design", "credits": 3 },
-    { "code": "ECA119", "name": "Embedded Systems", "credits": 3 },
-    { "code": "ECA2XY", "name": "Professional Elective – III", "credits": 3 },
-    { "code": "ECA2XZ", "name": "Professional Elective – IV", "credits": 3 },
-    { "code": "ECA120", "name": "VLSI Design Laboratory", "credits": 1.5 },
-    { "code": "ECA121", "name": "Embedded Systems Laboratory", "credits": 1.5 },
-    { "code": "ECA122", "name": "Mini Project", "credits": 2 },
-    { "code": "ZZA3XX", "name": "Open Elective", "credits": 3 }
+    {
+      "code": "ECA117",
+      "name": "Microwave and Optical Engineering",
+      "credits": 3
+    },
+    {
+      "code": "ECA118",
+      "name": "Data Communication Networks",
+      "credits": 3
+    },
+    {
+      "code": "ECA119",
+      "name": "VLSI Design",
+      "credits": 3
+    },
+    {
+      "code": "ECA2XX",
+      "name": "Professional Elective – III",
+      "credits": 3
+    },
+    {
+      "code": "HSA102",
+      "name": "Industrial Economics and Management",
+      "credits": 3
+    },
+    {
+      "code": "ECA120",
+      "name": "Microwave and Optical Engineering Laboratory",
+      "credits": 3
+    },
+    {
+      "code": "ECA121",
+      "name": "Data Communication Networks Laboratory",
+      "credits": 3
+    },
+    {
+      "code": "ECA122",
+      "name": "VLSI Design Laboratory",
+      "credits": 3
+    },
+    {
+      "code": "SHA103",
+      "name": "Essence of Indian Traditional Knowledge",
+      "credits": 3
+    }
   ]
 }
