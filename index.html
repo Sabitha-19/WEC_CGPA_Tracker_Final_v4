@@ -89,12 +89,13 @@
   <button class="home-icon" onclick="goBack('home')">🏠</button>
 </section>
 
-  <!-- 📊 GPA Graph -->
-<section id="graph" class="tab">
+ <section id="graph" class="tab">
   <h2>📊 GPA Progress</h2>
-  <canvas id="gpaChart" height="250"></canvas>
-  <button class="backBtn" onclick="goBack('saved')">← Back</button>
+  <canvas id="gpaChart" height="300"></canvas>
+
+  <button class="backBtn" onclick="goBack('home')">← Back</button>
 </section>
+
 
 
 
@@ -107,7 +108,8 @@
   <script src="js/script.js"></script>
   <!-- Floating Home Button -->
 <button class="home-icon" onclick="goBack('home')">🏠</button>
-  <button onclick="showTab('graph')">View GPA Graph</button>
+ <button class="graph-icon" onclick="showTab('graph')">📊</button>
+
 
 
 </body>
