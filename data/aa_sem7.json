@@ -4,15 +4,9 @@
   "subjects": [
     { "code": "AAA127", "name": "Estimation and Specifications", "credits": 3 },
     { "code": "AAA128", "name": "Environmental Engineering", "credits": 2 },
-    { "code": "AAA207", "name": "Renewable Energy", "credits": 3 },
-    { "code": "AAA208", "name": "Solar Power Engineering", "credits": 3 },
-    { "code": "AAA209", "name": "Environmental Impact Assessment and Audit", "credits": 3 },
-    { "code": "AAA210", "name": "Disaster Management", "credits": 3 },
-    { "code": "AAA211", "name": "Earthquake Resistant Structure", "credits": 3 },
-    { "code": "AAA212", "name": "Contemporary Building Materials", "credits": 3 },
-    { "code": "AAA213", "name": "Glass Architecture and Design", "credits": 3 },
-    { "code": "AAA214", "name": "Concepts and Approaches in Design", "credits": 3 },
-    { "code": "AAA215", "name": "Services in High-rise Building", "credits": 3 },
+    { "code": "AAA207/AAA208/AAA209", "name": "Professional Elective-3", "credits": 3 }
+    { "code": "AAA210/AAA211/AAA212", "name": "Professional Elective-4", "credits": 3 },
+    { "code": "AAA213/AAA214/AAA215", "name": "Professional Elective-5", "credits": 3 },
     { "code": "AAA129", "name": "Architectural Design - IV", "credits": 3 },
     { "code": "AAA130", "name": "Seminar", "credits": 1 },
     { "code": "AAA131", "name": "Professional Practice, Law & Ethics", "credits": 1 },
