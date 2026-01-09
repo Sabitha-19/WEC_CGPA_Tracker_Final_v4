@@ -1,0 +1,10 @@
+{
+  "subjects": [
+    { "code": "CC13", "name": "Income Tax Law and Practice – I", "credits": 5 },
+    { "code": "CC14", "name": "Money and Financial System", "credits": 5 },
+    { "code": "CC15", "name": "Methods and Techniques of Costing", "credits": 5 },
+    { "code": "CC16", "name": "Fundamentals of Financial Management", "credits": 5 },
+    { "code": "DSE3A", "name": "Marketing Management or Advertising and Personal Selling", "credits": 6 },
+    { "code": "SEC3", "name": "Computer Skills for Business", "credits": 4 }
+  ]
+}
