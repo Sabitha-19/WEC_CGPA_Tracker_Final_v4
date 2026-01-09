@@ -139,23 +139,45 @@ function renderSaved(){
   cgpaEl.textContent=(sum/count||0).toFixed(2);
 }
 
-/* Graph */
-function openGraph(){
-  showTab("graph");
-  const labels=Object.keys(state.saved);
-  const data=Object.values(state.saved);
+let gpaChartInstance = null;
 
-  new Chart(document.getElementById("gpaChart"),{
-    type:"line",
-    data:{
+function openGraph() {
+  showTab("graph");
+
+  const labels = Object.keys(state.saved);
+  const data = Object.values(state.saved);
+
+  if (labels.length === 0) return;
+
+  const ctx = document.getElementById("gpaChart").getContext("2d");
+
+  if (gpaChartInstance) {
+    gpaChartInstance.destroy();
+  }
+
+  gpaChartInstance = new Chart(ctx, {
+    type: "line",
+    data: {
       labels,
-      datasets:[{
-        label:"GPA Trend",
+      datasets: [{
+        label: "Semester GPA Comparison",
         data,
-        borderColor:"#4f46e5",
-        fill:false,
-        tension:0.3
+        borderColor: "#4f46e5",
+        backgroundColor: "rgba(79,70,229,0.1)",
+        fill: true,
+        tension: 0.35,
+        pointRadius: 6,
+        pointBackgroundColor: "#4338ca"
       }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          min: 0,
+          max: 10
+        }
+      }
     }
   });
 }
