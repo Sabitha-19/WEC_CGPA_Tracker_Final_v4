@@ -10,6 +10,6 @@
     { "code": "ISA119", "name": "Computer Networks Laboratory", "credits": 1.5 },
     { "code": "ISA120", "name": "Machine Learning Laboratory", "credits": 1.5 },
     { "code": "SHA103", "name": "Essence of Indian Traditional Knowledge", "credits": 0 },
-    { "code": "ZZA3XX", "name": "Open Elective / Honors / Minor Course", "credits": 3 }
+    { "code": "ZZA3XX", "name": "Open Elective ", "credits": 3 }
   ]
 }
