@@ -1,40 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WEC CGPA Tracker</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WEC CGPA Tracker</title>
 
-<link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/png" href="images/logo.png" />
+  <link rel="manifest" href="manifest.json">
 
-<!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta name="theme-color" content="#4f46e5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js");
+    }
+  </script>
 </head>
 
 <body>
 
-<!-- HOME -->
-<section id="home" class="tab active">
-  <h2>WEC CGPA Tracker 🎓</h2>
-  <p>Calculate GPA, CGPA & visualize progress</p>
+<!-- Splash Screen -->
+<div id="splash">
+  <h1>WEC CGPA Tracker 🎓</h1>
+  <p>Academic Performance Calculator</p>
+</div>
+
+<!-- 📘 CGPA Overview -->
+<section id="overview" class="tab active">
+  <h2>📘 CGPA Overview</h2>
+
+  <p><strong>CGPA (Cumulative Grade Point Average)</strong> represents the
+  average of Grade Points obtained across all semesters.</p>
+
+  <h3>📐 Formula</h3>
+  <p>CGPA = (Sum of Semester GPAs) ÷ (Number of Semesters)</p>
+
+  <h3>🎓 Importance</h3>
+  <ul style="text-align:left;">
+    <li>Academic evaluation</li>
+    <li>Placements & higher studies</li>
+    <li>Measures consistency</li>
+  </ul>
+
+  <button onclick="showTab('home')">Continue</button>
+</section>
+
+<!-- 🏠 Home -->
+<section id="home" class="tab">
+  <h2>Welcome to WEC CGPA Tracker</h2>
+  <p>Calculate and track GPA & CGPA easily.</p>
   <button id="startBtn">Get Started</button>
 </section>
 
-<!-- DEPARTMENT -->
+<!-- Department -->
 <section id="dept" class="tab">
   <h2>Select Department</h2>
   <div id="deptList" class="grid"></div>
+  <button class="backBtn" onclick="goBack('home')">← Back</button>
 </section>
 
-<!-- SEMESTER -->
+<!-- Semester -->
 <section id="sem" class="tab">
   <h2>Select Semester</h2>
   <div id="semList" class="grid"></div>
+  <button class="backBtn" onclick="goBack('dept')">← Back</button>
 </section>
 
-<!-- CALCULATOR -->
+<!-- GPA Calculator -->
 <section id="calc" class="tab">
-  <h2>GPA Calculator</h2>
+  <h2 id="calc-title"></h2>
   <div id="subjects"></div>
 
   <p>Total Credits: <span id="totalCredits">0</span></p>
@@ -42,26 +78,35 @@
   <p id="feedback"></p>
 
   <button id="calculate">Calculate GPA</button>
+  <button id="save">Save Semester</button>
+  <button class="backBtn" onclick="goBack('sem')">← Back</button>
 </section>
 
-<!-- SAVED -->
+<!-- 🎓 GPA Result -->
+<section id="result" class="tab">
+  <h2>🎓 Semester Result</h2>
+  <p id="result-msg"></p>
+  <h3 id="result-gpa"></h3>
+  <button onclick="goBack('calc')">← Back</button>
+</section>
+
+<!-- 📊 Saved CGPA -->
 <section id="saved" class="tab">
   <h2>Saved Semesters</h2>
   <ul id="savedList"></ul>
-  <p>CGPA: <span id="cgpa">0.00</span></p>
+  <p>Your CGPA: <span id="cgpa">0.00</span></p>
+  <button id="clearSaved">Clear All</button>
 </section>
 
-<!-- GRAPH -->
-<section id="graph" class="tab">
-  <h2>📊 GPA Progress</h2>
-  <canvas id="gpaChart"></canvas>
-</section>
+<!-- Footer -->
+<footer>
+  WEC CGPA Tracker
+</footer>
 
-<!-- FLOATING ICONS -->
-<button class="home-icon" onclick="showTab('home')">🏠</button>
-<button class="save-icon" onclick="saveSemester()">💾</button>
-<button class="graph-icon" onclick="openGraph()">📊</button>
+<!-- Home Button -->
+<button class="home-icon" onclick="goBack('home')">🏠</button>
 
 <script src="js/script.js"></script>
+
 </body>
 </html>
