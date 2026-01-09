@@ -1,0 +1,10 @@
+{
+  "subjects": [
+    { "code": "CC9", "name": "Management Accounting", "credits": 5 },
+    { "code": "CC10", "name": "Human Resource Management", "credits": 5 },
+    { "code": "CC11", "name": "Company Law", "credits": 5 },
+    { "code": "CC12", "name": "Sustainable Development", "credits": 5 },
+    { "code": "DSE2A", "name": "Principles and Practice of Auditing or International business", "credits": 6 },
+    { "code": "SEC2", "name": "Arithmetic Skills", "credits": 4 }
+  ]
+}
