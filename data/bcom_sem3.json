@@ -1,0 +1,10 @@
+{
+  "subjects": [
+    { "code": "CC5", "name": "Principles of Costing", "credits": 5 },
+    { "code": "CC6", "name": "Goods and Service Tax", "credits": 5 },
+    { "code": "CC7", "name": "Business Statistics", "credits": 5 },
+    { "code": "CC8", "name": "Corporate Accounting", "credits": 5 },
+    { "code": "DSE1A", "name": "Business Environment or E-business", "credits": 6 },
+    { "code": "SEC1", "name": "Business Communication", "credits": 4 }
+  ]
+}
