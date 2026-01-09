@@ -1,0 +1,10 @@
+{
+  "subjects": [
+    { "code": "LANG2", "name": "Language – II", "credits": 3 },
+    { "code": "ENG2", "name": "English – II", "credits": 3 },
+    { "code": "CC3", "name": "Advanced Accountancy", "credits": 5 },
+    { "code": "CC4", "name": "Business Law", "credits": 5 },
+    { "code": "GE2", "name": "Indian Economy – Performance and Policies", "credits": 6 },
+    { "code": "AECC2", "name": "Environmental Studies", "credits": 4 }
+  ]
+}
