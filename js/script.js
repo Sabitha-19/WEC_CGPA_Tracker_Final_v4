@@ -1,3 +1,5 @@
+let chartInstance = null;
+
 function goBack(target) {
   showTab(target);
 }
@@ -15,14 +17,24 @@ const gpaEl = document.getElementById('gpa');
 const cgpaEl = document.getElementById('cgpa');
 const savedList = document.getElementById('savedList');
 
+/* ---------------- TAB NAVIGATION ---------------- */
 function showTab(id) {
   document.querySelectorAll('.tab').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+
+  if (id === "graph") drawGraph();
 }
 
 startBtn.onclick = () => showTab('dept');
 
-// --- Build Department Buttons ---
+/* ---------------- LOAD SAVED DATA ---------------- */
+window.onload = () => {
+  const stored = localStorage.getItem("wec_saved");
+  if (stored) state.saved = JSON.parse(stored);
+  renderSaved();
+};
+
+/* ---------------- DEPARTMENTS ---------------- */
 DEPARTMENTS.forEach(d => {
   const btn = document.createElement('div');
   btn.className = 'dept-btn';
@@ -35,143 +47,147 @@ DEPARTMENTS.forEach(d => {
   deptList.appendChild(btn);
 });
 
+/* ---------------- SEMESTERS ---------------- */
 function buildSemButtons() {
   semList.innerHTML = '';
   for (let i = 1; i <= 8; i++) {
     const b = document.createElement('div');
     b.className = 'sem-btn';
     b.textContent = 'Semester ' + i;
-    b.onclick = () => { state.sem = i; loadSyllabus(); };
+    b.onclick = () => {
+      state.sem = i;
+      loadSyllabus();
+    };
     semList.appendChild(b);
   }
 }
 
+/* ---------------- LOAD SYLLABUS ---------------- */
 async function loadSyllabus() {
   feedback.textContent = 'Loading syllabus...';
   const path = `data/${state.dept.toLowerCase()}_sem${state.sem}.json`;
+
   try {
     const res = await fetch(path);
-    if (!res.ok) throw new Error('Missing file');
+    if (!res.ok) throw new Error();
     const json = await res.json();
     state.subjects = json.subjects || [];
     renderSubjects();
     showTab('calc');
-  } catch (e) {
+  } catch {
     feedback.textContent = 'Syllabus not found.';
   }
 }
 
+/* ---------------- SUBJECTS ---------------- */
 function renderSubjects() {
   subjectsEl.innerHTML = '';
-  state.subjects.forEach((s, idx) => {
+  state.subjects.forEach(s => {
     const box = document.createElement('div');
     box.className = 'subject';
-    box.dataset.credits = s.credits;
     box.innerHTML = `
-      <div style="display:flex;justify-content:space-between">
-        <strong>${s.code}</strong>
-        <span>${s.credits} credits</span>
-      </div>
-      <div>${s.name}</div>
+      <strong>${s.code}</strong>
+      <p>${s.name}</p>
       <div class="grade-grid">
         ${['S','A','B','C','D','E','F']
-          .map(g => `<div class="grade-cell" data-value="${g}">${g}</div>`).join('')}
-      </div>`;
+          .map(g => `<div class="grade-cell" data-g="${g}">${g}</div>`).join('')}
+      </div>
+    `;
     subjectsEl.appendChild(box);
+
     box.querySelectorAll('.grade-cell').forEach(c => {
       c.onclick = () => {
         box.querySelectorAll('.grade-cell').forEach(x => x.classList.remove('active'));
         c.classList.add('active');
-        s.selected = c.dataset.value;
+        s.selected = c.dataset.g;
       };
     });
   });
 }
 
+/* ---------------- GPA CALC ---------------- */
 function gradeToPoint(g) {
-  return { S: 10, A: 9, B: 8, C: 7, D: 6, E: 5, F: 0 }[g] || 0;
+  return { S:10, A:9, B:8, C:7, D:6, E:5, F:0 }[g] || 0;
 }
 
-// 🎯 Calculate GPA and Show Result Page
-document.getElementById('calculate').onclick = function() {
-  let tot = 0, wt = 0;
+document.getElementById('calculate').onclick = () => {
+  let total = 0, weighted = 0;
 
   for (const s of state.subjects) {
     if (!s.selected) {
-      feedback.textContent = '⚠️ Please select all grades before calculating.';
+      feedback.textContent = "⚠️ Select all grades.";
       return;
     }
-    tot += Number(s.credits);
-    wt += gradeToPoint(s.selected) * Number(s.credits);
+    total += Number(s.credits);
+    weighted += gradeToPoint(s.selected) * Number(s.credits);
   }
 
-  const gpa = tot ? wt / tot : 0;
-  const gpaFixed = gpa.toFixed(2);
+  const gpa = (weighted / total).toFixed(2);
+  gpaEl.textContent = gpa;
 
-  totalCreditsEl.textContent = tot;
-  gpaEl.textContent = gpaFixed;
+  let msg =
+    gpa >= 9 ? "🌟 Outstanding!" :
+    gpa >= 8 ? "💪 Excellent!" :
+    gpa >= 7 ? "👍 Good job!" :
+    gpa >= 6 ? "😊 Nice effort!" :
+    gpa >= 5 ? "📘 Keep improving!" :
+               "🔥 Don’t give up!";
 
-  // 🎓 Encouragement message
-  let msg = "";
-  if (gpa >= 9) msg = "🌟 Outstanding performance! Keep shining!";
-  else if (gpa >= 8) msg = "💪 Excellent work! You're doing amazing!";
-  else if (gpa >= 7) msg = "👍 Good job! Keep up the effort!";
-  else if (gpa >= 6) msg = "😊 Nice effort! You’re improving!";
-  else if (gpa >= 5) msg = "📘 Keep learning, you’ll do even better!";
-  else msg = "🔥 Don’t give up! Try harder next semester!";
-
-  // ✅ Update result page
-  document.getElementById("result-gpa").textContent = "Your GPA: " + gpaFixed;
+  document.getElementById("result-gpa").textContent = "GPA: " + gpa;
   document.getElementById("result-msg").textContent = msg;
 
-  // 🎆 Optional confetti for high GPA
-  if (gpa >= 9 && typeof confetti === "function") {
-    confetti({
-      particleCount: 150,
-      spread: 80,
-      origin: { y: 0.6 }
-    });
-  }
-
-  // ✅ Show the result page
   showTab("result");
 };
 
-// 💾 Save GPA to localStorage
-document.getElementById('save').onclick = function() {
-  if (!state.dept || !state.sem) {
-    feedback.textContent = "Select department and semester before saving.";
-    return;
-  }
-
+/* ---------------- SAVE SEMESTER ---------------- */
+document.getElementById('save').onclick = () => {
   const gpa = parseFloat(gpaEl.textContent);
-  if (isNaN(gpa) || gpa === 0) {
-    feedback.textContent = "Please calculate GPA before saving.";
-    return;
-  }
+  if (!gpa) return alert("Calculate GPA first!");
 
-  state.saved[`${state.dept}_sem${state.sem}`] = gpa;
+  state.saved[`${state.dept}_Sem${state.sem}`] = gpa;
   localStorage.setItem("wec_saved", JSON.stringify(state.saved));
 
   renderSaved();
-  feedback.textContent = "✅ Semester saved successfully!";
   showTab("saved");
 };
 
-// 🧮 Render Saved Semesters
+/* ---------------- RENDER SAVED ---------------- */
 function renderSaved() {
-  const data = state.saved;
   savedList.innerHTML = '';
   let total = 0, count = 0;
 
-  for (const [key, val] of Object.entries(data)) {
-    const li = document.createElement('li');
-    li.textContent = `${key.toUpperCase()}: GPA ${val.toFixed(2)}`;
-    savedList.appendChild(li);
-    total += val;
+  for (const [k,v] of Object.entries(state.saved)) {
+    savedList.innerHTML += `<li>${k}: ${v.toFixed(2)}</li>`;
+    total += v;
     count++;
   }
 
-  const cgpa = count ? (total / count).toFixed(2) : '0.00';
-  cgpaEl.textContent = cgpa;
+  cgpaEl.textContent = count ? (total / count).toFixed(2) : "0.00";
+}
+
+/* ---------------- GPA GRAPH ---------------- */
+function drawGraph() {
+  const labels = Object.keys(state.saved);
+  const data = Object.values(state.saved);
+
+  if (chartInstance) chartInstance.destroy();
+
+  const ctx = document.getElementById("gpaChart").getContext("2d");
+  chartInstance = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [{
+        label: "Semester GPA",
+        data,
+        borderColor: "#4f46e5",
+        backgroundColor: "rgba(79,70,229,0.15)",
+        fill: true,
+        tension: 0.3
+      }]
+    },
+    options: {
+      scales: { y: { beginAtZero: true, max: 10 } }
+    }
+  });
 }
