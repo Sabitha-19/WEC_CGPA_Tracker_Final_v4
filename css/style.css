@@ -162,3 +162,24 @@ button:hover {
   color: white;
   font-size: 24px;
 }
+.graph-icon {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  color: white;
+  font-size: 24px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(79,70,229,0.4);
+  z-index: 999;
+  transition: transform 0.3s ease;
+}
+
+.graph-icon:hover {
+  transform: scale(1.1);
+}
+
