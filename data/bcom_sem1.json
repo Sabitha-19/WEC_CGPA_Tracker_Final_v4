@@ -1,0 +1,10 @@
+{
+  "subjects": [
+    { "code": "LANG1", "name": "Language – I", "credits": 3 },
+    { "code": "ENG1", "name": "English – I", "credits": 3 },
+    { "code": "CC1", "name": "Financial Accounting", "credits": 5 },
+    { "code": "CC2", "name": "Business Organisation & Management", "credits": 5 },
+    { "code": "GE1", "name": "Business Economics", "credits": 6 },
+    { "code": "AECC1", "name": "Introduction to Public Administration", "credits": 4 }
+  ]
+}
