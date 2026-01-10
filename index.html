@@ -1,59 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>CGPA Tracker</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Official WEC CGPA Tracker</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="top-nav">
-  <strong>CGPA Tracker</strong>
-</div>
+<nav class="top-nav">
+  <div class="logo">WEC Tracker</div>
+  <div class="nav-icons">
+    <button id="homeBtn">🏠</button>
+    <button id="graphBtn">📊</button>
+    <button id="saveBtn">💾</button>
+  </div>
+</nav>
 
-<div class="container">
+<main class="container">
+  <!-- Welcome Section -->
+  <section id="welcomeSection">
+    <header class="hero">
+      <h1>Official WEC CGPA Calculator</h1>
+      <p class="subtitle">Trusted academic tool for Women's Engineering College.</p>
+    </header>
 
-  <!-- STREAM -->
-  <section id="screen-stream">
-    <h3>Select Stream</h3>
-    <div class="grid-list">
-      <button class="grid-item-btn" onclick="selectStream('engineering')">Engineering</button>
-      <button class="grid-item-btn" onclick="selectStream('other')">Other</button>
+    <div class="grade-legend">
+      <h3>Grade Points Reference</h3>
+      <div class="grade-grid-display">
+        <div class="grade-cube s-grade"><span>S</span><small>Outstanding</small><b>10</b></div>
+        <div class="grade-cube a-grade"><span>A</span><small>Excellent</small><b>9</b></div>
+        <div class="grade-cube b-grade"><span>B</span><small>Very Good</small><b>8</b></div>
+        <div class="grade-cube c-grade"><span>C</span><small>Good</small><b>7</b></div>
+        <div class="grade-cube d-grade"><span>D</span><small>Above Avg</small><b>6</b></div>
+        <div class="grade-cube e-grade"><span>E</span><small>Pass</small><b>5</b></div>
+        <div class="grade-cube f-grade"><span>F</span><small>Fail</small><b>0</b></div>
+      </div>
+    </div>
+
+    <div class="strategy-section">
+      <div class="card">
+        <h4>⚡ The "Credit-Weight" Hack</h4>
+        <p>Prioritize high-credit subjects (4-credits) to lift your average faster.</p>
+      </div>
+    </div>
+
+    <button class="next-btn" onclick="showSection('streamSection')">Continue to Select Stream →</button>
+  </section>
+
+  <!-- Stream Section -->
+  <section id="streamSection" class="hidden">
+    <button class="back-btn">← Back</button>
+    <h2>Choose Your Stream</h2>
+    <div class="cta-container">
+      <button class="stream-btn main-btn" data-stream="engineering">Engineering</button>
+      <button class="stream-btn main-btn" data-stream="bcom">B.Com</button>
     </div>
   </section>
 
-  <!-- DEPARTMENT -->
-  <section id="screen-dept" class="hidden">
-    <button class="back-btn" onclick="goBack()">← Back</button>
-    <h3>Select Department</h3>
-    <div class="grid-list" id="deptList"></div>
+  <!-- Department Section -->
+  <section id="departmentSection" class="hidden">
+    <button class="back-btn">← Back</button>
+    <h2>Select Department</h2>
+    <div id="departmentList" class="grid-list"></div>
   </section>
 
-  <!-- SEMESTER -->
-  <section id="screen-sem" class="hidden">
-    <button class="back-btn" onclick="goBack()">← Back</button>
-    <h3>Select Semester</h3>
-    <div class="grid-list" id="semList"></div>
+  <!-- Semester Section -->
+  <section id="semesterSection" class="hidden">
+    <button class="back-btn">← Back</button>
+    <h2>Select Semester</h2>
+    <div id="semesterList" class="grid-list"></div>
   </section>
 
-  <!-- SUBJECTS -->
-  <section id="screen-subjects" class="hidden">
-    <button class="back-btn" onclick="goBack()">← Back</button>
-    <h3 id="title"></h3>
+  <!-- Subjects Section -->
+  <section id="subjectsSection" class="hidden">
+    <button class="back-btn">← Back</button>
+    <h2 id="semHeader">Enter Grades</h2>
     <div id="subjects"></div>
-    <button class="next-btn" onclick="saveSemester()">Save Semester</button>
+    <button id="calculateGPA" class="action-btn">Calculate GPA</button>
   </section>
 
-  <!-- RESULT -->
-  <section id="screen-result" class="hidden">
-    <h3>Your CGPA</h3>
-    <div class="gpa-display" id="cgpa">0.00</div>
-    <canvas id="graph" height="200"></canvas>
-    <button class="main-btn" onclick="location.reload()">Start Again</button>
+  <!-- Result Section -->
+  <section id="resultSection" class="hidden">
+    <div class="result-card">
+      <h3>Your GPA</h3>
+      <div class="gpa-display"><span id="gpa">0.00</span></div>
+      <div class="converter-box">
+        <h4>CGPA to % Converter</h4>
+        <input type="number" id="cgpaInput" placeholder="Enter CGPA">
+        <button onclick="convertToPercentage()">Convert</button>
+        <p id="percentResult"></p>
+      </div>
+    </div>
   </section>
-
-</div>
+</main>
 
 <script src="js/script.js"></script>
 </body>
