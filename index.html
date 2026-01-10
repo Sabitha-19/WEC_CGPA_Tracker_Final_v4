@@ -1,49 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CGPA Tracker</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js -->
 </head>
+
 <body>
+  <div class="container">
+    <h1>CGPA Tracker</h1>
 
-<div class="top-nav">
-  <h3>CGPA Tracker</h3>
-</div>
+    <!-- STREAM -->
+    <h3>Select Stream</h3>
+    <div class="grid">
+      <button class="grid-item" onclick="selectStream('engineering')">Engineering</button>
+      <button class="grid-item" onclick="selectStream('other')">Other</button>
+    </div>
 
-<div class="container">
+    <!-- DEPARTMENT -->
+    <h3>Select Department</h3>
+    <div id="departmentBox" class="grid"></div>
 
-  <!-- STREAM -->
-  <h3>Select Stream</h3>
-  <div class="grid-list">
-    <button class="grid-item-btn" onclick="selectStream('engineering')">Engineering</button>
-    <button class="grid-item-btn" onclick="selectStream('other')">Other</button>
-  </div>
+    <!-- SEMESTER -->
+    <h3>Select Semester</h3>
+    <div id="semesterBox" class="grid"></div>
 
-  <!-- DEPARTMENT -->
-  <h3>Select Department</h3>
-  <div id="departments" class="grid-list"></div>
+    <!-- SUBJECTS -->
+    <div id="subjectsBox"></div>
 
-  <!-- SEMESTER -->
-  <h3>Select Semester</h3>
-  <div id="semesters" class="grid-list"></div>
+    <button class="main-btn" onclick="saveSemester()">Save Semester</button>
 
-  <!-- SUBJECTS -->
-  <div id="subjects"></div>
-
-  <button class="next-btn" onclick="saveSemester()">Save Semester</button>
-
-  <!-- RESULT -->
-  <div class="result-card">
+    <!-- RESULT -->
     <h3>Your CGPA</h3>
-    <div id="cgpa" class="gpa-display">0.00</div>
+    <div id="cgpa" class="cgpa">0.00</div>
+
+    <!-- GRAPH -->
+    <h3>CGPA Graph</h3>
+    <canvas id="cgpaChart" width="400" height="200"></canvas>
+
+    <button class="reset-btn" onclick="resetAll()">Start Again</button>
   </div>
 
-  <button class="action-btn" onclick="resetAll()">Start Again</button>
-
-</div>
-
-<script src="script.js"></script>
+  <script src="./js/script.js"></script>
 </body>
 </html>
