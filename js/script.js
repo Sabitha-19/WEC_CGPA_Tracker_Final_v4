@@ -1,141 +1,111 @@
-let state = {
-  stream: null,
-  dept: null,
-  sem: null,
-  subjects: [],
-  grades: {},
-  gpaHistory: [],
-  history: ["stream"]
+const gradePoints = { S:10, A:9, B:8, C:7, D:6, E:5, F:0 };
+
+const departments = {
+  engineering: ["CSE","ISE","ECE","EEE","MECH","CIVIL","AI&DS","AA"],
+  bcom: ["BCOM"]
 };
 
-const sections = ["stream","dept","sem","subjectsSec","result"];
+const subjectsData = {
+  engineering: {
+    1: [{ name:"Maths", credits:4 }, { name:"Physics", credits:3 }],
+    2: [{ name:"DS", credits:4 }, { name:"OOPS", credits:3 }]
+  },
+  bcom: {
+    1: [{ name:"Financial Accounting", credits:4 }],
+    2: [{ name:"Business Economics", credits:4 }]
+  }
+};
+
+let state = {
+  stream:null,
+  dept:null,
+  sem:null,
+  grades:{},
+  gpaHistory:Array(8).fill(null)
+};
+
+let chart;
 
 function show(id){
-  sections.forEach(s=>document.getElementById(s).classList.add("hidden"));
+  document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));
   document.getElementById(id).classList.remove("hidden");
-  state.history.push(id);
-}
-
-function back(){
-  state.history.pop();
-  show(state.history.pop());
 }
 
 function selectStream(s){
   state.stream = s;
-  loadDepartments();
-}
-
-function loadDepartments(){
-  const list = document.getElementById("deptList");
-  list.innerHTML = "";
-
-  const depts = state.stream === "engineering"
-    ? ["CSE","ISE","ECE","EEE","AA"]
-    : ["BCOM"];
-
-  depts.forEach(d=>{
-    const b = document.createElement("button");
-    b.className = "btn";
-    b.textContent = d;
-    b.onclick = ()=>{ state.dept=d; loadSemesters(); };
-    list.appendChild(b);
+  const d = document.getElementById("deptList");
+  d.innerHTML = "";
+  departments[s].forEach(dep=>{
+    d.innerHTML += `<button onclick="selectDept('${dep}')">${dep}</button>`;
   });
-
-  show("dept");
+  show("department");
 }
 
-function loadSemesters(){
-  const list = document.getElementById("semList");
-  list.innerHTML = "";
-
+function selectDept(d){
+  state.dept = d;
+  const s = document.getElementById("semList");
+  s.innerHTML = "";
   for(let i=1;i<=8;i++){
-    const b = document.createElement("button");
-    b.className = "btn";
-    b.textContent = "Semester "+i;
-    b.onclick = ()=>{ state.sem=i; loadSubjects(); };
-    list.appendChild(b);
+    s.innerHTML += `<button onclick="selectSem(${i})">Semester ${i}</button>`;
   }
-  show("sem");
+  show("semester");
 }
 
-function loadSubjects(){
-  const path = `data/${state.dept.toLowerCase()}_sem${state.sem}.json`;
+function selectSem(sem){
+  state.sem = sem;
+  state.grades = {};
+  const list = document.getElementById("subjectList");
+  list.innerHTML = "";
+  document.getElementById("semTitle").textContent = `Semester ${sem}`;
 
-  fetch(path)
-    .then(r=>r.json())
-    .then(data=>{
-      state.subjects = data.subjects;
-      renderSubjects();
-      show("subjectsSec");
-    })
-    .catch(()=>alert("JSON error or file missing:\n"+path));
-}
-
-function renderSubjects(){
-  const box = document.getElementById("subjects");
-  box.innerHTML = "";
-  document.getElementById("title").textContent =
-    `${state.dept} - Semester ${state.sem}`;
-
-  state.subjects.forEach((s,i)=>{
-    const card = document.createElement("div");
-    card.className="subject-card";
-    card.innerHTML=`<b>${s.name}</b> (${s.credits} credits)`;
-
-    const row=document.createElement("div");
-    row.className="grade-row";
-
-    ["S","A","B","C","D","E","F"].forEach((g,idx)=>{
-      const pts=[10,9,8,7,6,5,0][idx];
-      const b=document.createElement("div");
-      b.className="g-box";
-      b.textContent=g;
-      b.onclick=()=>{
-        row.querySelectorAll(".g-box").forEach(x=>x.classList.remove("active"));
-        b.classList.add("active");
-        state.grades[s.code]=pts;
-      };
-      row.appendChild(b);
-    });
-
-    card.appendChild(row);
-    box.appendChild(card);
+  const subs = subjectsData[state.stream][sem] || [];
+  subs.forEach((sub,i)=>{
+    list.innerHTML += `
+      <div class="card">
+        ${sub.name} (${sub.credits} credits)
+        <select onchange="state.grades[${i}]=gradePoints[this.value]">
+          <option value="">Grade</option>
+          ${Object.keys(gradePoints).map(g=>`<option>${g}</option>`).join("")}
+        </select>
+      </div>
+    `;
   });
+  show("subjects");
 }
 
 function calculateGPA(){
+  const subs = subjectsData[state.stream][state.sem];
   let total=0, credits=0;
-  for(const s of state.subjects){
-    if(state.grades[s.code]==null){
-      alert("Select all grades");
-      return;
-    }
-    total+=state.grades[s.code]*s.credits;
-    credits+=s.credits;
-  }
-  const gpa=(total/credits).toFixed(2);
-  state.gpaHistory[state.sem-1]=parseFloat(gpa);
+
+  subs.forEach((s,i)=>{
+    if(state.grades[i]==null){ alert("Select all grades"); throw ""; }
+    total += state.grades[i]*s.credits;
+    credits += s.credits;
+  });
+
+  const gpa = +(total/credits).toFixed(2);
+  state.gpaHistory[state.sem-1]=gpa;
+
   document.getElementById("gpa").textContent=gpa;
-  renderChart();
+  document.getElementById("cgpa").textContent=calcCGPA();
+  drawChart();
+
   show("result");
 }
 
-let chart;
-function renderChart(){
-  const ctx=document.getElementById("chart").getContext("2d");
+function calcCGPA(){
+  const v = state.gpaHistory.filter(x=>x!=null);
+  return (v.reduce((a,b)=>a+b,0)/v.length).toFixed(2);
+}
+
+function drawChart(){
   if(chart) chart.destroy();
-  chart=new Chart(ctx,{
+  chart = new Chart(document.getElementById("chart"),{
     type:"line",
     data:{
-      labels:state.gpaHistory.map((_,i)=>"Sem "+(i+1)),
-      datasets:[{
-        label:"GPA",
-        data:state.gpaHistory,
-        borderColor:"#6d28d9",
-        tension:.3
-      }]
+      labels:state.gpaHistory.map((_,i)=>`Sem ${i+1}`),
+      datasets:[{data:state.gpaHistory, borderColor:"#6d28d9"}]
     },
-    options:{ scales:{ y:{ min:0,max:10 } } }
+    options:{scales:{y:{min:0,max:10}}}
   });
 }
