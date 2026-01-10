@@ -157,3 +157,32 @@ input, button, select {
     background: rgba(142, 68, 173, 0.4);
     border-radius: 10px;
 }
+
+
+/* ---------- Grade Grid Cubic ---------- */
+.grade-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.grade-card {
+    background: rgba(142, 68, 173, 0.3);
+    color: #fff;
+    flex: 1 1 80px;
+    text-align: center;
+    border-radius: 12px;
+    padding: 10px;
+    backdrop-filter: blur(4px);
+    transition: 0.2s;
+}
+
+.grade-card b {
+    display: block;
+    margin-top: 5px;
+    font-size: 1.2em;
+}
+
+.grade-card.fail {
+    background: rgba(192, 57, 43, 0.4);
+}
