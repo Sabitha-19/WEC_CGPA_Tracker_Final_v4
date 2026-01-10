@@ -1,79 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEC CGPA Tracker</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WEC CGPA Tracker</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1>Official WEC CGPA Tracker</h1>
-        <p>Trusted academic tool for Women's Engineering College</p>
-        <button id="continueBtn" class="main-btn">Continue →</button>
 
-        <div id="streamSection" class="section hidden">
-            <h2>Select Stream</h2>
-            <div class="options">
-                <button class="stream-btn" data-stream="engineering">Engineering</button>
-                <button class="stream-btn" data-stream="bcom">BCOM</button>
-            </div>
-        </div>
+<!-- Landing Page -->
+<section id="welcomeSection">
+  <div class="welcome-card">
+    <h1>WEC CGPA Tracker</h1>
+    <p>Track your CGPA, calculate GPA per semester, convert to percentage, and monitor your academic progress!</p>
+    <button class="main-btn" onclick="showSection('infoSection')">Start →</button>
+  </div>
+</section>
 
-        <div id="departmentSection" class="section hidden">
-            <h2>Select Department</h2>
-            <div class="options" id="departments"></div>
-            <button class="back-btn" id="backStream">← Back</button>
-        </div>
+<!-- CGPA Info Page -->
+<section id="infoSection" class="hidden">
+  <h2>About CGPA</h2>
+  <div class="info-card">
+    <p><b>What is CGPA?</b> CGPA (Cumulative Grade Point Average) is the weighted average of your semester GPA scores.</p>
+    <p><b>Formula:</b> CGPA = (Sum of all semester GPA × credits) ÷ Total credits</p>
+    <p><b>Tips to boost CGPA:</b></p>
+    <ul>
+      <li>Focus on high credit subjects.</li>
+      <li>Maintain consistent grades each semester.</li>
+      <li>Use internal marks effectively.</li>
+    </ul>
+    <p><b>FAQs:</b></p>
+    <p>Q: Can I recalculate after changing a grade? <br> A: Yes, just update grades and recalc.</p>
+    <button class="main-btn" onclick="showSection('streamSection')">Continue →</button>
+  </div>
+</section>
 
-        <div id="semesterSection" class="section hidden">
-            <h2>Select Semester</h2>
-            <div class="options" id="semesters"></div>
-            <button class="back-btn" id="backDepartment">← Back</button>
-        </div>
+<!-- Stream Selection -->
+<section id="streamSection" class="hidden">
+  <h2>Select Stream</h2>
+  <div class="btn-container">
+    <button class="main-btn" onclick="selectStream('engineering')">Engineering</button>
+    <button class="main-btn" onclick="selectStream('bcom')">B.Com</button>
+  </div>
+</section>
 
-        <div id="gradesSection" class="section hidden">
-            <h2>Grade Point Reference</h2>
-            <div class="grades-container">
-                <div class="grade-box" style="background-color:#c8f0c8;">
-                    <span class="grade">S</span>
-                    <span class="desc">Outstanding</span>
-                    <span class="points">10 Pts</span>
-                </div>
-                <div class="grade-box" style="background-color:#cce0ff;">
-                    <span class="grade">A</span>
-                    <span class="desc">Excellent</span>
-                    <span class="points">9 Pts</span>
-                </div>
-                <div class="grade-box" style="background-color:#e7ccff;">
-                    <span class="grade">B</span>
-                    <span class="desc">Very Good</span>
-                    <span class="points">8 Pts</span>
-                </div>
-                <div class="grade-box" style="background-color:#e6e6ff;">
-                    <span class="grade">C</span>
-                    <span class="desc">Good</span>
-                    <span class="points">7 Pts</span>
-                </div>
-                <div class="grade-box" style="background-color:#fff0cc;">
-                    <span class="grade">D</span>
-                    <span class="desc">Above Avg</span>
-                    <span class="points">6 Pts</span>
-                </div>
-                <div class="grade-box" style="background-color:#ffe6e6;">
-                    <span class="grade">E</span>
-                    <span class="desc">Pass</span>
-                    <span class="points">5 Pts</span>
-                </div>
-                <div class="grade-box" style="background-color:#ffd6d6;">
-                    <span class="grade">F</span>
-                    <span class="desc">Fail</span>
-                    <span class="points">0 Pts</span>
-                </div>
-            </div>
-        </div>
+<!-- Department Selection -->
+<section id="departmentSection" class="hidden">
+  <h2>Select Department</h2>
+  <div id="deptList" class="btn-container"></div>
+</section>
+
+<!-- Semester Selection -->
+<section id="semesterSection" class="hidden">
+  <h2>Select Semester</h2>
+  <div id="semList" class="btn-container"></div>
+</section>
+
+<!-- Subjects & Grades -->
+<section id="subjectsSection" class="hidden">
+  <h2 id="semTitle">Enter Grades</h2>
+  <div id="gradeReference">
+    <h3>Grade Points Reference</h3>
+    <div class="grade-grid">
+      <div class="grade-cube s">S<br>10</div>
+      <div class="grade-cube a">A<br>9</div>
+      <div class="grade-cube b">B<br>8</div>
+      <div class="grade-cube c">C<br>7</div>
+      <div class="grade-cube d">D<br>6</div>
+      <div class="grade-cube e">E<br>5</div>
+      <div class="grade-cube f">F<br>0</div>
     </div>
+  </div>
+  <div id="subjectList"></div>
+  <button class="main-btn" onclick="calculateGPA()">Calculate GPA</button>
+</section>
 
-    <script src="script.js"></script>
+<!-- Result Section -->
+<section id="resultSection" class="hidden">
+  <h2>Semester Result</h2>
+  <p>GPA: <span id="gpa">0.00</span></p>
+  <p>CGPA: <span id="cgpa">0.00</span></p>
+  <canvas id="chart" height="200"></canvas>
+  <div class="converter">
+    <input type="number" id="cgpaInput" placeholder="Enter CGPA">
+    <button onclick="convertToPercentage()">Convert to %</button>
+    <p id="percentResult"></p>
+  </div>
+</section>
+
+<script src="js/script.js"></script>
 </body>
 </html>
