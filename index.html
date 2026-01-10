@@ -2,79 +2,132 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>WEC CGPA Tracker</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Official WEC CGPA Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Chart -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
   <style>
-    body { font-family: Poppins, sans-serif; margin:0; background:#f8fafc; padding-top:60px; }
-    .top-nav { position:fixed; top:0; width:100%; height:60px; background:#fff; display:flex; justify-content:space-between; align-items:center; padding:0 20px; box-shadow:0 2px 8px rgba(0,0,0,.1); }
-    .container { max-width:500px; margin:auto; padding:15px; }
-    .hidden { display:none; }
-    button { cursor:pointer; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: #f9fafb;
+    }
+    nav {
+      padding: 15px;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      font-weight: 600;
+    }
+    section {
+      padding: 20px;
+    }
+    .hidden { display: none; }
 
-    .grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-    .btn { padding:16px; border-radius:14px; border:1px solid #e5e7eb; font-weight:700; background:#f8fafc; }
-    .btn:hover { transform:scale(1.03); }
-    .primary { background:#6d28d9; color:white; border:none; }
-    .back { background:none; border:none; font-weight:700; color:#6d28d9; }
+    button {
+      padding: 12px 18px;
+      border: none;
+      border-radius: 10px;
+      background: #6d28d9;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
 
-    .subject-card { background:#fff; padding:14px; border-radius:14px; margin-bottom:12px; box-shadow:0 2px 6px rgba(0,0,0,.08); }
-    .grade-row { display:flex; gap:6px; margin-top:10px; }
-    .g-box { flex:1; padding:10px 0; text-align:center; border-radius:12px; border:1px solid #e5e7eb; font-weight:700; }
-    .g-box.active { background:#6d28d9; color:#fff; border-color:#6d28d9; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 15px;
+    }
 
-    .gpa { font-size:3rem; font-weight:800; text-align:center; color:#6d28d9; }
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    .gpa {
+      font-size: 36px;
+      font-weight: bold;
+      text-align: center;
+    }
   </style>
 </head>
 
 <body>
 
-<nav class="top-nav">
-  <strong>WEC CGPA Tracker</strong>
-</nav>
+<nav>WEC CGPA Tracker</nav>
 
-<div class="container">
+<!-- WELCOME -->
+<section id="welcome">
+  <h1>Official WEC CGPA Calculator</h1>
+  <p>Trusted academic tool for Women's Engineering College</p>
+  <button onclick="show('stream')">Continue →</button>
+</section>
 
-  <!-- STREAM -->
-  <section id="stream">
-    <h3>Select Stream</h3>
-    <div class="grid">
-      <button class="btn primary" onclick="selectStream('engineering')">Engineering</button>
-      <button class="btn primary" onclick="selectStream('bcom')">B.Com</button>
-    </div>
-  </section>
+<!-- GRADE REFERENCE (ALWAYS VISIBLE) -->
+<section>
+  <h3>Grade Point Reference</h3>
+  <div class="grid">
+    <div class="card">S<br>Outstanding<br><b>10</b></div>
+    <div class="card">A<br>Excellent<br><b>9</b></div>
+    <div class="card">B<br>Very Good<br><b>8</b></div>
+    <div class="card">C<br>Good<br><b>7</b></div>
+    <div class="card">D<br>Above Avg<br><b>6</b></div>
+    <div class="card">E<br>Pass<br><b>5</b></div>
+    <div class="card">F<br>Fail<br><b>0</b></div>
+  </div>
+</section>
 
-  <!-- DEPT -->
-  <section id="dept" class="hidden">
-    <button class="back" onclick="back()">← Back</button>
-    <h3>Select Department</h3>
-    <div class="grid" id="deptList"></div>
-  </section>
+<!-- STREAM -->
+<section id="stream" class="hidden">
+  <h2>Select Stream</h2>
+  <button onclick="selectStream('engineering')">Engineering</button>
+  <button onclick="selectStream('bcom')">B.Com</button>
+</section>
 
-  <!-- SEM -->
-  <section id="sem" class="hidden">
-    <button class="back" onclick="back()">← Back</button>
-    <h3>Select Semester</h3>
-    <div class="grid" id="semList"></div>
-  </section>
+<!-- DEPARTMENT -->
+<section id="department" class="hidden">
+  <h2>Select Department</h2>
+  <div id="deptList" class="grid"></div>
+</section>
 
-  <!-- SUBJECTS -->
-  <section id="subjectsSec" class="hidden">
-    <button class="back" onclick="back()">← Back</button>
-    <h3 id="title"></h3>
-    <div id="subjects"></div>
-    <button class="btn primary" onclick="calculateGPA()">Save Semester GPA</button>
-  </section>
+<!-- SEMESTER -->
+<section id="semester" class="hidden">
+  <h2>Select Semester</h2>
+  <div id="semList" class="grid"></div>
+</section>
 
-  <!-- RESULT -->
-  <section id="result" class="hidden">
-    <h3>Your GPA</h3>
-    <div class="gpa" id="gpa">0.00</div>
-    <canvas id="chart" height="200"></canvas>
-  </section>
+<!-- SUBJECTS -->
+<section id="subjects" class="hidden">
+  <h2 id="semTitle"></h2>
+  <div id="subjectList"></div>
+  <button onclick="calculateGPA()">Calculate GPA</button>
+</section>
 
-</div>
+<!-- RESULT -->
+<section id="result" class="hidden">
+  <h3>Your GPA</h3>
+  <div class="gpa" id="gpa">0.00</div>
 
-<script src="js/script.js"></script>
+  <h4>CGPA</h4>
+  <div class="gpa" id="cgpa">0.00</div>
+
+  <canvas id="chart" height="200"></canvas>
+</section>
+
+<script src="script.js"></script>
 </body>
 </html>
