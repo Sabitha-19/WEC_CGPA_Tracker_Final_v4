@@ -3,227 +3,132 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WEC CGPA Tracker</title>
-<!-- Chart.js CDN -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<title>WEC CGPA Tracker - Grade Reference</title>
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  /* General */
-  body { font-family: 'Arial', sans-serif; margin:0; padding:0; background:#f9fafb; }
-  h1,h2,h3 { margin:0.5em 0; }
-  section { display:none; padding:20px; max-width:800px; margin:auto; }
-  section.active { display:block; }
-  button { cursor:pointer; padding:12px 20px; margin:5px; border:none; border-radius:10px; font-size:16px; transition:0.2s; }
-  button:hover { transform:scale(1.05); }
+  /* General Body */
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+  }
 
-  /* Header */
-  header { background:#fff; padding:15px 20px; box-shadow:0 2px 6px rgba(0,0,0,0.1); display:flex; align-items:center; justify-content:space-between; }
-  header h1 { font-size:22px; }
-  
-  /* Grade cubes */
-  .grades { display:grid; grid-template-columns: repeat(auto-fit, minmax(120px,1fr)); gap:15px; margin:20px 0; }
-  .grade-cube { padding:20px; border-radius:12px; text-align:center; font-family: 'Cursive', sans-serif; font-weight:500; font-size:16px; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
-  .grade-cube span { display:block; font-size:22px; margin-top:5px; font-weight:bold; }
+  h1 {
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
 
-  /* Colors for each grade */
-  .grade-cube.S { background:#d1fae5; color:#166534; }
-  .grade-cube.A { background:#d1fae5; color:#166534; }
-  .grade-cube.B { background:#e0e7ff; color:#3730a3; }
-  .grade-cube.C { background:#eef2ff; color:#4f46e5; }
-  .grade-cube.D { background:#f5f3ff; color:#7c3aed; }
-  .grade-cube.E { background:#fef3c7; color:#b45309; }
-  .grade-cube.F { background:#fee2e2; color:#991b1b; }
+  h2 {
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 30px;
+    color: #555;
+  }
 
-  /* Cards for subjects */
-  .card { padding:12px 15px; margin:8px 0; background:#fff; border-radius:12px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 6px rgba(0,0,0,0.08); }
-  select { padding:6px 8px; border-radius:8px; border:1px solid #ccc; }
+  /* Cube Grid */
+  .cube-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
 
-  /* GPA Result */
-  #result { text-align:center; }
-  #result h2 { margin-top:10px; }
-  canvas { max-width:100%; margin-top:20px; }
+  /* Cubes */
+  .cube {
+    border-radius: 12px;
+    padding: 25px 15px;
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    cursor: default;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
 
-  /* Back links */
-  .back { display:block; margin:10px 0; color:#3b82f6; cursor:pointer; font-style:italic; }
+  .cube:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+  }
 
-  /* Continue button */
-  #continueBtn { background:#7c3aed; color:#fff; font-size:18px; }
+  .cube .grade {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .cube .desc {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #555;
+  }
+
+  .cube .points {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  /* Pastel Colors */
+  .S { background: linear-gradient(135deg, #d0f0c0, #a8e6cf); color: #2f7a44; }
+  .A { background: linear-gradient(135deg, #e0f7fa, #b2ebf2); color: #007c91; }
+  .B { background: linear-gradient(135deg, #e3f2fd, #bbdefb); color: #1a3c91; }
+  .C { background: linear-gradient(135deg, #f3e5f5, #e1bee7); color: #4a2b80; }
+  .D { background: linear-gradient(135deg, #fce4ec, #f8bbd0); color: #9c27b0; }
+  .E { background: linear-gradient(135deg, #fffde7, #fff9c4); color: #f9a825; }
+  .F { background: linear-gradient(135deg, #ffebee, #ffcdd2); color: #c62828; }
+
+  /* Responsive Text */
+  @media(max-width: 500px){
+    .cube .grade { font-size: 2rem; }
+    .cube .desc { font-size: 0.9rem; }
+    .cube .points { font-size: 1rem; }
+  }
 </style>
 </head>
 <body>
 
-<header>
-  <h1>WEC Tracker</h1>
-</header>
+<h1>Official WEC CGPA Tracker</h1>
+<h2>Grade Point Reference</h2>
 
-<section id="intro" class="active">
-  <h1>Official WEC CGPA Tracker</h1>
-  <p>Trusted academic tool for Women's Engineering College</p>
-  <button id="continueBtn">Continue →</button>
-
-  <h2>Grade Point Reference</h2>
-  <div class="grades">
-    <div class="grade-cube S">S<br>Outstanding<br><span>10 Pts</span></div>
-    <div class="grade-cube A">A<br>Excellent<br><span>9 Pts</span></div>
-    <div class="grade-cube B">B<br>Very Good<br><span>8 Pts</span></div>
-    <div class="grade-cube C">C<br>Good<br><span>7 Pts</span></div>
-    <div class="grade-cube D">D<br>Above Avg<br><span>6 Pts</span></div>
-    <div class="grade-cube E">E<br>Pass<br><span>5 Pts</span></div>
-    <div class="grade-cube F">F<br>Fail<br><span>0 Pts</span></div>
+<div class="cube-container">
+  <div class="cube S">
+    <div class="grade">S</div>
+    <div class="desc">Outstanding</div>
+    <div class="points">10 Pts</div>
   </div>
-</section>
+  <div class="cube A">
+    <div class="grade">A</div>
+    <div class="desc">Excellent</div>
+    <div class="points">9 Pts</div>
+  </div>
+  <div class="cube B">
+    <div class="grade">B</div>
+    <div class="desc">Very Good</div>
+    <div class="points">8 Pts</div>
+  </div>
+  <div class="cube C">
+    <div class="grade">C</div>
+    <div class="desc">Good</div>
+    <div class="points">7 Pts</div>
+  </div>
+  <div class="cube D">
+    <div class="grade">D</div>
+    <div class="desc">Above Avg</div>
+    <div class="points">6 Pts</div>
+  </div>
+  <div class="cube E">
+    <div class="grade">E</div>
+    <div class="desc">Pass</div>
+    <div class="points">5 Pts</div>
+  </div>
+  <div class="cube F">
+    <div class="grade">F</div>
+    <div class="desc">Fail</div>
+    <div class="points">0 Pts</div>
+  </div>
+</div>
 
-<section id="stream">
-  <h2>Select Stream</h2>
-  <button onclick="selectStream('engineering')">Engineering</button>
-  <button onclick="selectStream('bcom')">BCOM</button>
-</section>
-
-<section id="department">
-  <span class="back" onclick="show('stream')">← Back</span>
-  <h2>Select Department</h2>
-  <div id="deptList"></div>
-</section>
-
-<section id="semester">
-  <span class="back" onclick="show('department')">← Back</span>
-  <h2>Select Semester</h2>
-  <div id="semList"></div>
-</section>
-
-<section id="subjects">
-  <span class="back" onclick="show('semester')">← Back</span>
-  <h2 id="semTitle">Semester</h2>
-  <div id="subjectList"></div>
-  <button onclick="calculateGPA()">Calculate GPA</button>
-</section>
-
-<section id="result">
-  <h2>Result</h2>
-  <p>GPA: <span id="gpa">0</span></p>
-  <p>CGPA: <span id="cgpa">0</span></p>
-  <canvas id="chart"></canvas>
-  <span class="back" onclick="show('subjects')">← Back</span>
-</section>
-
-<script>
-const gradePoints = { S:10, A:9, B:8, C:7, D:6, E:5, F:0 };
-const departments = { engineering:["CSE","ISE","ECE","EEE","AA"], bcom:["BCOM"] };
-
-// Example subject data (replace with your real data)
-const subjectsData = {
-  engineering: {
-    1:[{name:"Maths",credits:4},{name:"Physics",credits:3}],
-    2:[{name:"DS",credits:4},{name:"OOPS",credits:3}],
-    3:[{name:"Algo",credits:3},{name:"DBMS",credits:3}],
-    4:[{name:"OS",credits:3},{name:"Networks",credits:3}],
-    5:[{name:"AI",credits:3},{name:"ML",credits:3}],
-    6:[{name:"DS Lab",credits:2},{name:"OOPS Lab",credits:2}],
-    7:[{name:"Project 1",credits:3}],
-    8:[{name:"Project 2",credits:3}]
-  },
-  bcom: {
-    1:[{name:"Financial Accounting",credits:4}],
-    2:[{name:"Business Economics",credits:4}],
-    3:[{name:"Corporate Accounting",credits:4}],
-    4:[{name:"Business Law",credits:4}],
-    5:[{name:"Taxation",credits:4}],
-    6:[{name:"Audit",credits:4}],
-    7:[{name:"Management",credits:4}],
-    8:[{name:"Finance",credits:4}]
-  }
-};
-
-let state={ stream:null, dept:null, sem:null, grades:{}, gpaHistory:Array(8).fill(null) };
-let chart;
-
-document.getElementById('continueBtn').onclick = ()=>show('stream');
-
-function show(id){
-  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
-function selectStream(s){
-  state.stream=s;
-  const d=document.getElementById('deptList');
-  d.innerHTML='';
-  departments[s].forEach(dep=>{
-    const btn=document.createElement('button');
-    btn.textContent=dep;
-    btn.onclick=()=>selectDept(dep);
-    d.appendChild(btn);
-  });
-  show('department');
-}
-
-function selectDept(dep){
-  state.dept=dep;
-  const s=document.getElementById('semList');
-  s.innerHTML='';
-  for(let i=1;i<=8;i++){
-    const btn=document.createElement('button');
-    btn.textContent=`Semester ${i}`;
-    btn.onclick=()=>selectSem(i);
-    s.appendChild(btn);
-  }
-  show('semester');
-}
-
-function selectSem(sem){
-  state.sem=sem;
-  state.grades={};
-  const list=document.getElementById('subjectList');
-  list.innerHTML='';
-  document.getElementById('semTitle').innerText=`Semester ${sem}`;
-  const subs=subjectsData[state.stream][sem]||[];
-  subs.forEach((sub,i)=>{
-    const card=document.createElement('div');
-    card.className='card';
-    card.innerHTML=`${sub.name} (${sub.credits} credits)
-      <select onchange="state.grades[${i}]=gradePoints[this.value]">
-        <option value="">Grade</option>
-        ${Object.keys(gradePoints).map(g=>`<option>${g}</option>`).join('')}
-      </select>`;
-    list.appendChild(card);
-  });
-  show('subjects');
-}
-
-function calculateGPA(){
-  const subs=subjectsData[state.stream][state.sem]||[];
-  let total=0, credits=0;
-  for(let i=0;i<subs.length;i++){
-    if(state.grades[i]==null){
-      alert('Select all grades');
-      return;
-    }
-    total+=state.grades[i]*subs[i].credits;
-    credits+=subs[i].credits;
-  }
-  const gpa=(total/credits).toFixed(2);
-  state.gpaHistory[state.sem-1]=Number(gpa);
-  document.getElementById('gpa').innerText=gpa;
-  document.getElementById('cgpa').innerText=calcCGPA();
-  drawChart();
-  show('result');
-}
-
-function calcCGPA(){
-  const v=state.gpaHistory.filter(x=>x!=null);
-  return (v.reduce((a,b)=>a+b,0)/v.length).toFixed(2);
-}
-
-function drawChart(){
-  if(chart) chart.destroy();
-  chart=new Chart(document.getElementById('chart'),{
-    type:'line',
-    data:{
-      labels:state.gpaHistory.map((_,i)=>`Sem ${i+1}`),
-      datasets:[{ data:state.gpaHistory, borderColor:'#7c3aed', borderWidth:3, tension:0.3 }]
-    },
-    options:{ scales:{ y:{ min:0,max:10 } } }
-  });
-}
-</script>
 </body>
 </html>
