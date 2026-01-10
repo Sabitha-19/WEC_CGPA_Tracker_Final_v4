@@ -2,110 +2,96 @@ let state = {
   stream: "",
   dept: "",
   sem: "",
-  saved: JSON.parse(localStorage.getItem("wec_saved")) || [],
-  gpaList: []
+  history: [],
+  saved: []
 };
 
-function goTo(id) {
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
+const grades = { S:10, A:9, B:8, C:7, D:6, E:5, F:0 };
+
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
 
 function selectStream(s) {
   state.stream = s;
-  goTo("page-dept");
+  loadDepartments();
+  showSection('department');
+}
 
-  const depts = s === "engineering"
-    ? ["CSE","ISE","ECE","EEE","AA"]
-    : ["BCom"];
-
-  const box = document.getElementById("deptList");
-  box.innerHTML = "";
-  depts.forEach(d => {
-    const b = document.createElement("button");
-    b.innerText = d;
-    b.onclick = () => selectDept(d);
-    box.appendChild(b);
+function loadDepartments() {
+  const depts = ['CSE','ISE','ECE','EEE','AA'];
+  const d = document.getElementById('deptButtons');
+  d.innerHTML = '';
+  depts.forEach(dep=>{
+    const b = document.createElement('button');
+    b.innerText = dep;
+    b.onclick = ()=>{state.dept=dep;loadSem();};
+    d.appendChild(b);
   });
 }
 
-function selectDept(d) {
-  state.dept = d;
-  goTo("page-sem");
-
-  const semBox = document.getElementById("semList");
-  semBox.innerHTML = "";
-  const max = state.stream === "engineering" ? 8 : 6;
-
+function loadSem() {
+  const max = state.stream === 'Engineering' ? 8 : 6;
+  const s = document.getElementById('semButtons');
+  s.innerHTML='';
   for(let i=1;i<=max;i++){
-    const b=document.createElement("button");
-    b.innerText="Semester "+i;
-    b.onclick=()=>loadSubjects(i);
-    semBox.appendChild(b);
+    const b=document.createElement('button');
+    b.innerText='Semester '+i;
+    b.onclick=()=>{state.sem=i;loadSubjects();};
+    s.appendChild(b);
   }
+  showSection('semester');
 }
 
-function loadSubjects(sem) {
-  state.sem = sem;
-  goTo("page-grade");
-
-  fetch(`data/${state.dept.toLowerCase()}_sem${sem}.json`)
-  .then(r=>r.json())
-  .then(d=>{
-    const subBox=document.getElementById("subjects");
-    subBox.innerHTML="";
-    d.subjects.forEach((s,i)=>{
-      subBox.innerHTML+=`
-      <div>
-        <b>${s.name}</b> (${s.credits})
-        <select id="g${i}">
-          <option>S</option><option>A</option><option>B</option>
-          <option>C</option><option>D</option><option>E</option><option>F</option>
-        </select>
-      </div>`;
-    });
-    state.subjectData=d.subjects;
-  });
+function loadSubjects() {
+  const list = document.getElementById('subjects');
+  list.innerHTML='';
+  for(let i=1;i<=5;i++){
+    const div=document.createElement('div');
+    div.className='subject';
+    div.innerHTML=`Subject ${i}
+      <select>
+        ${Object.keys(grades).map(g=>`<option>${g}</option>`).join('')}
+      </select>`;
+    list.appendChild(div);
+  }
+  showSection('grades');
 }
 
 function calculateGPA() {
-  let total=0, credits=0;
-  const map={S:10,A:9,B:8,C:7,D:6,E:5,F:0};
-
-  state.subjectData.forEach((s,i)=>{
-    const g=document.getElementById("g"+i).value;
-    total+=map[g]*s.credits;
-    credits+=s.credits;
-  });
-
-  const gpa=(total/credits).toFixed(2);
-  state.gpaList.push(gpa);
-
-  document.getElementById("gpa").innerText=gpa;
-  document.getElementById("cgpa").innerText=
-    (state.gpaList.reduce((a,b)=>a+Number(b),0)/state.gpaList.length).toFixed(2);
-
-  goTo("page-result");
+  let total=0;
+  document.querySelectorAll('select').forEach(s=>total+=grades[s.value]);
+  const gpa=(total/5).toFixed(2);
+  document.getElementById('gpa').innerText=gpa;
+  showSection('result');
 }
 
-function convert(){
-  const v=document.getElementById("cgpaInput").value;
-  document.getElementById("percent").innerText=
-    "Percentage: "+(v*10).toFixed(1)+"%";
+function saveSemester() {
+  state.saved.push(parseFloat(document.getElementById('gpa').innerText));
+  alert('Semester saved!');
 }
 
-function saveSemester(){
-  localStorage.setItem("wec_saved",JSON.stringify(state.gpaList));
-  alert("Semester saved!");
+function convert() {
+  const v=document.getElementById('cgpaInput').value;
+  document.getElementById('percent').innerText=(v*10).toFixed(1)+'%';
 }
 
-function showGraph(){
-  const ctx=document.getElementById("chart");
-  new Chart(ctx,{
-    type:"line",
+let chart;
+function drawChart() {
+  const ctx=document.getElementById('chart');
+  if(chart) chart.destroy();
+  chart=new Chart(ctx,{
+    type:'line',
     data:{
-      labels:state.gpaList.map((_,i)=>"Sem "+(i+1)),
-      datasets:[{data:state.gpaList,borderColor:"#6b5cff"}]
+      labels: state.saved.map((_,i)=>'Sem '+(i+1)),
+      datasets:[{
+        data: state.saved,
+        borderColor:'#5a4fcf',
+        tension:.3
+      }]
     }
   });
 }
+
+document.getElementById('graph').addEventListener('click',drawChart);
