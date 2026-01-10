@@ -1,92 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>WEC CGPA Tracker</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="icon" type="image/png" href="images/logo.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
 <body>
-  <!-- Splash -->
-  <div id="splash">
-    <h1>WEC CGPA Tracker 🎓</h1>
-    <p>Welcome to your academic performance assistant</p>
+
+<!-- Floating Icons -->
+<div class="floating-nav">
+  <button onclick="goHome()">🏠</button>
+  <button onclick="goBack()">⬅</button>
+  <button onclick="openGraph()">📊</button>
+  <button onclick="saveSemester()">💾</button>
+</div>
+
+<!-- HOME -->
+<section id="home" class="page active">
+  <h1>WEC CGPA Tracker</h1>
+  <p class="subtitle">Academic Performance Calculator</p>
+
+  <button class="primary-btn" onclick="navigate('intro')">Get Started</button>
+</section>
+
+<!-- INTRO -->
+<section id="intro" class="page">
+  <h2>Official WEC CGPA Calculator</h2>
+
+  <p class="intro-text">
+    Trusted academic tool for Women's Engineering College (WEC),
+    Puducherry Technological University (PTU).
+    Supports R2020 & NEP 2024 Framework.
+  </p>
+
+  <div class="feature-box">✔ 100% Accurate</div>
+  <div class="feature-box">✔ Privacy Focused</div>
+
+  <button class="primary-btn" onclick="navigate('dept')">Continue</button>
+</section>
+
+<!-- DEPARTMENT -->
+<section id="dept" class="page">
+  <h2>Select Department</h2>
+
+  <div class="grid">
+    <div class="dept-btn" onclick="selectDept('ENG')">Engineering</div>
+    <div class="dept-btn" onclick="selectDept('BCOM')">B.Com</div>
   </div>
+</section>
 
-  <!-- Overview -->
-  <section id="overview" class="tab active">
-    <h2>📘 CGPA Overview</h2>
-    <p><strong>CGPA (Cumulative Grade Point Average)</strong> is the average of Grade Points obtained in all semesters of your course.</p>
-    <ul style="text-align:left;">
-      <li>Used for academic evaluation</li>
-      <li>Required for placements & higher studies</li>
-      <li>Shows consistent performance</li>
-    </ul>
-    <button class="primary" onclick="showTab('home')">Start</button>
-  </section>
+<!-- SEMESTER -->
+<section id="sem" class="page">
+  <h2>Select Semester</h2>
+  <div class="grid" id="semList"></div>
+</section>
 
-  <!-- Home -->
-  <section id="home" class="tab">
-    <h2>Welcome to WEC CGPA Tracker 🎓</h2>
-    <p>Track your semester GPA and CGPA easily.</p>
-    <button id="startBtn" class="primary">Get Started</button>
-  </section>
+<!-- GPA CALCULATOR -->
+<section id="calc" class="page">
+  <h2>GPA Calculator</h2>
+  <div id="subjects"></div>
 
-  <!-- Department -->
-  <section id="dept" class="tab">
-    <h2>Select Your Department</h2>
-    <div id="deptList" class="grid"></div>
-    <button class="back-icon" onclick="goBack('home')">⬅</button>
-  </section>
+  <p>Total Credits: <span id="totalCredits">0</span></p>
+  <p>Your GPA: <span id="gpa">0.00</span></p>
 
-  <!-- Semester -->
-  <section id="sem" class="tab">
-    <h2>Select Semester</h2>
-    <div id="semList" class="grid"></div>
-    <button class="back-icon" onclick="goBack('dept')">⬅</button>
-  </section>
+  <button class="primary-btn" onclick="calculateGPA()">Calculate GPA</button>
+</section>
 
-  <!-- Calculator -->
-  <section id="calc" class="tab">
-    <h2 id="calc-title">GPA Calculator</h2>
-    <div id="subjects"></div>
-    <p>Total Credits: <span id="totalCredits">0</span></p>
-    <p>Your GPA: <span id="gpa">0.00</span></p>
-    <p id="feedback" class="feedback"></p>
-    <button id="calculate" class="primary">Calculate GPA</button>
-    <button id="save" class="primary">💾 Save Semester</button>
-  </section>
+<!-- GRAPH -->
+<section id="graph" class="page">
+  <h2>📊 GPA Progress</h2>
+  <canvas id="gpaChart"></canvas>
+</section>
 
-  <!-- Result -->
-  <section id="result" class="tab">
-    <h2>🎓 Semester Result</h2>
-    <p id="result-msg" style="font-size: 18px; margin: 10px 0;"></p>
-    <h3 id="result-gpa" style="font-size: 32px; color: #6a5acd; font-weight: 700;"></h3>
-    <button class="backBtn" onclick="goBack('calc')">← Back</button>
-  </section>
+<!-- CONVERTER -->
+<section id="converter" class="page">
+  <h2>CGPA → Percentage</h2>
+  <input type="number" id="cgpaInput" placeholder="Enter CGPA">
+  <button class="primary-btn" onclick="convert()">Convert</button>
+  <p id="percentResult"></p>
+</section>
 
-  <!-- Saved -->
-  <section id="saved" class="tab">
-    <h2>Saved Semesters</h2>
-    <ul id="savedList"></ul>
-    <p>Your CGPA: <span id="cgpa">0.00</span></p>
-  </section>
+<!-- FAQ -->
+<section id="faq" class="page">
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq">CGPA → Percentage = CGPA × 9.5</div>
+  <div class="faq">Withdrawal (W) does not affect CGPA</div>
+  <div class="faq">Supports R2020 & NEP 2024</div>
+</section>
 
-  <!-- Graph -->
-  <section id="graph" class="tab">
-    <h2>📊 GPA Progress</h2>
-    <canvas id="gpaChart"></canvas>
-    <button class="backBtn" onclick="goBack('saved')">← Back</button>
-  </section>
-
-  <!-- Fixed buttons -->
-  <button class="home-icon" onclick="goBack('home')">🏠</button>
-  <button class="graph-icon" onclick="openGraph()">📊</button>
-
-  <footer>WEC CGPA Tracker</footer>
-  <script src="js/script.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>
