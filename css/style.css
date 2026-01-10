@@ -1,57 +1,80 @@
+/* Basic Reset */
+body, h1, h2, p, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 body {
-  font-family: 'Poppins', sans-serif;
-  background: #f8f8f8;
-  margin:0;
-  padding:20px;
-  color:#333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+h1 { font-family: 'Georgia', serif; font-size: 2rem; margin-bottom: 10px; }
+h2 { font-family: 'Georgia', serif; font-size: 1.5rem; margin-bottom: 15px; }
+
+button {
+    padding: 12px 24px;
+    margin: 5px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+button:hover { opacity: 0.9; }
+
+#continueBtn {
+    background-color: #7b5cf5;
+    color: white;
 }
 
-.page { text-align:center; margin:30px auto; }
-.hidden { display:none; }
-
-.grid { display:flex; flex-wrap:wrap; gap:15px; justify-content:center; margin-top:20px; }
-
-.cube {
-  padding:25px 30px;
-  border-radius:12px;
-  cursor:pointer;
-  font-weight:600;
-  font-size:16px;
-  text-align:center;
-  transition:0.2s;
-  min-width:120px;
+/* Option buttons */
+.option-btn {
+    background-color: #eee;
+    color: #333;
+    min-width: 120px;
+}
+.option-btn.selected {
+    background-color: #d8b4fe; /* Light purple highlight */
 }
 
-.cube:hover { transform:scale(1.05); }
-
-/* Pastel unique colors for departments/semesters */
-.cube.pastel:nth-child(1){ background-color:#ffd6e8; color:#900c3f; }
-.cube.pastel:nth-child(2){ background-color:#c6f7e2; color:#1a6b4e; }
-.cube.pastel:nth-child(3){ background-color:#ffe6a7; color:#b36b00; }
-.cube.pastel:nth-child(4){ background-color:#d0c6ff; color:#3f2fbe; }
-.cube.pastel:nth-child(5){ background-color:#ffc9c9; color:#a30000; }
-.cube.pastel:nth-child(6){ background-color:#baf1ff; color:#006680; }
-.cube.pastel:nth-child(7){ background-color:#fdd7b5; color:#994d00; }
-.cube.pastel:nth-child(8){ background-color:#e2f7c2; color:#4f7a00; }
-
-/* Transparent Grade Cubes */
-.cube.transparent {
-  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-  font-size:14px;
+/* Back buttons */
+.back-btn {
+    background-color: #ccc;
 }
 
-/* Selected semester highlight */
-.cube.selected { background-color: rgba(123,72,255,0.5) !important; }
-
-/* Continue and back buttons */
-.continueBtn, .backBtn {
-  padding:10px 20px;
-  background:#7c3aed;
-  color:white;
-  border:none;
-  border-radius:8px;
-  font-weight:600;
-  margin-top:25px;
-  cursor:pointer;
+/* Grade Boxes */
+.grade-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
 }
-.continueBtn:hover, .backBtn:hover { background:#5b28c8; }
+.grade-box {
+    flex: 1 1 120px;
+    min-width: 120px;
+    padding: 15px;
+    border-radius: 15px;
+    text-align: center;
+    font-family: 'Georgia', serif;
+    font-size: 1.1rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+/* Unique pastel transparent colors */
+.S { background-color: rgba(144,238,144,0.5); }
+.A { background-color: rgba(173,216,230,0.5); }
+.B { background-color: rgba(221,160,221,0.5); }
+.C { background-color: rgba(255,182,193,0.5); }
+.D { background-color: rgba(255,228,181,0.5); }
+.E { background-color: rgba(255,250,205,0.5); }
+.F { background-color: rgba(255,182,193,0.3); }
+
+/* Sections */
+.section { display: none; margin-top: 20px; }
+.section.active { display: block; }
