@@ -1,46 +1,55 @@
-/* Reset & font */
-* { box-sizing: border-box; margin:0; padding:0; font-family: 'Arial', sans-serif; }
-body { background: #f4f2fc; color:#111; padding:20px; }
-
-h1,h2,h3 { margin-bottom: 15px; }
-section { display: none; margin-top:20px; }
-section.active { display: block; }
-
-/* Buttons */
-button { 
-  padding: 10px 25px; 
-  margin: 5px; 
-  border: none; 
-  cursor: pointer; 
-  border-radius: 12px; 
-  font-size:16px; 
-  font-weight:bold;
-  transition: 0.3s;
-  background:#8b5cf6; 
-  color:white;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-}
-button:hover { background:#7c3aed; transform: translateY(-2px); }
-button.selected { background:#d8b4fe; color:#111; }
-
-/* Card style for subjects */
-.card { 
-  background:white; 
-  padding: 12px 15px; 
-  margin: 8px 0; 
-  border-radius: 12px; 
-  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-  display:flex; justify-content: space-between; align-items:center;
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: #f7f5fc;
+    color: #222;
 }
 
-select { 
-  padding:5px; border-radius:8px; border:1px solid #ccc; font-size:15px; 
+h1, h2, h3 {
+    font-weight: bold;
 }
 
-#chart { margin-top:20px; }
+.hidden { display: none; }
 
-input[type="number"] {
-  padding:6px; border-radius:8px; border:1px solid #ccc; font-size:16px;
+.btn {
+    padding: 10px 25px;
+    border: none;
+    background: #7c3aed;
+    color: white;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(124, 58, 237, 0.3);
 }
 
-.flex-row { display:flex; flex-wrap:wrap; gap:10px; }
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(124, 58, 237, 0.4);
+}
+
+button:focus {
+    outline: none;
+}
+
+#subjectList .card {
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 12px;
+    background: #e6e0f8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+input, select {
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid #aaa;
+}
+
+canvas {
+    margin-top: 20px;
+}
