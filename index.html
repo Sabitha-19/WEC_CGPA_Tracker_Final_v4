@@ -1,63 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>WEC CGPA Tracker</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Official WEC CGPA Tracker</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<header>Official WEC CGPA Tracker</header>
+<!-- NAVBAR -->
+<nav class="top-nav">
+  <div class="logo">WEC Tracker</div>
+</nav>
 
-<section id="home">
-  <h1>Official WEC CGPA Calculator</h1>
-  <p>Trusted academic tool for Women's Engineering College</p>
-  <button onclick="show('stream')">Continue →</button>
+<!-- MAIN -->
+<main class="container">
 
-  <h2>Grade Point Reference</h2>
-  <div class="grade-grid">
-    <div class="grade s">S<br><small>Outstanding</small><b>10</b></div>
-    <div class="grade a">A<br><small>Excellent</small><b>9</b></div>
-    <div class="grade b">B<br><small>Very Good</small><b>8</b></div>
-    <div class="grade c">C<br><small>Good</small><b>7</b></div>
-    <div class="grade d">D<br><small>Above Avg</small><b>6</b></div>
-    <div class="grade e">E<br><small>Pass</small><b>5</b></div>
-    <div class="grade f">F<br><small>Fail</small><b>0</b></div>
-  </div>
-</section>
+  <!-- HOME -->
+  <section id="home">
+    <h1>Official WEC CGPA Calculator</h1>
+    <p class="subtitle">Trusted academic tool for Women's Engineering College</p>
 
-<section id="stream" class="hidden">
-  <h2>Select Stream</h2>
-  <button onclick="selectStream('engineering')">Engineering</button>
-  <button onclick="selectStream('bcom')">BCOM</button>
-</section>
+    <button class="primary-btn" onclick="showSection('stream')">
+      Continue →
+    </button>
 
-<section id="department" class="hidden">
-  <h2>Select Department</h2>
-  <div id="deptList"></div>
-</section>
+    <!-- Grade Reference -->
+    <h2 class="section-title">Grade Point Reference</h2>
 
-<section id="semester" class="hidden">
-  <h2>Select Semester</h2>
-  <div id="semList"></div>
-</section>
+    <div class="grade-grid">
+      <div class="grade s">S<br><span>Outstanding</span><b>10</b></div>
+      <div class="grade a">A<br><span>Excellent</span><b>9</b></div>
+      <div class="grade b">B<br><span>Very Good</span><b>8</b></div>
+      <div class="grade c">C<br><span>Good</span><b>7</b></div>
+      <div class="grade d">D<br><span>Above Avg</span><b>6</b></div>
+      <div class="grade e">E<br><span>Pass</span><b>5</b></div>
+      <div class="grade f">F<br><span>Fail</span><b>0</b></div>
+    </div>
+  </section>
 
-<section id="subjects" class="hidden">
-  <h2 id="semTitle"></h2>
-  <div id="subjectList"></div>
-  <button onclick="calculateGPA()">Calculate GPA</button>
-</section>
+  <!-- STREAM -->
+  <section id="stream" class="hidden">
+    <h2>Select Stream</h2>
+    <div class="btn-group">
+      <button class="secondary-btn">Engineering</button>
+      <button class="secondary-btn">BCOM</button>
+    </div>
+  </section>
 
-<section id="result" class="hidden">
-  <h2>Results</h2>
-  <p>GPA: <b id="gpa"></b></p>
-  <p>CGPA: <b id="cgpa"></b></p>
-  <canvas id="chart"></canvas>
-  <button onclick="show('semester')">← Back</button>
-</section>
+</main>
 
-<script src="script.js"></script>
+<!-- TEMP JS (only for section switching) -->
+<script>
+function showSection(id){
+  document.querySelectorAll("section").forEach(s => s.classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+}
+</script>
+
 </body>
 </html>
