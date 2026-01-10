@@ -5,7 +5,7 @@
     { "code": "AAA121", "name": "Urban Design", "credits": 3 },
     { "code": "AAA122", "name": "Project Management", "credits": 3 },
     { "code": "AAA123", "name": "Design of Structure - II", "credits": 4 },
-    { "code": "AAA204,AAA205,AAA206", "name": "Professional Elective-2", "credits": 3 }
+    { "code": "AAA204,AAA205,AAA206", "name": "Professional Elective-2", "credits": 3 },
     { "code": "AAA124", "name": "GIS Application in Town Planning", "credits": 1.5 },
     { "code": "AAA125", "name": "Architectural Design - III", "credits": 3 },
     { "code": "AAA126", "name": "Computer Application in Architecture - III", "credits": 1.5 },
