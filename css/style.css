@@ -1,236 +1,59 @@
-:root {
-  --primary: #4f46e5;
-  --accent: #6d28d9;
-  --bg: #f8fafc;
-  --card: #ffffff;
-  --text: #1f2937;
-  --muted: #6b7280;
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f9fafb;
 }
 
-/* ---------- GLOBAL ---------- */
-* {
-  box-sizing: border-box;
+header{
+  background:#111827;
+  color:white;
+  padding:15px;
+  text-align:center;
+  font-size:18px;
 }
 
-body {
-  margin: 0;
-  font-family: "Poppins", sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  padding-top: 70px;
+section{ padding:20px; }
+
+.hidden{ display:none; }
+
+button{
+  padding:12px 18px;
+  margin:10px;
+  border:none;
+  border-radius:10px;
+  background:#6d28d9;
+  color:white;
+  font-size:16px;
 }
 
-.hidden {
-  display: none;
+.grade-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+  margin-top:15px;
 }
 
-.container {
-  max-width: 520px;
-  margin: auto;
-  padding: 16px;
+.grade{
+  padding:15px;
+  border-radius:15px;
+  text-align:center;
+  box-shadow:0 6px 15px rgba(0,0,0,0.08);
 }
 
-/* ---------- TOP NAV ---------- */
-.top-nav {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 60px;
-  background: var(--card);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 18px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  z-index: 1000;
-}
+.grade b{ display:block; font-size:22px; }
 
-.logo {
-  font-weight: 700;
-  color: var(--primary);
-}
+.s{background:#ecfdf5;color:#065f46;}
+.a{background:#eff6ff;color:#1e40af;}
+.b{background:#f0f9ff;color:#0369a1;}
+.c{background:#f5f3ff;color:#5b21b6;}
+.d{background:#fff7ed;color:#9a3412;}
+.e{background:#fefce8;color:#92400e;}
+.f{background:#fef2f2;color:#991b1b;}
 
-.nav-icons button {
-  background: none;
-  border: none;
-  font-size: 1.3rem;
-  cursor: pointer;
-  margin-left: 8px;
-}
-
-/* ---------- HEADINGS ---------- */
-h1, h2, h3 {
-  margin-bottom: 10px;
-}
-
-.subtitle {
-  color: var(--muted);
-  font-size: 0.95rem;
-}
-
-/* ---------- BUTTONS ---------- */
-.main-btn,
-.next-btn,
-.action-btn {
-  width: 100%;
-  padding: 14px;
-  border-radius: 14px;
-  border: none;
-  font-weight: 600;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-  color: white;
-  cursor: pointer;
-  margin-top: 12px;
-}
-
-.back-btn {
-  background: none;
-  border: none;
-  color: var(--primary);
-  font-weight: 600;
-  cursor: pointer;
-  margin-bottom: 10px;
-}
-
-/* ---------- GRID BUTTONS ---------- */
-.grid-list {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-}
-
-.grid-item-btn {
-  padding: 18px;
-  border-radius: 16px;
-  background: var(--card);
-  border: 1px solid #e5e7eb;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.25s;
-}
-
-.grid-item-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-}
-
-.grid-item-btn.active {
-  background: var(--accent);
-  color: white;
-  border-color: var(--accent);
-}
-
-/* ---------- GRADE POINT REFERENCE ---------- */
-.grade-grid-display {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-  margin: 18px 0;
-}
-
-.grade-cube {
-  border-radius: 18px;
-  padding: 16px;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-}
-
-.grade-cube span {
-  font-size: 2rem;
-  font-weight: 700;
-}
-
-.grade-cube small {
-  display: block;
-  font-size: 0.8rem;
-  opacity: 0.85;
-}
-
-.grade-cube b {
-  display: block;
-  margin-top: 4px;
-}
-
-/* 🎨 PROFESSIONAL COLORS */
-.s-grade { background: #e0f2fe; color: #0369a1; }   /* Sky Blue */
-.a-grade { background: #ecfeff; color: #0e7490; }   /* Teal */
-.b-grade { background: #ecfdf5; color: #047857; }   /* Green */
-.c-grade { background: #fef3c7; color: #b45309; }   /* Amber */
-.d-grade { background: #fce7f3; color: #9d174d; }   /* Rose */
-.e-grade { background: #fff7ed; color: #c2410c; }   /* Orange */
-.f-grade { background: #fee2e2; color: #b91c1c; }   /* Red */
-
-/* ---------- SUBJECT CARDS ---------- */
-.subject-card {
-  background: var(--card);
-  border-radius: 16px;
-  padding: 14px;
-  margin-bottom: 14px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.07);
-}
-
-.grade-row {
-  display: flex;
-  gap: 6px;
-  margin-top: 10px;
-}
-
-/* ---------- GRADE SELECT BOXES ---------- */
-.g-box {
-  flex: 1;
-  padding: 10px 0;
-  border-radius: 12px;
-  text-align: center;
-  font-weight: 600;
-  cursor: pointer;
-  background: #f1f5f9;
-  border: 1px solid #e5e7eb;
-  transition: 0.2s;
-}
-
-.g-box:hover {
-  transform: scale(1.05);
-}
-
-.g-box.active {
-  background: var(--accent);
-  color: white;
-  border-color: var(--accent);
-  box-shadow: 0 6px 14px rgba(109,40,217,0.35);
-}
-
-/* ---------- RESULT ---------- */
-.result-card {
-  background: var(--card);
-  padding: 20px;
-  border-radius: 18px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
-}
-
-.gpa-display {
-  font-size: 3rem;
-  font-weight: 800;
-  text-align: center;
-  color: var(--primary);
-}
-
-.converter-box {
-  margin-top: 18px;
-}
-
-.converter-box input {
-  width: 70%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #cbd5e1;
-}
-
-.converter-box button {
-  padding: 10px 14px;
-  background: var(--primary);
-  border: none;
-  border-radius: 8px;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
+.card{
+  background:white;
+  padding:15px;
+  margin:10px 0;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
 }
