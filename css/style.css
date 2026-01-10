@@ -1,118 +1,60 @@
-/* General Styles */
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #f7f7f9;
-    margin: 0;
-    padding: 20px;
-    text-align: center;
-    color: #222;
+  font-family: 'Poppins', sans-serif;
+  background: #f7f6fb;
+  margin:0; padding:0;
+  color: #333;
 }
 
-h1 {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-}
+.hidden { display:none; }
 
-h2 {
-    font-size: 1.5rem;
-    margin-top: 20px;
-    margin-bottom: 15px;
-}
-
-p {
-    margin-bottom: 20px;
-}
-
-/* Buttons */
-button {
-    cursor: pointer;
-    border: none;
-    font-size: 1rem;
-    padding: 10px 20px;
-    border-radius: 12px;
-    transition: all 0.3s;
-}
+h2 { margin-top:20px; }
+h3 { margin: 15px 0 8px; }
 
 .main-btn {
-    background-color: #7b5cff;
-    color: white;
-    font-weight: bold;
-    margin-bottom: 30px;
+  background: #7c3aed;
+  color: white;
+  border:none;
+  padding:12px 25px;
+  margin:10px;
+  border-radius:10px;
+  cursor:pointer;
+  transition:0.3s;
+}
+.main-btn:hover { background:#9d6ef7; }
+
+.btn-container button {
+  margin:8px; padding:12px 20px; border-radius:8px;
+  border:1px solid #7c3aed;
+  background:#ede9fe; cursor:pointer;
+  transition:0.3s;
+}
+.btn-container button:hover, .btn-container button.active { background:#d8b4fe; }
+
+.welcome-card, .info-card, .card {
+  background:white; padding:15px; margin:15px auto; max-width:450px;
+  border-radius:12px; box-shadow:0 3px 8px rgba(0,0,0,0.12);
+  text-align:left;
 }
 
-.main-btn:hover {
-    background-color: #5e3fcc;
+.grade-grid {
+  display:flex; justify-content:center; gap:10px; margin-bottom:20px;
 }
 
-.options button {
-    margin: 10px;
-    min-width: 120px;
-    min-height: 50px;
-    background-color: #e0e0e0;
-    border-radius: 12px;
-    font-weight: bold;
-    transition: all 0.3s;
+.grade-cube {
+  width:60px; height:60px;
+  display:flex; justify-content:center; align-items:center;
+  border-radius:10px; font-weight:600; font-size:18px; color:white;
 }
 
-.options button:hover {
-    background-color: #d1d1ff;
-}
+.grade-cube.s{background:#a78bfa;}
+.grade-cube.a{background:#c4b5fd;color:#4b006e;}
+.grade-cube.b{background:#d8b4fe;color:#4b006e;}
+.grade-cube.c{background:#e9d5ff;color:#4b006e;}
+.grade-cube.d{background:#f3e8ff;color:#4b006e;}
+.grade-cube.e{background:#fdf4ff;color:#4b006e;}
+.grade-cube.f{background:#fce7f3;color:#4b006e;}
 
-.options button.selected {
-    background-color: #d8b3ff; /* Light purple for selected */
-}
-
-/* Back button */
-.back-btn {
-    background-color: #ccc;
-    margin-top: 15px;
-}
-
-.back-btn:hover {
-    background-color: #aaa;
-}
-
-/* Hidden sections */
-.hidden {
-    display: none;
-}
-
-/* Grade Boxes */
-.grades-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.grade-box {
-    width: 150px;
-    min-height: 100px;
-    border-radius: 12px;
-    padding: 15px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    transition: transform 0.2s;
-}
-
-.grade-box:hover {
-    transform: scale(1.05);
-}
-
-.grade {
-    font-size: 1.5rem;
-}
-
-.desc {
-    margin: 5px 0;
-    font-size: 1rem;
-}
-
-.points {
-    font-size: 1.2rem;
+.converter input{
+  padding:8px 10px; border-radius:6px; border:1px solid #ccc;
+  width:100px; margin-right:6px;
 }
