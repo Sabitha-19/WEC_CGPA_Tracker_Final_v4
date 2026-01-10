@@ -11,18 +11,16 @@ body {
   padding-top: 70px;
 }
 
+.hidden { display: none; }
+
 .top-nav {
   position: fixed;
-  top: 0;
-  width: 100%;
+  top: 0; left:0; right:0;
   height: 60px;
   background: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: flex; justify-content: space-between; align-items: center;
   padding: 0 20px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  box-sizing: border-box;
   z-index: 1000;
 }
 
@@ -32,167 +30,53 @@ body {
   margin: auto;
 }
 
-.hidden {
-  display: none;
-}
-
-/* ---------- Grade Reference Cubes ---------- */
+/* Grade Legend Grid */
 .grade-grid-display {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
+  grid-template-columns: repeat(auto-fit,minmax(130px,1fr));
+  gap: 10px;
   margin: 20px 0;
 }
 
 .grade-cube {
-  aspect-ratio: 1/1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  border-radius: 15px; padding: 20px; text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-.grade-cube span {
-  font-size: 2rem;
-  font-weight: 700;
+.grade-cube span { font-size: 2rem; font-weight: 700; }
+.grade-cube small { font-size: 0.8rem; display:block; margin:4px 0; }
+.grade-cube b { font-size: 1.2rem; }
+
+.s-grade { background:#E8F5E9; color:#2E7D32; }
+.a-grade { background:#E0F2F1; color:#00695C; }
+.b-grade { background:#E3F2FD; color:#1565C0; }
+.c-grade { background:#EDE7F6; color:#4527A0; }
+.d-grade { background:#F3E5F5; color:#6A1B9A; }
+.e-grade { background:#FFFDE7; color:#F9A825; }
+.f-grade { background:#FFEBEE; color:#C62828; }
+
+/* Buttons */
+.next-btn, .main-btn, .action-btn {
+  width:100%; padding:15px; border:none; border-radius:12px;
+  background: var(--primary); color:white; font-weight:600; cursor:pointer; margin-top:10px;
 }
 
-.s-grade { background: #E8F5E9; color: #2E7D32; }
-.a-grade { background: #E0F2F1; color: #00695C; }
-.b-grade { background: #E3F2FD; color: #1565C0; }
-.c-grade { background: #EDE7F6; color: #4527A0; }
-.d-grade { background: #F3E5F5; color: #6A1B9A; }
-.e-grade { background: #FFFDE7; color: #F9A825; }
-.f-grade { background: #FFEBEE; color: #C62828; }
+.back-btn { background:none; border:none; color:var(--primary); font-weight:700; cursor:pointer; margin-bottom:10px; }
 
-/* ---------- Buttons ---------- */
-.next-btn,
-.main-btn,
-.action-btn {
-  background: var(--primary);
-  color: white;
-  padding: 15px;
-  width: 100%;
-  border-radius: 12px;
-  font-weight: 600;
-  margin-top: 10px;
-  border: none;
-  cursor: pointer;
-}
+.grid-list { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.grid-item-btn { padding:18px; background:#f8fafc; border:1px solid #e5e7eb; border-radius:16px; font-weight:700; cursor:pointer; transition:.25s; }
+.grid-item-btn:hover { transform:scale(1.03); }
+.grid-item-btn.active { background:var(--purple); color:white; border-color:var(--purple); }
 
-.back-btn {
-  background: none;
-  border: none;
-  color: var(--primary);
-  font-weight: 700;
-  margin-bottom: 10px;
-  cursor: pointer;
-}
+/* Subject Cards */
+.subject-card { background:white; padding:15px; border-radius:12px; margin-bottom:15px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+.grade-row { display:flex; gap:6px; margin-top:10px; }
+.g-box { flex:1; padding:10px 0; border-radius:14px; text-align:center; font-weight:700; cursor:pointer; border:1px solid #e5e7eb; background:#f8fafc; transition:.25s; }
+.g-box.active { background:var(--purple); color:white; border-color:var(--purple); }
 
-/* ---------- Grid Buttons (Dept / Sem) ---------- */
-.grid-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.grid-item-btn {
-  background: #f8fafc;
-  border: 1px solid #e5e7eb;
-  padding: 18px;
-  border-radius: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.grid-item-btn:hover {
-  transform: scale(1.03);
-}
-
-/* Optional active state */
-.grid-item-btn.active {
-  background: var(--purple);
-  color: white;
-  border-color: var(--purple);
-}
-
-/* ---------- Subject Cards ---------- */
-.subject-card {
-  background: white;
-  padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  margin-bottom: 15px;
-}
-
-.grade-row {
-  display: flex;
-  gap: 6px;
-  margin-top: 10px;
-}
-
-/* ---------- Grade Selection Boxes ---------- */
-.g-box {
-  flex: 1;
-  text-align: center;
-  padding: 10px 0;
-  border-radius: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  background: #f8fafc;
-  border: 1px solid #e5e7eb;
-  transition: all 0.25s ease;
-}
-
-.g-box:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-}
-
-/* ✅ Clicked Grade → Purple */
-.g-box.active {
-  background: var(--purple);
-  color: white;
-  border-color: var(--purple);
-  box-shadow: 0 6px 15px rgba(109,40,217,0.4);
-}
-
-/* ---------- Result ---------- */
-.gpa-display {
-  font-size: 3rem;
-  font-weight: 800;
-  color: var(--primary);
-  text-align: center;
-}
-
-.result-card {
-  background: white;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-.converter-box {
-  margin-top: 20px;
-}
-
-.converter-box input {
-  width: 70%;
-  padding: 10px;
-  margin-right: 10px;
-  border-radius: 8px;
-  border: 1px solid #cbd5e1;
-}
-
-.converter-box button {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 8px;
-  background: var(--primary);
-  color: white;
-  cursor: pointer;
-  font-weight: 600;
-}
+/* Result */
+.gpa-display { font-size:3rem; font-weight:800; color:var(--primary); text-align:center; margin:15px 0; }
+.result-card { background:white; padding:20px; border-radius:15px; box-shadow:0 4px 15px rgba(0,0,0,0.1); }
+.converter-box input { width:70%; padding:10px; border-radius:8px; border:1px solid #cbd5e1; margin-right:10px; }
+.converter-box button { padding:10px 15px; border:none; border-radius:8px; background:var(--primary); color:white; font-weight:600; cursor:pointer; }
