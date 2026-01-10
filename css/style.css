@@ -1,68 +1,57 @@
 :root {
   --primary: #4f46e5;
-  --secondary: #6366f1;
-  --bg: #f8fafc;
-  --text: #1e293b;
-  --card-bg: #ffffff;
+  --bg: #fdfdfd;
+  --card-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
   background-color: var(--bg);
-  color: var(--text);
-  margin: 0;
-  line-height: 1.6;
+  margin: 0; padding-top: 70px; /* Space for nav */
 }
-
-.container { padding: 20px; max-width: 600px; margin: auto; }
 
 .top-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
-  background: white;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  position: sticky; top: 0; z-index: 100;
+  position: fixed; top: 0; width: 100%; height: 60px;
+  background: white; display: flex; justify-content: space-between;
+  align-items: center; padding: 0 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-sizing: border-box; z-index: 1000;
 }
 
-.logo { font-weight: 800; color: var(--primary); font-size: 1.2rem; }
+.container { padding: 15px; max-width: 500px; margin: auto; }
 
-.hero { text-align: center; padding: 20px 0; }
-.hero h1 { font-size: 1.8rem; margin-bottom: 10px; }
-.badge { background: #dcfce7; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; margin: 2px; display: inline-block; }
+.hero { text-align: center; margin-bottom: 25px; }
+.badge { background: #e0e7ff; color: #4338ca; padding: 5px 12px; border-radius: 20px; font-size: 12px; margin: 0 5px; }
 
-.card, .action-card, .result-card {
-  background: white;
-  padding: 20px;
-  border-radius: 16px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-}
+.card { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: var(--card-shadow); }
+.strategy-tip { border-left: 4px solid #10b981; padding-left: 10px; font-size: 0.9rem; color: #065f46; }
+
+/* Grade Legend Styles matching your Photo */
+.grade-grid-display { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+.grade-box { padding: 15px; border-radius: 12px; text-align: center; display: flex; flex-direction: column; }
+.grade-box span { font-size: 1.5rem; font-weight: bold; }
+.grade-box small { text-transform: uppercase; font-size: 10px; letter-spacing: 1px; }
+
+.s-grade { background: #f0fdf4; color: #166534; }
+.a-grade { background: #f0fdfa; color: #115e59; }
+.b-grade { background: #eff6ff; color: #1e40af; }
+.c-grade { background: #f5f3ff; color: #5b21b6; }
+.d-grade { background: #faf5ff; color: #6b21a8; }
+.e-grade { background: #fffbeb; color: #92400e; }
+.f-grade { background: #fef2f2; color: #991b1b; }
 
 .grid-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-button {
-  border: none; border-radius: 8px; padding: 12px;
-  font-weight: 600; cursor: pointer; transition: 0.2s;
-}
-
-.primary { background: var(--primary); color: white; width: 100%; }
-.secondary { background: #e2e8f0; color: var(--text); width: 100%; }
-.calc-btn { background: #059669; color: white; width: 100%; margin-top: 20px; }
-
 .hidden { display: none; }
 
-.grade-grid { display: flex; gap: 5px; margin-top: 10px; overflow-x: auto; padding-bottom: 5px; }
-.grade-cell {
-  border: 1px solid #cbd5e1; padding: 8px 12px; border-radius: 6px;
-  min-width: 35px; text-align: center;
-}
-.grade-cell.active { background: var(--primary); color: white; border-color: var(--primary); }
+button { border: none; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+.main-btn { background: var(--primary); color: white; width: 100%; padding: 15px; font-weight: bold; margin-bottom: 10px; }
+.sub-btn { background: #e2e8f0; width: 100%; padding: 12px; }
 
-.back-link { background: none; color: var(--primary); padding: 0; margin-bottom: 15px; }
+.back-btn { background: none; color: var(--primary); font-weight: bold; margin-bottom: 15px; }
 
-.gpa-display { text-align: center; margin: 20px 0; }
-#gpa { font-size: 3rem; font-weight: 800; color: var(--primary); display: block; }
+.grade-grid { display: flex; gap: 5px; margin-top: 8px; }
+.grade-cell { border: 1px solid #cbd5e1; padding: 8px; flex: 1; text-align: center; font-size: 12px; border-radius: 4px; }
+.grade-cell.active { background: var(--primary); color: white; }
 
-.faq summary { font-weight: 600; cursor: pointer; margin: 10px 0; }
+.result-card { text-align: center; padding: 30px; }
+.gpa-circle { font-size: 3rem; font-weight: 800; color: var(--primary); margin: 20px 0; }
+.converter-box { margin-top: 25px; border-top: 1px solid #eee; padding-top: 20px; }
