@@ -3,80 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <title>WEC CGPA Tracker</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-<header>WEC CGPA Tracker</header>
-
-<!-- ---------- Start / Info Page ---------- -->
-<div id="startScreen" class="screen active">
-    <div class="card hero">
-        <h2>Official WEC CGPA Calculator</h2>
-        <p>Trusted academic tool for Women's Engineering College</p>
-        <button class="btn-sem" onclick="showScreen('infoScreen')">Get Started →</button>
-    </div>
-</div>
-
-<div id="infoScreen" class="screen">
-    <div class="card">
-        <h3>What is CGPA?</h3>
-        <p>CGPA (Cumulative Grade Point Average) is the average of your grade points across all semesters.</p>
-    </div>
-
-    <div class="card">
-        <h3>How to Boost CGPA?</h3>
-        <ul>
-            <li>Focus on high-credit subjects</li>
-            <li>Improve weak grades</li>
-            <li>Maintain consistency every semester</li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <h3>Grade Point Reference</h3>
-        <div class="grid grade-grid">
-            <div class="grade-card">S<br><span>Outstanding</span><b>10</b></div>
-            <div class="grade-card">A<br><span>Excellent</span><b>9</b></div>
-            <div class="grade-card">B<br><span>Very Good</span><b>8</b></div>
-            <div class="grade-card">C<br><span>Good</span><b>7</b></div>
-            <div class="grade-card">D<br><span>Above Avg</span><b>6</b></div>
-            <div class="grade-card">E<br><span>Pass</span><b>5</b></div>
-            <div class="grade-card fail">F<br><span>Fail</span><b>0</b></div>
+    <header>
+        <h1>WEC CGPA Tracker</h1>
+        <div class="header-icons">
+            <span class="icon" title="Home" onclick="goHome()">🏠</span>
+            <span class="icon" title="CGPA Chart" onclick="showCGPAChart()">📊</span>
         </div>
-    </div>
+    </header>
 
-    <button class="btn-sem" onclick="showScreen('semesterScreen')">Continue →</button>
-    <button class="btn-back" onclick="showScreen('startScreen')">← Back</button>
-</div>
+    <!-- Department Screen -->
+    <section id="department-screen" class="screen">
+        <h2>Select Department</h2>
+        <div class="button-container">
+            <button onclick="selectDepartment('CSE')">CSE</button>
+            <button onclick="selectDepartment('ISE')">ISE</button>
+            <button onclick="selectDepartment('ECE')">ECE</button>
+            <button onclick="selectDepartment('EEE')">EEE</button>
+            <button onclick="selectDepartment('AA')">AA</button>
+            <button onclick="selectDepartment('BCOM')">BCOM</button>
+        </div>
+    </section>
 
-<!-- ---------- Semester / Department / Subjects / Result Screens ---------- -->
-<div id="semesterScreen" class="screen">
-    <h2>Select Department</h2>
-    <div id="departmentContainer"></div>
-</div>
+    <!-- Semester Screen -->
+    <section id="semester-screen" class="screen" style="display:none;">
+        <h2>Select Semester</h2>
+        <div class="button-container" id="semester-buttons"></div>
+        <button class="back-btn" onclick="goBack('department-screen')">← Back</button>
+    </section>
 
-<div id="semestersScreen" class="screen">
-    <h2>Select Semester</h2>
-    <div id="semesterContainer"></div>
-    <button class="btn-back" onclick="goBack('semesterScreen')">← Back</button>
-</div>
+    <!-- Grades Screen -->
+    <section id="grades-screen" class="screen" style="display:none;">
+        <h2 id="grades-title"></h2>
+        <div id="grades-container"></div>
+        <div class="action-buttons">
+            <button onclick="calculateCGPA(true)">Calculate & Save CGPA</button>
+        </div>
+        <button class="back-btn" onclick="goBack('semester-screen')">← Back</button>
+    </section>
 
-<div id="subjectsScreen" class="screen">
-    <h2>Enter Grades</h2>
-    <div id="subjectContainer"></div>
-    <button class="btn-back" onclick="goBack('semestersScreen')">← Back</button>
-    <button onclick="calculateCGPA()">Calculate CGPA</button>
-</div>
+    <!-- CGPA Info & Encouragement Screen -->
+    <section id="cgpa-info-screen" class="screen" style="display:none;">
+        <h2>CGPA Info & Tips</h2>
+        <div id="cgpa-message" class="encouragement"></div>
+        <p><strong>CGPA:</strong> Cumulative Grade Point Average is the weighted average of your semester GPAs.</p>
+        <p><strong>How to Boost CGPA:</strong></p>
+        <ul>
+            <li>Focus on improving grades in high-credit courses.</li>
+            <li>Retake low scored courses if allowed.</li>
+            <li>Practice past papers and stay consistent.</li>
+            <li>Use time management to maximize efficiency.</li>
+        </ul>
+        <p><strong>Grade Reference (Cubic):</strong></p>
+        <table class="grade-ref">
+            <tr><th>Grade</th><th>Points</th></tr>
+            <tr><td>S</td><td>10</td></tr>
+            <tr><td>A</td><td>9</td></tr>
+            <tr><td>B</td><td>8</td></tr>
+            <tr><td>C</td><td>7</td></tr>
+            <tr><td>D</td><td>6</td></tr>
+            <tr><td>E</td><td>5</td></tr>
+            <tr><td>F</td><td>0</td></tr>
+        </table>
+        <button class="back-btn" onclick="goBack('grades-screen')">← Back</button>
+    </section>
 
-<div id="resultScreen" class="screen">
-    <h2>Result & Semester Comparison</h2>
-    <div id="resultContainer"></div>
-    <canvas id="chartCGPA"></canvas>
-    <button class="btn-back" onclick="goBack('subjectsScreen')">← Back</button>
-</div>
+    <!-- CGPA Chart Screen -->
+    <section id="chart-screen" class="screen" style="display:none;">
+        <h2>CGPA Improvement Chart</h2>
+        <canvas id="cgpaChart" width="400" height="250"></canvas>
+        <button class="back-btn" onclick="goBack('department-screen')">← Back</button>
+    </section>
 
-<script src="js/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
