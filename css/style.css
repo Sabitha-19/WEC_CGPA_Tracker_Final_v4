@@ -1,72 +1,106 @@
-:root {
-  --purple: #6f3bd2;
-  --light: #f7f7fb;
-  --card: #ffffff;
+*{
+  box-sizing:border-box;
+  font-family: "Segoe UI", sans-serif;
 }
 
-* {
-  box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
+body{
+  margin:0;
+  background:#f4f0fb;
+  color:#333;
 }
 
-body {
-  margin: 0;
-  background: var(--light);
+.app-header{
+  background:linear-gradient(135deg,#6a1b9a,#8e24aa);
+  color:white;
+  padding:15px;
+  text-align:center;
 }
 
-header {
-  background: white;
-  padding: 16px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+.screen{
+  display:none;
+  padding:20px;
 }
 
-.page {
-  display: none;
-  padding: 20px;
+.screen.active{
+  display:block;
 }
 
-.page.active {
-  display: block;
+.card{
+  background:white;
+  padding:20px;
+  border-radius:14px;
+  margin-bottom:15px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
 }
 
-h2 {
-  margin-top: 0;
+.hero{
+  text-align:center;
 }
 
-.btn {
-  background: var(--purple);
-  color: white;
-  border: none;
-  padding: 14px 24px;
-  border-radius: 14px;
-  font-size: 16px;
-  cursor: pointer;
-  box-shadow: 0 8px 20px rgba(111,59,210,0.35);
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:15px;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(140px,1fr));
-  gap: 16px;
+.option{
+  text-align:center;
+  font-weight:600;
+  cursor:pointer;
 }
 
-.card {
-  padding: 20px;
-  border-radius: 18px;
-  background: var(--card);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-  text-align: center;
-  cursor: pointer;
+.option:hover{
+  background:#ede7f6;
 }
 
-.card.purple {
-  background: linear-gradient(135deg,#7a4be8,#5a2bbd);
-  color: white;
+.btn-primary{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  background:#6a1b9a;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
 }
 
-select {
-  width: 100%;
-  padding: 10px;
-  border-radius: 10px;
-  margin-bottom: 10px;
+.btn-primary:hover{
+  background:#7b1fa2;
+}
+
+.btn-back{
+  background:none;
+  border:none;
+  color:#6a1b9a;
+  font-size:16px;
+  cursor:pointer;
+  margin-bottom:10px;
+}
+
+.subject-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+select{
+  padding:6px;
+  border-radius:8px;
+}
+
+.grade-grid{
+  grid-template-columns:repeat(3,1fr);
+}
+
+.grade-card{
+  text-align:center;
+  background:#f3e5f5;
+  padding:15px;
+  border-radius:12px;
+  font-weight:bold;
+}
+
+.grade-card.fail{
+  background:#ffebee;
 }
