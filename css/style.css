@@ -1,158 +1,65 @@
-/* ===== General Styles ===== */
 body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background: #f9fafb;
-    color: #1f2937;
+  font-family: 'Poppins', sans-serif;
+  background: #f9f9f9;
+  margin: 0;
+  padding: 20px;
+  color: #333;
 }
 
-h1, h2, h3 {
-    margin: 0.5em 0;
+h1 {
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 30px;
 }
 
-section {
-    display: none;
-    padding: 20px;
-    max-width: 900px;
-    margin: auto;
+.container {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-section.active {
-    display: block;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 20px;
+  justify-items: center;
 }
 
-button {
-    cursor: pointer;
-    padding: 12px 20px;
-    margin: 5px;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    transition: 0.2s;
-    background: #7c3aed;
-    color: white;
+.cube {
+  border-radius: 12px;
+  padding: 25px 15px;
+  text-align: center;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-weight: 600;
+  line-height: 1.4;
 }
 
-button:hover {
-    transform: scale(1.05);
+.cube:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.12);
 }
 
-/* ===== Header ===== */
-header {
-    background: #fff;
-    padding: 15px 20px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.pastel {
+  background: linear-gradient(135deg, #d4fc79, #96e6a1);
+  color: #2f7a44;
 }
 
-header h1 {
-    font-size: 22px;
+.backBtn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  background: #8888ff;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-/* ===== Grade Cubes ===== */
-.grades {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 15px;
-    margin: 20px 0;
+.backBtn:hover {
+  background: #6666ff;
 }
 
-.grade-cube {
-    padding: 20px;
-    border-radius: 12px;
-    text-align: center;
-    font-family: 'Cursive', sans-serif;
-    font-weight: 500;
-    font-size: 16px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: transform 0.2s;
-}
-
-.grade-cube span {
-    display: block;
-    font-size: 22px;
-    margin-top: 5px;
-    font-weight: bold;
-}
-
-.grade-cube:hover {
-    transform: translateY(-5px);
-}
-
-/* Pastel colors for each grade */
-.grade-cube.S { background:#d1fae5; color:#166534; }
-.grade-cube.A { background:#d1fae5; color:#166534; }
-.grade-cube.B { background:#e0e7ff; color:#3730a3; }
-.grade-cube.C { background:#eef2ff; color:#4f46e5; }
-.grade-cube.D { background:#f5f3ff; color:#7c3aed; }
-.grade-cube.E { background:#fef3c7; color:#b45309; }
-.grade-cube.F { background:#fee2e2; color:#991b1b; }
-
-/* ===== Subject Cards ===== */
-.card {
-    padding: 12px 15px;
-    margin: 8px 0;
-    background: #fff;
-    border-radius: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    transition: transform 0.2s;
-}
-
-.card:hover {
-    transform: translateY(-2px);
-}
-
-select {
-    padding: 6px 8px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-}
-
-/* ===== GPA/CGPA Result ===== */
-#result {
-    text-align: center;
-}
-
-#result h2 {
-    margin-top: 10px;
-}
-
-canvas {
-    max-width: 100%;
-    margin-top: 20px;
-}
-
-/* ===== Back Link ===== */
-.back {
-    display: block;
-    margin: 10px 0;
-    color: #3b82f6;
-    cursor: pointer;
-    font-style: italic;
-    text-decoration: underline;
-}
-
-/* ===== Continue Button ===== */
-#continueBtn {
-    background: #7c3aed;
-    color: #fff;
-    font-size: 18px;
-    margin-top: 15px;
-}
-
-/* ===== Responsive ===== */
-@media(max-width: 600px){
-    .grades {
-        grid-template-columns: repeat(auto-fit, minmax(100px,1fr));
-    }
-    button {
-        width: 100%;
-    }
+.page {
+  text-align: center;
 }
