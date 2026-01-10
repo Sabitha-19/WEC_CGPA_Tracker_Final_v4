@@ -1,80 +1,118 @@
-/* Basic Reset */
-body, h1, h2, p, button {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* General Styles */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
-}
-.container {
-    max-width: 600px;
-    margin: 0 auto;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f7f7f9;
+    margin: 0;
     padding: 20px;
+    text-align: center;
+    color: #222;
 }
-h1 { font-family: 'Georgia', serif; font-size: 2rem; margin-bottom: 10px; }
-h2 { font-family: 'Georgia', serif; font-size: 1.5rem; margin-bottom: 15px; }
 
+h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+p {
+    margin-bottom: 20px;
+}
+
+/* Buttons */
 button {
-    padding: 12px 24px;
-    margin: 5px;
-    border: none;
-    border-radius: 12px;
     cursor: pointer;
+    border: none;
     font-size: 1rem;
-    transition: all 0.3s ease;
+    padding: 10px 20px;
+    border-radius: 12px;
+    transition: all 0.3s;
 }
-button:hover { opacity: 0.9; }
 
-#continueBtn {
-    background-color: #7b5cf5;
+.main-btn {
+    background-color: #7b5cff;
     color: white;
+    font-weight: bold;
+    margin-bottom: 30px;
 }
 
-/* Option buttons */
-.option-btn {
-    background-color: #eee;
-    color: #333;
+.main-btn:hover {
+    background-color: #5e3fcc;
+}
+
+.options button {
+    margin: 10px;
     min-width: 120px;
-}
-.option-btn.selected {
-    background-color: #d8b4fe; /* Light purple highlight */
+    min-height: 50px;
+    background-color: #e0e0e0;
+    border-radius: 12px;
+    font-weight: bold;
+    transition: all 0.3s;
 }
 
-/* Back buttons */
+.options button:hover {
+    background-color: #d1d1ff;
+}
+
+.options button.selected {
+    background-color: #d8b3ff; /* Light purple for selected */
+}
+
+/* Back button */
 .back-btn {
     background-color: #ccc;
+    margin-top: 15px;
+}
+
+.back-btn:hover {
+    background-color: #aaa;
+}
+
+/* Hidden sections */
+.hidden {
+    display: none;
 }
 
 /* Grade Boxes */
-.grade-container {
+.grades-container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 15px;
     margin-top: 20px;
 }
-.grade-box {
-    flex: 1 1 120px;
-    min-width: 120px;
-    padding: 15px;
-    border-radius: 15px;
-    text-align: center;
-    font-family: 'Georgia', serif;
-    font-size: 1.1rem;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-}
-/* Unique pastel transparent colors */
-.S { background-color: rgba(144,238,144,0.5); }
-.A { background-color: rgba(173,216,230,0.5); }
-.B { background-color: rgba(221,160,221,0.5); }
-.C { background-color: rgba(255,182,193,0.5); }
-.D { background-color: rgba(255,228,181,0.5); }
-.E { background-color: rgba(255,250,205,0.5); }
-.F { background-color: rgba(255,182,193,0.3); }
 
-/* Sections */
-.section { display: none; margin-top: 20px; }
-.section.active { display: block; }
+.grade-box {
+    width: 150px;
+    min-height: 100px;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    transition: transform 0.2s;
+}
+
+.grade-box:hover {
+    transform: scale(1.05);
+}
+
+.grade {
+    font-size: 1.5rem;
+}
+
+.desc {
+    margin: 5px 0;
+    font-size: 1rem;
+}
+
+.points {
+    font-size: 1.2rem;
+}
