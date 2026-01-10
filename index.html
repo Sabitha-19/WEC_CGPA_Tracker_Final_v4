@@ -9,62 +9,67 @@
 </head>
 <body>
 
-<!-- Start Page -->
-<section id="startSection">
-  <h1>WEC CGPA Tracker</h1>
-  <button class="start-btn" onclick="showSection('infoSection')">Get Started</button>
+<h1>WEC CGPA Tracker</h1>
+
+<!-- START PAGE -->
+<section id="startSection" class="active">
+  <button onclick="showCGPAInfo()">Get Started</button>
 </section>
 
-<!-- Info / FAQ Page -->
-<section id="infoSection" class="hidden">
+<!-- CGPA Info -->
+<section id="infoSection">
   <h2>About CGPA</h2>
   <p>CGPA is the weighted average of your grades. Use this tool to track your semester performance.</p>
-  <div class="tips">
-    <h3>How to Boost Your CGPA?</h3>
-    <p>Prioritize high credit subjects, never miss assignments, aim for better grades in key courses.</p>
-  </div>
+
+  <h3>How to Boost Your CGPA?</h3>
+  <p>Prioritize high credit subjects, never miss assignments, and aim for better grades in key courses.</p>
+
+  <h3>CGPA Formula:</h3>
+  <p>GPA = Σ(Grade Points × Credits) / ΣCredits</p>
+
   <button onclick="showSection('streamSection')">Continue</button>
 </section>
 
 <!-- Stream Selection -->
-<section id="streamSection" class="hidden">
+<section id="streamSection">
   <h2>Select Stream</h2>
-  <div class="btn-container" id="streamBtns">
-    <button onclick="selectStream('engineering', event)">Engineering</button>
-    <button onclick="selectStream('bcom', event)">B.Com</button>
+  <div class="flex-row" id="streamList">
+    <button onclick="selectStream('engineering')">Engineering</button>
+    <button onclick="selectStream('bcom')">B.Com</button>
   </div>
 </section>
 
 <!-- Department Selection -->
-<section id="departmentSection" class="hidden">
+<section id="departmentSection">
   <h2>Select Department</h2>
-  <div class="btn-container" id="deptList"></div>
+  <div class="flex-row" id="deptList"></div>
 </section>
 
 <!-- Semester Selection -->
-<section id="semesterSection" class="hidden">
+<section id="semesterSection">
   <h2>Select Semester</h2>
-  <div class="btn-container" id="semList"></div>
+  <div class="flex-row" id="semList"></div>
 </section>
 
-<!-- Subject & Grade Selection -->
-<section id="subjectsSection" class="hidden">
+<!-- Subject Grades -->
+<section id="subjectsSection">
   <h2 id="semTitle">Semester</h2>
-  <div id="subjectList" class="subject-list"></div>
+  <div id="subjectList"></div>
   <button onclick="calculateGPA()">Calculate GPA</button>
 </section>
 
-<!-- Result -->
-<section id="resultSection" class="hidden">
+<!-- Results -->
+<section id="resultSection">
   <h2>Results</h2>
   <p>Semester GPA: <span id="gpa">0.00</span></p>
   <p>Current CGPA: <span id="cgpa">0.00</span></p>
-  <canvas id="chart"></canvas>
-  <div class="cgpa-convert">
-    <input type="number" id="cgpaInput" placeholder="Enter CGPA to convert %">
-    <button onclick="convertToPercentage()">Convert</button>
-    <p id="percentResult"></p>
-  </div>
+
+  <h3>CGPA to Percentage</h3>
+  <input type="number" id="cgpaInput" placeholder="Enter CGPA">
+  <button onclick="convertToPercentage()">Convert</button>
+  <p id="percentResult"></p>
+
+  <canvas id="chart" width="400" height="200"></canvas>
 </section>
 
 <script src="script.js"></script>
