@@ -1,63 +1,46 @@
-body {
-  font-family: 'Arial', sans-serif;
-  background: #f3f3f8;
-  color: #111;
-  margin: 0;
-  padding: 0;
+/* Reset & font */
+* { box-sizing: border-box; margin:0; padding:0; font-family: 'Arial', sans-serif; }
+body { background: #f4f2fc; color:#111; padding:20px; }
+
+h1,h2,h3 { margin-bottom: 15px; }
+section { display: none; margin-top:20px; }
+section.active { display: block; }
+
+/* Buttons */
+button { 
+  padding: 10px 25px; 
+  margin: 5px; 
+  border: none; 
+  cursor: pointer; 
+  border-radius: 12px; 
+  font-size:16px; 
+  font-weight:bold;
+  transition: 0.3s;
+  background:#8b5cf6; 
+  color:white;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+button:hover { background:#7c3aed; transform: translateY(-2px); }
+button.selected { background:#d8b4fe; color:#111; }
+
+/* Card style for subjects */
+.card { 
+  background:white; 
+  padding: 12px 15px; 
+  margin: 8px 0; 
+  border-radius: 12px; 
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  display:flex; justify-content: space-between; align-items:center;
 }
 
-.hidden { display: none; }
-
-section {
-  max-width: 700px;
-  margin: 50px auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 15px;
-  box-shadow: 10px 10px 20px rgba(0,0,0,0.08), -10px -10px 20px rgba(255,255,255,0.7);
-  text-align: center;
+select { 
+  padding:5px; border-radius:8px; border:1px solid #ccc; font-size:15px; 
 }
 
-h1, h2 { margin-bottom: 20px; }
+#chart { margin-top:20px; }
 
-button {
-  padding: 12px 24px;
-  margin: 10px;
-  border: 1px solid #7c3aed;
-  border-radius: 12px;
-  background: #fff;
-  color: #000;
-  cursor: pointer;
-  font-size: 16px;
-  transition: 0.3s cubic-bezier(.25,.8,.25,1);
+input[type="number"] {
+  padding:6px; border-radius:8px; border:1px solid #ccc; font-size:16px;
 }
 
-button:hover {
-  background: #d8b4fe;
-  color: #4b006e;
-}
-
-button.active {
-  background: #7c3aed;
-  color: #fff;
-  border-color: #7c3aed;
-}
-
-.subject-list .card {
-  background: #f9f9fc;
-  margin: 10px 0;
-  padding: 12px;
-  border-radius: 10px;
-  box-shadow: 5px 5px 10px rgba(0,0,0,0.05);
-}
-
-input, select {
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  margin-left: 10px;
-}
-
-.cgpa-convert {
-  margin-top: 20px;
-}
+.flex-row { display:flex; flex-wrap:wrap; gap:10px; }
