@@ -8,77 +8,70 @@
 </head>
 <body>
     <div class="container">
+        <h1>Official WEC CGPA Tracker</h1>
+        <p>Trusted academic tool for Women's Engineering College</p>
+        <button id="continueBtn" class="main-btn">Continue →</button>
 
-        <!-- Home / Intro Section -->
-        <section id="homeSection" class="section active">
-            <h1>Official WEC CGPA Tracker</h1>
-            <p>Trusted academic tool for Women's Engineering College</p>
-            <button id="continueBtn">Continue →</button>
-        </section>
-
-        <!-- Stream Selection -->
-        <section id="streamSection" class="section">
+        <div id="streamSection" class="section hidden">
             <h2>Select Stream</h2>
-            <button class="option-btn" data-stream="engineering">Engineering</button>
-            <button class="option-btn" data-stream="bcom">BCOM</button>
-        </section>
+            <div class="options">
+                <button class="stream-btn" data-stream="engineering">Engineering</button>
+                <button class="stream-btn" data-stream="bcom">BCOM</button>
+            </div>
+        </div>
 
-        <!-- Department Selection -->
-        <section id="departmentSection" class="section">
+        <div id="departmentSection" class="section hidden">
             <h2>Select Department</h2>
-            <div id="departmentBtns"></div>
-            <button id="backDeptBtn" class="back-btn">← Back</button>
-        </section>
+            <div class="options" id="departments"></div>
+            <button class="back-btn" id="backStream">← Back</button>
+        </div>
 
-        <!-- Semester Selection -->
-        <section id="semesterSection" class="section">
+        <div id="semesterSection" class="section hidden">
             <h2>Select Semester</h2>
-            <div id="semesterBtns"></div>
-            <button id="backSemBtn" class="back-btn">← Back</button>
-        </section>
+            <div class="options" id="semesters"></div>
+            <button class="back-btn" id="backDepartment">← Back</button>
+        </div>
 
-        <!-- Grade Reference -->
-        <section id="gradeSection" class="section">
+        <div id="gradesSection" class="section hidden">
             <h2>Grade Point Reference</h2>
-            <div class="grade-container">
-                <div class="grade-box S">
-                    <p>S</p>
-                    <p>Outstanding</p>
-                    <p>10</p>
+            <div class="grades-container">
+                <div class="grade-box" style="background-color:#c8f0c8;">
+                    <span class="grade">S</span>
+                    <span class="desc">Outstanding</span>
+                    <span class="points">10 Pts</span>
                 </div>
-                <div class="grade-box A">
-                    <p>A</p>
-                    <p>Excellent</p>
-                    <p>9</p>
+                <div class="grade-box" style="background-color:#cce0ff;">
+                    <span class="grade">A</span>
+                    <span class="desc">Excellent</span>
+                    <span class="points">9 Pts</span>
                 </div>
-                <div class="grade-box B">
-                    <p>B</p>
-                    <p>Very Good</p>
-                    <p>8</p>
+                <div class="grade-box" style="background-color:#e7ccff;">
+                    <span class="grade">B</span>
+                    <span class="desc">Very Good</span>
+                    <span class="points">8 Pts</span>
                 </div>
-                <div class="grade-box C">
-                    <p>C</p>
-                    <p>Good</p>
-                    <p>7</p>
+                <div class="grade-box" style="background-color:#e6e6ff;">
+                    <span class="grade">C</span>
+                    <span class="desc">Good</span>
+                    <span class="points">7 Pts</span>
                 </div>
-                <div class="grade-box D">
-                    <p>D</p>
-                    <p>Above Avg</p>
-                    <p>6</p>
+                <div class="grade-box" style="background-color:#fff0cc;">
+                    <span class="grade">D</span>
+                    <span class="desc">Above Avg</span>
+                    <span class="points">6 Pts</span>
                 </div>
-                <div class="grade-box E">
-                    <p>E</p>
-                    <p>Pass</p>
-                    <p>5</p>
+                <div class="grade-box" style="background-color:#ffe6e6;">
+                    <span class="grade">E</span>
+                    <span class="desc">Pass</span>
+                    <span class="points">5 Pts</span>
                 </div>
-                <div class="grade-box F">
-                    <p>F</p>
-                    <p>Fail</p>
-                    <p>0</p>
+                <div class="grade-box" style="background-color:#ffd6d6;">
+                    <span class="grade">F</span>
+                    <span class="desc">Fail</span>
+                    <span class="points">0 Pts</span>
                 </div>
             </div>
-        </section>
-
+        </div>
     </div>
 
     <script src="script.js"></script>
