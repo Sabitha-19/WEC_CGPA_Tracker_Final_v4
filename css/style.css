@@ -1,70 +1,18 @@
 body {
-  font-family: Georgia, serif;
-  background: #f4f7ff;
-  margin: 0;
-}
-
-header {
-  text-align: center;
+  font-family: Arial, sans-serif;
   padding: 20px;
 }
 
-.subtitle {
-  color: #555;
-}
+.hidden { display: none; }
 
-section {
-  background: white;
-  margin: 20px;
-  padding: 20px;
-  border-radius: 12px;
-}
-
-button {
-  padding: 10px 20px;
-  margin: 5px;
-  border-radius: 8px;
-  border: none;
-  background: #5a5be7;
-  color: white;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #4344c4;
-}
-
-.hidden {
-  display: none;
-}
-
-.subject {
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 8px;
-}
-
-.grade span {
-  padding: 6px 10px;
-  border: 1px solid #aaa;
-  border-radius: 6px;
-  margin: 4px;
-  cursor: pointer;
-}
-
-.grade span.active {
-  background: #5a5be7;
-  color: white;
-}
-
-.nav-icons {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-}
+button { margin: 5px; padding: 10px 15px; cursor: pointer; }
 
 .nav-icons button {
-  display: block;
-  margin: 10px 0;
+  font-size: 20px;
+  margin-right: 10px;
 }
+
+#subjects .subject { margin: 5px 0; padding: 5px; border: 1px solid #ccc; }
+
+.grade-cell { display: inline-block; padding: 5px 10px; margin: 2px; border: 1px solid #aaa; cursor: pointer; }
+.grade-cell.active { background-color: #4f46e5; color: white; }
