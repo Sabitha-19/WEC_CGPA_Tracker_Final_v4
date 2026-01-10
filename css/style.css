@@ -1,71 +1,58 @@
 body {
-  margin: 0;
   font-family: "Segoe UI", sans-serif;
   background: linear-gradient(#eef2ff, #ffffff);
+  margin: 0;
+  padding: 20px;
 }
 
-.page {
-  display: none;
-  padding: 40px;
-  max-width: 900px;
-  margin: auto;
-}
-
-.page.active { display: block; }
-
-h1, h2 { text-align: center; }
-
-.subtitle {
+header {
   text-align: center;
-  color: #666;
+  margin-bottom: 20px;
 }
 
-.primary-btn {
-  display: block;
-  margin: 25px auto;
-  padding: 12px 30px;
-  border-radius: 25px;
-  background: #4f46e5;
-  color: white;
-  border: none;
-  cursor: pointer;
+.tab { display: none; }
+.tab.active { display: block; }
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px,1fr));
+.btn-group {
+  display: flex;
   gap: 15px;
-  margin-top: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.dept-btn {
-  background: #f1f5ff;
-  padding: 15px;
-  border-radius: 15px;
-  text-align: center;
-  font-weight: 600;
+button {
+  padding: 14px 22px;
+  border-radius: 14px;
+  border: none;
+  background: #e0e7ff;
   cursor: pointer;
+  font-size: 16px;
 }
+
+button:hover { background: #c7d2fe; }
 
 .subject {
-  background: #f9f9ff;
+  background: #fff;
   padding: 15px;
-  border-radius: 15px;
-  margin-bottom: 15px;
+  border-radius: 12px;
+  margin-bottom: 12px;
 }
 
 .grade-grid {
-  display: grid;
-  grid-template-columns: repeat(7,1fr);
+  display: flex;
   gap: 8px;
   margin-top: 10px;
 }
 
 .grade-cell {
-  background: #eee;
+  padding: 8px 12px;
   border-radius: 8px;
-  padding: 8px;
-  text-align: center;
+  background: #f3f4f6;
   cursor: pointer;
 }
 
@@ -74,27 +61,18 @@ h1, h2 { text-align: center; }
   color: white;
 }
 
-.feature-box, .faq {
-  background: #f6f8ff;
-  padding: 15px;
-  border-radius: 15px;
-  margin: 15px 0;
-}
-
-.floating-nav {
+/* Floating buttons */
+.fab {
   position: fixed;
-  right: 15px;
-  bottom: 15px;
-}
-
-.floating-nav button {
-  display: block;
-  margin: 10px 0;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+  right: 20px;
   background: #4f46e5;
   color: white;
-  border: none;
-  font-size: 20px;
+  padding: 12px;
+  border-radius: 50%;
+  cursor: pointer;
 }
+
+.home { bottom: 200px; }
+.back { bottom: 150px; }
+.graph { bottom: 100px; }
+.save { bottom: 50px; }
