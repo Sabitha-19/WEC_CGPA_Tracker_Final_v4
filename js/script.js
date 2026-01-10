@@ -1,155 +1,97 @@
 const gradePoints = { S:10, A:9, B:8, C:7, D:6, E:5, F:0 };
 
 const departments = {
-  engineering: ["CSE","ISE","ECE","EEE","AA"],
+  engineering: ["CSE","ISE","ECE","EEE","ME"],
   bcom: ["BCOM"]
 };
 
-// ⬇️ USE YOUR FULL SUBJECT DATA HERE
-const subjectsData = {
-  engineering:{
-    1:[{name:"Maths",credits:4},{name:"Physics",credits:3}],
-    2:[{name:"DS",credits:4},{name:"OOPS",credits:3}],
-    3:[],4:[],5:[],6:[],7:[],8:[]
-  },
-  bcom:{
-    1:[{name:"Financial Accounting",credits:4}],
-    2:[{name:"Business Economics",credits:4}],
-    3:[],4:[],5:[],6:[]
-  },
-  aa:{
-    5:[{name:"Architecture Design",credits:4}],
-    6:[],7:[],8:[]
-  }
-};
+let selectedStream = "";
+let selectedDept = "";
+let selectedSem = "";
+let semGPAs = [];
 
-let state = {
-  stream:null,
-  dept:null,
-  sem:null,
-  grades:{},
-  gpaHistory:Array(8).fill(null)
-};
-
-let chart;
-
-function showSection(id){
-  document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));
-  document.getElementById(id).classList.remove("hidden");
+function goTo(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
-
-window.onload = ()=>{
-  const list = document.getElementById("streamList");
-  Object.keys(departments).forEach(s=>{
-    const btn = document.createElement("button");
-    btn.className="btn primary";
-    btn.textContent = s.toUpperCase();
-    btn.onclick = ()=>selectStream(s);
-    list.appendChild(btn);
-  });
-};
 
 function selectStream(stream){
-  state.stream = stream;
-  const d = document.getElementById("deptList");
-  d.innerHTML = "";
-  departments[stream].forEach(dep=>{
-    const btn = document.createElement("button");
-    btn.className="btn";
-    btn.textContent = dep;
-    btn.onclick = ()=>selectDept(dep);
-    d.appendChild(btn);
+  selectedStream = stream;
+  const list = document.getElementById("deptList");
+  list.innerHTML = "";
+  departments[stream].forEach(d=>{
+    list.innerHTML += `<div class="card" onclick="selectDept('${d}')">${d}</div>`;
   });
-  showSection("departmentSection");
+  goTo("page-dept");
 }
 
-function selectDept(dep){
-  state.dept = dep;
-  const s = document.getElementById("semList");
-  s.innerHTML = "";
-  const max = state.stream==="engineering"?8:6;
-  for(let i=1;i<=max;i++){
-    const btn = document.createElement("button");
-    btn.className="btn";
-    btn.textContent = "Semester "+i;
-    btn.onclick = ()=>selectSem(i);
-    s.appendChild(btn);
+function selectDept(dept){
+  selectedDept = dept;
+  const semList = document.getElementById("semList");
+  semList.innerHTML = "";
+  for(let i=1;i<=8;i++){
+    semList.innerHTML += `<div class="card" onclick="selectSem(${i})">Semester ${i}</div>`;
   }
-  showSection("semesterSection");
+  goTo("page-sem");
 }
 
 function selectSem(sem){
-  state.sem = sem;
-  state.grades = {};
+  selectedSem = sem;
   const list = document.getElementById("subjectList");
   list.innerHTML = "";
-  document.getElementById("semTitle").textContent = "Semester "+sem;
 
-  let arr = subjectsData[state.stream][sem] || [];
-  if(state.dept==="AA") arr = subjectsData.aa[sem] || [];
+  // SAMPLE SUBJECTS (replace with your real data)
+  const subjects = [
+    {name:"Subject 1", credits:4},
+    {name:"Subject 2", credits:3},
+    {name:"Subject 3", credits:3}
+  ];
 
-  arr.forEach((sub,i)=>{
-    const div = document.createElement("div");
-    div.className="card";
-    div.innerHTML = `
-      <b>${sub.name}</b> (${sub.credits} credits)
-      <select onchange="state.grades[${i}]=gradePoints[this.value]">
-        <option value="">Select Grade</option>
-        ${Object.keys(gradePoints).map(g=>`<option>${g}</option>`).join("")}
-      </select>`;
-    list.appendChild(div);
+  subjects.forEach((s,i)=>{
+    list.innerHTML += `
+      <div class="card">
+        <b>${s.name}</b> (${s.credits} credits)
+        <select id="g${i}">
+          ${Object.keys(gradePoints).map(g=>`<option>${g}</option>`).join("")}
+        </select>
+      </div>`;
   });
-  showSection("subjectsSection");
+
+  goTo("page-grades");
 }
 
 function calculateGPA(){
-  let arr = subjectsData[state.stream][state.sem] || [];
-  if(state.dept==="AA") arr = subjectsData.aa[state.sem] || [];
-
-  let total=0, credits=0;
-  for(let i=0;i<arr.length;i++){
-    if(state.grades[i]==null){
-      alert("Please select all grades");
-      return;
-    }
-    total += state.grades[i]*arr[i].credits;
-    credits += arr[i].credits;
-  }
+  let total = 0, credits = 0;
+  document.querySelectorAll("select").forEach(sel=>{
+    total += gradePoints[sel.value] * 3;
+    credits += 3;
+  });
 
   const gpa = (total/credits).toFixed(2);
-  state.gpaHistory[state.sem-1] = Number(gpa);
-  document.getElementById("gpa").textContent = gpa;
-  document.getElementById("cgpa").textContent = calcCGPA();
-  drawChart();
-  showSection("resultSection");
-}
+  semGPAs.push(gpa);
 
-function calcCGPA(){
-  const v = state.gpaHistory.filter(x=>x!=null);
-  return (v.reduce((a,b)=>a+b,0)/v.length).toFixed(2);
+  const cgpa = (semGPAs.reduce((a,b)=>a+Number(b),0)/semGPAs.length).toFixed(2);
+  const percent = (cgpa*9.5).toFixed(2);
+
+  document.getElementById("gpaText").innerText = `Semester GPA: ${gpa}`;
+  document.getElementById("cgpaText").innerText = `CGPA: ${cgpa}`;
+  document.getElementById("percentText").innerText = `Percentage: ${percent}%`;
+
+  drawChart();
+  goTo("page-result");
 }
 
 function drawChart(){
-  if(chart) chart.destroy();
-  chart = new Chart(document.getElementById("chart"),{
-    type:"line",
+  new Chart(document.getElementById("gpaChart"),{
+    type:'line',
     data:{
-      labels: state.gpaHistory.map((_,i)=>"Sem "+(i+1)),
+      labels: semGPAs.map((_,i)=>`Sem ${i+1}`),
       datasets:[{
-        data: state.gpaHistory,
-        borderColor:"#7c3aed",
-        tension:0.4,
-        borderWidth:3
+        label:'GPA',
+        data:semGPAs,
+        borderColor:'#6f3bd2',
+        tension:0.4
       }]
-    },
-    options:{
-      scales:{y:{min:0,max:10}}
     }
   });
-}
-
-function convertToPercentage(){
-  const cg = document.getElementById("cgpaInput").value;
-  document.getElementById("percentResult").textContent =
-    "Percentage: "+(cg*10).toFixed(1)+"%";
 }
