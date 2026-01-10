@@ -1,133 +1,138 @@
-let state = {
-  stream: null,
-  dept: null,
-  sem: null,
-  subjects: [],
-  history: ["stream"]
+let state = { stream: null, dept: null, sem: null, history: ["welcomeSection"], subjects: [] };
+
+function showSection(id) {
+  document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+  if (state.history[state.history.length - 1] !== id) state.history.push(id);
+}
+
+// Back Buttons
+document.querySelectorAll(".back-btn").forEach(btn => {
+  btn.onclick = () => {
+    if (state.history.length > 1) {
+      state.history.pop();
+      showSection(state.history[state.history.length - 1]);
+    }
+  };
+});
+
+// Home Button
+document.getElementById("homeBtn").onclick = () => {
+  state.history = ["welcomeSection"];
+  showSection("welcomeSection");
 };
 
-let saved = JSON.parse(localStorage.getItem("wec_saved")) || {};
-let chart;
+// Stream Selection
+document.querySelectorAll(".stream-btn").forEach(btn => {
+  btn.onclick = () => {
+    state.stream = btn.dataset.stream;
+    loadDepartments();
+    showSection("departmentSection");
+  };
+});
 
-function show(id){
-  document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));
-  document.getElementById(id).classList.remove("hidden");
-  if(state.history[state.history.length-1]!==id) state.history.push(id);
-}
-
-function goBack(){
-  if(state.history.length>1){
-    state.history.pop();
-    show(state.history[state.history.length-1]);
-  }
-}
-
-function goHome(){
-  state.history=["stream"];
-  show("stream");
-}
-
-function selectStream(s){
-  state.stream=s;
-  loadDepartments();
-  show("department");
-}
-
-function loadDepartments(){
-  const list=document.getElementById("deptList");
-  list.innerHTML="";
-
-  const depts = state.stream==="engineering"
-    ? ["ISE","CSE","ECE","EEE","ME","AA"]
-    : ["BCOM"];
-
-  depts.forEach(d=>{
-    const b=document.createElement("button");
-    b.textContent=d;
-    b.onclick=()=>{state.dept=d; loadSem(); show("semester");};
+// Load Departments
+function loadDepartments() {
+  const list = document.getElementById("departmentList");
+  list.innerHTML = "";
+  const depts = state.stream === "engineering" 
+    ? ["ISE", "CSE", "ECE", "EEE", "ME"] 
+    : ["BCom_General", "BCom_CS"];
+  
+  depts.forEach(d => {
+    const b = document.createElement("button");
+    b.className = "grid-item-btn";
+    b.textContent = d.replace('_', ' ');
+    b.onclick = () => { 
+      state.dept = d; 
+      loadSemesters(); 
+      showSection("semesterSection"); 
+    };
     list.appendChild(b);
   });
 }
 
-function loadSem(){
-  const list=document.getElementById("semList");
-  list.innerHTML="";
-  const max=state.stream==="engineering"?8:6;
-  for(let i=1;i<=max;i++){
-    const b=document.createElement("button");
-    b.textContent="Semester "+i;
-    b.onclick=()=>{state.sem=i; loadSubjects();};
+// Load Semesters
+function loadSemesters() {
+  const list = document.getElementById("semesterList");
+  list.innerHTML = "";
+  const maxSem = state.stream === "engineering" ? 8 : 6;
+  for (let i = 1; i <= maxSem; i++) {
+    const b = document.createElement("button");
+    b.className = "grid-item-btn";
+    b.textContent = `Semester ${i}`;
+    b.onclick = () => { 
+      state.sem = i; 
+      loadSubjects(); 
+    };
     list.appendChild(b);
   }
 }
 
-function loadSubjects(){
-  const file=`data/${state.dept.toLowerCase()}_sem${state.sem}.json`;
-  fetch(file)
-  .then(r=>r.json())
-  .then(j=>{
-    state.subjects=j.subjects;
-    renderSubjects();
-    show("subjectsSection");
-  })
-  .catch(()=>alert("Subjects not found: "+file));
+// Load Subjects from JSON
+function loadSubjects() {
+  const deptName = state.dept.toLowerCase().replace(' ', '');
+  const path = `data/${deptName}_sem${state.sem}.json`;
+  fetch(path)
+    .then(r => r.json())
+    .then(data => {
+      state.subjects = data.subjects;
+      renderSubjects();
+      showSection("subjectsSection");
+    })
+    .catch(() => alert(`JSON file not found: ${path}`));
 }
 
-function renderSubjects(){
-  const c=document.getElementById("subjects");
-  c.innerHTML="";
-  state.subjects.forEach((s,i)=>{
-    const d=document.createElement("div");
-    d.className="subject";
-    d.innerHTML=`<b>${s.name}</b> (${s.credits})
-    <div class="grade">
-      ${["S","A","B","C","D","E","F"].map(g=>`<span onclick="setGrade(${i},'${g}',this)">${g}</span>`).join("")}
-    </div>`;
-    c.appendChild(d);
+// Render Subjects
+function renderSubjects() {
+  const container = document.getElementById("subjects");
+  container.innerHTML = "";
+  state.subjects.forEach((s, idx) => {
+    const div = document.createElement("div");
+    div.className = "subject-card";
+    div.innerHTML = `
+      <div><b>${s.name}</b> (${s.credits})</div>
+      <div class="grade-row">
+        ${['S','A','B','C','D','E','F'].map(g => 
+          `<div class="g-box" onclick="setGrade(${idx},'${g}',this)">${g}</div>`).join('')}
+      </div>`;
+    container.appendChild(div);
   });
 }
 
-function setGrade(i,g,el){
-  state.subjects[i].selected=g;
-  el.parentElement.querySelectorAll("span").forEach(x=>x.classList.remove("active"));
-  el.classList.add("active");
+// Set Grade
+function setGrade(i, g, el) {
+  state.subjects[i].selected = g;
+  el.parentElement.querySelectorAll('.g-box').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
 }
 
-function calculateGPA(){
-  const pts={S:10,A:9,B:8,C:7,D:6,E:5,F:0};
-  let sum=0,cred=0;
-  for(const s of state.subjects){
-    if(!s.selected){alert("Select all grades");return;}
-    sum+=pts[s.selected]*s.credits;
-    cred+=s.credits;
+// GPA Calculation
+document.getElementById("calculateGPA").onclick = () => {
+  const gradePoints = {S:10, A:9, B:8, C:7, D:6, E:5, F:0};
+  let totalPts = 0, totalCredits = 0;
+
+  for (let s of state.subjects) {
+    if (!s.selected) {
+      alert(`Please select grades for all subjects!`);
+      return;
+    }
+    totalPts += s.credits * gradePoints[s.selected];
+    totalCredits += s.credits;
   }
-  const gpa=(sum/cred).toFixed(2);
-  document.getElementById("gpa").textContent=gpa;
-  saved[`${state.dept}-Sem${state.sem}`]=gpa;
-  localStorage.setItem("wec_saved",JSON.stringify(saved));
-  show("result");
-}
 
-function saveSemester(){
-  alert("Semester saved successfully!");
-}
+  const gpa = (totalPts / totalCredits).toFixed(2);
+  document.getElementById("gpa").textContent = gpa;
+  showSection("resultSection");
+};
 
-function openGraph(){
-  show("graph");
-  const labels=Object.keys(saved);
-  const data=Object.values(saved);
-  if(!labels.length) return;
-
-  if(chart) chart.destroy();
-  chart=new Chart(document.getElementById("gpaChart"),{
-    type:"line",
-    data:{labels,datasets:[{data,label:"GPA",borderColor:"#4f46e5",tension:0.4}]},
-    options:{scales:{y:{min:0,max:10}}}
-  });
-}
-
-function convert(){
-  const v=parseFloat(document.getElementById("cgpaInput").value);
-  document.getElementById("percent").textContent=
-    isNaN(v)?"Invalid":`Percentage: ${(v*10).toFixed(1)}%`;
+// CGPA to Percentage
+function convertToPercentage() {
+  const val = parseFloat(document.getElementById("cgpaInput").value);
+  if (isNaN(val)) {
+    document.getElementById("percentResult").textContent = "Enter a valid CGPA!";
+    return;
+  }
+  const percent = (val * 10).toFixed(1);
+  document.getElementById("percentResult").innerHTML = `Percentage: <b>${percent}%</b>`;
 }
