@@ -3,65 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Official WEC CGPA Tracker</title>
-
-  <!-- CSS -->
+  <title>WEC CGPA Tracker</title>
   <link rel="stylesheet" href="style.css">
-
-  <!-- Google Font -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<!-- NAVBAR -->
-<nav class="top-nav">
-  <div class="logo">WEC Tracker</div>
-</nav>
-
-<!-- MAIN -->
-<main class="container">
-
-  <!-- HOME -->
-  <section id="home">
-    <h1>Official WEC CGPA Calculator</h1>
-    <p class="subtitle">Trusted academic tool for Women's Engineering College</p>
-
-    <button class="primary-btn" onclick="showSection('stream')">
-      Continue →
-    </button>
-
-    <!-- Grade Reference -->
-    <h2 class="section-title">Grade Point Reference</h2>
-
-    <div class="grade-grid">
-      <div class="grade s">S<br><span>Outstanding</span><b>10</b></div>
-      <div class="grade a">A<br><span>Excellent</span><b>9</b></div>
-      <div class="grade b">B<br><span>Very Good</span><b>8</b></div>
-      <div class="grade c">C<br><span>Good</span><b>7</b></div>
-      <div class="grade d">D<br><span>Above Avg</span><b>6</b></div>
-      <div class="grade e">E<br><span>Pass</span><b>5</b></div>
-      <div class="grade f">F<br><span>Fail</span><b>0</b></div>
+  <nav class="top-nav">
+    <div class="logo">WEC CGPA Tracker</div>
+    <div class="nav-icons">
+      <button onclick="showSection('welcome')">🏠 Home</button>
+      <button onclick="showSection('result')">📊 Graph</button>
     </div>
-  </section>
+  </nav>
 
-  <!-- STREAM -->
-  <section id="stream" class="hidden">
-    <h2>Select Stream</h2>
-    <div class="btn-group">
-      <button class="secondary-btn">Engineering</button>
-      <button class="secondary-btn">BCOM</button>
-    </div>
-  </section>
+  <main>
+    <!-- WELCOME -->
+    <section id="welcome">
+      <h1>Welcome to WEC CGPA Tracker</h1>
+      <p>Select your stream to start calculating GPA/CGPA</p>
+      <div class="buttons">
+        <button onclick="selectStream('Engineering')">Engineering</button>
+        <button onclick="selectStream('BCOM')">B.Com</button>
+      </div>
+    </section>
 
-</main>
+    <!-- DEPARTMENT -->
+    <section id="department" class="hidden">
+      <h2>Select Department</h2>
+      <div id="departmentButtons"></div>
+      <button class="back" onclick="showSection('welcome')">← Back</button>
+    </section>
 
-<!-- TEMP JS (only for section switching) -->
-<script>
-function showSection(id){
-  document.querySelectorAll("section").forEach(s => s.classList.add("hidden"));
-  document.getElementById(id).classList.remove("hidden");
-}
-</script>
+    <!-- SEMESTER -->
+    <section id="semester" class="hidden">
+      <h2>Select Semester</h2>
+      <div id="semesterButtons"></div>
+      <button class="back" onclick="selectStream(state.stream)">← Back</button>
+    </section>
 
+    <!-- SUBJECTS -->
+    <section id="subjects" class="hidden">
+      <h2 id="semesterTitle">Semester</h2>
+      <div id="subjectList"></div>
+      <button onclick="calculateGPA()" class="calculate-btn">Calculate GPA</button>
+      <button class="back" onclick="selectDepartment(state.department)">← Back</button>
+
+      <h3>Grade Points Reference</h3>
+      <div class="grade-grid">
+        <div class="grade s">S (10)</div>
+        <div class="grade a">A (9)</div>
+        <div class="grade b">B (8)</div>
+        <div class="grade c">C (7)</div>
+        <div class="grade d">D (6)</div>
+        <div class="grade e">E (5)</div>
+        <div class="grade f">F (0)</div>
+      </div>
+    </section>
+
+    <!-- RESULT -->
+    <section id="result" class="hidden">
+      <h2>GPA & CGPA</h2>
+      <p>Semester GPA: <b id="gpa">0.00</b></p>
+      <p>CGPA: <b id="cgpa">0.00</b></p>
+      <canvas id="chart" height="200"></canvas>
+
+      <h3>Convert CGPA to %</h3>
+      <input type="number" id="cgpaInput" placeholder="Enter CGPA">
+      <button onclick="convertToPercentage()">Convert</button>
+      <p id="percentResult"></p>
+
+      <button class="back" onclick="showSection('subjects')">← Back</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
