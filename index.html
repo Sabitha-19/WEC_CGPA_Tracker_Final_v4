@@ -1,48 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CGPA Tracker</title>
-  <link rel="stylesheet" href="./css/style.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js -->
+<meta charset="UTF-8">
+<title>CGPA Tracker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-  <div class="container">
-    <h1>CGPA Tracker</h1>
 
-    <!-- STREAM -->
+<div class="top-nav">
+  <strong>CGPA Tracker</strong>
+</div>
+
+<div class="container">
+
+  <!-- STREAM -->
+  <section id="screen-stream">
     <h3>Select Stream</h3>
-    <div class="grid">
-      <button class="grid-item" onclick="selectStream('engineering')">Engineering</button>
-      <button class="grid-item" onclick="selectStream('other')">Other</button>
+    <div class="grid-list">
+      <button class="grid-item-btn" onclick="selectStream('engineering')">Engineering</button>
+      <button class="grid-item-btn" onclick="selectStream('other')">Other</button>
     </div>
+  </section>
 
-    <!-- DEPARTMENT -->
+  <!-- DEPARTMENT -->
+  <section id="screen-dept" class="hidden">
+    <button class="back-btn" onclick="goBack()">← Back</button>
     <h3>Select Department</h3>
-    <div id="departmentBox" class="grid"></div>
+    <div class="grid-list" id="deptList"></div>
+  </section>
 
-    <!-- SEMESTER -->
+  <!-- SEMESTER -->
+  <section id="screen-sem" class="hidden">
+    <button class="back-btn" onclick="goBack()">← Back</button>
     <h3>Select Semester</h3>
-    <div id="semesterBox" class="grid"></div>
+    <div class="grid-list" id="semList"></div>
+  </section>
 
-    <!-- SUBJECTS -->
-    <div id="subjectsBox"></div>
+  <!-- SUBJECTS -->
+  <section id="screen-subjects" class="hidden">
+    <button class="back-btn" onclick="goBack()">← Back</button>
+    <h3 id="title"></h3>
+    <div id="subjects"></div>
+    <button class="next-btn" onclick="saveSemester()">Save Semester</button>
+  </section>
 
-    <button class="main-btn" onclick="saveSemester()">Save Semester</button>
-
-    <!-- RESULT -->
+  <!-- RESULT -->
+  <section id="screen-result" class="hidden">
     <h3>Your CGPA</h3>
-    <div id="cgpa" class="cgpa">0.00</div>
+    <div class="gpa-display" id="cgpa">0.00</div>
+    <canvas id="graph" height="200"></canvas>
+    <button class="main-btn" onclick="location.reload()">Start Again</button>
+  </section>
 
-    <!-- GRAPH -->
-    <h3>CGPA Graph</h3>
-    <canvas id="cgpaChart" width="400" height="200"></canvas>
+</div>
 
-    <button class="reset-btn" onclick="resetAll()">Start Again</button>
-  </div>
-
-  <script src="./js/script.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>
