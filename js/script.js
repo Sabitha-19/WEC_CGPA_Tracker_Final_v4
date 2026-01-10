@@ -159,3 +159,16 @@ function drawChart(labels,values){
     options:{ responsive:true, plugins:{legend:{display:false}}, scales:{y:{min:0,max:10}} }
   });
 }
+
+
+// Show any screen
+function showScreen(screenName){
+    const screens = document.querySelectorAll('.screen');
+    screens.forEach(s => s.classList.remove('active'));
+    document.getElementById(screenName).classList.add('active');
+}
+
+// Back navigation
+function goBack(prevScreen){
+    showScreen(prevScreen);
+}
