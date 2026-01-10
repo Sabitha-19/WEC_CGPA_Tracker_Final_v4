@@ -1,114 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>WEC CGPA Tracker</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="css/style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <title>WEC CGPA Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-<header class="app-header">
-  <h1>WEC CGPA Tracker</h1>
-</header>
+<header>WEC CGPA Tracker</header>
 
-<!-- START PAGE -->
-<section class="screen active" id="page-start">
-  <div class="card hero">
-    <h2>Official WEC CGPA Calculator</h2>
-    <p>Trusted academic tool for Women's Engineering College</p>
-    <button class="btn-primary" onclick="goTo('page-info')">
-      Get Started →
-    </button>
-  </div>
-</section>
+<!-- ---------- Start / Info Page ---------- -->
+<div id="startScreen" class="screen active">
+    <div class="card hero">
+        <h2>Official WEC CGPA Calculator</h2>
+        <p>Trusted academic tool for Women's Engineering College</p>
+        <button class="btn-sem" onclick="showScreen('infoScreen')">Get Started →</button>
+    </div>
+</div>
 
-<!-- INFO PAGE -->
-<section class="screen" id="page-info">
-  <div class="card">
-    <h3>What is CGPA?</h3>
-    <p>CGPA is the average of grade points obtained across all semesters.</p>
-  </div>
+<div id="infoScreen" class="screen">
+    <div class="card">
+        <h3>What is CGPA?</h3>
+        <p>CGPA (Cumulative Grade Point Average) is the average of your grade points across all semesters.</p>
+    </div>
 
-  <div class="card">
-    <h3>How to Boost CGPA?</h3>
-    <ul>
-      <li>Focus on high-credit subjects</li>
-      <li>Improve weak grades</li>
-      <li>Maintain consistency</li>
-    </ul>
-  </div>
+    <div class="card">
+        <h3>How to Boost CGPA?</h3>
+        <ul>
+            <li>Focus on high-credit subjects</li>
+            <li>Improve weak grades</li>
+            <li>Maintain consistency every semester</li>
+        </ul>
+    </div>
 
-  <div class="card formula">
-    <h3>Formula</h3>
-    <p>CGPA = Σ(Credit × Grade Point) / Σ Credits</p>
-  </div>
+    <div class="card">
+        <h3>Grade Point Reference</h3>
+        <div class="grid grade-grid">
+            <div class="grade-card">S<br><span>Outstanding</span><b>10</b></div>
+            <div class="grade-card">A<br><span>Excellent</span><b>9</b></div>
+            <div class="grade-card">B<br><span>Very Good</span><b>8</b></div>
+            <div class="grade-card">C<br><span>Good</span><b>7</b></div>
+            <div class="grade-card">D<br><span>Above Avg</span><b>6</b></div>
+            <div class="grade-card">E<br><span>Pass</span><b>5</b></div>
+            <div class="grade-card fail">F<br><span>Fail</span><b>0</b></div>
+        </div>
+    </div>
 
-  <button class="btn-primary" onclick="goTo('page-stream')">
-    Continue →
-  </button>
-</section>
+    <button class="btn-sem" onclick="showScreen('semesterScreen')">Continue →</button>
+    <button class="btn-back" onclick="showScreen('startScreen')">← Back</button>
+</div>
 
-<!-- STREAM -->
-<section class="screen" id="page-stream">
-  <h2>Select Stream</h2>
-  <div class="grid">
-    <div class="card option purple" onclick="selectStream('engineering')">Engineering</div>
-    <div class="card option purple" onclick="selectStream('bcom')">B.Com</div>
-  </div>
-</section>
+<!-- ---------- Semester / Department / Subjects / Result Screens ---------- -->
+<div id="semesterScreen" class="screen">
+    <h2>Select Department</h2>
+    <div id="departmentContainer"></div>
+</div>
 
-<!-- DEPARTMENT -->
-<section class="screen" id="page-dept">
-  <h2>Select Department</h2>
-  <div class="grid" id="deptList"></div>
-</section>
+<div id="semestersScreen" class="screen">
+    <h2>Select Semester</h2>
+    <div id="semesterContainer"></div>
+    <button class="btn-back" onclick="goBack('semesterScreen')">← Back</button>
+</div>
 
-<!-- SEMESTER -->
-<section class="screen" id="page-sem">
-  <h2>Select Semester</h2>
-  <div class="grid" id="semList"></div>
-</section>
+<div id="subjectsScreen" class="screen">
+    <h2>Enter Grades</h2>
+    <div id="subjectContainer"></div>
+    <button class="btn-back" onclick="goBack('semestersScreen')">← Back</button>
+    <button onclick="calculateCGPA()">Calculate CGPA</button>
+</div>
 
-<!-- GRADES -->
-<section class="screen" id="page-grades">
-  <h2>Enter Grades</h2>
-  <div id="subjectList"></div>
-  <button class="btn-primary" onclick="calculateGPA()">Save Semester</button>
-  <button class="btn-secondary" onclick="goBack()">Back</button>
-</section>
-
-<!-- RESULT -->
-<section class="screen" id="page-result">
-  <div class="card">
-    <h3 id="gpaText"></h3>
-    <h3 id="cgpaText"></h3>
-    <h3 id="percentText"></h3>
-  </div>
-
-  <div class="card">
-    <canvas id="gpaChart"></canvas>
-  </div>
-
-  <button class="btn-primary" onclick="editSemester()">Edit Semester</button>
-  <button class="btn-secondary" onclick="goBack()">Back</button>
-</section>
-
-<!-- GRADE REFERENCE -->
-<section class="screen" id="page-grades-ref">
-  <h2>Grade Point Reference</h2>
-  <div class="grid grade-grid">
-    <div class="grade-card">S<br><span>Outstanding</span><b>10</b></div>
-    <div class="grade-card">A<br><span>Excellent</span><b>9</b></div>
-    <div class="grade-card">B<br><span>Very Good</span><b>8</b></div>
-    <div class="grade-card">C<br><span>Good</span><b>7</b></div>
-    <div class="grade-card">D<br><span>Above Avg</span><b>6</b></div>
-    <div class="grade-card">E<br><span>Pass</span><b>5</b></div>
-    <div class="grade-card fail">F<br><span>Fail</span><b>0</b></div>
-  </div>
-  <button class="btn-primary" onclick="goTo('page-grades')">Enter Grades →</button>
-</section>
+<div id="resultScreen" class="screen">
+    <h2>Result & Semester Comparison</h2>
+    <div id="resultContainer"></div>
+    <canvas id="chartCGPA"></canvas>
+    <button class="btn-back" onclick="goBack('subjectsScreen')">← Back</button>
+</div>
 
 <script src="js/script.js"></script>
 </body>
