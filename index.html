@@ -20,6 +20,7 @@
 </nav>
 
 <main class="container">
+  <!-- Welcome Section -->
   <section id="welcomeSection">
     <header class="hero">
       <h1>Official WEC CGPA Calculator</h1>
@@ -49,6 +50,7 @@
     <button class="next-btn" onclick="showSection('streamSection')">Continue to Select Stream →</button>
   </section>
 
+  <!-- Stream Section -->
   <section id="streamSection" class="hidden">
     <button class="back-btn">← Back</button>
     <h2>Choose Your Stream</h2>
@@ -58,18 +60,21 @@
     </div>
   </section>
 
+  <!-- Department Section -->
   <section id="departmentSection" class="hidden">
     <button class="back-btn">← Back</button>
     <h2>Select Department</h2>
     <div id="departmentList" class="grid-list"></div>
   </section>
 
+  <!-- Semester Section -->
   <section id="semesterSection" class="hidden">
     <button class="back-btn">← Back</button>
     <h2>Select Semester</h2>
     <div id="semesterList" class="grid-list"></div>
   </section>
 
+  <!-- Subjects Section -->
   <section id="subjectsSection" class="hidden">
     <button class="back-btn">← Back</button>
     <h2 id="semHeader">Enter Grades</h2>
@@ -77,6 +82,7 @@
     <button id="calculateGPA" class="action-btn">Calculate GPA</button>
   </section>
 
+  <!-- Result Section -->
   <section id="resultSection" class="hidden">
     <div class="result-card">
       <h3>Your GPA</h3>
