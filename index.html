@@ -3,60 +3,114 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WEC CGPA Tracker</title>
+  <title>Official WEC CGPA Tracker</title>
   <link rel="stylesheet" href="css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<h1>WEC CGPA Tracker</h1>
-<p>Academic Performance Calculator</p>
+<nav class="top-nav">
+  <div class="logo">WEC Tracker</div>
+  <div class="nav-icons">
+    <button id="homeBtn" title="Home">🏠</button>
+    <button id="graphBtn" title="Stats">📊</button>
+    <button id="saveBtn" title="Save">💾</button>
+  </div>
+</nav>
 
-<!-- Navigation Icons -->
-<div class="nav-icons">
-  <button id="homeBtn">🏠</button>
-  <button id="graphBtn">📊</button>
-  <button id="saveBtn">💾</button>
-</div>
+<main class="container">
+  <section id="welcomeSection">
+    <header class="hero">
+      <h1>Official WEC CGPA Calculator</h1>
+      <p class="subtitle">Trusted academic tool for Women's Engineering College (PV, WWE, and POZY).</p>
+      <div class="badge-row">
+        <span class="badge">✔ 100% Accurate</span>
+        <span class="badge">✔ Privacy Focused</span>
+        <span class="badge">✔ R2020 & NEP 2024</span>
+      </div>
+    </header>
 
-<!-- Stream selection -->
-<section id="streamSection">
-  <h2>Select Stream</h2>
-  <button class="stream-btn" data-stream="engineering">Engineering</button>
-  <button class="stream-btn" data-stream="bcom">B.Com</button>
-</section>
+    <div class="action-card">
+      <h3>Calculate Now</h3>
+      <p>Select your stream to begin</p>
+      <div class="button-group">
+        <button class="stream-btn primary" data-stream="engineering">Engineering</button>
+        <button class="stream-btn secondary" data-stream="bcom">B.Com</button>
+      </div>
+    </div>
 
-<!-- Department selection -->
-<section id="departmentSection" class="hidden">
-  <h2>Select Department</h2>
-  <div id="departmentList"></div>
-</section>
+    <div class="strategy-section">
+      <h2>How to Boost Your CGPA?</h2>
+      <div class="card">
+        <h4>⚡ The "Credit-Weight" Hack</h4>
+        <p>Not all subjects are equal. A <strong>4-Credit Subject</strong> impacts your CGPA twice as much as a 2-credit course.</p>
+        <p class="tip"><strong>Strategy:</strong> Prioritize high-credit subjects. Scoring an 'S' grade here can lift your average by 0.2 to 0.4 points.</p>
+      </div>
+      <div class="card">
+        <h4>🛡️ The "Internal Marks" Buffer</h4>
+        <p>Internals constitute 40% of your grade. Securing 35+/40 means you only need average marks in finals for an 'A'.</p>
+        <p class="tip"><strong>Strategy:</strong> Never miss assignments; they build your safety buffer.</p>
+      </div>
+    </div>
 
-<!-- Semester selection -->
-<section id="semesterSection" class="hidden">
-  <h2>Select Semester</h2>
-  <div id="semesterList"></div>
-</section>
+    <section class="faq">
+      <h2>Frequently Asked Questions</h2>
+      <details>
+        <summary>Is this updated for NEP 2024?</summary>
+        <p>Yes, the calculator includes the latest framework weightage for the new NEP 2024 regulations.</p>
+      </details>
+      <details>
+        <summary>Where is my data stored?</summary>
+        <p>Your data is stored locally on your device (LocalStorage). We do not collect or see your grades.</p>
+      </details>
+    </section>
+  </section>
 
-<!-- Subjects -->
-<section id="subjectsSection" class="hidden">
-  <h2>Subjects</h2>
-  <div id="subjects"></div>
-  <button id="calculateGPA">Calculate GPA</button>
-</section>
+  <section id="departmentSection" class="hidden">
+    <button class="back-link">← Back</button>
+    <h2>Select Department</h2>
+    <div id="departmentList" class="grid-list"></div>
+  </section>
 
-<!-- Result -->
-<section id="resultSection" class="hidden">
-  <h2>Result</h2>
-  <p>Total Credits: <span id="totalCredits">0</span></p>
-  <p>GPA: <span id="gpa">0.00</span></p>
-</section>
+  <section id="semesterSection" class="hidden">
+    <button class="back-link">← Back</button>
+    <h2>Select Semester</h2>
+    <div id="semesterList" class="grid-list"></div>
+  </section>
 
-<!-- Graph -->
-<section id="graphSection" class="hidden">
-  <h2>Semester GPA Graph</h2>
-  <canvas id="gpaChart" width="400" height="200"></canvas>
-</section>
+  <section id="subjectsSection" class="hidden">
+    <button class="back-link">← Back</button>
+    <h2 id="currentSemTitle">Subjects</h2>
+    <div id="subjects"></div>
+    <button id="calculateGPA" class="calc-btn">Calculate Semester GPA</button>
+  </section>
+
+  <section id="resultSection" class="hidden">
+    <div class="result-card">
+      <h3>Calculation Complete</h3>
+      <div class="gpa-display">
+        <span id="gpa">0.00</span>
+        <label>GPA</label>
+      </div>
+      <p>Total Credits: <b id="totalCredits">0</b></p>
+      <hr>
+      <h4>CGPA to Percentage</h4>
+      <div class="converter">
+        <input type="number" id="cgpaInput" placeholder="Enter CGPA">
+        <button onclick="convertToPercentage()">Convert</button>
+        <p id="percentResult"></p>
+      </div>
+      <button onclick="saveSemester()" class="save-btn">Save to Dashboard</button>
+    </div>
+  </section>
+
+  <section id="graphSection" class="hidden">
+    <button class="back-link">← Back</button>
+    <h2>Performance Analytics</h2>
+    <canvas id="gpaChart"></canvas>
+  </section>
+</main>
 
 <script src="js/script.js"></script>
 </body>
