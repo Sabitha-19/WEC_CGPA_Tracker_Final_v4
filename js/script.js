@@ -1,42 +1,54 @@
 const gradePoints={S:10,A:9,B:8,C:7,D:6,E:5,F:0};
 
  
-
 const departments={engineering:["CSE","ISE","ECE","EEE","AA"],bcom:["BCOM"]};
 
 let state={stream:null,dept:null,sem:null,grades:{},gpaHistory:Array(8).fill(null)};
 let chart;
 
+// Show one section at a time
 function showSection(id){
   document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));
   document.getElementById(id).classList.remove("hidden");
 }
 
-function selectStream(s){
+// Stream selection
+function selectStream(s, e){
   state.stream=s;
+  document.querySelectorAll("#streamBtns button").forEach(btn=>btn.classList.remove("active"));
+  e.target.classList.add("active");
+
   const d=document.getElementById("deptList"); d.innerHTML="";
   departments[s].forEach(dep=>{
     const btn=document.createElement("button");
-    btn.textContent=dep; btn.onclick=()=>selectDept(dep);
+    btn.textContent=dep; btn.onclick=(ev)=>selectDept(dep, ev);
     d.appendChild(btn);
   });
   showSection("departmentSection");
 }
 
-function selectDept(dep){
+// Department selection
+function selectDept(dep, e){
   state.dept=dep;
+  document.querySelectorAll("#deptList button").forEach(btn=>btn.classList.remove("active"));
+  e.target.classList.add("active");
+
   const s=document.getElementById("semList"); s.innerHTML="";
   let maxSem=(state.stream=="engineering")?8:6;
   for(let i=1;i<=maxSem;i++){
     const btn=document.createElement("button");
-    btn.textContent="Semester "+i; btn.onclick=()=>selectSem(i);
+    btn.textContent="Semester "+i; btn.onclick=(ev)=>selectSem(i, ev);
     s.appendChild(btn);
   }
   showSection("semesterSection");
 }
 
-function selectSem(sem){
+// Semester selection
+function selectSem(sem, e){
   state.sem=sem; state.grades={};
+  document.querySelectorAll("#semList button").forEach(btn=>btn.classList.remove("active"));
+  e.target.classList.add("active");
+
   const list=document.getElementById("subjectList"); list.innerHTML="";
   document.getElementById("semTitle").textContent="Semester "+sem;
 
@@ -55,6 +67,7 @@ function selectSem(sem){
   showSection("subjectsSection");
 }
 
+// GPA Calculation
 function calculateGPA(){
   let subArray=subjectsData[state.stream][state.sem]||[];
   if(state.dept=="AA") subArray=subjectsData.aa[state.sem]||[];
@@ -72,24 +85,27 @@ function calculateGPA(){
   showSection("resultSection");
 }
 
+// CGPA
 function calcCGPA(){
   const v=state.gpaHistory.filter(x=>x!=null);
   if(v.length===0) return "0.00";
   return (v.reduce((a,b)=>a+b,0)/v.length).toFixed(2);
 }
 
+// Chart
 function drawChart(){
   if(chart) chart.destroy();
   chart=new Chart(document.getElementById("chart"),{
     type:"line",
     data:{
       labels:state.gpaHistory.map((_,i)=>`Sem ${i+1}`),
-      datasets:[{data:state.gpaHistory,borderColor:"#7c3aed",fill:false,borderWidth:3}]
+      datasets:[{data:state.gpaHistory,borderColor:"#7c3aed",fill:false,borderWidth:3, tension:0.4}]
     },
     options:{scales:{y:{min:0,max:10}}}
   });
 }
 
+// CGPA to %
 function convertToPercentage(){
   const val=parseFloat(document.getElementById("cgpaInput").value);
   if(isNaN(val)){document.getElementById("percentResult").textContent="Enter valid CGPA"; return;}
