@@ -1,0 +1,11 @@
+{
+  "department": "AA",
+  "semester": 8,
+  "subjects": [
+    { "code": "SWA3XX", "name": "Open elective through SWAYAM", "credits": 2 },
+    { "code": "SWA3XX", "name": "Open elective through SWAYAM", "credits": 2 },
+    { "code": "AAA132", "name": "Comprehensive test", "credits": 1 },
+    { "code": "AAA133", "name": "Internship", "credits": 2 },
+    { "code": "AAA134", "name": "Project Work", "credits": 8 }
+  ]
+}
