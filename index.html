@@ -3,132 +3,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WEC CGPA Tracker - Grade Reference</title>
-<!-- Google Font -->
+<title>WEC CGPA Tracker</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-  /* General Body */
-  body {
-    font-family: 'Poppins', sans-serif;
-    background: #f9f9f9;
-    margin: 0;
-    padding: 20px;
-    color: #333;
-  }
-
-  h1 {
-    text-align: center;
-    font-weight: 700;
-    margin-bottom: 10px;
-  }
-
-  h2 {
-    text-align: center;
-    font-weight: 500;
-    margin-bottom: 30px;
-    color: #555;
-  }
-
-  /* Cube Grid */
-  .cube-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  /* Cubes */
-  .cube {
-    border-radius: 12px;
-    padding: 25px 15px;
-    text-align: center;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-    cursor: default;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-
-  .cube:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.12);
-  }
-
-  .cube .grade {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-  }
-
-  .cube .desc {
-    font-size: 1rem;
-    margin-bottom: 5px;
-    color: #555;
-  }
-
-  .cube .points {
-    font-size: 1.2rem;
-    font-weight: 600;
-  }
-
-  /* Pastel Colors */
-  .S { background: linear-gradient(135deg, #d0f0c0, #a8e6cf); color: #2f7a44; }
-  .A { background: linear-gradient(135deg, #e0f7fa, #b2ebf2); color: #007c91; }
-  .B { background: linear-gradient(135deg, #e3f2fd, #bbdefb); color: #1a3c91; }
-  .C { background: linear-gradient(135deg, #f3e5f5, #e1bee7); color: #4a2b80; }
-  .D { background: linear-gradient(135deg, #fce4ec, #f8bbd0); color: #9c27b0; }
-  .E { background: linear-gradient(135deg, #fffde7, #fff9c4); color: #f9a825; }
-  .F { background: linear-gradient(135deg, #ffebee, #ffcdd2); color: #c62828; }
-
-  /* Responsive Text */
-  @media(max-width: 500px){
-    .cube .grade { font-size: 2rem; }
-    .cube .desc { font-size: 0.9rem; }
-    .cube .points { font-size: 1rem; }
-  }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>Official WEC CGPA Tracker</h1>
-<h2>Grade Point Reference</h2>
+<div class="container">
 
-<div class="cube-container">
-  <div class="cube S">
-    <div class="grade">S</div>
-    <div class="desc">Outstanding</div>
-    <div class="points">10 Pts</div>
+  <!-- Stream Selection -->
+  <div id="streamPage" class="page">
+    <h1>Select Stream</h1>
+    <div class="grid">
+      <div class="cube pastel" onclick="selectStream('engineering')">Engineering</div>
+      <div class="cube pastel" onclick="selectStream('bcom')">BCOM</div>
+    </div>
   </div>
-  <div class="cube A">
-    <div class="grade">A</div>
-    <div class="desc">Excellent</div>
-    <div class="points">9 Pts</div>
+
+  <!-- Department Selection -->
+  <div id="departmentPage" class="page" style="display:none;">
+    <h1>Select Department</h1>
+    <div class="grid" id="departmentsContainer"></div>
+    <button class="backBtn" onclick="goBack('stream')">← Back</button>
   </div>
-  <div class="cube B">
-    <div class="grade">B</div>
-    <div class="desc">Very Good</div>
-    <div class="points">8 Pts</div>
+
+  <!-- Semester Selection -->
+  <div id="semesterPage" class="page" style="display:none;">
+    <h1>Select Semester</h1>
+    <div class="grid" id="semesterContainer"></div>
+    <button class="backBtn" onclick="goBack('department')">← Back</button>
   </div>
-  <div class="cube C">
-    <div class="grade">C</div>
-    <div class="desc">Good</div>
-    <div class="points">7 Pts</div>
+
+  <!-- Grade Reference -->
+  <div id="gradePage" class="page" style="display:none;">
+    <h1>Grade Point Reference</h1>
+    <div class="grid">
+      <div class="cube pastel" style="background:#d0f0c0; color:#2f7a44;">S<br>Outstanding<br>10 Pts</div>
+      <div class="cube pastel" style="background:#c6e2ff; color:#004080;">A<br>Excellent<br>9 Pts</div>
+      <div class="cube pastel" style="background:#d9b3ff; color:#4a2b80;">B<br>Very Good<br>8 Pts</div>
+      <div class="cube pastel" style="background:#e0e0ff; color:#3f3fff;">C<br>Good<br>7 Pts</div>
+      <div class="cube pastel" style="background:#fff0b3; color:#b75e2b;">D<br>Above Avg<br>6 Pts</div>
+      <div class="cube pastel" style="background:#ffe6e6; color:#b30000;">E<br>Pass<br>5 Pts</div>
+      <div class="cube pastel" style="background:#ffd9d9; color:#800000;">F<br>Fail<br>0 Pts</div>
+    </div>
+    <button class="backBtn" onclick="goBack('semester')">← Back</button>
   </div>
-  <div class="cube D">
-    <div class="grade">D</div>
-    <div class="desc">Above Avg</div>
-    <div class="points">6 Pts</div>
-  </div>
-  <div class="cube E">
-    <div class="grade">E</div>
-    <div class="desc">Pass</div>
-    <div class="points">5 Pts</div>
-  </div>
-  <div class="cube F">
-    <div class="grade">F</div>
-    <div class="desc">Fail</div>
-    <div class="points">0 Pts</div>
-  </div>
+
 </div>
 
+<script src="script.js"></script>
 </body>
 </html>
