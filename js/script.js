@@ -6,13 +6,52 @@ function goTo(id){
   const active = document.querySelector(".screen.active");
   if(active) screenHistory.push(active.id);
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
+  const newScreen = document.getElementById(id);
+  newScreen.classList.add("active");
+
+  renderNavButton(newScreen);
 }
+
 function goBack(){
   if(screenHistory.length===0) return;
   const prev = screenHistory.pop();
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-  document.getElementById(prev).classList.add("active");
+  const newScreen = document.getElementById(prev);
+  newScreen.classList.add("active");
+
+  renderNavButton(newScreen);
+}
+
+/* --- DYNAMIC NAV BUTTON --- */
+function renderNavButton(screen){
+  // Remove any existing nav button
+  const existing = screen.querySelector(".nav-btn");
+  if(existing) existing.remove();
+
+  // Don't show back button on start page
+  if(screen.id === "page-start") return;
+
+  // Create nav button container
+  const navBtn = document.createElement("div");
+  navBtn.className = "nav-btn";
+
+  // Back button
+  const backBtn = document.createElement("button");
+  backBtn.className = "btn-secondary";
+  backBtn.innerText = "← Back";
+  backBtn.onclick = goBack;
+  navBtn.appendChild(backBtn);
+
+  // Edit button (only show on result page)
+  if(screen.id === "page-result"){
+    const editBtn = document.createElement("button");
+    editBtn.className = "btn-primary";
+    editBtn.innerText = "Edit Semester";
+    editBtn.onclick = editSemester;
+    navBtn.appendChild(editBtn);
+  }
+
+  screen.appendChild(navBtn);
 }
 
 /* --- STREAM --- */
@@ -116,7 +155,7 @@ let chart;
 function drawChart(labels,values){
   const ctx=document.getElementById("gpaChart");
   if(chart) chart.destroy();
-  chart=new Chart(ctx,{ type:"line", data:{ labels, datasets:[{data:values, fill:true, tension:0.4}] },
+  chart=new Chart(ctx,{ type:"line", data:{ labels, datasets:[{data:values, fill:true, tension:0.4, backgroundColor:'rgba(138,43,226,0.2)', borderColor:'#8a2be2'}] },
     options:{ responsive:true, plugins:{legend:{display:false}}, scales:{y:{min:0,max:10}} }
   });
 }
