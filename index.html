@@ -4,10 +4,9 @@
   <meta charset="UTF-8" />
   <title>WEC CGPA Tracker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/style.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
 <body>
 
 <header class="app-header">
@@ -27,8 +26,6 @@
 
 <!-- INFO PAGE -->
 <section class="screen" id="page-info">
-  <button class="btn-back" onclick="goBack()">← Back</button>
-
   <div class="card">
     <h3>What is CGPA?</h3>
     <p>CGPA is the average of grade points obtained across all semesters.</p>
@@ -55,69 +52,35 @@
 
 <!-- STREAM -->
 <section class="screen" id="page-stream">
-  <button class="btn-back" onclick="goBack()">← Back</button>
   <h2>Select Stream</h2>
-
   <div class="grid">
-    <div class="card option purple" onclick="selectStream('engineering')">
-      Engineering
-    </div>
-    <div class="card option purple" onclick="selectStream('bcom')">
-      B.Com
-    </div>
+    <div class="card option purple" onclick="selectStream('engineering')">Engineering</div>
+    <div class="card option purple" onclick="selectStream('bcom')">B.Com</div>
   </div>
 </section>
 
 <!-- DEPARTMENT -->
 <section class="screen" id="page-dept">
-  <button class="btn-back" onclick="goBack()">← Back</button>
   <h2>Select Department</h2>
   <div class="grid" id="deptList"></div>
 </section>
 
 <!-- SEMESTER -->
 <section class="screen" id="page-sem">
-  <button class="btn-back" onclick="goBack()">← Back</button>
   <h2>Select Semester</h2>
   <div class="grid" id="semList"></div>
 </section>
 
-<!-- GRADE POINT REFERENCE -->
-<section class="screen" id="page-grades-ref">
-  <button class="btn-back" onclick="goBack()">← Back</button>
-  <h2>Grade Point Reference</h2>
-
-  <div class="grid grade-grid">
-    <div class="grade-card">S<br><span>Outstanding</span><b>10</b></div>
-    <div class="grade-card">A<br><span>Excellent</span><b>9</b></div>
-    <div class="grade-card">B<br><span>Very Good</span><b>8</b></div>
-    <div class="grade-card">C<br><span>Good</span><b>7</b></div>
-    <div class="grade-card">D<br><span>Above Avg</span><b>6</b></div>
-    <div class="grade-card">E<br><span>Pass</span><b>5</b></div>
-    <div class="grade-card fail">F<br><span>Fail</span><b>0</b></div>
-  </div>
-
-  <button class="btn-primary" onclick="goTo('page-grades')">
-    Continue →
-  </button>
-</section>
-
-<!-- ENTER GRADES -->
+<!-- GRADES -->
 <section class="screen" id="page-grades">
-  <button class="btn-back" onclick="goBack()">← Back</button>
   <h2>Enter Grades</h2>
-
   <div id="subjectList"></div>
-
-  <button class="btn-primary" onclick="calculateGPA()">
-    Save Semester
-  </button>
+  <button class="btn-primary" onclick="calculateGPA()">Save Semester</button>
+  <button class="btn-secondary" onclick="goBack()">Back</button>
 </section>
 
 <!-- RESULT -->
 <section class="screen" id="page-result">
-  <button class="btn-back" onclick="goBack()">← Back</button>
-
   <div class="card">
     <h3 id="gpaText"></h3>
     <h3 id="cgpaText"></h3>
@@ -128,11 +91,25 @@
     <canvas id="gpaChart"></canvas>
   </div>
 
-  <button class="btn-primary" onclick="editSemester()">
-    Edit Semester
-  </button>
+  <button class="btn-primary" onclick="editSemester()">Edit Semester</button>
+  <button class="btn-secondary" onclick="goBack()">Back</button>
 </section>
 
-<script src="script.js"></script>
+<!-- GRADE REFERENCE -->
+<section class="screen" id="page-grades-ref">
+  <h2>Grade Point Reference</h2>
+  <div class="grid grade-grid">
+    <div class="grade-card">S<br><span>Outstanding</span><b>10</b></div>
+    <div class="grade-card">A<br><span>Excellent</span><b>9</b></div>
+    <div class="grade-card">B<br><span>Very Good</span><b>8</b></div>
+    <div class="grade-card">C<br><span>Good</span><b>7</b></div>
+    <div class="grade-card">D<br><span>Above Avg</span><b>6</b></div>
+    <div class="grade-card">E<br><span>Pass</span><b>5</b></div>
+    <div class="grade-card fail">F<br><span>Fail</span><b>0</b></div>
+  </div>
+  <button class="btn-primary" onclick="goTo('page-grades')">Enter Grades →</button>
+</section>
+
+<script src="js/script.js"></script>
 </body>
 </html>
