@@ -1,100 +1,136 @@
-:root {
-  --primary: #6d28d9;
-  --bg: #f8fafc;
-}
-
+/* ----- GENERAL ----- */
 body {
-  font-family: 'Poppins', sans-serif;
-  background: var(--bg);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9f9f9;
   margin: 0;
-  padding-top: 70px;
-}
-
-.top-nav {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 60px;
-  background: white;
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  padding: 20px;
+  color: #1f2937;
 }
 
 .container {
-  max-width: 500px;
+  max-width: 600px;
   margin: auto;
-  padding: 15px;
-}
-
-.grid-list {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin-bottom: 15px;
-}
-
-.grid-item-btn {
-  background: white;
-  border: 1px solid #e5e7eb;
-  padding: 18px;
-  border-radius: 16px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.subject-card {
-  background: white;
-  padding: 15px;
+  padding: 20px;
+  background: #ffffff;
   border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+h1, h3 {
+  font-family: 'Cursive', sans-serif;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+/* ----- BUTTONS ----- */
+button {
+  padding: 8px 14px;
+  margin: 5px;
+  border: 2px solid #4f46e5;
+  background: #fff;
+  color: #4f46e5;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+button:hover {
+  background: #4f46e5;
+  color: #fff;
+}
+
+button.active {
+  background: #4f46e5;
+  color: #fff;
+  border: 2px solid #4f46e5;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   margin-bottom: 15px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.grid-item {
+  flex: 1 1 30%;
+  text-align: center;
+}
+
+/* ----- SUBJECTS & GRADES ----- */
+.subject {
+  margin-bottom: 15px;
+  padding: 8px;
+  background: #f1f5f9;
+  border-radius: 8px;
 }
 
 .grade-row {
   display: flex;
-  gap: 6px;
-  margin-top: 10px;
+  justify-content: space-around;
+  margin-top: 8px;
 }
 
 .g-box {
-  flex: 1;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
   text-align: center;
-  padding: 10px;
-  border-radius: 12px;
-  background: #f1f5f9;
+  border: 1px solid #4f46e5;
+  border-radius: 4px;
   cursor: pointer;
-  font-weight: 700;
+  user-select: none;
+  transition: 0.2s;
+}
+
+.g-box:hover {
+  background: #c7d2fe;
 }
 
 .g-box.active {
-  background: var(--primary);
-  color: white;
+  background: #4f46e5;
+  color: #fff;
 }
 
-.next-btn,
-.action-btn {
-  width: 100%;
-  padding: 15px;
-  border: none;
-  border-radius: 12px;
-  background: var(--primary);
-  color: white;
-  font-weight: 700;
-  margin-top: 10px;
-}
-
-.gpa-display {
-  font-size: 3rem;
-  font-weight: 800;
-  color: var(--primary);
+/* ----- CGPA DISPLAY ----- */
+.cgpa {
+  font-size: 32px;
+  font-weight: bold;
   text-align: center;
+  margin: 10px 0 20px 0;
+  color: #4f46e5;
 }
 
-.result-card {
-  background: white;
-  padding: 20px;
-  border-radius: 15px;
-  margin-top: 20px;
+/* ----- MAIN BUTTONS ----- */
+.main-btn, .reset-btn {
+  display: block;
+  margin: 15px auto;
+  width: 120px;
+}
+
+/* ----- CHART ----- */
+canvas {
+  display: block;
+  margin: 20px auto;
+  max-width: 100%;
+  background: #f1f5f9;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* ----- RESPONSIVE ----- */
+@media screen and (max-width: 480px) {
+  .grid-item {
+    flex: 1 1 45%;
+  }
+
+  .g-box {
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+  }
 }
