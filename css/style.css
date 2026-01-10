@@ -1,57 +1,28 @@
-:root {
-  --primary: #4f46e5;
-  --bg: #fdfdfd;
-  --card-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
-
-body {
-  font-family: 'Poppins', sans-serif;
-  background-color: var(--bg);
-  margin: 0; padding-top: 70px; /* Space for nav */
-}
-
-.top-nav {
-  position: fixed; top: 0; width: 100%; height: 60px;
-  background: white; display: flex; justify-content: space-between;
-  align-items: center; padding: 0 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  box-sizing: border-box; z-index: 1000;
-}
-
+:root { --primary: #4f46e5; --bg: #fdfdfd; }
+body { font-family: 'Poppins', sans-serif; background-color: var(--bg); margin: 0; padding-top: 70px; }
+.top-nav { position: fixed; top: 0; width: 100%; height: 60px; background: white; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); box-sizing: border-box; z-index: 1000; }
 .container { padding: 15px; max-width: 500px; margin: auto; }
-
-.hero { text-align: center; margin-bottom: 25px; }
-.badge { background: #e0e7ff; color: #4338ca; padding: 5px 12px; border-radius: 20px; font-size: 12px; margin: 0 5px; }
-
-.card { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: var(--card-shadow); }
-.strategy-tip { border-left: 4px solid #10b981; padding-left: 10px; font-size: 0.9rem; color: #065f46; }
-
-/* Grade Legend Styles matching your Photo */
-.grade-grid-display { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-.grade-box { padding: 15px; border-radius: 12px; text-align: center; display: flex; flex-direction: column; }
-.grade-box span { font-size: 1.5rem; font-weight: bold; }
-.grade-box small { text-transform: uppercase; font-size: 10px; letter-spacing: 1px; }
-
-.s-grade { background: #f0fdf4; color: #166534; }
-.a-grade { background: #f0fdfa; color: #115e59; }
-.b-grade { background: #eff6ff; color: #1e40af; }
-.c-grade { background: #f5f3ff; color: #5b21b6; }
-.d-grade { background: #faf5ff; color: #6b21a8; }
-.e-grade { background: #fffbeb; color: #92400e; }
-.f-grade { background: #fef2f2; color: #991b1b; }
-
-.grid-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .hidden { display: none; }
 
-button { border: none; border-radius: 8px; cursor: pointer; transition: 0.2s; }
-.main-btn { background: var(--primary); color: white; width: 100%; padding: 15px; font-weight: bold; margin-bottom: 10px; }
-.sub-btn { background: #e2e8f0; width: 100%; padding: 12px; }
+/* Cube Boxes */
+.grade-grid-display { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0; }
+.grade-cube { aspect-ratio: 1/1; display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+.grade-cube span { font-size: 2rem; font-weight: 700; }
+.s-grade { background: #E8F5E9; color: #2E7D32; }
+.a-grade { background: #E0F2F1; color: #00695C; }
+.b-grade { background: #E3F2FD; color: #1565C0; }
+.c-grade { background: #EDE7F6; color: #4527A0; }
+.d-grade { background: #F3E5F5; color: #6A1B9A; }
+.e-grade { background: #FFFDE7; color: #F9A825; }
+.f-grade { background: #FFEBEE; color: #C62828; }
 
-.back-btn { background: none; color: var(--primary); font-weight: bold; margin-bottom: 15px; }
-
-.grade-grid { display: flex; gap: 5px; margin-top: 8px; }
-.grade-cell { border: 1px solid #cbd5e1; padding: 8px; flex: 1; text-align: center; font-size: 12px; border-radius: 4px; }
-.grade-cell.active { background: var(--primary); color: white; }
-
-.result-card { text-align: center; padding: 30px; }
-.gpa-circle { font-size: 3rem; font-weight: 800; color: var(--primary); margin: 20px 0; }
-.converter-box { margin-top: 25px; border-top: 1px solid #eee; padding-top: 20px; }
+/* Buttons & Cards */
+.next-btn, .main-btn, .action-btn { background: var(--primary); color: white; padding: 15px; width: 100%; border-radius: 12px; font-weight: 600; margin-top: 10px; border:none; cursor:pointer;}
+.grid-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.grid-item-btn { background: white; border: 1px solid #e2e8f0; padding: 20px; border-radius: 12px; font-weight: 600; cursor:pointer;}
+.subject-card { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 15px; }
+.grade-row { display: flex; gap: 4px; margin-top: 10px; }
+.g-box { flex: 1; text-align: center; border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px 0; cursor: pointer; }
+.g-box.active { background: var(--primary); color: white; }
+.back-btn { background: none; border: none; color: var(--primary); font-weight: 700; margin-bottom: 10px; cursor: pointer; }
+.gpa-display { font-size: 3rem; font-weight: 800; color: var(--primary); text-align: center; }
