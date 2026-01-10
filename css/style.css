@@ -1,50 +1,110 @@
 body {
-  font-family: "Poppins", serif;
   margin: 0;
-  padding: 20px;
-  background: #f6f5ff;
-  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f4f2fb;
 }
 
-.page { display: none; }
-.page.active { display: block; }
+.container {
+  max-width: 450px;
+  margin: auto;
+  padding: 20px;
+}
 
-.primary, button {
-  background: #6b5cff;
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+
+h1, h2 {
+  color: #3f37c9;
+}
+
+.subtitle {
+  color: #555;
+}
+
+.primary-btn {
+  background: #5a4fcf;
   color: white;
   border: none;
-  padding: 12px 20px;
+  padding: 12px;
+  width: 100%;
   border-radius: 12px;
-  margin: 10px;
-  cursor: pointer;
   font-size: 16px;
+  margin-top: 15px;
+}
+
+.btn-row button,
+.grid button {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+.btn-row {
+  display: flex;
+  gap: 10px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
 }
 
 .grade-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  margin: 20px 0;
+  gap: 10px;
 }
 
-.cube {
-  background: #ecebff;
-  padding: 20px;
-  border-radius: 18px;
+.grade {
+  background: #ece9ff;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
   font-weight: bold;
 }
 
-.s { background:#e6f4ea }
-.a { background:#e8f0fe }
-.b { background:#ede7f6 }
-.c { background:#f3e5f5 }
-.d { background:#fff3e0 }
-.e { background:#fce4ec }
-.f { background:#ffebee }
+.grade span {
+  display: block;
+  color: #555;
+}
 
-#subjects div {
-  background: white;
-  padding: 12px;
-  margin: 10px;
-  border-radius: 12px;
+.fail {
+  background: #ffdede;
+}
+
+.subject {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+select, input {
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.big {
+  font-size: 40px;
+  text-align: center;
+  color: #3f37c9;
+}
+
+.icon-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
 }
