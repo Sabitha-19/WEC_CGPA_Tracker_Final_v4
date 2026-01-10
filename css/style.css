@@ -26,3 +26,7 @@ body { font-family: 'Poppins', sans-serif; background-color: var(--bg); margin: 
 .g-box.active { background: var(--primary); color: white; }
 .back-btn { background: none; border: none; color: var(--primary); font-weight: 700; margin-bottom: 10px; cursor: pointer; }
 .gpa-display { font-size: 3rem; font-weight: 800; color: var(--primary); text-align: center; }
+.result-card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+.converter-box { margin-top: 20px; }
+.converter-box input { width: 70%; padding: 10px; margin-right: 10px; border-radius: 8px; border: 1px solid #cbd5e1; }
+.converter-box button { padding: 10px 15px; border: none; border-radius: 8px; background: var(--primary); color: white; cursor: pointer; font-weight: 600; }
