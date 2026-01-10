@@ -1,67 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>WEC CGPA Tracker</title>
+  <meta charset="UTF-8">
+  <title>WEC CGPA Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 
-<link rel="stylesheet" href="style.css"/>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
 
 <header>
   <h1>WEC CGPA Tracker</h1>
+  <p class="subtitle">Academic Performance Calculator</p>
 </header>
 
-<!-- Floating Icons -->
-<div class="fab home" onclick="goHome()">🏠</div>
-<div class="fab back" onclick="goBack()">⬅</div>
-<div class="fab graph" onclick="openGraph()">📊</div>
-<div class="fab save" onclick="saveSemester()">💾</div>
+<!-- Floating Navigation -->
+<div class="nav-icons">
+  <button onclick="goHome()">🏠</button>
+  <button onclick="openGraph()">📊</button>
+  <button onclick="saveSemester()">💾</button>
+</div>
+
+<!-- MAIN -->
+<main>
 
 <!-- STREAM -->
-<section class="tab active" id="stream">
+<section id="stream">
   <h2>Select Stream</h2>
-  <div class="btn-group">
-    <button onclick="selectStream('ENG')">Engineering</button>
-    <button onclick="selectStream('BCOM')">B.Com</button>
-  </div>
+  <button onclick="selectStream('engineering')">Engineering</button>
+  <button onclick="selectStream('bcom')">B.Com</button>
 </section>
 
 <!-- DEPARTMENT -->
-<section class="tab" id="dept">
+<section id="department" class="hidden">
   <h2>Select Department</h2>
-  <div id="deptList" class="btn-group"></div>
+  <div id="deptList"></div>
 </section>
 
 <!-- SEMESTER -->
-<section class="tab" id="sem">
+<section id="semester" class="hidden">
   <h2>Select Semester</h2>
-  <div id="semList" class="btn-group"></div>
+  <div id="semList"></div>
 </section>
 
-<!-- CALCULATOR -->
-<section class="tab" id="calc">
+<!-- SUBJECTS -->
+<section id="subjectsSection" class="hidden">
   <h2>Subjects</h2>
   <div id="subjects"></div>
-  <button id="calculate">Calculate GPA</button>
+  <button onclick="calculateGPA()">Calculate GPA</button>
 </section>
 
 <!-- RESULT -->
-<section class="tab" id="result">
+<section id="result" class="hidden">
   <h2>Result</h2>
-  <p id="result-gpa"></p>
-  <p id="result-msg"></p>
+  <p>Total Credits: <span id="credits">0</span></p>
+  <p>GPA: <span id="gpa">0.00</span></p>
 </section>
 
 <!-- GRAPH -->
-<section class="tab" id="graph">
+<section id="graph" class="hidden">
   <h2>Semester GPA Graph</h2>
   <canvas id="gpaChart"></canvas>
+  <button onclick="goHome()">Back</button>
 </section>
 
-<script src="app.js"></script>
+</main>
+
+<script src="script.js"></script>
 </body>
 </html>
