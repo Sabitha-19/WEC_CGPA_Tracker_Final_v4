@@ -1,136 +1,101 @@
-/* ----- GENERAL ----- */
+:root { --primary: #6d28d9; }
+
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f9f9f9;
+  font-family: Poppins, sans-serif;
+  background: #f8fafc;
   margin: 0;
-  padding: 20px;
-  color: #1f2937;
+  padding-top: 70px;
+}
+
+.top-nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  background: white;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.1);
 }
 
 .container {
-  max-width: 600px;
+  max-width: 480px;
   margin: auto;
-  padding: 20px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 15px;
 }
 
-h1, h3 {
-  font-family: 'Cursive', sans-serif;
-  text-align: center;
+.hidden { display: none; }
+
+.grid-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
 }
 
-h1 {
-  margin-bottom: 20px;
-}
-
-/* ----- BUTTONS ----- */
-button {
-  padding: 8px 14px;
-  margin: 5px;
-  border: 2px solid #4f46e5;
-  background: #fff;
-  color: #4f46e5;
-  border-radius: 6px;
+.grid-item-btn {
+  padding: 18px;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  background: #f8fafc;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s;
-  font-size: 14px;
 }
 
-button:hover {
-  background: #4f46e5;
-  color: #fff;
+.grid-item-btn:hover { transform: scale(1.03); }
+
+.back-btn {
+  border: none;
+  background: none;
+  color: var(--primary);
+  font-weight: 700;
+  cursor: pointer;
 }
 
-button.active {
-  background: #4f46e5;
-  color: #fff;
-  border: 2px solid #4f46e5;
-}
-
-.grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 15px;
-}
-
-.grid-item {
-  flex: 1 1 30%;
-  text-align: center;
-}
-
-/* ----- SUBJECTS & GRADES ----- */
-.subject {
-  margin-bottom: 15px;
-  padding: 8px;
-  background: #f1f5f9;
-  border-radius: 8px;
+.subject-card {
+  background: white;
+  padding: 14px;
+  border-radius: 14px;
+  margin-bottom: 12px;
 }
 
 .grade-row {
   display: flex;
-  justify-content: space-around;
-  margin-top: 8px;
+  gap: 6px;
+  margin-top: 10px;
 }
 
 .g-box {
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
+  flex: 1;
+  padding: 10px 0;
   text-align: center;
-  border: 1px solid #4f46e5;
-  border-radius: 4px;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
   cursor: pointer;
-  user-select: none;
-  transition: 0.2s;
-}
-
-.g-box:hover {
-  background: #c7d2fe;
+  font-weight: 700;
+  transition: .25s;
 }
 
 .g-box.active {
-  background: #4f46e5;
-  color: #fff;
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
 }
 
-/* ----- CGPA DISPLAY ----- */
-.cgpa {
-  font-size: 32px;
-  font-weight: bold;
+.next-btn, .main-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  font-weight: 700;
+  margin-top: 15px;
+}
+
+.gpa-display {
+  font-size: 3rem;
+  font-weight: 800;
   text-align: center;
-  margin: 10px 0 20px 0;
-  color: #4f46e5;
-}
-
-/* ----- MAIN BUTTONS ----- */
-.main-btn, .reset-btn {
-  display: block;
-  margin: 15px auto;
-  width: 120px;
-}
-
-/* ----- CHART ----- */
-canvas {
-  display: block;
-  margin: 20px auto;
-  max-width: 100%;
-  background: #f1f5f9;
-  padding: 10px;
-  border-radius: 8px;
-}
-
-/* ----- RESPONSIVE ----- */
-@media screen and (max-width: 480px) {
-  .grid-item {
-    flex: 1 1 45%;
-  }
-
-  .g-box {
-    width: 25px;
-    height: 25px;
-    line-height: 25px;
-  }
+  color: var(--primary);
 }
