@@ -1,15 +1,7 @@
 const ENGINEERING_DEPTS = ["ise", "cse", "ece", "eee", "aa"];
 const OTHER_DEPTS = ["bcom"];
 
-const GRADE_POINTS = {
-  S: 10,
-  A: 9,
-  B: 8,
-  C: 7,
-  D: 6,
-  E: 5,
-  F: 0
-};
+const GRADE_POINTS = { S:10, A:9, B:8, C:7, D:6, E:5, F:0 };
 
 let state = {
   stream: null,
@@ -18,116 +10,156 @@ let state = {
   semesters: {}
 };
 
-/* STREAM */
-function selectStream(stream) {
+/* -------- LOAD FROM LOCAL STORAGE -------- */
+if(localStorage.getItem("cgpaState")) {
+  state = JSON.parse(localStorage.getItem("cgpaState"));
+  document.addEventListener("DOMContentLoaded", () => {
+    if(state.stream) selectStream(state.stream);
+    if(state.dept) selectDept(state.dept, document.querySelectorAll("#departmentBox .grid-item")[ENGINEERING_DEPTS.indexOf(state.dept)]);
+    if(state.sem) selectSemester(state.sem, document.querySelectorAll("#semesterBox .grid-item")[state.sem-1]);
+    calculateCGPA();
+  });
+}
+
+/* -------- STREAM -------- */
+function selectStream(stream){
   state.stream = stream;
-  state.dept = null;
-  state.sem = null;
-  document.getElementById("subjects").innerHTML = "";
+  state.dept = null; state.sem = null;
+  document.getElementById("departmentBox").innerHTML = "";
+  document.getElementById("semesterBox").innerHTML = "";
+  document.getElementById("subjectsBox").innerHTML = "";
   renderDepartments();
 }
 
-/* DEPARTMENT */
+/* -------- DEPARTMENTS -------- */
 function renderDepartments() {
-  const div = document.getElementById("departments");
-  div.innerHTML = "";
+  const box = document.getElementById("departmentBox");
+  box.innerHTML = "";
+  const list = state.stream === "engineering" ? ENGINEERING_DEPTS : OTHER_DEPTS;
 
-  const depts = state.stream === "engineering" ? ENGINEERING_DEPTS : OTHER_DEPTS;
-
-  depts.forEach(d => {
+  list.forEach((d,i) => {
     const btn = document.createElement("button");
-    btn.className = "grid-item-btn";
+    btn.className = "grid-item";
     btn.textContent = d.toUpperCase();
-    btn.onclick = () => selectDept(d);
-    div.appendChild(btn);
+    btn.onclick = () => selectDept(d, btn);
+    box.appendChild(btn);
   });
 }
 
-function selectDept(dept) {
+function selectDept(dept, btn){
   state.dept = dept;
+  document.querySelectorAll("#departmentBox .grid-item").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
   renderSemesters();
 }
 
-/* SEMESTER */
-function renderSemesters() {
-  const div = document.getElementById("semesters");
-  div.innerHTML = "";
+/* -------- SEMESTERS -------- */
+function renderSemesters(){
+  const box = document.getElementById("semesterBox");
+  box.innerHTML = "";
+  const total = state.stream==="engineering"?8:6;
 
-  const totalSem = 8; // AA also 8 semesters
-
-  for (let i = 1; i <= totalSem; i++) {
+  for(let i=1;i<=total;i++){
     const btn = document.createElement("button");
-    btn.className = "grid-item-btn";
-    btn.textContent = "Semester " + i;
-    btn.onclick = () => loadSubjects(i);
-    div.appendChild(btn);
+    btn.className = "grid-item";
+    btn.textContent = `Semester ${i}`;
+    btn.onclick = () => selectSemester(i,btn);
+    box.appendChild(btn);
   }
 }
 
-/* SUBJECTS */
-function loadSubjects(sem) {
+function selectSemester(sem,btn){
   state.sem = sem;
-  const subjectsDiv = document.getElementById("subjects");
-  subjectsDiv.innerHTML = "";
+  document.querySelectorAll("#semesterBox .grid-item").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  renderSubjects();
+}
 
-  const subjects = [
-    "Subject 1",
-    "Subject 2",
-    "Subject 3",
-    "Subject 4",
-    "Subject 5"
-  ];
+/* -------- SUBJECTS -------- */
+function renderSubjects(){
+  const box = document.getElementById("subjectsBox");
+  box.innerHTML = "";
+  for(let i=1;i<=5;i++){
+    const div = document.createElement("div");
+    div.className = "subject";
+    div.innerHTML = `<strong>Subject ${i}</strong>`;
+    const row = document.createElement("div");
+    row.className = "grade-row";
 
-  subjects.forEach((sub, idx) => {
-    const card = document.createElement("div");
-    card.className = "subject-card";
+    Object.keys(GRADE_POINTS).forEach(g=>{
+      const gb = document.createElement("div");
+      gb.className = "g-box";
+      gb.textContent = g;
+      gb.onclick = () => {
+        row.querySelectorAll(".g-box").forEach(x=>x.classList.remove("active"));
+        gb.classList.add("active");
+      };
+      row.appendChild(gb);
+    });
 
-    card.innerHTML = `
-      <h4>${sub}</h4>
-      <div class="grade-row">
-        ${Object.keys(GRADE_POINTS).map(g =>
-          `<div class="g-box" onclick="selectGrade(${idx}, '${g}', this)">${g}</div>`
-        ).join("")}
-      </div>
-    `;
-    subjectsDiv.appendChild(card);
+    div.appendChild(row);
+    box.appendChild(div);
+  }
+}
+
+/* -------- SAVE & CGPA -------- */
+function saveSemester(){
+  const grades=[];
+  document.querySelectorAll(".grade-row").forEach(row=>{
+    const g=row.querySelector(".g-box.active");
+    if(g) grades.push(GRADE_POINTS[g.textContent]);
   });
 
-  state.currentGrades = {};
-}
-
-function selectGrade(index, grade, el) {
-  el.parentElement.querySelectorAll(".g-box").forEach(b => b.classList.remove("active"));
-  el.classList.add("active");
-  state.currentGrades[index] = GRADE_POINTS[grade];
-}
-
-/* SAVE */
-function saveSemester() {
-  if (!state.currentGrades) return;
-
-  const grades = Object.values(state.currentGrades);
-  if (grades.length === 0) return alert("Select grades first!");
-
-  const avg = grades.reduce((a,b)=>a+b,0) / grades.length;
+  if(grades.length===0) return;
+  const avg = grades.reduce((a,b)=>a+b)/grades.length;
   state.semesters[state.sem] = avg;
-
+  localStorage.setItem("cgpaState", JSON.stringify(state));
   calculateCGPA();
-  alert("Semester Saved!");
 }
 
-/* CGPA */
-function calculateCGPA() {
-  const values = Object.values(state.semesters);
-  const cgpa = values.reduce((a,b)=>a+b,0) / values.length;
-  document.getElementById("cgpa").textContent = cgpa.toFixed(2);
+/* -------- CGPA & CHART -------- */
+let chart=null;
+function calculateCGPA(){
+  const values=Object.values(state.semesters);
+  if(values.length===0) return;
+  const cgpa=values.reduce((a,b)=>a+b)/values.length;
+  document.getElementById("cgpa").textContent=cgpa.toFixed(2);
+  renderChart();
 }
 
-/* RESET */
-function resetAll() {
-  state = { stream:null, dept:null, sem:null, semesters:{} };
-  document.getElementById("departments").innerHTML = "";
-  document.getElementById("semesters").innerHTML = "";
-  document.getElementById("subjects").innerHTML = "";
-  document.getElementById("cgpa").textContent = "0.00";
+function renderChart(){
+  const ctx=document.getElementById("cgpaChart").getContext("2d");
+  const labels = Object.keys(state.semesters).map(s=>`Sem ${s}`);
+  const data = Object.values(state.semesters);
+  if(chart) chart.destroy();
+  chart = new Chart(ctx,{
+    type:"line",
+    data:{
+      labels:labels,
+      datasets:[{
+        label:"CGPA",
+        data:data,
+        borderColor:"#4f46e5",
+        backgroundColor:"rgba(79,70,229,0.2)",
+        fill:true,
+        tension:0.3
+      }]
+    },
+    options:{
+      scales:{
+        y:{min:0,max:10}
+      }
+    }
+  });
+}
+
+/* -------- RESET -------- */
+function resetAll(){
+  state={stream:null,dept:null,sem:null,semesters:{}};
+  localStorage.removeItem("cgpaState");
+  document.getElementById("departmentBox").innerHTML="";
+  document.getElementById("semesterBox").innerHTML="";
+  document.getElementById("subjectsBox").innerHTML="";
+  document.getElementById("cgpa").textContent="0.00";
+  if(chart) chart.destroy();
 }
