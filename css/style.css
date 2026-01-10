@@ -1,65 +1,57 @@
 body {
   font-family: 'Poppins', sans-serif;
-  background: #f9f9f9;
-  margin: 0;
-  padding: 20px;
-  color: #333;
+  background: #f8f8f8;
+  margin:0;
+  padding:20px;
+  color:#333;
 }
 
-h1 {
-  text-align: center;
-  font-weight: 700;
-  margin-bottom: 30px;
-}
+.page { text-align:center; margin:30px auto; }
+.hidden { display:none; }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 20px;
-  justify-items: center;
-}
+.grid { display:flex; flex-wrap:wrap; gap:15px; justify-content:center; margin-top:20px; }
 
 .cube {
-  border-radius: 12px;
-  padding: 25px 15px;
-  text-align: center;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  font-weight: 600;
-  line-height: 1.4;
+  padding:25px 30px;
+  border-radius:12px;
+  cursor:pointer;
+  font-weight:600;
+  font-size:16px;
+  text-align:center;
+  transition:0.2s;
+  min-width:120px;
 }
 
-.cube:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+.cube:hover { transform:scale(1.05); }
+
+/* Pastel unique colors for departments/semesters */
+.cube.pastel:nth-child(1){ background-color:#ffd6e8; color:#900c3f; }
+.cube.pastel:nth-child(2){ background-color:#c6f7e2; color:#1a6b4e; }
+.cube.pastel:nth-child(3){ background-color:#ffe6a7; color:#b36b00; }
+.cube.pastel:nth-child(4){ background-color:#d0c6ff; color:#3f2fbe; }
+.cube.pastel:nth-child(5){ background-color:#ffc9c9; color:#a30000; }
+.cube.pastel:nth-child(6){ background-color:#baf1ff; color:#006680; }
+.cube.pastel:nth-child(7){ background-color:#fdd7b5; color:#994d00; }
+.cube.pastel:nth-child(8){ background-color:#e2f7c2; color:#4f7a00; }
+
+/* Transparent Grade Cubes */
+.cube.transparent {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  font-size:14px;
 }
 
-.pastel {
-  background: linear-gradient(135deg, #d4fc79, #96e6a1);
-  color: #2f7a44;
-}
+/* Selected semester highlight */
+.cube.selected { background-color: rgba(123,72,255,0.5) !important; }
 
-.backBtn {
-  margin-top: 20px;
-  padding: 10px 20px;
-  border: none;
-  background: #8888ff;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.2s;
+/* Continue and back buttons */
+.continueBtn, .backBtn {
+  padding:10px 20px;
+  background:#7c3aed;
+  color:white;
+  border:none;
+  border-radius:8px;
+  font-weight:600;
+  margin-top:25px;
+  cursor:pointer;
 }
-
-.backBtn:hover {
-  background: #6666ff;
-}
-
-.page {
-  text-align: center;
-}
+.continueBtn:hover, .backBtn:hover { background:#5b28c8; }
