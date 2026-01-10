@@ -4,92 +4,69 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WEC CGPA Tracker</title>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<!-- Landing Page -->
-<section id="welcomeSection">
-  <div class="welcome-card">
-    <h1>WEC CGPA Tracker</h1>
-    <p>Track your CGPA, calculate GPA per semester, convert to percentage, and monitor your academic progress!</p>
-    <button class="main-btn" onclick="showSection('infoSection')">Start →</button>
-  </div>
+<!-- Start Page -->
+<section id="startSection">
+  <h1>WEC CGPA Tracker</h1>
+  <button class="start-btn" onclick="showSection('infoSection')">Get Started</button>
 </section>
 
-<!-- CGPA Info Page -->
+<!-- Info / FAQ Page -->
 <section id="infoSection" class="hidden">
   <h2>About CGPA</h2>
-  <div class="info-card">
-    <p><b>What is CGPA?</b> CGPA (Cumulative Grade Point Average) is the weighted average of your semester GPA scores.</p>
-    <p><b>Formula:</b> CGPA = (Sum of all semester GPA × credits) ÷ Total credits</p>
-    <p><b>Tips to boost CGPA:</b></p>
-    <ul>
-      <li>Focus on high credit subjects.</li>
-      <li>Maintain consistent grades each semester.</li>
-      <li>Use internal marks effectively.</li>
-    </ul>
-    <p><b>FAQs:</b></p>
-    <p>Q: Can I recalculate after changing a grade? <br> A: Yes, just update grades and recalc.</p>
-    <button class="main-btn" onclick="showSection('streamSection')">Continue →</button>
+  <p>CGPA is the weighted average of your grades. Use this tool to track your semester performance.</p>
+  <div class="tips">
+    <h3>How to Boost Your CGPA?</h3>
+    <p>Prioritize high credit subjects, never miss assignments, aim for better grades in key courses.</p>
   </div>
+  <button onclick="showSection('streamSection')">Continue</button>
 </section>
 
 <!-- Stream Selection -->
 <section id="streamSection" class="hidden">
   <h2>Select Stream</h2>
-  <div class="btn-container">
-    <button class="main-btn" onclick="selectStream('engineering')">Engineering</button>
-    <button class="main-btn" onclick="selectStream('bcom')">B.Com</button>
+  <div class="btn-container" id="streamBtns">
+    <button onclick="selectStream('engineering', event)">Engineering</button>
+    <button onclick="selectStream('bcom', event)">B.Com</button>
   </div>
 </section>
 
 <!-- Department Selection -->
 <section id="departmentSection" class="hidden">
   <h2>Select Department</h2>
-  <div id="deptList" class="btn-container"></div>
+  <div class="btn-container" id="deptList"></div>
 </section>
 
 <!-- Semester Selection -->
 <section id="semesterSection" class="hidden">
   <h2>Select Semester</h2>
-  <div id="semList" class="btn-container"></div>
+  <div class="btn-container" id="semList"></div>
 </section>
 
-<!-- Subjects & Grades -->
+<!-- Subject & Grade Selection -->
 <section id="subjectsSection" class="hidden">
-  <h2 id="semTitle">Enter Grades</h2>
-  <div id="gradeReference">
-    <h3>Grade Points Reference</h3>
-    <div class="grade-grid">
-      <div class="grade-cube s">S<br>10</div>
-      <div class="grade-cube a">A<br>9</div>
-      <div class="grade-cube b">B<br>8</div>
-      <div class="grade-cube c">C<br>7</div>
-      <div class="grade-cube d">D<br>6</div>
-      <div class="grade-cube e">E<br>5</div>
-      <div class="grade-cube f">F<br>0</div>
-    </div>
-  </div>
-  <div id="subjectList"></div>
-  <button class="main-btn" onclick="calculateGPA()">Calculate GPA</button>
+  <h2 id="semTitle">Semester</h2>
+  <div id="subjectList" class="subject-list"></div>
+  <button onclick="calculateGPA()">Calculate GPA</button>
 </section>
 
-<!-- Result Section -->
+<!-- Result -->
 <section id="resultSection" class="hidden">
-  <h2>Semester Result</h2>
-  <p>GPA: <span id="gpa">0.00</span></p>
-  <p>CGPA: <span id="cgpa">0.00</span></p>
-  <canvas id="chart" height="200"></canvas>
-  <div class="converter">
-    <input type="number" id="cgpaInput" placeholder="Enter CGPA">
-    <button onclick="convertToPercentage()">Convert to %</button>
+  <h2>Results</h2>
+  <p>Semester GPA: <span id="gpa">0.00</span></p>
+  <p>Current CGPA: <span id="cgpa">0.00</span></p>
+  <canvas id="chart"></canvas>
+  <div class="cgpa-convert">
+    <input type="number" id="cgpaInput" placeholder="Enter CGPA to convert %">
+    <button onclick="convertToPercentage()">Convert</button>
     <p id="percentResult"></p>
   </div>
 </section>
 
-<script src="js/script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
