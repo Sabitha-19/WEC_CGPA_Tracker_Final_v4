@@ -5,7 +5,7 @@
     { "code": "AAA116", "name": "History of Modern Architecture", "credits": 3 },
     { "code": "HSA102", "name": "Industrial Economics and Management", "credits": 3 },
     { "code": "AAA117", "name": "Design of Structure - I", "credits": 4 },
-    { "code": "AAA201,AAA202,AAA203", "name": "Professional Elective - 1", "credits": 3 },
+    { "code": "AAA201/202/203", "name": "Professional Elective - 1", "credits": 3 },
     { "code": "AAA118", "name": "Architectural Design - II", "credits": 3 },
     { "code": "AAA119", "name": "Building Construction and Detailing - III", "credits": 2 },
     { "code": "AAA120", "name": "Computer Applications in Architecture - II", "credits": 1.5 },
