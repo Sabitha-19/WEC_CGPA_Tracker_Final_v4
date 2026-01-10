@@ -1,81 +1,66 @@
 const departments = {
-  engineering: ["CSE","ISE","ECE","EEE","AA"],
-  bcom: ["BCOM"]
+    engineering: ["CSE","ISE","ECE","EEE","AA"],
+    bcom: ["BCOM"]
 };
+const semesters = [1,2,3,4,5,6,7,8];
 
-const semesters = ["Semester 1","Semester 2","Semester 3","Semester 4","Semester 5","Semester 6","Semester 7","Semester 8"];
+const homeSection = document.getElementById('homeSection');
+const streamSection = document.getElementById('streamSection');
+const departmentSection = document.getElementById('departmentSection');
+const semesterSection = document.getElementById('semesterSection');
+const gradeSection = document.getElementById('gradeSection');
 
-const gradePoints = {S:10,A:9,B:8,C:7,D:6,E:5,F:0};
+document.getElementById('continueBtn').addEventListener('click', () => {
+    homeSection.classList.remove('active');
+    streamSection.classList.add('active');
+});
 
-let selectedStream='', selectedDepartment='', selectedSemester='';
-let semesterButtons=[];
+// Stream buttons
+document.querySelectorAll('#streamSection .option-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const stream = btn.dataset.stream;
+        document.querySelectorAll('#streamSection .option-btn').forEach(b=>b.classList.remove('selected'));
+        btn.classList.add('selected');
 
-// Elements
-const welcomePage = document.getElementById('welcomePage');
-const streamPage = document.getElementById('streamPage');
-const departmentPage = document.getElementById('departmentPage');
-const semesterPage = document.getElementById('semesterPage');
-const gradePage = document.getElementById('gradePage');
-const departmentsContainer = document.getElementById('departmentsContainer');
-const semesterContainer = document.getElementById('semesterContainer');
+        const deptBtns = document.getElementById('departmentBtns');
+        deptBtns.innerHTML = '';
+        departments[stream].forEach(dept => {
+            const b = document.createElement('button');
+            b.textContent = dept;
+            b.className = 'option-btn';
+            b.addEventListener('click', () => {
+                document.querySelectorAll('#departmentBtns .option-btn').forEach(bb=>bb.classList.remove('selected'));
+                b.classList.add('selected');
+                semesterSection.classList.add('active');
+                departmentSection.classList.remove('active');
+            });
+            deptBtns.appendChild(b);
+        });
 
-function goToStream(){
-  welcomePage.classList.add('hidden');
-  streamPage.classList.remove('hidden');
-}
+        streamSection.classList.remove('active');
+        departmentSection.classList.add('active');
+    });
+});
 
-function selectStream(stream){
-  selectedStream = stream;
-  showDepartments(stream);
-}
+// Back buttons
+document.getElementById('backDeptBtn').addEventListener('click', () => {
+    departmentSection.classList.remove('active');
+    streamSection.classList.add('active');
+});
+document.getElementById('backSemBtn').addEventListener('click', () => {
+    semesterSection.classList.remove('active');
+    departmentSection.classList.add('active');
+});
 
-function showDepartments(stream){
-  departmentsContainer.innerHTML='';
-  departments[stream].forEach(dep=>{
-    const div = document.createElement('div');
-    div.className='cube pastel';
-    div.innerText=dep;
-    div.onclick=()=>selectDepartment(dep);
-    departmentsContainer.appendChild(div);
-  });
-  streamPage.classList.add('hidden');
-  departmentPage.classList.remove('hidden');
-}
-
-function selectDepartment(dep){
-  selectedDepartment = dep;
-  showSemesters();
-}
-
-function showSemesters(){
-  semesterContainer.innerHTML='';
-  semesterButtons=[];
-  semesters.forEach((sem,i)=>{
-    const div = document.createElement('div');
-    div.className='cube pastel';
-    div.innerText=sem;
-    div.onclick=()=>{
-      // Highlight selected semester
-      semesterButtons.forEach(b=>b.classList.remove('selected'));
-      div.classList.add('selected');
-      selectedSemester=sem;
-      showGrades();
-    };
-    semesterContainer.appendChild(div);
-    semesterButtons.push(div);
-  });
-  departmentPage.classList.add('hidden');
-  semesterPage.classList.remove('hidden');
-}
-
-function showGrades(){
-  semesterPage.classList.add('hidden');
-  gradePage.classList.remove('hidden');
-}
-
-// Back navigation
-function goBack(page){
-  if(page==='stream'){ departmentPage.classList.add('hidden'); streamPage.classList.remove('hidden'); }
-  else if(page==='department'){ semesterPage.classList.add('hidden'); departmentPage.classList.remove('hidden'); }
-  else if(page==='semester'){ gradePage.classList.add('hidden'); semesterPage.classList.remove('hidden'); }
-}
+// Semester buttons
+const semesterBtnsDiv = document.getElementById('semesterBtns');
+semesters.forEach(s => {
+    const b = document.createElement('button');
+    b.textContent = 'Semester ' + s;
+    b.className = 'option-btn';
+    b.addEventListener('click', () => {
+        document.querySelectorAll('#semesterBtns .option-btn').forEach(bb=>bb.classList.remove('selected'));
+        b.classList.add('selected');
+    });
+    semesterBtnsDiv.appendChild(b);
+});
