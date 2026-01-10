@@ -1,64 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WEC CGPA Tracker</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEC CGPA Tracker</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="container">
 
-<div class="container">
+        <!-- Home / Intro Section -->
+        <section id="homeSection" class="section active">
+            <h1>Official WEC CGPA Tracker</h1>
+            <p>Trusted academic tool for Women's Engineering College</p>
+            <button id="continueBtn">Continue →</button>
+        </section>
 
-  <!-- Welcome -->
-  <div id="welcomePage" class="page">
-    <h1>Official WEC CGPA Tracker</h1>
-    <p>Trusted academic tool for Women's Engineering College</p>
-    <button class="continueBtn" onclick="goToStream()">Continue →</button>
-  </div>
+        <!-- Stream Selection -->
+        <section id="streamSection" class="section">
+            <h2>Select Stream</h2>
+            <button class="option-btn" data-stream="engineering">Engineering</button>
+            <button class="option-btn" data-stream="bcom">BCOM</button>
+        </section>
 
-  <!-- Stream -->
-  <div id="streamPage" class="page hidden">
-    <h1>Select Stream</h1>
-    <div class="grid">
-      <div class="cube pastel" onclick="selectStream('engineering')">Engineering</div>
-      <div class="cube pastel" onclick="selectStream('bcom')">BCOM</div>
+        <!-- Department Selection -->
+        <section id="departmentSection" class="section">
+            <h2>Select Department</h2>
+            <div id="departmentBtns"></div>
+            <button id="backDeptBtn" class="back-btn">← Back</button>
+        </section>
+
+        <!-- Semester Selection -->
+        <section id="semesterSection" class="section">
+            <h2>Select Semester</h2>
+            <div id="semesterBtns"></div>
+            <button id="backSemBtn" class="back-btn">← Back</button>
+        </section>
+
+        <!-- Grade Reference -->
+        <section id="gradeSection" class="section">
+            <h2>Grade Point Reference</h2>
+            <div class="grade-container">
+                <div class="grade-box S">
+                    <p>S</p>
+                    <p>Outstanding</p>
+                    <p>10</p>
+                </div>
+                <div class="grade-box A">
+                    <p>A</p>
+                    <p>Excellent</p>
+                    <p>9</p>
+                </div>
+                <div class="grade-box B">
+                    <p>B</p>
+                    <p>Very Good</p>
+                    <p>8</p>
+                </div>
+                <div class="grade-box C">
+                    <p>C</p>
+                    <p>Good</p>
+                    <p>7</p>
+                </div>
+                <div class="grade-box D">
+                    <p>D</p>
+                    <p>Above Avg</p>
+                    <p>6</p>
+                </div>
+                <div class="grade-box E">
+                    <p>E</p>
+                    <p>Pass</p>
+                    <p>5</p>
+                </div>
+                <div class="grade-box F">
+                    <p>F</p>
+                    <p>Fail</p>
+                    <p>0</p>
+                </div>
+            </div>
+        </section>
+
     </div>
-  </div>
 
-  <!-- Department -->
-  <div id="departmentPage" class="page hidden">
-    <h1>Select Department</h1>
-    <div class="grid" id="departmentsContainer"></div>
-    <button class="backBtn" onclick="goBack('stream')">← Back</button>
-  </div>
-
-  <!-- Semester -->
-  <div id="semesterPage" class="page hidden">
-    <h1>Select Semester</h1>
-    <div class="grid" id="semesterContainer"></div>
-    <button class="backBtn" onclick="goBack('department')">← Back</button>
-  </div>
-
-  <!-- Grade Reference -->
-  <div id="gradePage" class="page hidden">
-    <h1>Grade Point Reference</h1>
-    <div class="grid">
-      <div class="cube pastel transparent" style="background-color: rgba(208,240,192,0.7); color:#2f7a44;">S<br>Outstanding<br>10</div>
-      <div class="cube pastel transparent" style="background-color: rgba(198,226,255,0.7); color:#004080;">A<br>Excellent<br>9</div>
-      <div class="cube pastel transparent" style="background-color: rgba(217,179,255,0.7); color:#4a2b80;">B<br>Very Good<br>8</div>
-      <div class="cube pastel transparent" style="background-color: rgba(224,224,255,0.7); color:#3f3fff;">C<br>Good<br>7</div>
-      <div class="cube pastel transparent" style="background-color: rgba(255,240,179,0.7); color:#b75e2b;">D<br>Above Avg<br>6</div>
-      <div class="cube pastel transparent" style="background-color: rgba(255,230,230,0.7); color:#b30000;">E<br>Pass<br>5</div>
-      <div class="cube pastel transparent" style="background-color: rgba(255,217,217,0.7); color:#800000;">F<br>Fail<br>0</div>
-    </div>
-    <button class="backBtn" onclick="goBack('semester')">← Back</button>
-  </div>
-
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
