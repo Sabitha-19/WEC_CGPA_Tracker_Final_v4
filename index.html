@@ -23,56 +23,39 @@
   <section id="welcomeSection">
     <header class="hero">
       <h1>Official WEC CGPA Calculator</h1>
-      <p class="subtitle">Trusted academic tool for Women's Engineering College (PV, WWE, and POZY).</p>
-      <div class="badge-row">
-        <span class="badge">✔ 100% Accurate</span>
-        <span class="badge">✔ Privacy Focused</span>
-      </div>
+      <p class="subtitle">Trusted academic tool for Women's Engineering College.</p>
     </header>
-
-    <div class="strategy-section">
-      <h3>How to Boost Your CGPA?</h3>
-      <div class="card">
-        <h4>⚡ The "Credit-Weight" Hack</h4>
-        <p>Not all subjects are equal. A 4-Credit Subject impacts your CGPA twice as much as a 2-Credit course.</p>
-        <p class="strategy-tip"><strong>Strategy:</strong> Prioritize high-credit subjects. Scoring an 'S' grade here can lift your average by 0.2 to 0.4 points.</p>
-      </div>
-      <div class="card">
-        <h4>🛡️ The "Internal Marks" Buffer</h4>
-        <p>Internals constitute 40% of your grade. Securing 35+/40 means you only need average marks in finals for an 'A' grade.</p>
-        <p class="strategy-tip"><strong>Strategy:</strong> Never miss assignments. They build a safety buffer for your final grade.</p>
-      </div>
-    </div>
 
     <div class="grade-legend">
       <h3>Grade Points Reference</h3>
       <div class="grade-grid-display">
-        <div class="grade-box s-grade"><span>S</span><small>Outstanding</small><b>10 Pts</b></div>
-        <div class="grade-box a-grade"><span>A</span><small>Excellent</small><b>9 Pts</b></div>
-        <div class="grade-box b-grade"><span>B</span><small>Very Good</small><b>8 Pts</b></div>
-        <div class="grade-box c-grade"><span>C</span><small>Good</small><b>7 Pts</b></div>
-        <div class="grade-box d-grade"><span>D</span><small>Above Avg</small><b>6 Pts</b></div>
-        <div class="grade-box e-grade"><span>E</span><small>Pass</small><b>5 Pts</b></div>
-        <div class="grade-box f-grade"><span>F</span><small>Fail</small><b>0 Pts</b></div>
+        <div class="grade-cube s-grade"><span>S</span><small>Outstanding</small><b>10</b></div>
+        <div class="grade-cube a-grade"><span>A</span><small>Excellent</small><b>9</b></div>
+        <div class="grade-cube b-grade"><span>B</span><small>Very Good</small><b>8</b></div>
+        <div class="grade-cube c-grade"><span>C</span><small>Good</small><b>7</b></div>
+        <div class="grade-cube d-grade"><span>D</span><small>Above Avg</small><b>6</b></div>
+        <div class="grade-cube e-grade"><span>E</span><small>Pass</small><b>5</b></div>
+        <div class="grade-cube f-grade"><span>F</span><small>Fail</small><b>0</b></div>
       </div>
     </div>
 
-    <div class="cta-container">
-      <button class="stream-btn main-btn" data-stream="engineering">Start Engineering Calc</button>
-      <button class="stream-btn sub-btn" data-stream="bcom">Start B.Com Calc</button>
+    <div class="strategy-section">
+      <div class="card">
+        <h4>⚡ The "Credit-Weight" Hack</h4>
+        <p>Prioritize high-credit subjects (4-credits) to lift your average faster.</p>
+      </div>
     </div>
 
-    <section class="faq">
-      <h3>FAQs</h3>
-      <details>
-        <summary>Does this support NEP 2024?</summary>
-        <p>Yes, it handles both R2020 and the new NEP framework logic.</p>
-      </details>
-      <details>
-        <summary>Where is my data saved?</summary>
-        <p>All data is saved locally on your phone's browser cache.</p>
-      </details>
-    </section>
+    <button class="next-btn" onclick="showSection('streamSection')">Continue to Select Stream →</button>
+  </section>
+
+  <section id="streamSection" class="hidden">
+    <button class="back-btn">← Back</button>
+    <h2>Choose Your Stream</h2>
+    <div class="cta-container">
+      <button class="stream-btn main-btn" data-stream="engineering">Engineering</button>
+      <button class="stream-btn main-btn" data-stream="bcom">B.Com</button>
+    </div>
   </section>
 
   <section id="departmentSection" class="hidden">
@@ -89,7 +72,7 @@
 
   <section id="subjectsSection" class="hidden">
     <button class="back-btn">← Back</button>
-    <h2 id="semHeader">Subjects</h2>
+    <h2 id="semHeader">Enter Grades</h2>
     <div id="subjects"></div>
     <button id="calculateGPA" class="action-btn">Calculate GPA</button>
   </section>
@@ -97,24 +80,14 @@
   <section id="resultSection" class="hidden">
     <div class="result-card">
       <h3>Your GPA</h3>
-      <div class="gpa-circle">
-        <span id="gpa">0.00</span>
-      </div>
-      <p>Credits Earned: <span id="totalCredits">0</span></p>
-      
+      <div class="gpa-display"><span id="gpa">0.00</span></div>
       <div class="converter-box">
-        <h4>CGPA to Percentage</h4>
+        <h4>CGPA to % Converter</h4>
         <input type="number" id="cgpaInput" placeholder="Enter CGPA">
         <button onclick="convertToPercentage()">Convert</button>
         <p id="percentResult"></p>
       </div>
     </div>
-  </section>
-
-  <section id="graphSection" class="hidden">
-    <button class="back-btn">← Back</button>
-    <h2>Performance Graph</h2>
-    <canvas id="gpaChart"></canvas>
   </section>
 </main>
 
