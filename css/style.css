@@ -1,124 +1,97 @@
-/* Basic resets */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Arial', sans-serif;
-}
-
 body {
-  background: #f9f9f9;
-  color: #222;
-  line-height: 1.6;
-  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background: rgba(255, 255, 255, 0.9);
+  color: #111;
 }
 
 header {
-  background: rgba(102, 51, 204, 0.9);
-  color: #fff;
-  padding: 10px 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  padding: 1rem;
+  background: rgba(100, 50, 200, 0.9);
+  color: white;
+  backdrop-filter: blur(5px);
 }
 
-header h1 {
-  font-size: 1.2rem;
-  font-style: italic;
-}
-
-header .icons button {
+.nav-icons button {
   background: transparent;
   border: none;
-  font-size: 1.4rem;
-  margin-left: 10px;
+  font-size: 1.5rem;
   cursor: pointer;
+  margin-left: 0.5rem;
 }
 
 main {
-  padding: 15px;
+  padding: 1rem;
 }
 
-h2, h3 {
-  margin: 15px 0 10px;
-}
-
-.hidden {
+.screen {
   display: none;
+  margin-top: 1rem;
 }
 
-.purple-btn {
-  background: rgba(102, 51, 204, 0.8);
-  color: #fff;
-  padding: 10px 20px;
-  margin: 10px 0;
+.screen.active {
+  display: block;
+}
+
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1rem;
+}
+
+.btn-grid button {
+  padding: 1rem;
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
+  background: rgba(100,50,200,0.7);
+  color: white;
   cursor: pointer;
-  font-style: italic;
   transition: 0.3s;
 }
 
-.purple-btn:hover {
-  background: rgba(102, 51, 204, 1);
-}
-
-.stream-buttons, .grade-cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-.stream-buttons button, .grade-cards .card {
-  flex: 1 1 45%;
-  min-width: 120px;
-  text-align: center;
-  padding: 10px;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  background: rgba(102, 51, 204, 0.1);
-  color: #222;
-  transition: 0.3s;
-}
-
-.stream-buttons button:hover, .grade-cards .card:hover {
-  background: rgba(102, 51, 204, 0.3);
+.btn-grid button:hover {
+  background: rgba(100,50,200,0.9);
 }
 
 .back-btn {
-  background: none;
+  margin-top: 1rem;
+  background: rgba(100,50,200,0.3);
   border: none;
-  color: rgba(102, 51, 204, 0.9);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  color: #222;
   cursor: pointer;
-  font-style: italic;
-  margin-top: 10px;
 }
 
-#grades-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+#subjects-list input {
+  width: 50px;
+  margin-left: 0.5rem;
 }
 
-#grades-form input, #grades-form select {
-  padding: 8px;
-  border-radius: 8px;
-  border: 1px solid rgba(102, 51, 204, 0.3);
+.grade-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.grade-grid div {
+  background: rgba(100,50,200,0.2);
+  padding: 1rem;
+  text-align: center;
+  border-radius: 10px;
 }
 
 #cgpa-result {
-  margin: 15px 0;
   font-weight: bold;
+  margin-top: 1rem;
+  font-size: 1.2rem;
 }
 
 #encourage-msg {
+  margin-top: 0.5rem;
   font-style: italic;
-  color: rgba(102, 51, 204, 0.9);
-  margin-top: 5px;
+  color: green;
 }
