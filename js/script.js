@@ -1,174 +1,163 @@
+let currentDepartment = "";
+let currentSemester = "";
 const gradePoints = { S:10, A:9, B:8, C:7, D:6, E:5, F:0 };
-let selectedStream="", selectedDept="", selectedSem="", subjects=[], screenHistory=[];
 
-/* --- NAVIGATION --- */
-function goTo(id){
-  const active = document.querySelector(".screen.active");
-  if(active) screenHistory.push(active.id);
-  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-  const newScreen = document.getElementById(id);
-  newScreen.classList.add("active");
+// ---------- Department / Semester ----------
+function selectDepartment(dep){
+    currentDepartment = dep;
+    goToScreen('semester-screen');
 
-  renderNavButton(newScreen);
+    const semContainer = document.getElementById("semester-buttons");
+    semContainer.innerHTML = "";
+    for(let i=1; i<=8; i++){
+        const btn = document.createElement("button");
+        btn.innerText = `Semester ${i}`;
+        btn.onclick = () => selectSemester(dep,i);
+        semContainer.appendChild(btn);
+    }
 }
 
-function goBack(){
-  if(screenHistory.length===0) return;
-  const prev = screenHistory.pop();
-  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-  const newScreen = document.getElementById(prev);
-  newScreen.classList.add("active");
+function selectSemester(dep, sem){
+    currentSemester = sem;
+    const filePath = `data/${dep.toLowerCase()}_sem${sem}.json`;
 
-  renderNavButton(newScreen);
+    fetch(filePath)
+    .then(res => { if(!res.ok) throw new Error(); return res.json(); })
+    .then(subjects => showGradesScreen(subjects))
+    .catch(err => alert("Semester data not found"));
 }
 
-/* --- DYNAMIC NAV BUTTON --- */
-function renderNavButton(screen){
-  // Remove any existing nav button
-  const existing = screen.querySelector(".nav-btn");
-  if(existing) existing.remove();
+// ---------- Grades Screen ----------
+function showGradesScreen(subjects){
+    goToScreen('grades-screen');
+    document.getElementById("grades-title").innerText = `${currentDepartment} - Semester ${currentSemester}`;
 
-  // Don't show back button on start page
-  if(screen.id === "page-start") return;
+    const container = document.getElementById("grades-container");
+    container.innerHTML = "";
 
-  // Create nav button container
-  const navBtn = document.createElement("div");
-  navBtn.className = "nav-btn";
+    subjects.forEach(sub=>{
+        const div = document.createElement("div");
+        div.className = "grade-card";
+        div.innerHTML = `
+            <label>${sub.name} (${sub.credits} cr)</label>
+            <select id="grade-${sub.name}">
+                <option value="S">S</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+            </select>
+        `;
+        container.appendChild(div);
+    });
 
-  // Back button
-  const backBtn = document.createElement("button");
-  backBtn.className = "btn-secondary";
-  backBtn.innerText = "← Back";
-  backBtn.onclick = goBack;
-  navBtn.appendChild(backBtn);
-
-  // Edit button (only show on result page)
-  if(screen.id === "page-result"){
-    const editBtn = document.createElement("button");
-    editBtn.className = "btn-primary";
-    editBtn.innerText = "Edit Semester";
-    editBtn.onclick = editSemester;
-    navBtn.appendChild(editBtn);
-  }
-
-  screen.appendChild(navBtn);
+    loadSavedGrades(currentDepartment,currentSemester);
 }
 
-/* --- STREAM --- */
-function selectStream(stream){
-  selectedStream = stream;
-  const deptList = document.getElementById("deptList");
-  deptList.innerHTML = "";
-  let depts = stream==="engineering"?["cse","ise","ece","eee","aa"]:["bcom"];
-  depts.forEach(d=>{
-    deptList.innerHTML += `<div class="card option" onclick="selectDept('${d}')">${d.toUpperCase()}</div>`;
-  });
-  goTo("page-dept");
+// ---------- CGPA Calculation & Encouragement ----------
+function calculateCGPA(save=true){
+    const grades = document.querySelectorAll("#grades-container select");
+    let totalPoints=0, totalCredits=0;
+
+    grades.forEach(sel=>{
+        const credit = parseFloat(sel.parentElement.innerText.match(/\((\d+)\s*cr\)/)[1]);
+        totalCredits += credit;
+        totalPoints += gradePoints[sel.value]*credit;
+    });
+
+    const cgpa = totalCredits ? (totalPoints/totalCredits).toFixed(2) : 0;
+
+    if(save){
+        saveGrades();
+        goToScreen('cgpa-info-screen');
+        showEncouragement(cgpa);
+    }
+    return parseFloat(cgpa);
 }
 
-/* --- DEPARTMENT --- */
-function selectDept(dept){
-  selectedDept = dept;
-  const semList = document.getElementById("semList");
-  semList.innerHTML = "";
-  for(let i=1;i<=8;i++) semList.innerHTML += `<div class="card option" onclick="selectSem(${i})">Semester ${i}</div>`;
-  goTo("page-sem");
+// ---------- Encouragement Messages ----------
+function showEncouragement(cgpa){
+    const msgDiv = document.getElementById("cgpa-message");
+    let message="", bg="";
+
+    if(cgpa>=9){ message="Excellent! Keep up the amazing work! 🌟"; bg="rgba(144,238,144,0.3)"; }
+    else if(cgpa>=8){ message="Great job! You're doing really well! 👍"; bg="rgba(173,216,230,0.3)"; }
+    else if(cgpa>=7){ message="Good effort! Keep pushing for higher! 💪"; bg="rgba(255,255,224,0.3)"; }
+    else if(cgpa>=6){ message="Nice! A little more focus and you can improve! ✨"; bg="rgba(255,228,196,0.3)"; }
+    else{ message="Don't worry! Review and keep trying, you can do it! 💡"; bg="rgba(255,182,193,0.3)"; }
+
+    msgDiv.innerText = message;
+    msgDiv.style.background = bg;
 }
 
-/* --- SEMESTER --- */
-async function selectSem(sem){
-  selectedSem = sem;
-  const filePath = `data/${selectedDept}_sem${sem}.json`;
-  try{
-    const res = await fetch(filePath);
-    subjects = await res.json();
-    renderSubjects();
-    goTo("page-grades-ref");
-  }catch(err){ alert("Data file not found for this semester"); }
+// ---------- Save / Load ----------
+function saveGrades(){
+    const data={};
+    document.querySelectorAll("#grades-container select").forEach(sel=>{
+        data[sel.id]=sel.value;
+    });
+    localStorage.setItem(`${currentDepartment}_sem${currentSemester}_grades`, JSON.stringify(data));
 }
 
-/* --- SUBJECTS --- */
-function renderSubjects(){
-  const list = document.getElementById("subjectList");
-  list.innerHTML = "";
-  subjects.forEach(sub=>{
-    list.innerHTML += `<div class="subject-row"><span>${sub.name} (${sub.credits})</span>
-      <select id="${sub.name}">${Object.keys(gradePoints).map(g=>`<option value="${g}">${g}</option>`).join("")}</select>
-    </div>`;
-  });
-  loadSavedGrades();
+function loadSavedGrades(dep,sem){
+    const saved = localStorage.getItem(`${dep}_sem${sem}_grades`);
+    if(saved){
+        const data = JSON.parse(saved);
+        Object.keys(data).forEach(id=>{
+            const sel = document.getElementById(id);
+            if(sel) sel.value=data[id];
+        });
+    }
 }
 
-/* --- CALCULATE GPA --- */
-function calculateGPA(){
-  let totalCredits=0,totalPoints=0,grades={};
-  subjects.forEach(sub=>{
-    const grade=document.getElementById(sub.name).value;
-    grades[sub.name]=grade;
-    totalCredits+=sub.credits;
-    totalPoints+=sub.credits*gradePoints[grade];
-  });
-  const gpa=(totalPoints/totalCredits).toFixed(2);
-
-  let data=JSON.parse(localStorage.getItem("wecData"))||{};
-  if(!data[selectedDept]) data[selectedDept]={};
-  data[selectedDept][selectedSem]={gpa,grades};
-  localStorage.setItem("wecData",JSON.stringify(data));
-  showResult();
+// ---------- Screen Navigation ----------
+function goBack(screenId){ goToScreen(screenId); }
+function goHome(){ goToScreen('department-screen'); }
+function goToScreen(screenId){
+    document.querySelectorAll(".screen").forEach(s=>s.style.display="none");
+    document.getElementById(screenId).style.display="block";
 }
 
-/* --- RESULT --- */
-function showResult(){
-  const data=JSON.parse(localStorage.getItem("wecData"))||{};
-  const semData=data[selectedDept];
-  let labels=[],values=[],sum=0,count=0;
-  for(let s in semData){
-    labels.push("Sem "+s);
-    values.push(semData[s].gpa);
-    sum+=parseFloat(semData[s].gpa);
-    count++;
-  }
-  const cgpa=(sum/count).toFixed(2);
-  const percent=(cgpa*9.5).toFixed(2);
+// ---------- CGPA Chart ----------
+function showCGPAChart(){
+    goToScreen('chart-screen');
+    const labels=[], cgpaData=[];
+    for(let i=1;i<=8;i++){
+        const saved = localStorage.getItem(`${currentDepartment}_sem${i}_grades`);
+        if(saved){
+            const data = JSON.parse(saved);
+            let totalPoints=0, totalCredits=0;
+            Object.keys(data).forEach(key=>{
+                const creditMatch = document.getElementById(key)?.parentElement.innerText.match(/\((\d+)\s*cr\)/);
+                const credit = creditMatch ? parseFloat(creditMatch[1]) : 3;
+                totalCredits+=credit;
+                totalPoints+=gradePoints[data[key]]*credit;
+            });
+            const cgpa = totalCredits ? (totalPoints/totalCredits).toFixed(2) : 0;
+            labels.push(`Sem ${i}`);
+            cgpaData.push(cgpa);
+        }
+    }
 
-  document.getElementById("gpaText").innerText=`Semester ${selectedSem} GPA : ${semData[selectedSem].gpa}`;
-  document.getElementById("cgpaText").innerText=`CGPA : ${cgpa}`;
-  document.getElementById("percentText").innerText=`Percentage : ${percent}%`;
+    const ctx = document.getElementById('cgpaChart').getContext('2d');
+    if(window.cgpaChartInstance) window.cgpaChartInstance.destroy();
 
-  drawChart(labels,values);
-  goTo("page-result");
-}
-
-/* --- EDIT SEMESTER --- */
-function editSemester(){ goTo("page-grades"); }
-
-/* --- LOAD SAVED GRADES --- */
-function loadSavedGrades(){
-  const data=JSON.parse(localStorage.getItem("wecData"));
-  if(!data||!data[selectedDept]||!data[selectedDept][selectedSem]) return;
-  const saved=data[selectedDept][selectedSem].grades;
-  subjects.forEach(sub=>{ document.getElementById(sub.name).value=saved[sub.name]; });
-}
-
-/* --- CHART --- */
-let chart;
-function drawChart(labels,values){
-  const ctx=document.getElementById("gpaChart");
-  if(chart) chart.destroy();
-  chart=new Chart(ctx,{ type:"line", data:{ labels, datasets:[{data:values, fill:true, tension:0.4, backgroundColor:'rgba(138,43,226,0.2)', borderColor:'#8a2be2'}] },
-    options:{ responsive:true, plugins:{legend:{display:false}}, scales:{y:{min:0,max:10}} }
-  });
-}
-
-
-// Show any screen
-function showScreen(screenName){
-    const screens = document.querySelectorAll('.screen');
-    screens.forEach(s => s.classList.remove('active'));
-    document.getElementById(screenName).classList.add('active');
-}
-
-// Back navigation
-function goBack(prevScreen){
-    showScreen(prevScreen);
+    window.cgpaChartInstance = new Chart(ctx,{
+        type:'line',
+        data:{
+            labels:labels,
+            datasets:[{
+                label:`${currentDepartment} CGPA`,
+                data:cgpaData,
+                backgroundColor:'rgba(128,0,128,0.2)',
+                borderColor:'rgba(128,0,128,1)',
+                borderWidth:2,
+                tension:0.4,
+                fill:true,
+            }]
+        },
+        options:{ scales:{ y:{ beginAtZero:true, max:10 } } }
+    });
 }
