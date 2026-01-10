@@ -1,8 +1,11 @@
-:root { --primary: #6d28d9; }
+:root {
+  --primary: #6d28d9;
+  --bg: #f8fafc;
+}
 
 body {
-  font-family: Poppins, sans-serif;
-  background: #f8fafc;
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg);
   margin: 0;
   padding-top: 70px;
 }
@@ -16,47 +19,37 @@ body {
   display: flex;
   align-items: center;
   padding: 0 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .container {
-  max-width: 480px;
+  max-width: 500px;
   margin: auto;
   padding: 15px;
 }
 
-.hidden { display: none; }
-
 .grid-list {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 15px;
 }
 
 .grid-item-btn {
+  background: white;
+  border: 1px solid #e5e7eb;
   padding: 18px;
   border-radius: 16px;
-  border: 1px solid #e5e7eb;
-  background: #f8fafc;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.grid-item-btn:hover { transform: scale(1.03); }
-
-.back-btn {
-  border: none;
-  background: none;
-  color: var(--primary);
   font-weight: 700;
   cursor: pointer;
 }
 
 .subject-card {
   background: white;
-  padding: 14px;
-  border-radius: 14px;
-  margin-bottom: 12px;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
 .grade-row {
@@ -67,35 +60,41 @@ body {
 
 .g-box {
   flex: 1;
-  padding: 10px 0;
   text-align: center;
-  border-radius: 14px;
-  border: 1px solid #e5e7eb;
+  padding: 10px;
+  border-radius: 12px;
+  background: #f1f5f9;
   cursor: pointer;
   font-weight: 700;
-  transition: .25s;
 }
 
 .g-box.active {
   background: var(--primary);
   color: white;
-  border-color: var(--primary);
 }
 
-.next-btn, .main-btn {
+.next-btn,
+.action-btn {
   width: 100%;
-  padding: 14px;
-  border-radius: 14px;
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
   background: var(--primary);
   color: white;
-  border: none;
   font-weight: 700;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 .gpa-display {
   font-size: 3rem;
   font-weight: 800;
-  text-align: center;
   color: var(--primary);
+  text-align: center;
+}
+
+.result-card {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  margin-top: 20px;
 }
