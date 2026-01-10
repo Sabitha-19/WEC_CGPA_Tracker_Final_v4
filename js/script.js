@@ -1,163 +1,150 @@
-let currentDepartment = "";
-let currentSemester = "";
-const gradePoints = { S:10, A:9, B:8, C:7, D:6, E:5, F:0 };
+// Streams and Departments
+const streams = {
+  engineering: ["CSE","ISE","ECE","EEE","AA"], // ✅ AA instead of ME
+  bcom:["BCOM"]
+};
 
-// ---------- Department / Semester ----------
-function selectDepartment(dep){
-    currentDepartment = dep;
-    goToScreen('semester-screen');
+// Pages
+const screens = {
+  home: document.getElementById("home-screen"),
+  department: document.getElementById("department-screen"),
+  semester: document.getElementById("semester-screen"),
+  subjects: document.getElementById("subjects-screen"),
+  chart: document.getElementById("chart-screen"),
+  info: document.getElementById("info-screen")
+};
 
-    const semContainer = document.getElementById("semester-buttons");
-    semContainer.innerHTML = "";
-    for(let i=1; i<=8; i++){
-        const btn = document.createElement("button");
-        btn.innerText = `Semester ${i}`;
-        btn.onclick = () => selectSemester(dep,i);
-        semContainer.appendChild(btn);
-    }
+// Navigation
+function showScreen(name) {
+  Object.values(screens).forEach(s => s.classList.remove("active"));
+  screens[name].classList.add("active");
 }
 
-function selectSemester(dep, sem){
-    currentSemester = sem;
-    const filePath = `data/${dep.toLowerCase()}_sem${sem}.json`;
+let selectedStream = null;
+let selectedDept = null;
+let selectedSemester = null;
+let cgpaData = JSON.parse(localStorage.getItem("cgpaData")||"{}");
 
-    fetch(filePath)
-    .then(res => { if(!res.ok) throw new Error(); return res.json(); })
-    .then(subjects => showGradesScreen(subjects))
-    .catch(err => alert("Semester data not found"));
-}
+// Stream Buttons
+document.querySelectorAll("#stream-grid button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    selectedStream = btn.dataset.stream;
+    loadDepartments();
+    showScreen("department");
+  });
+});
 
-// ---------- Grades Screen ----------
-function showGradesScreen(subjects){
-    goToScreen('grades-screen');
-    document.getElementById("grades-title").innerText = `${currentDepartment} - Semester ${currentSemester}`;
-
-    const container = document.getElementById("grades-container");
-    container.innerHTML = "";
-
-    subjects.forEach(sub=>{
-        const div = document.createElement("div");
-        div.className = "grade-card";
-        div.innerHTML = `
-            <label>${sub.name} (${sub.credits} cr)</label>
-            <select id="grade-${sub.name}">
-                <option value="S">S</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-                <option value="E">E</option>
-                <option value="F">F</option>
-            </select>
-        `;
-        container.appendChild(div);
+function loadDepartments() {
+  const grid = document.getElementById("department-grid");
+  grid.innerHTML = "";
+  streams[selectedStream].forEach(dep => {
+    let btn = document.createElement("button");
+    btn.textContent = dep;
+    btn.addEventListener("click", () => {
+      selectedDept = dep;
+      loadSemesters();
+      showScreen("semester");
     });
-
-    loadSavedGrades(currentDepartment,currentSemester);
+    grid.appendChild(btn);
+  });
 }
 
-// ---------- CGPA Calculation & Encouragement ----------
-function calculateCGPA(save=true){
-    const grades = document.querySelectorAll("#grades-container select");
-    let totalPoints=0, totalCredits=0;
-
-    grades.forEach(sel=>{
-        const credit = parseFloat(sel.parentElement.innerText.match(/\((\d+)\s*cr\)/)[1]);
-        totalCredits += credit;
-        totalPoints += gradePoints[sel.value]*credit;
+// Semester buttons
+function loadSemesters() {
+  const grid = document.getElementById("semester-grid");
+  grid.innerHTML = "";
+  for(let i=1;i<=8;i++){
+    let btn = document.createElement("button");
+    btn.textContent = "Semester "+i;
+    btn.addEventListener("click", () => {
+      selectedSemester = i;
+      loadSubjects();
+      showScreen("subjects");
     });
-
-    const cgpa = totalCredits ? (totalPoints/totalCredits).toFixed(2) : 0;
-
-    if(save){
-        saveGrades();
-        goToScreen('cgpa-info-screen');
-        showEncouragement(cgpa);
-    }
-    return parseFloat(cgpa);
+    grid.appendChild(btn);
+  }
 }
 
-// ---------- Encouragement Messages ----------
+// Subjects & CGPA
+function loadSubjects() {
+  const list = document.getElementById("subjects-list");
+  list.innerHTML = "";
+  fetch(`data/${selectedDept.toLowerCase()}_sem${selectedSemester}.json`)
+    .then(res => res.json())
+    .then(subjects=>{
+      subjects.forEach(s=>{
+        let div = document.createElement("div");
+        div.innerHTML = `${s.name} (${s.credits} cr) : <input type="text" data-credits="${s.credits}" placeholder="Grade">`;
+        list.appendChild(div);
+      });
+    })
+    .catch(()=>{
+      alert("Data file not found for this semester");
+    });
+}
+
+// Calculate CGPA
+document.getElementById("calculate-btn").addEventListener("click",()=>{
+  let inputs = document.querySelectorAll("#subjects-list input");
+  let totalPoints=0, totalCredits=0;
+  inputs.forEach(input=>{
+    let grade = input.value.toUpperCase();
+    let credits = Number(input.dataset.credits);
+    let gp = gradePoints[grade]||0;
+    totalPoints += gp*credits;
+    totalCredits += credits;
+  });
+  let cgpa = totalPoints/totalCredits;
+  document.getElementById("cgpa-result").textContent = "CGPA: "+cgpa.toFixed(2);
+  showEncouragement(cgpa);
+  if(!cgpaData[selectedDept]) cgpaData[selectedDept] = {};
+  cgpaData[selectedDept][selectedSemester] = cgpa.toFixed(2);
+  localStorage.setItem("cgpaData", JSON.stringify(cgpaData));
+});
+
+const gradePoints = { S:10,A:9,B:8,C:7,D:6,E:5,F:0 };
+
 function showEncouragement(cgpa){
-    const msgDiv = document.getElementById("cgpa-message");
-    let message="", bg="";
-
-    if(cgpa>=9){ message="Excellent! Keep up the amazing work! 🌟"; bg="rgba(144,238,144,0.3)"; }
-    else if(cgpa>=8){ message="Great job! You're doing really well! 👍"; bg="rgba(173,216,230,0.3)"; }
-    else if(cgpa>=7){ message="Good effort! Keep pushing for higher! 💪"; bg="rgba(255,255,224,0.3)"; }
-    else if(cgpa>=6){ message="Nice! A little more focus and you can improve! ✨"; bg="rgba(255,228,196,0.3)"; }
-    else{ message="Don't worry! Review and keep trying, you can do it! 💡"; bg="rgba(255,182,193,0.3)"; }
-
-    msgDiv.innerText = message;
-    msgDiv.style.background = bg;
+  const msg = document.getElementById("encourage-msg");
+  if(cgpa>=9) msg.textContent="🌟 Amazing! Keep up the excellent work!";
+  else if(cgpa>=8) msg.textContent="👍 Great job! You are doing very well!";
+  else if(cgpa>=7) msg.textContent="🙂 Good! Keep improving!";
+  else msg.textContent="💪 Don't give up! You can do better!";
 }
 
-// ---------- Save / Load ----------
-function saveGrades(){
-    const data={};
-    document.querySelectorAll("#grades-container select").forEach(sel=>{
-        data[sel.id]=sel.value;
-    });
-    localStorage.setItem(`${currentDepartment}_sem${currentSemester}_grades`, JSON.stringify(data));
-}
+// Back buttons
+document.querySelectorAll(".back-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    showScreen("home"); // Default to home
+  });
+});
 
-function loadSavedGrades(dep,sem){
-    const saved = localStorage.getItem(`${dep}_sem${sem}_grades`);
-    if(saved){
-        const data = JSON.parse(saved);
-        Object.keys(data).forEach(id=>{
-            const sel = document.getElementById(id);
-            if(sel) sel.value=data[id];
-        });
+// Nav icons
+document.getElementById("home-btn").addEventListener("click",()=>showScreen("home"));
+document.getElementById("chart-btn").addEventListener("click",showChart);
+document.getElementById("save-btn").addEventListener("click",()=>alert("Data saved!"));
+
+// Chart
+function showChart(){
+  showScreen("chart");
+  const ctx = document.getElementById("cgpaChart").getContext("2d");
+  const semesters = Object.keys(cgpaData[selectedDept]||{}).map(s=>"Sem "+s);
+  const cgpas = Object.values(cgpaData[selectedDept]||{}).map(Number);
+  new Chart(ctx,{
+    type:'line',
+    data:{
+      labels:semesters,
+      datasets:[{
+        label:`${selectedDept} CGPA`,
+        data: cgpas,
+        backgroundColor:'rgba(100,50,200,0.2)',
+        borderColor:'rgba(100,50,200,0.7)',
+        borderWidth:2,
+        fill:true
+      }]
+    },
+    options:{
+      scales:{y:{beginAtZero:true,max:10}}
     }
-}
-
-// ---------- Screen Navigation ----------
-function goBack(screenId){ goToScreen(screenId); }
-function goHome(){ goToScreen('department-screen'); }
-function goToScreen(screenId){
-    document.querySelectorAll(".screen").forEach(s=>s.style.display="none");
-    document.getElementById(screenId).style.display="block";
-}
-
-// ---------- CGPA Chart ----------
-function showCGPAChart(){
-    goToScreen('chart-screen');
-    const labels=[], cgpaData=[];
-    for(let i=1;i<=8;i++){
-        const saved = localStorage.getItem(`${currentDepartment}_sem${i}_grades`);
-        if(saved){
-            const data = JSON.parse(saved);
-            let totalPoints=0, totalCredits=0;
-            Object.keys(data).forEach(key=>{
-                const creditMatch = document.getElementById(key)?.parentElement.innerText.match(/\((\d+)\s*cr\)/);
-                const credit = creditMatch ? parseFloat(creditMatch[1]) : 3;
-                totalCredits+=credit;
-                totalPoints+=gradePoints[data[key]]*credit;
-            });
-            const cgpa = totalCredits ? (totalPoints/totalCredits).toFixed(2) : 0;
-            labels.push(`Sem ${i}`);
-            cgpaData.push(cgpa);
-        }
-    }
-
-    const ctx = document.getElementById('cgpaChart').getContext('2d');
-    if(window.cgpaChartInstance) window.cgpaChartInstance.destroy();
-
-    window.cgpaChartInstance = new Chart(ctx,{
-        type:'line',
-        data:{
-            labels:labels,
-            datasets:[{
-                label:`${currentDepartment} CGPA`,
-                data:cgpaData,
-                backgroundColor:'rgba(128,0,128,0.2)',
-                borderColor:'rgba(128,0,128,1)',
-                borderWidth:2,
-                tension:0.4,
-                fill:true,
-            }]
-        },
-        options:{ scales:{ y:{ beginAtZero:true, max:10 } } }
-    });
+  });
 }
