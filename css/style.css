@@ -1,8 +1,12 @@
-:root { --primary: #6d28d9; }
+:root {
+  --primary: #4f46e5;
+  --bg: #fdfdfd;
+  --purple: #6d28d9;
+}
 
 body {
-  font-family: Poppins, sans-serif;
-  background: #f8fafc;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg);
   margin: 0;
   padding-top: 70px;
 }
@@ -14,49 +18,114 @@ body {
   height: 60px;
   background: white;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+  z-index: 1000;
 }
 
 .container {
-  max-width: 480px;
-  margin: auto;
   padding: 15px;
+  max-width: 500px;
+  margin: auto;
 }
 
-.hidden { display: none; }
+.hidden {
+  display: none;
+}
 
+/* ---------- Grade Reference Cubes ---------- */
+.grade-grid-display {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.grade-cube {
+  aspect-ratio: 1/1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.grade-cube span {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.s-grade { background: #E8F5E9; color: #2E7D32; }
+.a-grade { background: #E0F2F1; color: #00695C; }
+.b-grade { background: #E3F2FD; color: #1565C0; }
+.c-grade { background: #EDE7F6; color: #4527A0; }
+.d-grade { background: #F3E5F5; color: #6A1B9A; }
+.e-grade { background: #FFFDE7; color: #F9A825; }
+.f-grade { background: #FFEBEE; color: #C62828; }
+
+/* ---------- Buttons ---------- */
+.next-btn,
+.main-btn,
+.action-btn {
+  background: var(--primary);
+  color: white;
+  padding: 15px;
+  width: 100%;
+  border-radius: 12px;
+  font-weight: 600;
+  margin-top: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-weight: 700;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+/* ---------- Grid Buttons (Dept / Sem) ---------- */
 .grid-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
+  gap: 12px;
 }
 
 .grid-item-btn {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
   padding: 18px;
   border-radius: 16px;
-  border: 1px solid #e5e7eb;
-  background: #f8fafc;
   font-weight: 700;
   cursor: pointer;
+  transition: all 0.25s ease;
 }
 
-.grid-item-btn:hover { transform: scale(1.03); }
-
-.back-btn {
-  border: none;
-  background: none;
-  color: var(--primary);
-  font-weight: 700;
-  cursor: pointer;
+.grid-item-btn:hover {
+  transform: scale(1.03);
 }
 
+/* Optional active state */
+.grid-item-btn.active {
+  background: var(--purple);
+  color: white;
+  border-color: var(--purple);
+}
+
+/* ---------- Subject Cards ---------- */
 .subject-card {
   background: white;
-  padding: 14px;
-  border-radius: 14px;
-  margin-bottom: 12px;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom: 15px;
 }
 
 .grade-row {
@@ -65,37 +134,65 @@ body {
   margin-top: 10px;
 }
 
+/* ---------- Grade Selection Boxes ---------- */
 .g-box {
   flex: 1;
-  padding: 10px 0;
   text-align: center;
+  padding: 10px 0;
   border-radius: 14px;
-  border: 1px solid #e5e7eb;
+  font-weight: 700;
   cursor: pointer;
-  font-weight: 700;
-  transition: .25s;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  transition: all 0.25s ease;
 }
 
+.g-box:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* ✅ Clicked Grade → Purple */
 .g-box.active {
-  background: var(--primary);
+  background: var(--purple);
   color: white;
-  border-color: var(--primary);
+  border-color: var(--purple);
+  box-shadow: 0 6px 15px rgba(109,40,217,0.4);
 }
 
-.next-btn, .main-btn {
-  width: 100%;
-  padding: 14px;
-  border-radius: 14px;
-  background: var(--primary);
-  color: white;
-  border: none;
-  font-weight: 700;
-  margin-top: 15px;
-}
-
+/* ---------- Result ---------- */
 .gpa-display {
   font-size: 3rem;
   font-weight: 800;
-  text-align: center;
   color: var(--primary);
+  text-align: center;
+}
+
+.result-card {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.converter-box {
+  margin-top: 20px;
+}
+
+.converter-box input {
+  width: 70%;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+}
+
+.converter-box button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
 }
