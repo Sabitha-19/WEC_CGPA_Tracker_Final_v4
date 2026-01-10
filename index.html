@@ -8,84 +8,77 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <!-- Header -->
   <header>
-    <h1 id="header-title">Official WEC CGPA Tracker</h1>
-    <div class="icons">
+    <h1 id="page-title">Official WEC CGPA Tracker</h1>
+    <div class="nav-icons">
       <button id="home-btn" title="Home">🏠</button>
-      <button id="chart-btn" title="View Graph">📊</button>
-      <button id="save-btn" title="Save Semester">💾</button>
+      <button id="chart-btn" title="CGPA Chart">📊</button>
+      <button id="save-btn" title="Save Data">💾</button>
     </div>
   </header>
 
-  <!-- Main container -->
-  <main id="main-container">
-    <!-- Start page -->
-    <section id="start-page">
-      <h2>Welcome to WEC CGPA Tracker</h2>
-      <p>Trusted academic tool for Women's Engineering College</p>
-      <button id="continue-btn" class="purple-btn">Continue →</button>
-
-      <h3>Grade Point Reference</h3>
-      <div class="grade-cards">
-        <div class="card">S<br>Outstanding<br>10</div>
-        <div class="card">A<br>Excellent<br>9</div>
-        <div class="card">B<br>Very Good<br>8</div>
-        <div class="card">C<br>Good<br>7</div>
-        <div class="card">D<br>Above Avg<br>6</div>
-        <div class="card">E<br>Pass<br>5</div>
-        <div class="card">F<br>Fail<br>0</div>
-      </div>
-
-      <h3>What is CGPA?</h3>
-      <p>CGPA (Cumulative Grade Point Average) is the average of all semester grade points. Keep track of your scores to improve your overall performance.</p>
-      <h3>Tips to Boost CGPA</h3>
-      <ul>
-        <li>Focus on weaker subjects first.</li>
-        <li>Practice previous year question papers.</li>
-        <li>Attend all classes and labs.</li>
-        <li>Ask for guidance from seniors/mentors.</li>
-      </ul>
-    </section>
-
-    <!-- Stream selection -->
-    <section id="stream-page" class="hidden">
+  <main>
+    <!-- Starting Page -->
+    <section id="home-screen" class="screen active">
       <h2>Select Stream</h2>
-      <div class="stream-buttons">
-        <button class="stream-btn" data-stream="engineering">Engineering</button>
-        <button class="stream-btn" data-stream="bcom">B.Com</button>
+      <div class="btn-grid" id="stream-grid">
+        <button data-stream="engineering">Engineering</button>
+        <button data-stream="bcom">B.Com</button>
       </div>
-      <button class="back-btn">← Back</button>
     </section>
 
-    <!-- Department selection -->
-    <section id="department-page" class="hidden">
+    <!-- Department Selection -->
+    <section id="department-screen" class="screen">
       <h2>Select Department</h2>
-      <div id="department-buttons" class="stream-buttons"></div>
+      <div class="btn-grid" id="department-grid"></div>
       <button class="back-btn">← Back</button>
     </section>
 
-    <!-- Semester selection -->
-    <section id="semester-page" class="hidden">
+    <!-- Semester Selection -->
+    <section id="semester-screen" class="screen">
       <h2>Select Semester</h2>
-      <div id="semester-buttons" class="stream-buttons"></div>
+      <div class="btn-grid" id="semester-grid"></div>
       <button class="back-btn">← Back</button>
     </section>
 
-    <!-- Subject input -->
-    <section id="subject-page" class="hidden">
+    <!-- Subjects & CGPA -->
+    <section id="subjects-screen" class="screen">
       <h2>Enter Grades</h2>
-      <form id="grades-form"></form>
-      <button id="calculate-btn" class="purple-btn">Calculate CGPA</button>
-      <div id="cgpa-result"></div>
+      <div id="subjects-list"></div>
+      <button id="calculate-btn">Calculate CGPA</button>
+      <p id="cgpa-result"></p>
       <div id="encourage-msg"></div>
       <button class="back-btn">← Back</button>
     </section>
 
-    <!-- Chart page -->
-    <section id="chart-page" class="hidden">
-      <h2>CGPA Improvement Chart</h2>
-      <canvas id="cgpa-chart" height="300"></canvas>
+    <!-- Chart Screen -->
+    <section id="chart-screen" class="screen">
+      <h2>CGPA Comparison</h2>
+      <canvas id="cgpaChart"></canvas>
+      <button class="back-btn">← Back</button>
+    </section>
+
+    <!-- Info Section -->
+    <section id="info-screen" class="screen">
+      <h2>CGPA Info & Tips</h2>
+      <p>CGPA (Cumulative Grade Point Average) helps you track your academic performance. Use this calculator to see your CGPA across semesters.</p>
+      <h3>Boost Your CGPA</h3>
+      <ul>
+        <li>Focus on subjects you are weak at.</li>
+        <li>Practice previous year question papers.</li>
+        <li>Maintain consistent study schedules.</li>
+        <li>Seek help from seniors or faculty.</li>
+      </ul>
+      <h3>Grade Point Reference (Cubic)</h3>
+      <div class="grade-grid">
+        <div>S<br>Outstanding<br>10</div>
+        <div>A<br>Excellent<br>9</div>
+        <div>B<br>Very Good<br>8</div>
+        <div>C<br>Good<br>7</div>
+        <div>D<br>Above Avg<br>6</div>
+        <div>E<br>Pass<br>5</div>
+        <div>F<br>Fail<br>0</div>
+      </div>
       <button class="back-btn">← Back</button>
     </section>
   </main>
