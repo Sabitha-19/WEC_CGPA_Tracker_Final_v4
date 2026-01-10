@@ -1,57 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>CGPA Tracker</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="top-nav">
-  <strong>CGPA Tracker</strong>
+  <h3>CGPA Tracker</h3>
 </div>
 
 <div class="container">
 
   <!-- STREAM -->
-  <section id="screen-stream">
-    <h3>Select Stream</h3>
-    <div class="grid-list">
-      <button class="grid-item-btn" onclick="selectStream('engineering')">Engineering</button>
-      <button class="grid-item-btn" onclick="selectStream('other')">Other</button>
-    </div>
-  </section>
+  <h3>Select Stream</h3>
+  <div class="grid-list">
+    <button class="grid-item-btn" onclick="selectStream('engineering')">Engineering</button>
+    <button class="grid-item-btn" onclick="selectStream('other')">Other</button>
+  </div>
 
   <!-- DEPARTMENT -->
-  <section id="screen-dept" class="hidden">
-    <button class="back-btn" onclick="goBack()">← Back</button>
-    <h3>Select Department</h3>
-    <div class="grid-list" id="deptList"></div>
-  </section>
+  <h3>Select Department</h3>
+  <div id="departments" class="grid-list"></div>
 
   <!-- SEMESTER -->
-  <section id="screen-sem" class="hidden">
-    <button class="back-btn" onclick="goBack()">← Back</button>
-    <h3>Select Semester</h3>
-    <div class="grid-list" id="semList"></div>
-  </section>
+  <h3>Select Semester</h3>
+  <div id="semesters" class="grid-list"></div>
 
   <!-- SUBJECTS -->
-  <section id="screen-subjects" class="hidden">
-    <button class="back-btn" onclick="goBack()">← Back</button>
-    <h3 id="title"></h3>
-    <div id="subjects"></div>
-    <button class="next-btn" onclick="saveSemester()">Save Semester</button>
-  </section>
+  <div id="subjects"></div>
+
+  <button class="next-btn" onclick="saveSemester()">Save Semester</button>
 
   <!-- RESULT -->
-  <section id="screen-result" class="hidden">
+  <div class="result-card">
     <h3>Your CGPA</h3>
-    <div class="gpa-display" id="cgpa">0.00</div>
-    <canvas id="graph" height="200"></canvas>
-    <button class="main-btn" onclick="location.reload()">Start Again</button>
-  </section>
+    <div id="cgpa" class="gpa-display">0.00</div>
+  </div>
+
+  <button class="action-btn" onclick="resetAll()">Start Again</button>
 
 </div>
 
