@@ -1,248 +1,155 @@
-/* =========================
-   GRADE POINT REFERENCE
-========================= */
-const gradePoints = {
-  S: 10,
-  A: 9,
-  B: 8,
-  C: 7,
-  D: 6,
-  E: 5,
-  F: 0
-};
+const gradePoints = { S:10, A:9, B:8, C:7, D:6, E:5, F:0 };
 
-/* =========================
-   STREAM & DEPARTMENTS
-========================= */
 const departments = {
-  engineering: ["CSE", "ISE", "ECE", "EEE", "AA"],
+  engineering: ["CSE","ISE","ECE","EEE","AA"],
   bcom: ["BCOM"]
 };
 
-/* =========================
-   GLOBAL STATE
-========================= */
-let state = {
-  stream: null,
-  dept: null,
-  sem: null,
-  grades: {},
-  gpaHistory: Array(8).fill(null)
+// ⬇️ USE YOUR FULL SUBJECT DATA HERE
+const subjectsData = {
+  engineering:{
+    1:[{name:"Maths",credits:4},{name:"Physics",credits:3}],
+    2:[{name:"DS",credits:4},{name:"OOPS",credits:3}],
+    3:[],4:[],5:[],6:[],7:[],8:[]
+  },
+  bcom:{
+    1:[{name:"Financial Accounting",credits:4}],
+    2:[{name:"Business Economics",credits:4}],
+    3:[],4:[],5:[],6:[]
+  },
+  aa:{
+    5:[{name:"Architecture Design",credits:4}],
+    6:[],7:[],8:[]
+  }
 };
 
-let chartInstance = null;
+let state = {
+  stream:null,
+  dept:null,
+  sem:null,
+  grades:{},
+  gpaHistory:Array(8).fill(null)
+};
 
-/* =========================
-   SECTION NAVIGATION
-========================= */
-function showSection(id) {
-  document.querySelectorAll("section").forEach(sec => {
-    sec.classList.add("hidden");
-  });
+let chart;
+
+function showSection(id){
+  document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));
   document.getElementById(id).classList.remove("hidden");
 }
 
-/* =========================
-   START FLOW
-========================= */
-function startApp() {
-  showSection("infoSection");
-}
-
-function goToStream() {
-  showSection("streamSection");
-}
-
-/* =========================
-   STREAM SELECTION
-========================= */
-function selectStream(stream) {
-  state.stream = stream;
-  state.dept = null;
-  state.sem = null;
-
-  const deptList = document.getElementById("deptList");
-  deptList.innerHTML = "";
-
-  departments[stream].forEach(dep => {
+window.onload = ()=>{
+  const list = document.getElementById("streamList");
+  Object.keys(departments).forEach(s=>{
     const btn = document.createElement("button");
-    btn.className = "btn";
-    btn.textContent = dep;
-    btn.onclick = () => selectDepartment(dep);
-    deptList.appendChild(btn);
+    btn.className="btn primary";
+    btn.textContent = s.toUpperCase();
+    btn.onclick = ()=>selectStream(s);
+    list.appendChild(btn);
   });
+};
 
+function selectStream(stream){
+  state.stream = stream;
+  const d = document.getElementById("deptList");
+  d.innerHTML = "";
+  departments[stream].forEach(dep=>{
+    const btn = document.createElement("button");
+    btn.className="btn";
+    btn.textContent = dep;
+    btn.onclick = ()=>selectDept(dep);
+    d.appendChild(btn);
+  });
   showSection("departmentSection");
 }
 
-/* =========================
-   DEPARTMENT SELECTION
-========================= */
-function selectDepartment(dep) {
+function selectDept(dep){
   state.dept = dep;
-
-  const semList = document.getElementById("semList");
-  semList.innerHTML = "";
-
-  const maxSem = state.stream === "engineering" ? 8 : 6;
-
-  for (let i = 1; i <= maxSem; i++) {
+  const s = document.getElementById("semList");
+  s.innerHTML = "";
+  const max = state.stream==="engineering"?8:6;
+  for(let i=1;i<=max;i++){
     const btn = document.createElement("button");
-    btn.className = "btn";
-    btn.textContent = `Semester ${i}`;
-    btn.onclick = () => selectSemester(i);
-    semList.appendChild(btn);
+    btn.className="btn";
+    btn.textContent = "Semester "+i;
+    btn.onclick = ()=>selectSem(i);
+    s.appendChild(btn);
   }
-
   showSection("semesterSection");
 }
 
-/* =========================
-   SEMESTER SELECTION
-========================= */
-async function selectSemester(sem) {
+function selectSem(sem){
   state.sem = sem;
   state.grades = {};
+  const list = document.getElementById("subjectList");
+  list.innerHTML = "";
+  document.getElementById("semTitle").textContent = "Semester "+sem;
 
-  document.getElementById("semTitle").textContent = `Semester ${sem}`;
-  const subjectList = document.getElementById("subjectList");
-  subjectList.innerHTML = "";
+  let arr = subjectsData[state.stream][sem] || [];
+  if(state.dept==="AA") arr = subjectsData.aa[sem] || [];
 
-  const deptKey = state.dept.toLowerCase();
-  const filePath = `data/${deptKey}_sem${sem}.json`;
-
-  try {
-    const res = await fetch(filePath);
-    if (!res.ok) throw new Error("File not found");
-
-    const subjects = await res.json();
-
-    subjects.forEach((sub, index) => {
-      const card = document.createElement("div");
-      card.className = "subject-card";
-
-      card.innerHTML = `
-        <div class="subject-info">
-          <h4>${sub.name}</h4>
-          <span>${sub.credits} Credits</span>
-        </div>
-        <select onchange="state.grades[${index}] = gradePoints[this.value]">
-          <option value="">Select Grade</option>
-          ${Object.keys(gradePoints)
-            .map(g => `<option value="${g}">${g}</option>`)
-            .join("")}
-        </select>
-      `;
-
-      subjectList.appendChild(card);
-    });
-
-  } catch (err) {
-    subjectList.innerHTML =
-      "<p class='error'>Subjects not available for this semester.</p>";
-  }
-
+  arr.forEach((sub,i)=>{
+    const div = document.createElement("div");
+    div.className="card";
+    div.innerHTML = `
+      <b>${sub.name}</b> (${sub.credits} credits)
+      <select onchange="state.grades[${i}]=gradePoints[this.value]">
+        <option value="">Select Grade</option>
+        ${Object.keys(gradePoints).map(g=>`<option>${g}</option>`).join("")}
+      </select>`;
+    list.appendChild(div);
+  });
   showSection("subjectsSection");
 }
 
-/* =========================
-   GPA CALCULATION
-========================= */
-async function calculateGPA() {
-  const deptKey = state.dept.toLowerCase();
-  const filePath = `data/${deptKey}_sem${state.sem}.json`;
+function calculateGPA(){
+  let arr = subjectsData[state.stream][state.sem] || [];
+  if(state.dept==="AA") arr = subjectsData.aa[state.sem] || [];
 
-  const res = await fetch(filePath);
-  const subjects = await res.json();
-
-  let totalPoints = 0;
-  let totalCredits = 0;
-
-  for (let i = 0; i < subjects.length; i++) {
-    if (state.grades[i] === undefined) {
-      alert("Please select grades for all subjects");
+  let total=0, credits=0;
+  for(let i=0;i<arr.length;i++){
+    if(state.grades[i]==null){
+      alert("Please select all grades");
       return;
     }
-
-    totalPoints += state.grades[i] * subjects[i].credits;
-    totalCredits += subjects[i].credits;
+    total += state.grades[i]*arr[i].credits;
+    credits += arr[i].credits;
   }
 
-  const gpa = (totalPoints / totalCredits).toFixed(2);
-  state.gpaHistory[state.sem - 1] = Number(gpa);
-
-  document.getElementById("gpaValue").textContent = gpa;
-  document.getElementById("cgpaValue").textContent = calculateCGPA();
-
-  drawGraph();
+  const gpa = (total/credits).toFixed(2);
+  state.gpaHistory[state.sem-1] = Number(gpa);
+  document.getElementById("gpa").textContent = gpa;
+  document.getElementById("cgpa").textContent = calcCGPA();
+  drawChart();
   showSection("resultSection");
 }
 
-/* =========================
-   CGPA CALCULATION
-========================= */
-function calculateCGPA() {
-  const valid = state.gpaHistory.filter(v => v !== null);
-  if (valid.length === 0) return "0.00";
-
-  const cgpa = valid.reduce((a, b) => a + b, 0) / valid.length;
-  return cgpa.toFixed(2);
+function calcCGPA(){
+  const v = state.gpaHistory.filter(x=>x!=null);
+  return (v.reduce((a,b)=>a+b,0)/v.length).toFixed(2);
 }
 
-/* =========================
-   CGPA → PERCENTAGE
-========================= */
-function convertToPercentage() {
-  const cgpa = parseFloat(document.getElementById("cgpaInput").value);
-
-  if (isNaN(cgpa)) {
-    document.getElementById("percentageResult").textContent =
-      "Enter valid CGPA";
-    return;
-  }
-
-  const percent = (cgpa * 10).toFixed(1);
-  document.getElementById("percentageResult").textContent =
-    `Percentage: ${percent}%`;
-}
-
-/* =========================
-   GRAPH (Chart.js)
-========================= */
-function drawGraph() {
-  const ctx = document.getElementById("gpaChart").getContext("2d");
-
-  if (chartInstance) chartInstance.destroy();
-
-  chartInstance = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: state.gpaHistory.map((_, i) => `Sem ${i + 1}`),
-      datasets: [{
-        label: "Semester GPA",
+function drawChart(){
+  if(chart) chart.destroy();
+  chart = new Chart(document.getElementById("chart"),{
+    type:"line",
+    data:{
+      labels: state.gpaHistory.map((_,i)=>"Sem "+(i+1)),
+      datasets:[{
         data: state.gpaHistory,
-        borderColor: "#7c3aed",
-        backgroundColor: "rgba(124,58,237,0.15)",
-        tension: 0.35,
-        borderWidth: 3,
-        fill: true
+        borderColor:"#7c3aed",
+        tension:0.4,
+        borderWidth:3
       }]
     },
-    options: {
-      responsive: true,
-      scales: {
-        y: {
-          min: 0,
-          max: 10
-        }
-      }
+    options:{
+      scales:{y:{min:0,max:10}}
     }
   });
 }
 
-/* =========================
-   INITIAL LOAD
-========================= */
-window.onload = () => {
-  showSection("startSection");
-};
+function convertToPercentage(){
+  const cg = document.getElementById("cgpaInput").value;
+  document.getElementById("percentResult").textContent =
+    "Percentage: "+(cg*10).toFixed(1)+"%";
+}
