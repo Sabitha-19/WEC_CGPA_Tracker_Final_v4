@@ -1,66 +1,79 @@
-const departments = {
+// Departments Data
+const departmentsData = {
     engineering: ["CSE","ISE","ECE","EEE","AA"],
     bcom: ["BCOM"]
 };
-const semesters = [1,2,3,4,5,6,7,8];
 
-const homeSection = document.getElementById('homeSection');
-const streamSection = document.getElementById('streamSection');
-const departmentSection = document.getElementById('departmentSection');
-const semesterSection = document.getElementById('semesterSection');
-const gradeSection = document.getElementById('gradeSection');
+// Semesters
+const semesters = ["Semester 1","Semester 2","Semester 3","Semester 4","Semester 5","Semester 6","Semester 7","Semester 8"];
 
-document.getElementById('continueBtn').addEventListener('click', () => {
-    homeSection.classList.remove('active');
-    streamSection.classList.add('active');
+// Elements
+const continueBtn = document.getElementById("continueBtn");
+const streamSection = document.getElementById("streamSection");
+const departmentSection = document.getElementById("departmentSection");
+const semesterSection = document.getElementById("semesterSection");
+const gradesSection = document.getElementById("gradesSection");
+
+const departmentContainer = document.getElementById("departments");
+const semesterContainer = document.getElementById("semesters");
+
+const backStreamBtn = document.getElementById("backStream");
+const backDepartmentBtn = document.getElementById("backDepartment");
+
+let selectedStream = "";
+
+// Show Stream Selection
+continueBtn.addEventListener("click", () => {
+    continueBtn.style.display = "none";
+    streamSection.classList.remove("hidden");
 });
 
-// Stream buttons
-document.querySelectorAll('#streamSection .option-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        const stream = btn.dataset.stream;
-        document.querySelectorAll('#streamSection .option-btn').forEach(b=>b.classList.remove('selected'));
-        btn.classList.add('selected');
+// Stream Selection
+document.querySelectorAll(".stream-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+        selectedStream = btn.dataset.stream;
+        streamSection.classList.add("hidden");
+        departmentSection.classList.remove("hidden");
 
-        const deptBtns = document.getElementById('departmentBtns');
-        deptBtns.innerHTML = '';
-        departments[stream].forEach(dept => {
-            const b = document.createElement('button');
-            b.textContent = dept;
-            b.className = 'option-btn';
-            b.addEventListener('click', () => {
-                document.querySelectorAll('#departmentBtns .option-btn').forEach(bb=>bb.classList.remove('selected'));
-                b.classList.add('selected');
-                semesterSection.classList.add('active');
-                departmentSection.classList.remove('active');
+        // Load Departments
+        departmentContainer.innerHTML = "";
+        departmentsData[selectedStream].forEach(dep => {
+            const depBtn = document.createElement("button");
+            depBtn.textContent = dep;
+            depBtn.classList.add("dep-btn");
+            depBtn.addEventListener("click", () => {
+                departmentSection.classList.add("hidden");
+                semesterSection.classList.remove("hidden");
+
+                // Load Semesters
+                semesterContainer.innerHTML = "";
+                semesters.forEach((sem, idx) => {
+                    const semBtn = document.createElement("button");
+                    semBtn.textContent = sem;
+                    semBtn.addEventListener("click", () => {
+                        // Highlight selected
+                        document.querySelectorAll("#semesters button").forEach(b => b.classList.remove("selected"));
+                        semBtn.classList.add("selected");
+
+                        // Show grades
+                        gradesSection.classList.remove("hidden");
+                    });
+                    semesterContainer.appendChild(semBtn);
+                });
             });
-            deptBtns.appendChild(b);
+            departmentContainer.appendChild(depBtn);
         });
-
-        streamSection.classList.remove('active');
-        departmentSection.classList.add('active');
     });
 });
 
 // Back buttons
-document.getElementById('backDeptBtn').addEventListener('click', () => {
-    departmentSection.classList.remove('active');
-    streamSection.classList.add('active');
-});
-document.getElementById('backSemBtn').addEventListener('click', () => {
-    semesterSection.classList.remove('active');
-    departmentSection.classList.add('active');
+backStreamBtn.addEventListener("click", () => {
+    departmentSection.classList.add("hidden");
+    streamSection.classList.remove("hidden");
 });
 
-// Semester buttons
-const semesterBtnsDiv = document.getElementById('semesterBtns');
-semesters.forEach(s => {
-    const b = document.createElement('button');
-    b.textContent = 'Semester ' + s;
-    b.className = 'option-btn';
-    b.addEventListener('click', () => {
-        document.querySelectorAll('#semesterBtns .option-btn').forEach(bb=>bb.classList.remove('selected'));
-        b.classList.add('selected');
-    });
-    semesterBtnsDiv.appendChild(b);
+backDepartmentBtn.addEventListener("click", () => {
+    semesterSection.classList.add("hidden");
+    departmentSection.classList.remove("hidden");
+    gradesSection.classList.add("hidden");
 });
