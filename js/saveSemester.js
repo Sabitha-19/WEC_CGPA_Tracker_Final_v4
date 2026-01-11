@@ -1,37 +1,34 @@
-function saveSemester(dept, sem, gpa) {
-  let data = JSON.parse(localStorage.getItem("cgpaData")) || {};
-
-  if (!data[dept]) data[dept] = {};
-  data[dept][`sem${sem}`] = Number(gpa);
-
-  localStorage.setItem("cgpaData", JSON.stringify(data));
+// Save, Edit, Delete semester in localStorage
+function saveSemesterData(){
+  if(!state.stream || !state.dept || !state.sem) return;
+  const key = `${state.stream}_${state.dept}_sem${state.sem}`;
+  localStorage.setItem(key, JSON.stringify(state.grades));
 }
 
-function deleteSemester(dept, sem) {
-  let data = JSON.parse(localStorage.getItem("cgpaData")) || {};
-  if (data[dept]) {
-    delete data[dept][`sem${sem}`];
-    localStorage.setItem("cgpaData", JSON.stringify(data));
+function loadSavedGrades(){
+  if(!state.stream || !state.dept || !state.sem) return;
+  const key = `${state.stream}_${state.dept}_sem${state.sem}`;
+  const saved = localStorage.getItem(key);
+  if(saved){
+    state.grades = JSON.parse(saved);
+    const cards = document.querySelectorAll("#subjectList .card select");
+    cards.forEach((sel,i)=>{
+      sel.value = Object.keys(gradePoints).find(g=>gradePoints[g]===state.grades[i]) || "";
+    });
   }
-  updateResult();
 }
 
-function updateResult() {
-  const data = JSON.parse(localStorage.getItem("cgpaData")) || {};
-  const deptData = data[selectedDept] || {};
+// Edit Button
+document.getElementById("editSem").onclick = ()=>{
+  loadSavedGrades();
+  show("subjects");
+}
 
-  let sum = 0, count = 0;
-  Object.values(deptData).forEach(g => {
-    sum += g;
-    count++;
-  });
-
-  const cgpa = count ? (sum / count).toFixed(2) : 0;
-  document.getElementById("gpa").textContent =
-    deptData[`sem${selectedSem}`] || 0;
-  document.getElementById("cgpa").textContent = cgpa;
-  document.getElementById("percentage").textContent =
-    (cgpa * 9.5).toFixed(2) + "%";
-
-  drawChart(deptData);
+// Delete Button
+document.getElementById("deleteSem").onclick = ()=>{
+  if(!state.stream || !state.dept || !state.sem) return;
+  const key = `${state.stream}_${state.dept}_sem${state.sem}`;
+  localStorage.removeItem(key);
+  state.grades = {};
+  loadSubjects();
 }
