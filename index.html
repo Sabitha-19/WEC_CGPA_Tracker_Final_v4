@@ -20,53 +20,70 @@
 
   <h2>Grade Point Reference</h2>
   <div class="grades">
-    <div class="grade-cube S">S<br>Outstanding<br><span>10 Pts</span></div>
-    <div class="grade-cube A">A<br>Excellent<br><span>9 Pts</span></div>
-    <div class="grade-cube B">B<br>Very Good<br><span>8 Pts</span></div>
-    <div class="grade-cube C">C<br>Good<br><span>7 Pts</span></div>
-    <div class="grade-cube D">D<br>Above Avg<br><span>6 Pts</span></div>
-    <div class="grade-cube E">E<br>Pass<br><span>5 Pts</span></div>
-    <div class="grade-cube F">F<br>Fail<br><span>0 Pts</span></div>
+    <div class="grade-cube S">S<br>Outstanding<br><span>10</span></div>
+    <div class="grade-cube A">A<br>Excellent<br><span>9</span></div>
+    <div class="grade-cube B">B<br>Very Good<br><span>8</span></div>
+    <div class="grade-cube C">C<br>Good<br><span>7</span></div>
+    <div class="grade-cube D">D<br>Above Avg<br><span>6</span></div>
+    <div class="grade-cube E">E<br>Pass<br><span>5</span></div>
+    <div class="grade-cube F">F<br>Fail<br><span>0</span></div>
   </div>
 </section>
 
+<!-- STREAM -->
 <section id="stream">
   <h2>Select Stream</h2>
-  <div id="streamList"></div>
-  <span class="back" data-target="intro">← Back</span>
+  <div id="streamList" class="button-grid">
+    <button>Engineering</button>
+    <button>BCom</button>
+  </div>
 </section>
 
+<!-- DEPARTMENT -->
 <section id="department">
   <h2>Select Department</h2>
-  <div id="deptList"></div>
-  <span class="back" data-target="stream">← Back</span>
+  <div id="deptList" class="button-grid">
+    <button onclick="selectDepartment(this,'CSE')">CSE</button>
+    <button onclick="selectDepartment(this,'ISE')">ISE</button>
+    <button onclick="selectDepartment(this,'ECE')">ECE</button>
+    <button onclick="selectDepartment(this,'EEE')">EEE</button>
+    <button onclick="selectDepartment(this,'AA')">AA</button>
+  </div>
 </section>
 
+<!-- SEMESTER -->
 <section id="semester">
   <h2>Select Semester</h2>
-  <div id="semList"></div>
-  <span class="back" data-target="department">← Back</span>
+  <div id="semList" class="button-grid">
+    <button onclick="selectSemester(this,1)">Semester 1</button>
+    <button onclick="selectSemester(this,2)">Semester 2</button>
+    <button onclick="selectSemester(this,3)">Semester 3</button>
+    <button onclick="selectSemester(this,4)">Semester 4</button>
+    <button onclick="selectSemester(this,5)">Semester 5</button>
+    <button onclick="selectSemester(this,6)">Semester 6</button>
+    <button onclick="selectSemester(this,7)">Semester 7</button>
+    <button onclick="selectSemester(this,8)">Semester 8</button>
+  </div>
 </section>
 
+<!-- SUBJECTS -->
 <section id="subjects">
   <h2 id="semTitle">Semester</h2>
   <div id="subjectList"></div>
   <button id="calcGPA">Calculate GPA</button>
-  <span class="back" data-target="semester">← Back</span>
 </section>
 
+<!-- RESULT -->
 <section id="result">
   <h2>Result</h2>
   <p>GPA: <span id="gpa">0</span></p>
   <p>CGPA: <span id="cgpa">0</span></p>
   <p>Percentage: <span id="percentage">0%</span></p>
   <canvas id="chart"></canvas>
-  <span class="back" data-target="subjects">← Back</span>
 </section>
 
 <script src="js/main.js"></script>
 <script src="js/saveSemester.js"></script>
 <script src="js/chart.js"></script>
-
 </body>
 </html>
