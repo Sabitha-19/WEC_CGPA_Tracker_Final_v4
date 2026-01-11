@@ -1,86 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEC CGPA Tracker</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WEC CGPA Tracker</title>
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  /* General */
+  body { font-family: 'Arial', sans-serif; margin:0; padding:0; background:#f9fafb; }
+  h1,h2,h3 { margin:0.5em 0; }
+  section { display:none; padding:20px; max-width:800px; margin:auto; }
+  section.active { display:block; }
+  button { cursor:pointer; padding:12px 20px; margin:5px; border:none; border-radius:10px; font-size:16px; transition:0.2s; }
+  button:hover { transform:scale(1.05); }
+
+  /* Header */
+  header { background:#fff; padding:15px 20px; box-shadow:0 2px 6px rgba(0,0,0,0.1); display:flex; align-items:center; justify-content:space-between; }
+  header h1 { font-size:22px; }
+  
+  /* Grade cubes */
+  .grades { display:grid; grid-template-columns: repeat(auto-fit, minmax(120px,1fr)); gap:15px; margin:20px 0; }
+  .grade-cube { padding:20px; border-radius:12px; text-align:center; font-family: 'Cursive', sans-serif; font-weight:500; font-size:16px; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
+  .grade-cube span { display:block; font-size:22px; margin-top:5px; font-weight:bold; }
+
+  /* Colors for each grade */
+  .grade-cube.S { background:#d1fae5; color:#166534; }
+  .grade-cube.A { background:#d1fae5; color:#166534; }
+  .grade-cube.B { background:#e0e7ff; color:#3730a3; }
+  .grade-cube.C { background:#eef2ff; color:#4f46e5; }
+  .grade-cube.D { background:#f5f3ff; color:#7c3aed; }
+  .grade-cube.E { background:#fef3c7; color:#b45309; }
+  .grade-cube.F { background:#fee2e2; color:#991b1b; }
+
+  /* Cards for subjects */
+  .card { padding:12px 15px; margin:8px 0; background:#fff; border-radius:12px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 6px rgba(0,0,0,0.08); }
+  select { padding:6px 8px; border-radius:8px; border:1px solid #ccc; }
+
+  /* GPA Result */
+  #result { text-align:center; }
+  #result h2 { margin-top:10px; }
+  canvas { max-width:100%; margin-top:20px; }
+
+  /* Back links */
+  .back { display:block; margin:10px 0; color:#3b82f6; cursor:pointer; font-style:italic; }
+
+  /* Continue button */
+  #continueBtn { background:#7c3aed; color:#fff; font-size:18px; }
+</style>
 </head>
 <body>
-    <div id="app">
-        <!-- Start / Info Page -->
-        <div id="startPage" class="page">
-            <h1>WEC CGPA Tracker 🎓</h1>
-            <p>Welcome to your academic performance assistant</p>
-            <div class="card">
-                <h2>📘 CGPA Overview</h2>
-                <p><b>CGPA (Cumulative Grade Point Average)</b> is the average of Grade Points obtained in all semesters.</p>
-                <ul>
-                    <li>Used for academic evaluation</li>
-                    <li>Required for placements & higher studies</li>
-                    <li>Shows consistent performance</li>
-                </ul>
-                <button class="btn-purple" id="startBtn">Start</button>
-            </div>
-        </div>
 
-        <!-- Stream Selection -->
-        <div id="streamPage" class="page">
-            <button class="backBtn">&larr; Back</button>
-            <h2>Select Stream</h2>
-            <div class="buttonGroup">
-                <button class="btn-purple" data-stream="engineering">Engineering</button>
-                <button class="btn-purple" data-stream="bcom">B.Com</button>
-            </div>
-        </div>
+<header>
+  <h1>WEC Tracker</h1>
+</header>
 
-        <!-- Department Selection -->
-        <div id="deptPage" class="page">
-            <button class="backBtn">&larr; Back</button>
-            <h2>Select Department</h2>
-            <div id="deptButtons" class="buttonGroup"></div>
-        </div>
+<section id="intro" class="active">
+  <h1>Official WEC CGPA Tracker</h1>
+  <p>Trusted academic tool for Women's Engineering College</p>
+  <button id="continueBtn">Continue →</button>
 
-        <!-- Semester Selection -->
-        <div id="semPage" class="page">
-            <button class="backBtn">&larr; Back</button>
-            <h2>Select Semester</h2>
-            <div id="semButtons" class="buttonGroup"></div>
-        </div>
+  <h2>Grade Point Reference</h2>
+  <div class="grades">
+    <div class="grade-cube S">S<br>Outstanding<br><span>10 Pts</span></div>
+    <div class="grade-cube A">A<br>Excellent<br><span>9 Pts</span></div>
+    <div class="grade-cube B">B<br>Very Good<br><span>8 Pts</span></div>
+    <div class="grade-cube C">C<br>Good<br><span>7 Pts</span></div>
+    <div class="grade-cube D">D<br>Above Avg<br><span>6 Pts</span></div>
+    <div class="grade-cube E">E<br>Pass<br><span>5 Pts</span></div>
+    <div class="grade-cube F">F<br>Fail<br><span>0 Pts</span></div>
+  </div>
+</section>
 
-        <!-- Grade Selection -->
-        <div id="gradePage" class="page">
-            <button class="backBtn">&larr; Back</button>
-            <h2>Select Grades</h2>
-            <div id="subjectList"></div>
-            <div id="gradeRef">
-                <h3>Grade Reference (Cubic)</h3>
-                <div class="gradeGrid">
-                    <div class="gradeCard">S<br>Outstanding<br>10 Pts</div>
-                    <div class="gradeCard">A<br>Excellent<br>9 Pts</div>
-                    <div class="gradeCard">B<br>Very Good<br>8 Pts</div>
-                    <div class="gradeCard">C<br>Good<br>7 Pts</div>
-                    <div class="gradeCard">D<br>Above Avg<br>6 Pts</div>
-                    <div class="gradeCard">E<br>Pass<br>5 Pts</div>
-                    <div class="gradeCard">F<br>Fail<br>0 Pts</div>
-                </div>
-            </div>
-            <button class="btn-purple" id="saveSemester">Save Semester</button>
-            <button class="btn-purple" id="resetSemester">Reset Semester</button>
-        </div>
+<section id="stream">
+  <h2>Select Stream</h2>
+  <button onclick="selectStream('engineering')">Engineering</button>
+  <button onclick="selectStream('bcom')">BCOM</button>
+</section>
 
-        <!-- GPA / CGPA Page -->
-        <div id="resultPage" class="page">
-            <button class="backBtn">&larr; Back</button>
-            <h2>Results</h2>
-            <p id="gpaDisplay"></p>
-            <p id="cgpaDisplay"></p>
-            <p id="percentageDisplay"></p>
-            <canvas id="gpaChart" width="400" height="200"></canvas>
-        </div>
-    </div>
+<section id="department">
+  <span class="back" onclick="show('stream')">← Back</span>
+  <h2>Select Department</h2>
+  <div id="deptList"></div>
+</section>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="script.js"></script>
+<section id="semester">
+  <span class="back" onclick="show('department')">← Back</span>
+  <h2>Select Semester</h2>
+  <div id="semList"></div>
+</section>
+
+<section id="subjects">
+  <span class="back" onclick="show('semester')">← Back</span>
+  <h2 id="semTitle">Semester</h2>
+  <div id="subjectList"></div>
+  <button onclick="calculateGPA()">Calculate GPA</button>
+</section>
+
+<section id="result">
+  <h2>Result</h2>
+  <p>GPA: <span id="gpa">0</span></p>
+  <p>CGPA: <span id="cgpa">0</span></p>
+  <canvas id="chart"></canvas>
+  <span class="back" onclick="show('subjects')">← Back</span>
+</section>
+
+<script>
+const gradePoints = { S:10, A:9, B:8, C:7, D:6, E:5, F:0 };
+const departments = { engineering:["CSE","ISE","ECE","EEE","AA"], bcom:["BCOM"] };
+
+// Example subject data (replace with your real data)
+const subjectsData = {
+  engineering: {
+    1:[{name:"Maths",credits:4},{name:"Physics",credits:3}],
+    2:[{name:"DS",credits:4},{name:"OOPS",credits:3}],
+    3:[{name:"Algo",credits:3},{name:"DBMS",credits:3}],
+    4:[{name:"OS",credits:3},{name:"Networks",credits:3}],
+    5:[{name:"AI",credits:3},{name:"ML",credits:3}],
+    6:[{name:"DS Lab",credits:2},{name:"OOPS Lab",credits:2}],
+    7:[{name:"Project 1",credits:3}],
+    8:[{name:"Project 2",credits:3}]
+  },
+  bcom: {
+    1:[{name:"Financial Accounting",credits:4}],
+    2:[{name:"Business Economics",credits:4}],
+    3:[{name:"Corporate Accounting",credits:4}],
+    4:[{name:"Business Law",credits:4}],
+    5:[{name:"Taxation",credits:4}],
+    6:[{name:"Audit",credits:4}],
+    7:[{name:"Management",credits:4}],
+    8:[{name:"Finance",credits:4}]
+  }
+};
+
+let state={ stream:null, dept:null, sem:null, grades:{}, gpaHistory:Array(8).fill(null) };
+let chart;
+
+document.getElementById('continueBtn').onclick = ()=>show('stream');
+
+function show(id){
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function selectStream(s){
+  state.stream=s;
+  const d=document.getElementById('deptList');
+  d.innerHTML='';
+  departments[s].forEach(dep=>{
+    const btn=document.createElement('button');
+    btn.textContent=dep;
+    btn.onclick=()=>selectDept(dep);
+    d.appendChild(btn);
+  });
+  show('department');
+}
+
+function selectDept(dep){
+  state.dept=dep;
+  const s=document.getElementById('semList');
+  s.innerHTML='';
+  for(let i=1;i<=8;i++){
+    const btn=document.createElement('button');
+    btn.textContent=`Semester ${i}`;
+    btn.onclick=()=>selectSem(i);
+    s.appendChild(btn);
+  }
+  show('semester');
+}
+
+function selectSem(sem){
+  state.sem=sem;
+  state.grades={};
+  const list=document.getElementById('subjectList');
+  list.innerHTML='';
+  document.getElementById('semTitle').innerText=`Semester ${sem}`;
+  const subs=subjectsData[state.stream][sem]||[];
+  subs.forEach((sub,i)=>{
+    const card=document.createElement('div');
+    card.className='card';
+    card.innerHTML=`${sub.name} (${sub.credits} credits)
+      <select onchange="state.grades[${i}]=gradePoints[this.value]">
+        <option value="">Grade</option>
+        ${Object.keys(gradePoints).map(g=>`<option>${g}</option>`).join('')}
+      </select>`;
+    list.appendChild(card);
+  });
+  show('subjects');
+}
+
+function calculateGPA(){
+  const subs=subjectsData[state.stream][state.sem]||[];
+  let total=0, credits=0;
+  for(let i=0;i<subs.length;i++){
+    if(state.grades[i]==null){
+      alert('Select all grades');
+      return;
+    }
+    total+=state.grades[i]*subs[i].credits;
+    credits+=subs[i].credits;
+  }
+  const gpa=(total/credits).toFixed(2);
+  state.gpaHistory[state.sem-1]=Number(gpa);
+  document.getElementById('gpa').innerText=gpa;
+  document.getElementById('cgpa').innerText=calcCGPA();
+  drawChart();
+  show('result');
+}
+
+function calcCGPA(){
+  const v=state.gpaHistory.filter(x=>x!=null);
+  return (v.reduce((a,b)=>a+b,0)/v.length).toFixed(2);
+}
+
+function drawChart(){
+  if(chart) chart.destroy();
+  chart=new Chart(document.getElementById('chart'),{
+    type:'line',
+    data:{
+      labels:state.gpaHistory.map((_,i)=>`Sem ${i+1}`),
+      datasets:[{ data:state.gpaHistory, borderColor:'#7c3aed', borderWidth:3, tension:0.3 }]
+    },
+    options:{ scales:{ y:{ min:0,max:10 } } }
+  });
+}
+</script>
 </body>
 </html>
