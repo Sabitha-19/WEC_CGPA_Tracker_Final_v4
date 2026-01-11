@@ -37,6 +37,38 @@ body {
   margin-left: 12px;
 }
 
+/* ===== CGPA Info Section ===== */
+.cgpa-info {
+  background: rgba(255,255,255,0.75);
+  padding: 16px;
+  border-radius: 16px;
+  max-width: 420px;
+  margin: 20px auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.cgpa-info h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #4a3aff;
+}
+
+.cgpa-info h4 {
+  font-size: 14px;
+  margin: 10px 0 6px;
+  color: #333;
+}
+
+.cgpa-info ul {
+  padding-left: 18px;
+  margin: 0;
+}
+
+.cgpa-info li {
+  font-size: 13.5px;
+  margin-bottom: 6px;
+  color: #444;
+}
 /* ===== Pages ===== */
 .page {
   display: none;
