@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WEC CGPA Tracker</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WEC CGPA Tracker</title>
 
-<link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
 
-<div class="container">
+<header class="app-header">
+  <h1>WEC CGPA Tracker 🎓</h1>
+  <p>Official Academic Calculator</p>
+</header>
+
+<main class="container">
 
 <section id="start" class="section active">
-  <div class="card center">
-    <h1>WEC CGPA Tracker 🎓</h1>
-    <p class="subtitle">Official Academic Calculator</p>
-    <button class="primary-btn" onclick="showSection('info')">Get Started →</button>
-  </div>
+  <button class="primary-btn" onclick="showSection('info')">Get Started →</button>
 </section>
 
 <section id="info" class="section">
@@ -27,7 +28,7 @@
     <p>CGPA represents your overall academic performance.</p>
 
     <h3>Formula</h3>
-    <p><b>CGPA = Total GPA ÷ Number of Semesters</b></p>
+    <p class="formula">CGPA = Total GPA ÷ Number of Semesters</p>
 
     <h3>How to Boost CGPA?</h3>
     <ul>
@@ -54,56 +55,48 @@
 </section>
 
 <section id="stream" class="section">
-  <div class="card">
-    <h2>Select Stream</h2>
-    <div class="btn-row">
-      <button onclick="selectStream('engineering')">Engineering</button>
-      <button onclick="selectStream('bcom')">B.Com</button>
-    </div>
+  <h2>Select Stream</h2>
+  <div class="grid">
+    <button onclick="selectStream('engineering')">Engineering</button>
+    <button onclick="selectStream('bcom')">B.Com</button>
   </div>
 </section>
 
 <section id="department" class="section">
-  <div class="card">
-    <h2>Select Department</h2>
-    <div id="deptButtons" class="grid"></div>
-  </div>
+  <h2>Select Department</h2>
+  <div id="deptButtons" class="grid"></div>
 </section>
 
 <section id="semester" class="section">
-  <div class="card">
-    <h2>Select Semester</h2>
-    <div id="semButtons" class="grid"></div>
-  </div>
+  <h2>Select Semester</h2>
+  <div id="semButtons" class="grid"></div>
 </section>
 
 <section id="grades" class="section">
-  <div class="card">
-    <h2>Enter Grades</h2>
-    <div id="subjects"></div>
-    <button class="primary-btn" onclick="calculateGPA()">Calculate GPA</button>
-  </div>
+  <h2>Enter Grades</h2>
+  <div id="subjects"></div>
+  <button class="primary-btn" onclick="calculateGPA()">Calculate GPA</button>
 </section>
 
 <section id="result" class="section">
-  <div class="card center">
-    <h2>GPA</h2>
-    <div class="big" id="gpa">0.00</div>
+  <div class="result-card">
+    <h2>Your GPA</h2>
+    <div id="gpa" class="big">0.00</div>
     <div class="icon-row">
-      <button onclick="saveSemester()">💾</button>
-      <button onclick="drawChart()">📊</button>
+      <button onclick="saveSemester()">💾 Save</button>
+      <button onclick="drawChart()">📊 Graph</button>
     </div>
   </div>
 </section>
 
 <section id="graphSection" class="section">
   <div class="card">
-    <h2>Semester-wise GPA</h2>
+    <h2>GPA Progress</h2>
     <canvas id="chart"></canvas>
   </div>
 </section>
 
-</div>
+</main>
 
 <script src="script.js"></script>
 </body>
