@@ -2,72 +2,69 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WEC CGPA Tracker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link rel="stylesheet" href="css/style.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
 <header>
   <h1>WEC CGPA Tracker</h1>
   <div class="icons">
-    <button id="homeBtn" title="Home">🏠</button>
-    <button id="graphBtn" title="Graph">📊</button>
+    <span onclick="goHome()">🏠</span>
+    <span onclick="showGraph()">📊</span>
   </div>
 </header>
 
-<section id="intro" class="active">
-  <h1>Welcome to WEC CGPA Tracker</h1>
-  <p>Track your GPA/CGPA, get tips, and visualize your progress.</p>
-  <button id="continueBtn">Start →</button>
+<main>
 
-  <h2>Grade Reference</h2>
-  <div class="grades">
-    <div class="grade-cube S">S<br>Outstanding<br><span>10</span></div>
-    <div class="grade-cube A">A<br>Excellent<br><span>9</span></div>
-    <div class="grade-cube B">B<br>Very Good<br><span>8</span></div>
-    <div class="grade-cube C">C<br>Good<br><span>7</span></div>
-    <div class="grade-cube D">D<br>Above Avg<br><span>6</span></div>
-    <div class="grade-cube E">E<br>Pass<br><span>5</span></div>
-    <div class="grade-cube F">F<br>Fail<br><span>0</span></div>
-  </div>
+<section id="page-home">
+  <button class="primary" onclick="goTo('page-stream')">Start</button>
 </section>
 
-<section id="stream">
+<section id="page-stream" class="hidden">
   <h2>Select Stream</h2>
-  <div id="streamList"></div>
-  <span class="back" data-target="intro">← Back</span>
+  <button onclick="selectStream('engineering')">Engineering</button>
+  <button onclick="selectStream('bcom')">B.Com</button>
+  <button class="back" onclick="goBack()">⬅ Back</button>
 </section>
 
-<section id="department">
+<section id="page-department" class="hidden">
   <h2>Select Department</h2>
-  <div id="deptList"></div>
-  <span class="back" data-target="stream">← Back</span>
+  <div id="departmentButtons"></div>
+  <button class="back" onclick="goBack()">⬅ Back</button>
 </section>
 
-<section id="semester">
+<section id="page-semester" class="hidden">
   <h2>Select Semester</h2>
-  <div id="semList"></div>
-  <span class="back" data-target="department">← Back</span>
+  <div id="semesterButtons"></div>
+  <button class="back" onclick="goBack()">⬅ Back</button>
 </section>
 
-<section id="subjects">
-  <h2 id="semTitle">Semester</h2>
-  <div id="subjectList"></div>
-  <button id="calcGPA">Calculate GPA</button>
-  <span class="back" data-target="semester">← Back</span>
+<section id="page-subjects" class="hidden">
+  <h2 id="subjectTitle"></h2>
+  <div id="subjects"></div>
+
+  <div class="result">
+    GPA: <span id="gpa">0.00</span>
+    <p id="message"></p>
+  </div>
+
+  <button onclick="saveSemester()">💾 Save</button>
+  <button onclick="deleteSemester()">🗑 Delete</button>
+  <button class="back" onclick="goBack()">⬅ Back</button>
 </section>
 
-<section id="result">
-  <h2>Result</h2>
-  <p>GPA: <span id="gpa">0</span></p>
-  <p>CGPA: <span id="cgpa">0</span></p>
-  <p>Percentage: <span id="percentage">0%</span></p>
-  <p id="encouragement"></p>
-  <canvas id="chart"></canvas>
-  <span class="back" data-target="subjects">← Back</span>
+<section id="page-graph" class="hidden">
+  <h2>Semester-wise GPA</h2>
+  <canvas id="cgpaChart"></canvas>
+  <button class="back" onclick="goBack()">⬅ Back</button>
 </section>
+
+</main>
 
 <script src="js/main.js"></script>
 <script src="js/saveSemester.js"></script>
