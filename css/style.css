@@ -1,85 +1,55 @@
+/* General */
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background: #f5f7fb;
-  margin: 0;
-  color: #333;
+  font-family: Arial, sans-serif;
+  margin:0; padding:0;
+  background:#f5f5f5; color:#333;
+  padding-top:70px; /* space for fixed header */
+}
+.page { display:none; padding:20px; }
+.page.active { display:block; }
+
+h2,h3 { text-align:center; color:#4a3aff; }
+button { padding:10px 20px; border:none; border-radius:8px; cursor:pointer; transition:0.3s; }
+button:hover { opacity:0.8; }
+
+.button-group { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin:20px 0; }
+.button-group button { background:rgba(200,200,255,0.3); color:#333; }
+.button-group button.active { background:linear-gradient(90deg,#6a11cb,#2575fc); color:#fff; }
+.back-btn { background:#ccc; margin-top:20px; }
+
+.cgpa-overview,.cgpa-boost,.grade-reference {
+  background:#fff; border-radius:10px; padding:15px; margin:15px auto;
+  max-width:600px; box-shadow:0 2px 5px rgba(0,0,0,0.1);
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  padding: 12px 20px;
-  background: white;
-  box-shadow: 0 2px 10px rgba(0,0,0,.08);
+.cubic-grades { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; }
+.grade-card { background:#e0e0ff; padding:15px; border-radius:8px; min-width:50px; text-align:center; font-weight:bold; }
+
+#subjects-list { display:flex; flex-direction:column; gap:15px; max-width:700px; margin:0 auto; }
+.subject { display:flex; justify-content:space-between; align-items:center; background:#fff; padding:10px 15px; border-radius:8px; }
+.grade-buttons button { min-width:40px; margin:0 2px; background:rgba(200,200,255,0.3);}
+.grade-buttons button.selected { background:linear-gradient(90deg,#6a11cb,#2575fc); color:#fff; }
+
+.results { text-align:center; margin-top:20px; font-size:18px; font-weight:bold; }
+.grade-actions { display:flex; justify-content:center; gap:10px; margin-top:10px; }
+
+/* Floating Header */
+.fixed-header {
+  position:fixed;
+  top:0; left:0; right:0;
+  background:#fff;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 20px;
+  box-shadow:0 2px 5px rgba(0,0,0,0.2);
+  z-index:1000;
 }
+.fixed-header h1 { margin:0; color:#4a3aff; font-size:1.5rem; }
+.nav-icons span { cursor:pointer; font-size:1.5rem; margin-left:10px; transition:0.3s; }
+.nav-icons span:hover { transform:scale(1.2); }
 
-.icons span {
-  font-size: 22px;
-  margin-left: 12px;
-  cursor: pointer;
-}
-
-.page {
-  display: none;
-  padding: 25px;
-  text-align: center;
-}
-
-.page.active {
-  display: block;
-}
-
-button {
-  padding: 12px 22px;
-  border-radius: 25px;
-  border: none;
-  background: rgba(120,90,255,.15);
-  color: #4a3aff;
-  margin: 10px;
-  cursor: pointer;
-}
-
-button.active {
-  background: linear-gradient(135deg,#6a5cff,#9b7bff);
-  color: white;
-}
-
-.grade-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(90px,1fr));
-  gap: 12px;
-  margin: 15px 0;
-}
-
-.card {
-  padding: 15px;
-  border-radius: 15px;
-  box-shadow: 0 8px 15px rgba(0,0,0,.08);
-  font-weight: bold;
-}
-
-.s {background: rgba(100,255,200,.25);}
-.a {background: rgba(120,200,255,.25);}
-.b {background: rgba(180,200,255,.25);}
-.c {background: rgba(255,230,150,.25);}
-.d {background: rgba(255,190,150,.25);}
-.e {background: rgba(255,160,160,.25);}
-.f {background: rgba(200,200,200,.25);}
-
-.subject {
-  background: white;
-  padding: 15px;
-  border-radius: 15px;
-  margin-bottom: 12px;
-  box-shadow: 0 8px 15px rgba(0,0,0,.08);
-}
-
-.grades button {
-  padding: 6px 10px;
-  margin: 4px;
-}
-
-.result {
-  margin-top: 20px;
-  font-weight: bold;
+@media(max-width:600px){
+  .button-group { flex-direction:column; }
+  .subject { flex-direction:column; align-items:flex-start; }
 }
