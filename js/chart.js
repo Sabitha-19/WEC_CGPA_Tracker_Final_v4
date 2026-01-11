@@ -1,12 +1,22 @@
-const ctx=document.getElementById("cgpaChart");
-const chart=new Chart(ctx,{
-  type:"line",
-  data:{labels:[],datasets:[{label:"GPA",data:[],borderWidth:2}]}
-});
+let chart;
 
-function updateChart(){
-  let data=JSON.parse(localStorage.getItem("wecData"))||[];
-  chart.data.labels=data.map(d=>"Sem "+d.sem);
-  chart.data.datasets[0].data=data.map(d=>d.gpa);
-  chart.update();
+function drawChart(){
+  let data = JSON.parse(localStorage.getItem('cgpaData')||'[]');
+  if(!data.length) return;
+
+  const ctx = document.getElementById('cgpaChart');
+  if(chart) chart.destroy();
+
+  chart = new Chart(ctx,{
+    type:'line',
+    data:{
+      labels:data.map(d=>'Sem '+d.semester),
+      datasets:[{
+        label:'GPA',
+        data:data.map(d=>d.gpa),
+        fill:false,
+        tension:.3
+      }]
+    }
+  });
 }
