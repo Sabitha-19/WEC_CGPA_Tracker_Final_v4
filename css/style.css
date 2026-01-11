@@ -1,32 +1,49 @@
-/* Reset */
-* { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', sans-serif; }
-body { background:#f4f0ff; color:#2c2c2c; min-height:100vh; display:flex; justify-content:center; align-items:center; }
-.container { width:95%; max-width:700px; background:#fff; padding:30px; border-radius:20px; box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
-.page { display:none; }
-.page.active { display:block; animation: fadeIn 0.5s; }
-h1,h2 { text-align:center; margin-bottom:20px; color:#4b0082; }
-p { margin:10px 0; line-height:1.5; }
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #f0f4ff, #ffffff);
+    color: #222;
+}
+
+.page { display: none; padding: 20px; }
+.page.active { display: block; }
+
+h1, h2, h3 { text-align: center; }
+.card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 400px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+.buttonGroup { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px; }
+button { padding: 12px 20px; border-radius: 12px; cursor: pointer; border: none; font-size: 16px; transition: 0.3s; }
 
 .btn-purple {
-  background: linear-gradient(135deg,#8e2de2,#4a00e0);
-  border:none;
-  color:#fff;
-  padding:12px 25px;
-  border-radius:12px;
-  font-size:1rem;
-  cursor:pointer;
-  margin:10px;
-  transition:0.3s;
+    background: linear-gradient(135deg, #7b2ff7, #f107a3);
+    color: #fff;
+    box-shadow: 0 6px 12px rgba(123, 47, 247, 0.3);
 }
-.btn-purple:hover { transform:translateY(-2px); box-shadow:0 4px 10px rgba(0,0,0,0.2); }
+.btn-purple:hover { transform: translateY(-2px); }
 
-.options { display:flex; flex-wrap:wrap; justify-content:center; }
-.options .btn-purple { flex:1 1 40%; margin:10px; }
+.backBtn {
+    background: #ccc; color: #000; margin-bottom: 10px;
+}
 
-form { display:flex; flex-direction:column; gap:12px; }
-form label { display:flex; justify-content:space-between; background:#f0ebff; padding:10px; border-radius:8px; font-weight:500; }
-form select { border-radius:6px; padding:5px; }
+#subjectList { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
+.subjectRow { display: flex; justify-content: space-between; align-items: center; }
+.subjectRow select { padding: 5px; border-radius: 8px; }
 
-.form-buttons { display:flex; justify-content:center; gap:15px; margin-top:20px; }
-
-@keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+.gradeGrid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 10px 0; }
+.gradeCard {
+    flex: 1 1 100px;
+    padding: 15px;
+    border-radius: 12px;
+    background: #f0f0f0;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+}
