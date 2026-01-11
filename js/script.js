@@ -1,108 +1,146 @@
-const pages = document.querySelectorAll('.page');
-const startBtn = document.getElementById('start-btn');
-const streamButtonsDiv = document.getElementById('stream-buttons');
-const semButtonsDiv = document.getElementById('sem-buttons');
-const subjectsList = document.getElementById('subjects-list');
-const gpaResult = document.getElementById('gpa-result');
+// Sample data structure
+const departments = {
+  "Engineering": ["CSE", "ECE", "EEE", "MECH"],
+  "Commerce": ["BCOM"]
+};
+const semesters = [1,2,3,4,5,6,7,8];
+const subjectsData = {
+  "CSE": {
+    1: [{name:"Maths",credits:4},{name:"Physics",credits:3}],
+    2: [{name:"Programming",credits:4},{name:"Chemistry",credits:3}]
+  },
+  "ECE": {1:[{name:"Maths",credits:4},{name:"Physics",credits:3}]},
+  "EEE": {1:[{name:"Maths",credits:4},{name:"Physics",credits:3}]},
+  "MECH": {1:[{name:"Maths",credits:4},{name:"Physics",credits:3}]},
+  "BCOM": {1:[{name:"Accounts",credits:4},{name:"Economics",credits:3}]}
+};
+const gradePoints = {S:10,A:9,B:8,C:7,D:6,E:5,F:0};
+let current = {stream:null,dept:null,sem:null};
+let selectedGrades = {};
 
-const backFromStream = document.getElementById('back-from-stream');
-const backFromSelection = document.getElementById('back-from-selection');
-const backFromSubjects = document.getElementById('back-from-subjects');
-const homeBtn = document.getElementById('home-btn');
-const chartBtn = document.getElementById('chart-btn');
+// Show page
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
 
-const gradePoints = { S:10, A:9, B:8, C:7, D:6, E:5, F:0 };
-let selectedStream=null, selectedSem=null, subjectsData=[];
+// Stream Buttons
+const streamContainer = document.getElementById('stream-buttons');
+for(let s in departments){
+  let btn = document.createElement('button');
+  btn.textContent = s;
+  btn.onclick = ()=>{
+    current.stream = s;
+    showDepartments();
+  };
+  streamContainer.appendChild(btn);
+}
 
-// Navigation
-function showPage(id){ pages.forEach(p=>p.classList.remove('active')); document.getElementById(id).classList.add('active'); }
-startBtn.onclick = ()=>{ showPage('stream-page'); loadStreams(); }
-backFromStream.onclick = ()=>showPage('start-page');
-backFromSelection.onclick = ()=>showPage('stream-page');
-backFromSubjects.onclick = ()=>showPage('selection-page');
-homeBtn.onclick = ()=>showPage('start-page');
-chartBtn.onclick = ()=>showPage('subjects-page');
-
-// Streams
-const streams = ['Engineering','B.Com'];
-function loadStreams(){
-  streamButtonsDiv.innerHTML='';
-  streams.forEach(s=>{
-    let btn=document.createElement('button');
-    btn.textContent=s;
-    btn.onclick=()=>{ selectedStream=s; loadSemesters(); }
-    streamButtonsDiv.appendChild(btn);
+// Department Buttons
+function showDepartments(){
+  showPage('department-page');
+  const deptContainer = document.getElementById('department-buttons');
+  deptContainer.innerHTML = '';
+  departments[current.stream].forEach(d=>{
+    let btn = document.createElement('button');
+    btn.textContent = d;
+    btn.onclick = ()=>{
+      current.dept = d;
+      showSemesters();
+    };
+    deptContainer.appendChild(btn);
   });
 }
 
-// Semesters
-function loadSemesters(){
-  semButtonsDiv.innerHTML='';
-  for(let i=1;i<=8;i++){
-    let btn=document.createElement('button');
-    btn.textContent='Semester '+i;
-    btn.onclick=()=>{ selectedSem=i; loadSubjects(); }
-    semButtonsDiv.appendChild(btn);
-  }
-  showPage('selection-page');
-}
-
-// Subjects JSON load
-async function loadSubjects(){
-  const response = await fetch(`data/${selectedStream.toLowerCase()}_sem${selectedSem}.json`);
-  subjectsData = await response.json();
-  displaySubjects();
-}
-
-// Display Subjects
-function displaySubjects(){
-  subjectsList.innerHTML='';
-  subjectsData.subjects.forEach((sub, idx)=>{
-    let div=document.createElement('div'); div.className='subject';
-    div.innerHTML=`<span>${sub.code} - ${sub.name} (${sub.credits}cr)</span>`;
-    let gradeDiv=document.createElement('div'); gradeDiv.className='grade-buttons';
-    ['S','A','B','C','D','E','F'].forEach(g=>{
-      let btn=document.createElement('button'); btn.textContent=g;
-      btn.onclick=()=>{ gradeDiv.querySelectorAll('button').forEach(b=>b.classList.remove('selected')); btn.classList.add('selected'); }
-      gradeDiv.appendChild(btn);
-    });
-    div.appendChild(gradeDiv); subjectsList.appendChild(div);
+// Semester Buttons
+function showSemesters(){
+  showPage('semester-page');
+  const semContainer = document.getElementById('semester-buttons');
+  semContainer.innerHTML = '';
+  semesters.forEach(s=>{
+    let btn = document.createElement('button');
+    btn.textContent = "Semester " + s;
+    btn.onclick = ()=>{
+      current.sem = s;
+      showSubjects();
+    };
+    semContainer.appendChild(btn);
   });
+}
+
+// Show Subjects
+function showSubjects(){
   showPage('subjects-page');
+  selectedGrades = {};
+  const list = document.getElementById('subjects-list');
+  list.innerHTML = '';
+  const subjects = subjectsData[current.dept][current.sem];
+  subjects.forEach((sub,i)=>{
+    let div = document.createElement('div');
+    div.className = 'subject';
+    div.innerHTML = `<span>${sub.name} (${sub.credits} cr)</span>
+    <span class="grade-buttons" id="sub-${i}"></span>`;
+    list.appendChild(div);
+    const gradeContainer = div.querySelector('.grade-buttons');
+    ['S','A','B','C','D','E','F'].forEach(g=>{
+      let b = document.createElement('button');
+      b.textContent = g;
+      b.onclick = ()=>{
+        selectedGrades[sub.name] = g;
+        Array.from(gradeContainer.children).forEach(btn=>btn.classList.remove('selected'));
+        b.classList.add('selected');
+      };
+      gradeContainer.appendChild(b);
+    });
+  });
 }
 
 // Calculate GPA
-document.getElementById('calculate-gpa').onclick=()=>{
-  let totalPts=0,totalCr=0;
-  subjectsData.subjects.forEach((sub, idx)=>{
-    const grade=subjectsList.children[idx].querySelector('.grade-buttons button.selected')?.textContent;
-    if(!grade) return;
-    totalPts += gradePoints[grade]*sub.credits;
-    totalCr += sub.credits;
+function calculateGPA(){
+  const subjects = subjectsData[current.dept][current.sem];
+  let totalCredits = 0, totalPoints = 0;
+  subjects.forEach(sub=>{
+    let grade = selectedGrades[sub.name];
+    if(grade){
+      totalCredits += sub.credits;
+      totalPoints += sub.credits*gradePoints[grade];
+    }
   });
-  const gpa=(totalPts/totalCr).toFixed(2);
-  gpaResult.textContent=`GPA: ${gpa}`;
-  saveGPA(selectedStream,selectedSem,gpa);
-  drawChart();
+  if(totalCredits===0){alert("Select grades for all subjects"); return;}
+  let gpa = (totalPoints/totalCredits).toFixed(2);
+  document.getElementById('results').innerHTML = `GPA: ${gpa} 🌟`;
+  saveSemester(current.dept,current.sem,gpa);
+  updateChart();
 }
 
-// Save GPA to localStorage
-function saveGPA(stream,sem,gpa){
-  let data=JSON.parse(localStorage.getItem('cgpa_data')||'{}');
-  data[`${stream}_sem${sem}`]=parseFloat(gpa);
-  localStorage.setItem('cgpa_data',JSON.stringify(data));
+// Reset Subjects
+function resetSubjects(){
+  selectedGrades = {};
+  showSubjects();
 }
 
-// Chart
-function drawChart(){
-  const ctx=document.getElementById('cgpa-chart').getContext('2d');
-  let data=JSON.parse(localStorage.getItem('cgpa_data')||'{}');
-  const labels=Object.keys(data);
-  const values=Object.values(data);
-  if(window.cgpaChart) window.cgpaChart.destroy();
-  window.cgpaChart=new Chart(ctx,{
-    type:'line',
-    data:{ labels, datasets:[{label:'Semester GPA', data:values, borderColor:'#5c33f6', backgroundColor:'rgba(92,51,246,0.2)', tension:0.2, fill:true}] },
-    options:{ scales:{ y:{ beginAtZero:true, max:10 } } }
-  });
+// Local Storage
+function saveSemester(dept,sem,gpa){
+  let data = JSON.parse(localStorage.getItem('semesters')||'{}');
+  if(!data[dept]) data[dept]={};
+  data[dept][sem]=gpa;
+  localStorage.setItem('semesters',JSON.stringify(data));
+}
+
+// Chart.js
+let ctx = document.getElementById('gpaChart').getContext('2d');
+let gpaChart = new Chart(ctx,{
+  type:'line',
+  data:{
+    labels:semesters.map(s=>"Sem "+s),
+    datasets:[{label:'GPA',data:[],borderColor:'#3b2cff',fill:false,tension:0.1}]
+  },
+  options:{responsive:true,scales:{y:{min:0,max:10}}}
+});
+
+function updateChart(){
+  let data = JSON.parse(localStorage.getItem('semesters')||'{}');
+  let deptData = data[current.dept]||{};
+  gpaChart.data.datasets[0].data = semesters.map(s=>deptData[s]||null);
+  gpaChart.update();
 }
