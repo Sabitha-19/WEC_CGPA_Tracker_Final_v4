@@ -1,188 +1,101 @@
-/* ===== RESET ===== */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:'Segoe UI',system-ui,sans-serif;
+  background:#f4f2fb;
 }
 
-body {
-  font-family: 'Segoe UI', system-ui, sans-serif;
-  background: #f4f2fb;
-  color: #333;
-  line-height: 1.6;
+.container{
+  max-width:420px;
+  margin:auto;
+  padding:20px;
 }
 
-/* ===== LAYOUT ===== */
-.container {
-  max-width: 480px;
-  margin: auto;
-  padding: 20px;
+.section{display:none}
+.section.active{display:block}
+
+.card{
+  background:white;
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,.05);
 }
 
-.section {
-  display: none;
-  animation: fade 0.3s ease;
+.center{text-align:center}
+
+h1,h2,h3{color:#3f37c9}
+.subtitle{color:#666}
+
+.primary-btn{
+  width:100%;
+  padding:14px;
+  background:#5a4fcf;
+  color:white;
+  border:none;
+  border-radius:14px;
+  font-size:16px;
+  margin-top:15px;
 }
 
-.section.active {
-  display: block;
+.btn-row{display:flex;gap:10px}
+.btn-row button,
+.grid button{
+  flex:1;
+  padding:15px;
+  border-radius:14px;
+  border:1px solid #ccc;
+  background:white;
+  font-weight:bold;
 }
 
-@keyframes fade {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
 }
 
-/* ===== HEADINGS ===== */
-h1 {
-  font-size: 30px;
-  color: #3f37c9;
-  margin-bottom: 8px;
+.subject{
+  display:flex;
+  justify-content:space-between;
+  margin:10px 0;
 }
 
-h2 {
-  font-size: 22px;
-  color: #3f37c9;
-  margin-bottom: 12px;
+select{
+  padding:6px;
+  border-radius:8px;
 }
 
-.subtitle {
-  color: #666;
-  font-size: 14px;
-  margin-bottom: 20px;
+.grade-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
 }
 
-/* ===== CARDS ===== */
-.card {
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 18px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-  margin-bottom: 20px;
+.grade{
+  background:#ece9ff;
+  padding:14px;
+  border-radius:14px;
+  text-align:center;
+  font-weight:bold;
 }
 
-/* ===== BUTTONS ===== */
-button {
-  font-family: inherit;
-  cursor: pointer;
-  border: none;
+.grade span{
+  display:block;
+  font-size:14px;
+  color:#555;
 }
 
-.primary-btn {
-  background: linear-gradient(135deg, #5a4fcf, #6c63ff);
-  color: white;
-  padding: 14px;
-  width: 100%;
-  border-radius: 14px;
-  font-size: 16px;
-  font-weight: 600;
-  margin-top: 15px;
-  box-shadow: 0 6px 15px rgba(90,79,207,0.25);
+.fail{background:#ffdede}
+
+.big{
+  font-size:40px;
+  color:#3f37c9;
 }
 
-.primary-btn:hover {
-  transform: scale(1.02);
-}
-
-/* ===== OPTION BUTTONS ===== */
-.option-btn {
-  background: #ffffff;
-  border: 2px solid #e0def7;
-  padding: 14px;
-  border-radius: 14px;
-  font-weight: 600;
-  color: #3f37c9;
-  transition: all 0.2s ease;
-}
-
-.option-btn:hover {
-  background: #ece9ff;
-}
-
-/* ===== BUTTON GROUPS ===== */
-.btn-row {
-  display: flex;
-  gap: 12px;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-}
-
-/* ===== SUBJECT & GRADES ===== */
-.subject-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #f7f6ff;
-  padding: 12px;
-  border-radius: 12px;
-  margin-bottom: 10px;
-}
-
-select,
-input {
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-}
-
-/* ===== GPA DISPLAY ===== */
-.big {
-  font-size: 42px;
-  text-align: center;
-  color: #3f37c9;
-  font-weight: 700;
-  margin: 15px 0;
-}
-
-/* ===== GRADE REFERENCE ===== */
-.grade-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-}
-
-.grade {
-  background: #ece9ff;
-  border-radius: 12px;
-  padding: 12px;
-  text-align: center;
-  font-weight: bold;
-  color: #3f37c9;
-}
-
-.grade span {
-  display: block;
-  font-size: 12px;
-  color: #555;
-}
-
-.fail {
-  background: #ffdede;
-  color: #b00020;
-}
-
-/* ===== ICON ROW ===== */
-.icon-row {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  margin-top: 15px;
-}
-
-.icon-row button {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  background: #ece9ff;
-  font-size: 18px;
-}
-
-/* ===== GRAPH ===== */
-canvas {
-  margin-top: 20px;
+.icon-row{
+  display:flex;
+  justify-content:center;
+  gap:20px;
 }
