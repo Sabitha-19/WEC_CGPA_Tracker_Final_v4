@@ -1,107 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WEC CGPA Tracker</title>
-
-<link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WEC CGPA Tracker</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
 <body>
+  <div class="container">
+    <!-- START PAGE -->
+    <section id="start-page" class="page active">
+      <h1>WEC CGPA Tracker</h1>
+      <button class="btn-purple" id="start-btn">Get Started</button>
+    </section>
 
-<div class="container">
+    <!-- INFO PAGE -->
+    <section id="info-page" class="page">
+      <h2>About CGPA</h2>
+      <p>CGPA (Cumulative Grade Point Average) is calculated using grade points and credits. Boost your CGPA by focusing on high-credit subjects and improving grades.</p>
+      <p><strong>Formula:</strong> CGPA = Total Grade Points ÷ Total Credits</p>
+      <p><strong>Grade Reference:</strong> Cubic Scale S:10, A:9, B:8, C:7, D:6, E:5, F:0</p>
+      <button class="btn-purple next-btn" data-next="stream-page">Next</button>
+    </section>
 
-<!-- STEP 1 -->
-<section class="section active" id="start">
-  <h1>WEC CGPA Tracker</h1>
-  <p class="subtitle">Official Academic Calculator</p>
-  <button class="primary-btn" onclick="showSection('info')">Get Started</button>
-</section>
+    <!-- STREAM PAGE -->
+    <section id="stream-page" class="page">
+      <h2>Select Stream</h2>
+      <div class="options">
+        <button class="btn-purple stream-btn" data-stream="engineering">Engineering</button>
+        <button class="btn-purple stream-btn" data-stream="bcom">BCom</button>
+      </div>
+    </section>
 
-<!-- STEP 2 -->
-<section class="section" id="info">
-  <h2>What is CGPA?</h2>
-  <p>CGPA (Cumulative Grade Point Average) represents your overall academic performance.</p>
+    <!-- DEPARTMENT PAGE -->
+    <section id="department-page" class="page">
+      <h2>Select Department</h2>
+      <div id="departments" class="options"></div>
+    </section>
 
-  <h3>Formula</h3>
-  <div class="formula">CGPA = Σ(Credit × Grade Point) / Σ(Credits)</div>
+    <!-- SEMESTER PAGE -->
+    <section id="semester-page" class="page">
+      <h2>Select Semester</h2>
+      <div id="semesters" class="options">
+        <button class="btn-purple semester-btn" data-sem="1">Semester 1</button>
+        <button class="btn-purple semester-btn" data-sem="2">Semester 2</button>
+        <button class="btn-purple semester-btn" data-sem="3">Semester 3</button>
+        <button class="btn-purple semester-btn" data-sem="4">Semester 4</button>
+        <button class="btn-purple semester-btn" data-sem="5">Semester 5</button>
+        <button class="btn-purple semester-btn" data-sem="6">Semester 6</button>
+        <button class="btn-purple semester-btn" data-sem="7">Semester 7</button>
+        <button class="btn-purple semester-btn" data-sem="8">Semester 8</button>
+      </div>
+    </section>
 
-  <h3>Grade Point Reference</h3>
-  <div class="grade-grid">
-    <div class="grade">S<span>10</span></div>
-    <div class="grade">A<span>9</span></div>
-    <div class="grade">B<span>8</span></div>
-    <div class="grade">C<span>7</span></div>
-    <div class="grade">D<span>6</span></div>
-    <div class="grade">E<span>5</span></div>
-    <div class="grade fail">F<span>0</span></div>
+    <!-- GRADES PAGE -->
+    <section id="grades-page" class="page">
+      <h2>Enter Grades</h2>
+      <form id="grades-form"></form>
+      <div class="form-buttons">
+        <button class="btn-purple" id="save-semester">Save Semester</button>
+        <button class="btn-purple" id="reset-semester">Delete/Reset Semester</button>
+      </div>
+    </section>
+
+    <!-- RESULT PAGE -->
+    <section id="result-page" class="page">
+      <h2>GPA & CGPA</h2>
+      <p id="gpa-display"></p>
+      <p id="cgpa-display"></p>
+      <canvas id="gpa-chart"></canvas>
+      <button class="btn-purple next-btn" data-next="start-page">Home</button>
+    </section>
   </div>
 
-  <h3>How to Boost CGPA?</h3>
-  <ul>
-    <li>Focus on high-credit subjects</li>
-    <li>Score well in internals</li>
-    <li>Avoid backlog subjects</li>
-  </ul>
-
-  <button class="primary-btn" onclick="showSection('stream')">Continue</button>
-</section>
-
-<!-- STEP 3 -->
-<section class="section" id="stream">
-  <h2>Select Stream</h2>
-  <div class="grid">
-    <button onclick="selectStream('Engineering')">Engineering</button>
-    <button onclick="selectStream('BCom')">B.Com</button>
-  </div>
-</section>
-
-<!-- STEP 4 -->
-<section class="section" id="department">
-  <h2>Select Department</h2>
-  <div class="grid" id="deptButtons"></div>
-</section>
-
-<!-- STEP 5 -->
-<section class="section" id="semester">
-  <h2>Select Semester</h2>
-  <div class="grid" id="semButtons"></div>
-</section>
-
-<!-- STEP 6 -->
-<section class="section" id="grades">
-  <h2>Enter Grades</h2>
-  <div id="subjects"></div>
-  <button class="primary-btn" onclick="calculateGPA()">Calculate GPA</button>
-</section>
-
-<!-- STEP 7 -->
-<section class="section" id="result">
-  <h2>Your GPA</h2>
-  <div class="big" id="gpa">0.00</div>
-
-  <h3>CGPA → Percentage</h3>
-  <input id="cgpaInput" type="number" placeholder="Enter CGPA">
-  <button class="primary-btn" onclick="convert()">Convert</button>
-  <p id="percent"></p>
-
-  <div class="icon-row">
-    <button onclick="saveSemester()">💾 Save</button>
-    <button onclick="showGraph()">📊 Graph</button>
-  </div>
-</section>
-
-<!-- GRAPH -->
-<section class="section" id="graph">
-  <h2>CGPA Progress</h2>
-  <canvas id="chart"></canvas>
-</section>
-
-</div>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
