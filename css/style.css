@@ -1,78 +1,145 @@
+/* ===== RESET ===== */
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
   font-family: 'Segoe UI', system-ui, sans-serif;
   background: #f4f2fb;
+  color: #333;
+  line-height: 1.6;
 }
 
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: #f4f2fb;
-}
-
+/* ===== LAYOUT ===== */
 .container {
-  max-width: 450px;
+  max-width: 480px;
   margin: auto;
   padding: 20px;
 }
 
 .section {
   display: none;
+  animation: fade 0.3s ease;
 }
 
 .section.active {
   display: block;
 }
 
-h1, h2 {
+@keyframes fade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== HEADINGS ===== */
+h1 {
+  font-size: 30px;
   color: #3f37c9;
+  margin-bottom: 8px;
+}
+
+h2 {
+  font-size: 22px;
+  color: #3f37c9;
+  margin-bottom: 12px;
 }
 
 .subtitle {
-  color: #555;
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+/* ===== CARDS ===== */
+.card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
+}
+
+/* ===== BUTTONS ===== */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
 }
 
 .primary-btn {
-  background: #5a4fcf;
+  background: linear-gradient(135deg, #5a4fcf, #6c63ff);
   color: white;
-  border: none;
-  padding: 12px;
+  padding: 14px;
   width: 100%;
-  border-radius: 12px;
+  border-radius: 14px;
   font-size: 16px;
+  font-weight: 600;
   margin-top: 15px;
+  box-shadow: 0 6px 15px rgba(90,79,207,0.25);
 }
 
-.btn-row button,
-.grid button {
-  background: white;
-  border: 1px solid #ccc;
-  padding: 15px;
-  border-radius: 12px;
-  font-weight: bold;
+.primary-btn:hover {
+  transform: scale(1.02);
 }
 
+/* ===== OPTION BUTTONS ===== */
+.option-btn {
+  background: #ffffff;
+  border: 2px solid #e0def7;
+  padding: 14px;
+  border-radius: 14px;
+  font-weight: 600;
+  color: #3f37c9;
+  transition: all 0.2s ease;
+}
+
+.option-btn:hover {
+  background: #ece9ff;
+}
+
+/* ===== BUTTON GROUPS ===== */
 .btn-row {
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
 }
 
-.card {
-  background: white;
-  padding: 20px;
-  border-radius: 16px;
+/* ===== SUBJECT & GRADES ===== */
+.subject-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f7f6ff;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 10px;
 }
 
+select,
+input {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* ===== GPA DISPLAY ===== */
+.big {
+  font-size: 42px;
+  text-align: center;
+  color: #3f37c9;
+  font-weight: 700;
+  margin: 15px 0;
+}
+
+/* ===== GRADE REFERENCE ===== */
 .grade-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -81,62 +148,41 @@ h1, h2 {
 
 .grade {
   background: #ece9ff;
-  border-radius: 10px;
-  padding: 10px;
+  border-radius: 12px;
+  padding: 12px;
   text-align: center;
   font-weight: bold;
+  color: #3f37c9;
 }
 
 .grade span {
   display: block;
+  font-size: 12px;
   color: #555;
 }
 
 .fail {
   background: #ffdede;
+  color: #b00020;
 }
 
-.subject {
-  display: flex;
-  justify-content: space-between;
-  margin: 10px 0;
-}
-
-select, input {
-  padding: 6px;
-  border-radius: 6px;
-}
-
-.big {
-  font-size: 40px;
-  text-align: center;
-  color: #3f37c9;
-}
-
+/* ===== ICON ROW ===== */
 .icon-row {
   display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-.section {
-  display: none;
-  margin-top: 20px;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 15px;
 }
 
-.section.active {
-  display: block;
-}
-
-button {
-  cursor: pointer;
-  font-family: inherit;
-}
-
-.primary-btn {
-  background: #5a4fcf;
-  color: white;
-  border: none;
-  padding: 14px;
+.icon-row button {
+  width: 48px;
+  height: 48px;
   border-radius: 14px;
-  font-size: 16px;
+  background: #ece9ff;
+  font-size: 18px;
+}
+
+/* ===== GRAPH ===== */
+canvas {
+  margin-top: 20px;
 }
