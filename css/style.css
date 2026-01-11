@@ -1,41 +1,37 @@
-body { font-family: Arial; margin:0; padding:0; background:#f5f5f5; padding-top:70px; }
+body {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  background:#f9f9f9; margin:0; padding-top:70px;
+}
+
 .page { display:none; padding:20px; }
-.page.active { display:block; }
-h2 { text-align:center; color:#4a3aff; }
-button { padding:10px 20px; border:none; border-radius:10px; cursor:pointer; transition:0.3s; }
+.page.active { display:block; text-align:center; }
+
+h2 { color:#5c33f6; font-weight:normal; margin-bottom:10px; }
+p, ul { color:#555; margin-bottom:15px; }
+ul li { margin-bottom:5px; }
+
+button { border:none; border-radius:12px; padding:10px 20px; cursor:pointer; margin:5px; font-family:'Comic Sans MS', cursive; transition:0.3s; }
 button:hover { opacity:0.85; }
 
-.button-group { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin:20px 0; }
-.button-group button { background:rgba(200,200,255,0.3); color:#333; }
-.button-group button.active { background:linear-gradient(90deg,#6a11cb,#2575fc); color:#fff; }
+.continue-btn { background:#dcdcff; color:#333; }
+.back-btn { background:#ccc; color:#000; display:block; margin:20px auto; }
+.button-group { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin:15px 0; }
+.button-group button { background:#e0e0ff; }
 
-.back-btn { background:#ccc; margin-top:20px; display:block; }
+.grade-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; justify-items:center; margin-top:15px; }
+.grade-card { background:#f0f0ff; padding:15px; border-radius:12px; min-width:100px; font-weight:bold; }
 
-.cubic-grades { display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; justify-content:center; margin-top:15px; }
-.grade-card { min-width:90px; padding:15px; text-align:center; border-radius:12px; font-weight:bold; }
+#subjects-list { display:flex; flex-direction:column; gap:12px; max-width:700px; margin:0 auto; }
+.subject { display:flex; justify-content:space-between; align-items:center; background:rgba(220,220,255,0.5); padding:10px 15px; border-radius:12px; }
+.grade-buttons button { min-width:35px; background:#e0e0ff; }
+.grade-buttons button.selected { background:#a393ff; color:#fff; }
 
-#subjects-list { display:flex; flex-direction:column; gap:15px; max-width:700px; margin:0 auto; }
-.subject { display:flex; justify-content:space-between; align-items:center; background:#fff; padding:10px 15px; border-radius:10px; }
-.grade-buttons button { min-width:40px; margin:0 2px; background:rgba(200,200,255,0.3);}
-.grade-buttons button.selected { background:linear-gradient(90deg,#6a11cb,#2575fc); color:#fff; }
+.actions { margin-top:15px; }
+.results { margin-top:15px; font-weight:bold; font-size:1.2rem; }
 
-.results { text-align:center; margin-top:20px; font-size:18px; font-weight:bold; }
-.grade-actions { display:flex; justify-content:center; gap:10px; margin-top:10px; }
-
+canvas { margin-top:20px; max-width:95%; }
 .fixed-header {
-  position:fixed; top:0; left:0; right:0; background:#fff; display:flex; justify-content:space-between; align-items:center; padding:10px 20px; box-shadow:0 2px 5px rgba(0,0,0,0.2); z-index:1000;
+  position:fixed; top:0; left:0; right:0; background:#fff; display:flex; justify-content:space-between; align-items:center; padding:10px 20px; box-shadow:0 2px 5px rgba(0,0,0,0.1); z-index:1000;
 }
-.fixed-header h1 { margin:0; color:#4a3aff; font-family:'Comic Sans MS', cursive, sans-serif; }
-.nav-icons span { cursor:pointer; font-size:1.5rem; margin-left:10px; transition:0.3s; }
-.nav-icons span:hover { transform:scale(1.2); }
-
-@media(max-width:600px){ .button-group { flex-direction:column; } .subject { flex-direction:column; align-items:flex-start; } }
-
-#start-page { text-align:center; padding:30px 20px; font-family:'Comic Sans MS', cursive, sans-serif; }
-#start-page h1 { font-size:2rem; color:#3b2cff; margin-bottom:5px; }
-#start-page h2 { font-size:1.3rem; color:#555; margin-bottom:20px; }
-.start-btn { padding:12px 30px; font-size:1rem; border:none; border-radius:25px; background:linear-gradient(90deg,#3b2cff,#00b0ff); color:#fff; cursor:pointer; margin-bottom:25px; }
-.cgpa-info h3 { margin:15px 0 5px; color:#333; }
-.cgpa-info p, .cgpa-info ul { text-align:left; display:inline-block; margin-bottom:15px; }
-.cgpa-info ul li { margin-bottom:5px; }
-.grade-reference { margin-top:30px; }
+.fixed-header h1 { margin:0; color:#5c33f6; font-weight:normal; }
+.nav-icons span { cursor:pointer; font-size:1.5rem; margin-left:10px; }
