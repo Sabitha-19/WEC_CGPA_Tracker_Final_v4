@@ -9,67 +9,19 @@
 </head>
 <body>
 
-<!-- START PAGE -->
-<section id="start" class="active">
+<header>
   <h1>WEC CGPA Tracker</h1>
-  <button id="startBtn">Get Started →</button>
-</section>
+</header>
 
-<!-- INFO / CGPA TIPS -->
-<section id="info">
-  <h1>What is CGPA?</h1>
-  <p>CGPA (Cumulative Grade Point Average) helps track your academic performance across semesters.</p>
-  <h3>Tips to boost CGPA:</h3>
-  <ul>
-    <li>Focus on weaker subjects</li>
-    <li>Maintain consistent attendance</li>
-    <li>Attempt all assignments & quizzes</li>
-  </ul>
-  <button id="infoContinue">Continue →</button>
-  <span class="back" data-target="start">← Back</span>
-</section>
+<section id="intro" class="active">
+  <h1>Official WEC CGPA Tracker</h1>
+  <p>Trusted academic tool for Women's Engineering College</p>
+  <button id="startBtn">Start →</button>
 
-<!-- STREAM SELECTION -->
-<section id="stream">
-  <h2>Select Stream</h2>
-  <div id="streamList"></div>
-  <span class="back" data-target="info">← Back</span>
-</section>
+  <h2>What is CGPA & How to Boost?</h2>
+  <p>CGPA (Cumulative Grade Point Average) measures your academic performance across semesters.</p>
+  <p>Focus on subjects with lower grades to boost overall GPA!</p>
 
-<!-- DEPARTMENT SELECTION -->
-<section id="department">
-  <h2>Select Department</h2>
-  <div id="deptList"></div>
-  <span class="back" data-target="stream">← Back</span>
-</section>
-
-<!-- SEMESTER SELECTION -->
-<section id="semester">
-  <h2>Select Semester</h2>
-  <div id="semList"></div>
-  <span class="back" data-target="department">← Back</span>
-</section>
-
-<!-- SUBJECTS SELECTION -->
-<section id="subjects">
-  <h2 id="semTitle">Semester</h2>
-  <div id="subjectList"></div>
-  <button id="calcGPA">Calculate GPA</button>
-  <span class="back" data-target="semester">← Back</span>
-</section>
-
-<!-- RESULT / CHART -->
-<section id="result">
-  <h2>Result</h2>
-  <p>GPA: <span id="gpa">0</span></p>
-  <p>CGPA: <span id="cgpa">0</span></p>
-  <p>Percentage: <span id="percentage">0%</span></p>
-  <canvas id="chart"></canvas>
-  <span class="back" data-target="subjects">← Back</span>
-</section>
-
-<!-- GRADE POINT REFERENCE -->
-<section id="grades">
   <h2>Grade Point Reference</h2>
   <div class="grades">
     <div class="grade-cube S">S<br>Outstanding<br><span>10 Pts</span></div>
@@ -80,6 +32,45 @@
     <div class="grade-cube E">E<br>Pass<br><span>5 Pts</span></div>
     <div class="grade-cube F">F<br>Fail<br><span>0 Pts</span></div>
   </div>
+</section>
+
+<section id="stream">
+  <h2>Select Stream</h2>
+  <div id="streamList"></div>
+  <span class="back" data-target="intro">← Back</span>
+</section>
+
+<section id="department">
+  <h2>Select Department</h2>
+  <div id="deptList"></div>
+  <span class="back" data-target="stream">← Back</span>
+</section>
+
+<section id="semester">
+  <h2>Select Semester</h2>
+  <div id="semList"></div>
+  <span class="back" data-target="department">← Back</span>
+</section>
+
+<section id="subjects">
+  <h2 id="semTitle">Semester</h2>
+  <div id="subjectList"></div>
+
+  <button onclick="saveSemester()">💾 Save Semester</button>
+  <button onclick="loadSavedSemester(selectedDept,selectedSem)">🔄 Load Saved</button>
+  <button onclick="deleteSemester(selectedDept,selectedSem)">🗑️ Delete Semester</button>
+
+  <p id="encouragement"></p>
+  <span class="back" data-target="semester">← Back</span>
+</section>
+
+<section id="result">
+  <h2>Result</h2>
+  <p>GPA: <span id="gpa">0</span></p>
+  <p>CGPA: <span id="cgpa">0</span></p>
+  <p>Percentage: <span id="percentage">0%</span></p>
+  <canvas id="chart"></canvas>
+  <span class="back" data-target="subjects">← Back</span>
 </section>
 
 <script src="js/main.js"></script>
