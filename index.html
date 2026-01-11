@@ -1,76 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WEC CGPA Tracker</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WEC CGPA Tracker</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-  <!-- Fixed Header -->
-  <div class="fixed-header">
-    <h1>WEC CGPA Tracker</h1>
-    <div class="nav-icons">
-      <span id="home-btn">🏠</span>
-      <span id="chart-btn">📊</span>
-    </div>
+<!-- Fixed Header -->
+<div class="fixed-header">
+  <h1>WEC CGPA Tracker</h1>
+  <div class="nav-icons">
+    <span title="Home" onclick="showPage('start-page')">🏠</span>
+    <span title="Graph" onclick="showPage('graph-page')">📊</span>
   </div>
+</div>
 
-  <!-- Start Page -->
-  <div id="start-page" class="page active">
-    <h2>What is CGPA?</h2>
-    <p>CGPA is the average of all semester GPAs.</p>
-    <h2>How to boost CGPA?</h2>
+<!-- Start Page -->
+<div id="start-page" class="page active">
+  <h1>Official Academic Calculator</h1>
+  <h2>Calculate Your CGPA Instantly</h2>
+  <button class="start-btn" onclick="showPage('stream-page')">Get Started ➡️</button>
+
+  <!-- Info Section -->
+  <div class="cgpa-info">
+    <h3>What is CGPA? 🤔</h3>
+    <p>CGPA represents your overall academic performance across semesters.</p>
+
+    <h3>Formula 🧮</h3>
+    <p>CGPA = Total GPA ÷ Number of Semesters</p>
+
+    <h3>How to Boost CGPA? 🚀</h3>
     <ul>
-      <li>Focus on high-credit subjects</li>
-      <li>Improve weak subjects</li>
-      <li>Avoid arrears</li>
+      <li>Focus on high-credit subjects 💡</li>
+      <li>Score well in internals 📝</li>
+      <li>Never skip assignments ✅</li>
+      <li>Stay consistent and motivated 💪😊</li>
     </ul>
+  </div>
 
-    <h3>Grade Point Reference</h3>
-    <div class="grade-grid">
-      <div class="grade-card">S<br>10<br>Outstanding</div>
-      <div class="grade-card">A<br>9<br>Excellent</div>
-      <div class="grade-card">B<br>8<br>Very Good</div>
-      <div class="grade-card">C<br>7<br>Good</div>
-      <div class="grade-card">D<br>6<br>Average</div>
-      <div class="grade-card">E<br>5<br>Pass</div>
-      <div class="grade-card">F<br>0<br>Fail</div>
+  <!-- Grade Reference -->
+  <div class="grade-reference">
+    <h3>Grade Reference 📚</h3>
+    <div class="cubic-grades">
+      <div class="grade-card" style="background:#d9f7be;">S<br>Outstanding<br>10 Pts 🎉</div>
+      <div class="grade-card" style="background:#b9fbc0;">A<br>Excellent<br>9 Pts 🌟</div>
+      <div class="grade-card" style="background:#c7d3fc;">B<br>Very Good<br>8 Pts 👍</div>
+      <div class="grade-card" style="background:#d5d7ff;">C<br>Good<br>7 Pts 🙂</div>
+      <div class="grade-card" style="background:#f3d7ff;">D<br>Above Avg<br>6 Pts 🙂</div>
+      <div class="grade-card" style="background:#fff3b0;">E<br>Pass<br>5 Pts 🙃</div>
+      <div class="grade-card" style="background:#ffd6d6;">F<br>Fail<br>0 Pts ❌</div>
     </div>
-
-    <button class="continue-btn" id="start-btn">Continue →</button>
   </div>
+</div>
 
-  <!-- Stream Selection -->
-  <div id="stream-page" class="page">
-    <h2>Select Stream</h2>
-    <div class="button-group" id="stream-buttons"></div>
-    <button class="back-btn" id="back-from-stream">Back</button>
+<!-- Stream Selection -->
+<div id="stream-page" class="page">
+  <h2>Select Stream</h2>
+  <div class="button-group" id="stream-buttons"></div>
+  <button class="back-btn" onclick="showPage('start-page')">⬅️ Back</button>
+</div>
+
+<!-- Department Selection -->
+<div id="department-page" class="page">
+  <h2>Select Department</h2>
+  <div class="button-group" id="department-buttons"></div>
+  <button class="back-btn" onclick="showPage('stream-page')">⬅️ Back</button>
+</div>
+
+<!-- Semester Selection -->
+<div id="semester-page" class="page">
+  <h2>Select Semester</h2>
+  <div class="button-group" id="semester-buttons"></div>
+  <button class="back-btn" onclick="showPage('department-page')">⬅️ Back</button>
+</div>
+
+<!-- Subjects Selection -->
+<div id="subjects-page" class="page">
+  <h2>Select Grades for Subjects</h2>
+  <div id="subjects-list"></div>
+  <div class="grade-actions">
+    <button onclick="calculateGPA()">Calculate GPA</button>
+    <button onclick="resetSubjects()">Reset</button>
   </div>
+  <div class="results" id="results"></div>
+  <button class="back-btn" onclick="showPage('semester-page')">⬅️ Back</button>
+</div>
 
-  <!-- Semester Selection -->
-  <div id="selection-page" class="page">
-    <h2>Select Semester</h2>
-    <div class="button-group" id="sem-buttons"></div>
-    <button class="back-btn" id="back-from-selection">Back</button>
-  </div>
+<!-- Graph Page -->
+<div id="graph-page" class="page">
+  <h2>Semester-wise GPA Graph</h2>
+  <canvas id="gpaChart" width="400" height="200"></canvas>
+  <button class="back-btn" onclick="showPage('start-page')">⬅️ Back</button>
+</div>
 
-  <!-- Subjects Page -->
-  <div id="subjects-page" class="page">
-    <h2>Enter Grades</h2>
-    <div id="subjects-list"></div>
-    <div class="actions">
-      <button id="calculate-gpa">Calculate GPA & CGPA</button>
-      <button id="edit-semester">Edit Semester</button>
-      <button id="delete-semester">Delete Semester</button>
-    </div>
-    <div class="results" id="gpa-result"></div>
-    <canvas id="cgpa-chart"></canvas>
-    <button class="back-btn" id="back-from-subjects">Back</button>
-  </div>
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
