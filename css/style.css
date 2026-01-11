@@ -1,23 +1,16 @@
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
   font-family: "Segoe UI", system-ui, sans-serif;
   background: #f4f2fb;
-  color: #333;
 }
 
-.app-header {
-  text-align: center;
-  padding: 25px 15px;
+.topbar {
+  padding: 18px;
   background: #5a4fcf;
   color: white;
-}
-
-.app-header p {
-  opacity: 0.9;
+  text-align: center;
 }
 
 .container {
@@ -26,35 +19,20 @@ body {
   padding: 20px;
 }
 
-.section {
-  display: none;
-}
+.section { display: none; }
+.section.active { display: block; }
 
-.section.active {
-  display: block;
-}
-
-h2 {
-  color: #3f37c9;
-  margin-bottom: 10px;
-}
+h2, h3 { color: #3f37c9; }
 
 .card {
   background: white;
-  border-radius: 18px;
   padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  border-radius: 18px;
+  margin-bottom: 18px;
+  box-shadow: 0 6px 16px rgba(0,0,0,.08);
 }
 
-.formula {
-  background: #ece9ff;
-  padding: 10px;
-  border-radius: 10px;
-  font-weight: 600;
-}
-
-.primary-btn {
+.primary {
   width: 100%;
   padding: 14px;
   background: #5a4fcf;
@@ -62,7 +40,6 @@ h2 {
   border: none;
   border-radius: 14px;
   font-size: 16px;
-  margin-top: 15px;
 }
 
 .grid {
@@ -74,10 +51,26 @@ h2 {
 .grid button {
   padding: 14px;
   border-radius: 14px;
-  border: 1px solid #ccc;
-  background: white;
+  border: none;
+  background: #ece9ff;
   font-weight: 600;
 }
+
+.grade-grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 10px;
+}
+
+.g {
+  background: #ece9ff;
+  padding: 14px;
+  border-radius: 14px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.fail { background: #ffdede; }
 
 .subject {
   display: flex;
@@ -90,52 +83,22 @@ select {
   border-radius: 8px;
 }
 
-.grade-grid {
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
-  gap: 10px;
-}
-
-.grade {
-  background: #ece9ff;
-  padding: 14px;
-  border-radius: 14px;
-  text-align: center;
-  font-weight: bold;
-}
-
-.grade span {
-  display: block;
-  font-size: 14px;
-  color: #555;
-}
-
-.fail {
-  background: #ffdede;
-}
-
-.result-card {
-  background: white;
-  padding: 30px;
-  border-radius: 18px;
-  text-align: center;
-}
-
 .big {
-  font-size: 42px;
+  font-size: 40px;
   color: #5a4fcf;
-  margin: 15px 0;
 }
 
-.icon-row {
+.center { text-align: center; }
+
+.row {
   display: flex;
+  gap: 10px;
   justify-content: center;
-  gap: 15px;
+  margin-top: 10px;
 }
 
-.icon-row button {
-  padding: 10px 14px;
-  border-radius: 12px;
-  border: 1px solid #ccc;
-  background: white;
+.formula {
+  background: #ece9ff;
+  padding: 10px;
+  border-radius: 10px;
 }
