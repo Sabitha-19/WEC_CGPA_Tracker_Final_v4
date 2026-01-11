@@ -1,76 +1,68 @@
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background: #f6f8ff;
+  font-family: Arial, sans-serif;
+  background: #f4f6fb;
   margin: 0;
   text-align: center;
 }
 
 header {
+  background: #ffffffaa;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
-  padding: 15px 20px;
-  background: #ffffff;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 10px rgba(0,0,0,.1);
 }
 
-.icons span {
-  font-size: 22px;
-  margin-left: 15px;
-  cursor: pointer;
-}
-
-section {
-  padding: 30px;
-}
-
-.hidden {
-  display: none;
-}
+section { display: none; padding: 20px; }
+section.active { display: block; }
 
 button {
-  margin: 10px;
-  padding: 12px 18px;
+  padding: 12px 20px;
+  margin: 8px;
   border: none;
-  border-radius: 14px;
-  background: rgba(120,130,255,0.15);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.6);
   cursor: pointer;
-  transition: 0.3s;
-}
-
-button:hover {
-  background: linear-gradient(135deg,#6a7cff,#9b5cff);
-  color: white;
 }
 
 button.active {
-  background: linear-gradient(135deg,#6a7cff,#9b5cff);
+  background: linear-gradient(135deg,#6a5acd,#8a2be2);
   color: white;
 }
 
-.primary {
-  font-size: 18px;
+.grade-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 10px;
 }
 
-.back {
-  background: transparent;
-  text-decoration: underline;
+.cube {
+  padding: 15px;
+  border-radius: 14px;
+  box-shadow: 0 4px 8px rgba(0,0,0,.1);
 }
+
+.s{background:#e6f7ff;}
+.a{background:#e6ffe6;}
+.b{background:#fff4e6;}
+.c{background:#f0e6ff;}
+.d{background:#ffe6e6;}
+.e{background:#e6ffff;}
+.f{background:#f5f5f5;}
 
 .subject {
-  background: rgba(255,255,255,0.7);
-  margin: 10px auto;
-  padding: 15px;
-  border-radius: 16px;
-  max-width: 500px;
+  background: #ffffffcc;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 12px;
 }
 
-.grades button {
-  padding: 6px 10px;
+.grade-btn {
   margin: 4px;
-  border-radius: 8px;
+  padding: 6px 10px;
 }
 
-.result {
-  margin-top: 20px;
-  font-size: 18px;
+.grade-btn.active {
+  background: #6a5acd;
+  color: white;
 }
