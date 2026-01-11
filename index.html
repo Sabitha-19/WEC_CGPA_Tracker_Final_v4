@@ -10,44 +10,38 @@
 <body>
 
 <header class="fixed-header">
+  <h1>WEC CGPA Tracker</h1>
   <div class="nav-icons">
     <span id="home-icon" title="Home">🏠</span>
     <span id="graph-icon" title="Graph">📊</span>
   </div>
-  <h1>WEC CGPA Tracker</h1>
 </header>
 
 <div id="app">
 
   <!-- Start Page -->
   <section id="start-page" class="page active">
-    <h2>Welcome to WEC CGPA Tracker</h2>
-    <div class="cgpa-overview">
-      <h3>Overview of CGPA</h3>
-      <p>CGPA (Cumulative Grade Point Average) is the weighted average of your semester GPAs. It helps track your overall academic performance.</p>
+    <h2>Calculate Your CGPA Instantly</h2>
+    <button id="start-btn" class="start-btn">Calculate Now ➔</button>
+
+    <div class="features">
+      <div>✔ PTU & Affiliated</div>
+      <div>✔ UG & PG Support</div>
+      <div>✔ Accurate Grading</div>
     </div>
-    <div class="cgpa-boost">
-      <h3>How to Boost Your CGPA</h3>
-      <ul>
-        <li>Focus on subjects with higher credits.</li>
-        <li>Improve grades in remaining semesters.</li>
-        <li>Practice previous exams and assignments.</li>
-        <li>Seek help from teachers and peers.</li>
-      </ul>
-    </div>
+
     <div class="grade-reference">
-      <h3>Grade Point Reference</h3>
+      <h3>Grade Reference</h3>
       <div class="cubic-grades">
-        <div class="grade-card">S → 10</div>
-        <div class="grade-card">A → 9</div>
-        <div class="grade-card">B → 8</div>
-        <div class="grade-card">C → 7</div>
-        <div class="grade-card">D → 6</div>
-        <div class="grade-card">E → 5</div>
-        <div class="grade-card">F → 0</div>
+        <div class="grade-card" style="background:#d9f7be;">S<br><small>Outstanding</small><br>10 Pts</div>
+        <div class="grade-card" style="background:#b7eb8f;">A<br><small>Excellent</small><br>9 Pts</div>
+        <div class="grade-card" style="background:#91d5ff;">B<br><small>Very Good</small><br>8 Pts</div>
+        <div class="grade-card" style="background:#adc6ff;">C<br><small>Good</small><br>7 Pts</div>
+        <div class="grade-card" style="background:#f6d6ff;">D<br><small>Above Avg</small><br>6 Pts</div>
+        <div class="grade-card" style="background:#fff7ba;">E<br><small>Pass</small><br>5 Pts</div>
+        <div class="grade-card" style="background:#ffa39e;">F<br><small>Fail</small><br>0 Pts</div>
       </div>
     </div>
-    <button id="start-btn">Continue</button>
   </section>
 
   <!-- Stream Page -->
@@ -78,17 +72,20 @@
   <section id="subjects-page" class="page">
     <h2>Enter Grades</h2>
     <div id="subjects-list"></div>
+
     <div class="grade-actions">
       <button id="calculate-btn">Calculate GPA & CGPA</button>
       <button id="edit-btn">Edit Semester</button>
       <button id="delete-btn">Delete Semester</button>
     </div>
+
     <div class="results">
       <p id="gpa-display"></p>
       <p id="cgpa-display"></p>
       <p id="percentage-display"></p>
       <p id="encouragement"></p>
     </div>
+
     <canvas id="gpa-chart" width="400" height="200"></canvas>
     <button class="back-btn">⬅️ Back</button>
   </section>
