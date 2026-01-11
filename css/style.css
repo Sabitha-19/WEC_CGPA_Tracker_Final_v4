@@ -1,90 +1,80 @@
-/* ===== General Reset ===== */
+/* ===== Global ===== */
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins', sans-serif; /* Modern, clean font */
+  font-family: 'Poppins', sans-serif;
 }
 
 body {
-  background: #f8f8ff;
+  margin: 0;
+  background: #f7f8fc;
   color: #333;
-  line-height: 1.5;
-  min-height: 100vh;
-  padding-top: 60px; /* header height */
-}
-
-h1,h2,h3 {
-  font-family: 'Poppins', sans-serif;
-  color: #4B0082; /* deep purple */
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-p, li, span {
-  font-family: 'Poppins', sans-serif;
+  padding-top: 65px;
 }
 
 /* ===== Header ===== */
 .fixed-header {
   position: fixed;
   top: 0;
-  left: 0;
   width: 100%;
-  height: 60px;
   background: rgba(255,255,255,0.95);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 15px;
+  padding: 12px 18px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   z-index: 1000;
 }
 
 .fixed-header h1 {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
+  color: #4a3aff;
 }
 
 .nav-icons span {
-  cursor: pointer;
   font-size: 22px;
-  margin-left: 10px;
-  transition: all 0.2s;
-}
-
-.nav-icons span:hover {
-  transform: scale(1.1);
+  cursor: pointer;
+  margin-left: 12px;
 }
 
 /* ===== Pages ===== */
 .page {
   display: none;
-  padding: 20px 15px;
+  padding: 20px;
 }
 
 .page.active {
   display: block;
 }
 
+h2, h3 {
+  text-align: center;
+  color: #4a3aff;
+}
+
 /* ===== Buttons ===== */
 button {
-  cursor: pointer;
   padding: 12px 20px;
   border: none;
-  border-radius: 12px;
-  background: rgba(106, 17, 203, 0.1);
-  color: #4B0082;
+  border-radius: 14px;
+  background: rgba(106,17,203,0.12);
+  color: #4a3aff;
   font-weight: 500;
-  margin: 8px 0;
-  transition: all 0.2s;
+  cursor: pointer;
 }
 
 button:hover {
-  background: rgba(106, 17, 203, 0.2);
+  background: rgba(106,17,203,0.22);
 }
 
-/* Stream / Department / Semester Buttons */
+.start-btn {
+  display: block;
+  margin: 20px auto;
+  background: linear-gradient(90deg,#6a11cb,#2575fc);
+  color: #fff;
+}
+
+/* ===== Button Groups ===== */
 .button-group {
   display: flex;
   flex-direction: column;
@@ -94,93 +84,84 @@ button:hover {
 
 .button-group button {
   width: 90%;
-  max-width: 300px;
-  text-align: center;
-  font-size: 16px;
-}
-
-/* Back Button */
-.back-btn {
-  background: rgba(0,0,0,0.1);
-  color: #333;
-  margin-top: 20px;
+  max-width: 320px;
 }
 
 /* ===== Grade Reference ===== */
 .grade-reference {
-  margin-top: 20px;
-  text-align: center;
+  margin-top: 30px;
 }
 
 .cubic-grades {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  max-width: 340px;
+  margin: auto;
 }
 
 .grade-card {
-  padding: 12px;
-  border-radius: 10px;
-  width: 70px;
+  padding: 14px;
+  border-radius: 16px;
+  text-align: center;
   font-weight: 600;
   font-size: 14px;
-  text-align: center;
   color: #333;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(6px);
 }
 
-/* Light pleasant transparent colors */
-.grade-card:nth-child(1){ background: rgba(141, 237, 170,0.6); } /* S */
-.grade-card:nth-child(2){ background: rgba(179, 235, 143,0.6); } /* A */
-.grade-card:nth-child(3){ background: rgba(145, 213, 255,0.5); } /* B */
-.grade-card:nth-child(4){ background: rgba(173, 198, 255,0.5); } /* C */
-.grade-card:nth-child(5){ background: rgba(246, 214, 255,0.5); } /* D */
-.grade-card:nth-child(6){ background: rgba(255, 247, 186,0.5); } /* E */
-.grade-card:nth-child(7){ background: rgba(255, 163, 158,0.5); } /* F */
+/* Light transparent colors */
+.grade-s { background: rgba(190,255,210,0.6); }
+.grade-a { background: rgba(210,255,190,0.6); }
+.grade-b { background: rgba(200,230,255,0.6); }
+.grade-c { background: rgba(210,220,255,0.6); }
+.grade-d { background: rgba(240,220,255,0.6); }
+.grade-e { background: rgba(255,245,200,0.6); }
+.grade-f { background: rgba(255,200,200,0.6); }
 
-/* ===== Subjects & Grades ===== */
+/* ===== Subjects ===== */
 .subject {
-  background: rgba(255,255,255,0.7);
-  padding: 10px;
-  border-radius: 12px;
-  margin-bottom: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  background: rgba(255,255,255,0.75);
+  padding: 12px;
+  border-radius: 14px;
+  margin-bottom: 12px;
 }
 
 .grade-buttons {
+  margin-top: 8px;
   display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .grade-buttons button {
-  width: 36px;
-  height: 36px;
-  font-size: 14px;
-  border-radius: 8px;
-  background: rgba(106, 17, 203, 0.1);
-  color: #4B0082;
+  width: 38px;
+  height: 38px;
+  padding: 0;
 }
 
 .grade-buttons button.selected {
-  background: rgba(106,17,203,0.4);
+  background: linear-gradient(90deg,#6a11cb,#2575fc);
   color: #fff;
-  font-weight: 600;
 }
 
-/* ===== Results & Chart ===== */
+/* ===== Results ===== */
 .results {
   margin-top: 15px;
   text-align: center;
+  font-weight: 500;
 }
 
-#calculate-btn, #edit-btn, #delete-btn {
-  width: 90%;
-  max-width: 300px;
-  margin: 5px 0;
+/* ===== Back Button ===== */
+.back-btn {
+  margin-top: 20px;
+  background: rgba(0,0,0,0.1);
+  color: #333;
+}
+
+/* ===== Mobile ===== */
+@media (max-width:600px) {
+  .cubic-grades {
+    grid-template-columns: repeat(2,1fr);
+  }
 }
