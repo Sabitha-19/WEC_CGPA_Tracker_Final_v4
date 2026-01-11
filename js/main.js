@@ -1,185 +1,115 @@
-// ===== Grade Points =====
+// Grade points
 const gradePoints = { S:10, A:9, B:8, C:7, D:6, E:5, F:0 };
 
-// ===== Streams & Departments =====
-const departments = {
-    engineering: ["CSE","ISE","ECE","EEE","AA"],
-    bcom: ["BCOM"]
-};
+// Streams & Departments
+const streams = { engineering:["CSE","ISE","ECE","EEE","AA"], bcom:["BCOM"] };
 
-// ===== State =====
-let state = {
-    stream: null,
-    dept: null,
-    sem: null,
-    grades: {},
-    gpaHistory: Array(8).fill(null),
-    subjects: []
-};
-
+let state = { stream:null, dept:null, sem:null, grades:{}, gpaHistory:Array(8).fill(null) };
 let chart;
 
-// ===== Show Section =====
+document.getElementById('continueBtn').onclick = ()=>show('stream');
+document.querySelectorAll('.back').forEach(b=>b.onclick = ()=>show(b.dataset.target));
+
 function show(id){
-    document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
-    document.getElementById(id).classList.add("active");
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
 
-// ===== Continue from Intro =====
-document.getElementById("continueBtn").onclick = () => show("stream");
-
-// ===== Back Buttons =====
-document.querySelectorAll(".back").forEach(b => {
-    b.onclick = () => {
-        show(b.dataset.target);
-    };
+// Streams
+const streamDiv = document.getElementById('streamList');
+streams.engineering.concat(streams.bcom).forEach(s=>{
+  const btn = document.createElement('button');
+  btn.textContent = s;
+  btn.className='button-grid';
+  btn.onclick = ()=>{
+    state.stream = s.toLowerCase();
+    loadDepartments(state.stream);
+  };
+  streamDiv.appendChild(btn);
 });
 
-// ===== Stream Selection =====
-function loadStreams(){
-    const streamDiv = document.getElementById("streamList");
-    streamDiv.innerHTML = "";
-    Object.keys(departments).forEach(stream => {
-        const btn = document.createElement("button");
-        btn.textContent = stream.charAt(0).toUpperCase() + stream.slice(1);
-        btn.className = "transparent-btn";
-        btn.onclick = () => selectStream(stream, btn);
-        streamDiv.appendChild(btn);
-    });
+// Departments
+function loadDepartments(stream){
+  const deptDiv = document.getElementById('deptList');
+  deptDiv.innerHTML = '';
+  streams[stream].forEach(d=>{
+    const btn = document.createElement('button');
+    btn.textContent = d;
+    btn.onclick = ()=>{
+      state.dept = d.toLowerCase();
+      loadSemesters();
+    };
+    deptDiv.appendChild(btn);
+  });
+  show('department');
 }
 
-function selectStream(stream, btn){
-    state.stream = stream;
-    // Highlight active
-    document.querySelectorAll("#streamList .transparent-btn").forEach(b => b.classList.remove("active-btn"));
-    btn.classList.add("active-btn");
-    loadDepartments();
-    show("department");
-}
-
-// ===== Department Selection =====
-function loadDepartments(){
-    const deptDiv = document.getElementById("deptList");
-    deptDiv.innerHTML = "";
-    departments[state.stream].forEach(dept => {
-        const btn = document.createElement("button");
-        btn.textContent = dept;
-        btn.className = "transparent-btn";
-        btn.onclick = () => selectDepartment(dept, btn);
-        deptDiv.appendChild(btn);
-    });
-}
-
-function selectDepartment(dept, btn){
-    state.dept = dept;
-    document.querySelectorAll("#deptList .transparent-btn").forEach(b => b.classList.remove("active-btn"));
-    btn.classList.add("active-btn");
-    loadSemesters();
-    show("semester");
-}
-
-// ===== Semester Selection =====
+// Semesters
 function loadSemesters(){
-    const semDiv = document.getElementById("semList");
-    semDiv.innerHTML = "";
-    for(let i=1;i<=8;i++){
-        const btn = document.createElement("button");
-        btn.textContent = "Semester " + i;
-        btn.className = "transparent-btn";
-        btn.onclick = () => selectSemester(i, btn);
-        semDiv.appendChild(btn);
-    }
+  const semDiv = document.getElementById('semList');
+  semDiv.innerHTML = '';
+  for(let i=1;i<=8;i++){
+    const btn = document.createElement('button');
+    btn.textContent = `Semester ${i}`;
+    btn.onclick = ()=>{
+      state.sem = i;
+      loadSubjects();
+    };
+    semDiv.appendChild(btn);
+  }
+  show('semester');
 }
 
-function selectSemester(sem, btn){
-    state.sem = sem;
-    document.querySelectorAll("#semList .transparent-btn").forEach(b => b.classList.remove("active-btn"));
-    btn.classList.add("active-btn");
-    loadSubjects();
-    show("subjects");
-}
+// Load subjects from JSON
+function loadSubjects(){
+  const list = document.getElementById('subjectList');
+  list.innerHTML = '';
+  document.getElementById('semTitle').innerText = `Semester ${state.sem}`;
 
-// ===== Load Subjects from JSON =====
-async function loadSubjects(){
-    const list = document.getElementById("subjectList");
-    list.innerHTML = "";
-    document.getElementById("semTitle").innerText = "Semester " + state.sem;
-
-    let path = `data/${state.dept.toLowerCase()}_sem${state.sem}.json`;
-    try {
-        const res = await fetch(path);
-        if(!res.ok) throw new Error("File not found");
-        const data = await res.json();
-        state.subjects = data;  // Save subjects
-        state.grades = {};
-
-        data.forEach((sub, idx)=>{
-            const card = document.createElement("div");
-            card.className = "subject-card";
-            card.innerHTML = `<span>${sub.name} (${sub.credits} credits)</span>`;
-            const gradeDiv = document.createElement("div");
-            gradeDiv.className = "grades-btns";
-
-            Object.keys(gradePoints).forEach(g=>{
-                const gBtn = document.createElement("button");
-                gBtn.textContent = g;
-                gBtn.onclick = () => {
-                    state.grades[idx] = gradePoints[g];
-                    gradeDiv.querySelectorAll("button").forEach(b=>b.classList.remove("active-grade"));
-                    gBtn.classList.add("active-grade");
-                    calculateGPA();
-                };
-                gradeDiv.appendChild(gBtn);
-            });
-
-            card.appendChild(gradeDiv);
-            list.appendChild(card);
+  const path = `data/${state.dept}_sem${state.sem}.json`;
+  fetch(path)
+    .then(res=>res.json())
+    .then(subjects=>{
+      state.grades = {};
+      subjects.forEach((sub,i)=>{
+        const card = document.createElement('div');
+        card.className='subject-card';
+        card.innerHTML = `<span>${sub.name} (${sub.credits} cr)</span>`;
+        const btnDiv = document.createElement('div');
+        btnDiv.className='grade-buttons';
+        Object.keys(gradePoints).forEach(g=>{
+          const gBtn = document.createElement('button');
+          gBtn.textContent = g;
+          gBtn.onclick = ()=>{
+            state.grades[i]=gradePoints[g];
+            btnDiv.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));
+            gBtn.classList.add('selected');
+            calculateGPA();
+          };
+          btnDiv.appendChild(gBtn);
         });
-    } catch(e){
-        list.innerHTML = `<p style="color:red;">Subject file not found: ${path}</p>`;
-    }
-}
-
-// ===== Calculate GPA & CGPA =====
-function calculateGPA(){
-    let total=0, credits=0;
-    let allSelected = true;
-    state.subjects.forEach((sub, idx)=>{
-        if(state.grades[idx]==null) allSelected=false;
-        total += (state.grades[idx]||0) * sub.credits;
-        credits += sub.credits;
+        card.appendChild(btnDiv);
+        list.appendChild(card);
+      });
+      show('subjects');
+    })
+    .catch(e=>{
+      alert('Subject file not found!');
     });
-    if(!allSelected) return; // wait until all grades selected
-    const gpa = +(total/credits).toFixed(2);
-    state.gpaHistory[state.sem-1] = gpa;
-    document.getElementById("gpa").innerText = gpa;
-    const cgpa = calcCGPA();
-    document.getElementById("cgpa").innerText = cgpa;
-    document.getElementById("percentage").innerText = (cgpa*9.5).toFixed(2) + "%";
-    showEncouragement(cgpa);
-    drawChart();
 }
 
-// ===== Calculate CGPA =====
-function calcCGPA(){
-    const valid = state.gpaHistory.filter(x=>x!=null);
-    if(valid.length===0) return 0;
-    return (valid.reduce((a,b)=>a+b,0)/valid.length).toFixed(2);
+// Calculate GPA + CGPA + encouragement
+function calculateGPA(){
+  const subs = Object.values(state.grades);
+  if(subs.length==0 || subs.includes(undefined)) return;
+  const credits = subs.length*3; // Assuming 3 credits each, adjust if needed
+  const total = subs.reduce((a,b)=>a+b,0);
+  const gpa = (total/subs.length).toFixed(2);
+  state.gpaHistory[state.sem-1]=Number(gpa);
+  document.getElementById('gpa').innerText = gpa;
+  const cgpa = (state.gpaHistory.filter(x=>x!=null).reduce((a,b)=>a+b,0)/state.gpaHistory.filter(x=>x!=null).length).toFixed(2);
+  document.getElementById('cgpa').innerText=cgpa;
+  document.getElementById('percentage').innerText=(cgpa*9.5).toFixed(2)+'%';
+  document.getElementById('encouragement').innerText = (gpa>=9)?"Excellent! Keep it up 💯":(gpa>=7)?"Good Job! 👍":"Keep Trying! 🔔";
+  drawChart();
 }
-
-// ===== Encouragement Message =====
-function showEncouragement(cgpa){
-    const msg = document.getElementById("encouragement");
-    if(cgpa>=9) msg.innerText="🌟 Excellent! Keep it up!";
-    else if(cgpa>=8) msg.innerText="👍 Very Good! Stay consistent.";
-    else if(cgpa>=7) msg.innerText="🙂 Good job! You can improve.";
-    else if(cgpa>=6) msg.innerText="⚠️ Average, focus on your studies.";
-    else msg.innerText="🚨 Work harder! You can do it!";
-}
-
-// ===== Icons =====
-document.getElementById("homeBtn").onclick = ()=> show("intro");
-document.getElementById("graphBtn").onclick = ()=> show("result");
-
-// ===== Initialize =====
-loadStreams();
