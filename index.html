@@ -13,13 +13,14 @@
   <h1>WEC CGPA Tracker</h1>
 </header>
 
-<!-- INTRO -->
+<!-- START PAGE -->
 <section id="intro" class="active">
   <h1>Official WEC CGPA Tracker</h1>
   <p>Trusted academic tool for Women's Engineering College</p>
-  <button id="continueBtn">Continue →</button>
+  <button id="startBtn">Start →</button>
 
-  <h2>Grade Point Reference</h2>
+  <h2>CGPA Info & Tips</h2>
+  <p>CGPA is your cumulative GPA across semesters. Improve by consistent study, practice, and understanding concepts. Each grade corresponds to points as shown below:</p>
   <div class="grades">
     <div class="grade-cube S">S<br>Outstanding<br><span>10 Pts</span></div>
     <div class="grade-cube A">A<br>Excellent<br><span>9 Pts</span></div>
@@ -57,6 +58,8 @@
   <h2 id="semTitle">Semester</h2>
   <div id="subjectList"></div>
   <button id="calcGPA">Calculate GPA</button>
+  <button id="editSem">Edit Saved Semester</button>
+  <button id="deleteSem">Delete Semester</button>
   <span class="back" data-target="semester">← Back</span>
 </section>
 
@@ -66,6 +69,7 @@
   <p>GPA: <span id="gpa">0</span></p>
   <p>CGPA: <span id="cgpa">0</span></p>
   <p>Percentage: <span id="percentage">0%</span></p>
+  <p id="encouragement"></p>
   <canvas id="chart"></canvas>
   <span class="back" data-target="subjects">← Back</span>
 </section>
