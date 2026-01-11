@@ -1,30 +1,31 @@
+// ===== Local Storage Save & Load =====
 function saveSemester(){
-    if(!selectedDept || !selectedSem) return;
-    let saved = JSON.parse(localStorage.getItem('savedSemesters')) || {};
-    saved[selectedDept] = saved[selectedDept] || {};
-    saved[selectedDept][selectedSem] = subjects.map(s=>({
-        name: s.name,
-        credits: s.credits,
-        grade: s.selected || null
-    }));
-    localStorage.setItem('savedSemesters', JSON.stringify(saved));
-    alert(`Semester ${selectedSem} saved!`);
+    if(!state.stream || !state.dept || !state.sem) return;
+    const key = `${state.stream}_${state.dept}_sem${state.sem}`;
+    const saveData = { grades: state.grades, subjects: state.subjects };
+    localStorage.setItem(key, JSON.stringify(saveData));
 }
 
-function loadSavedSemester(dept, sem){
-    let saved = JSON.parse(localStorage.getItem('savedSemesters')) || {};
-    if(saved[dept] && saved[dept][sem]){
-        subjects.forEach((s,i)=>{ s.selected = saved[dept][sem][i].grade; });
-        displaySubjects();
-    } else alert("No saved data for this semester.");
+function loadSavedSemester(){
+    if(!state.stream || !state.dept || !state.sem) return;
+    const key = `${state.stream}_${state.dept}_sem${state.sem}`;
+    const data = localStorage.getItem(key);
+    if(data){
+        const saved = JSON.parse(data);
+        state.grades = saved.grades;
+        state.subjects = saved.subjects;
+        // Update grade buttons
+        const list = document.getElementById("subjectList");
+        state.subjects.forEach((sub, idx)=>{
+            const gradeDiv = list.children[idx].querySelector(".grades-btns");
+            Array.from(gradeDiv.children).forEach(btn=>{
+                if(state.grades[idx] == gradePoints[btn.textContent]){
+                    btn.classList.add("active-grade");
+                } else btn.classList.remove("active-grade");
+            });
+        });
+        calculateGPA();
+    }
 }
 
-function deleteSemester(dept, sem){
-    let saved = JSON.parse(localStorage.getItem('savedSemesters')) || {};
-    if(saved[dept] && saved[dept][sem]){
-        delete saved[dept][sem];
-        localStorage.setItem('savedSemesters', JSON.stringify(saved));
-        alert(`Semester ${sem} of ${dept} deleted`);
-        loadSubjects();
-    } else alert("No data to delete.");
-}
+window.addEventListener("beforeunload", saveSemester);
