@@ -1,11 +1,15 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WEC CGPA Tracker</title>
-<link rel="stylesheet" href="css/style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WEC CGPA Tracker</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -22,23 +26,24 @@
   <!-- Start Page -->
   <section id="start-page" class="page active">
     <h2>Calculate Your CGPA Instantly</h2>
-    <button id="start-btn" class="start-btn">Calculate Now ➔</button>
+    <button id="start-btn" class="start-btn">Calculate Now ➜</button>
 
     <div class="grade-reference">
-      <h3>Grade Reference</h3>
+      <h3>Grade Point Reference</h3>
+
       <div class="cubic-grades">
-        <div class="grade-card" style="background:#d9f7be;">S<br>Outstanding<br>10 Pts</div>
-        <div class="grade-card" style="background:#b7eb8f;">A<br>Excellent<br>9 Pts</div>
-        <div class="grade-card" style="background:#91d5ff;">B<br>Very Good<br>8 Pts</div>
-        <div class="grade-card" style="background:#adc6ff;">C<br>Good<br>7 Pts</div>
-        <div class="grade-card" style="background:#f6d6ff;">D<br>Average<br>6 Pts</div>
-        <div class="grade-card" style="background:#fff7ba;">E<br>Pass<br>5 Pts</div>
-        <div class="grade-card" style="background:#ffa39e;">F<br>Fail<br>0 Pts</div>
+        <div class="grade-card grade-s">S<br><small>Outstanding</small><br>10</div>
+        <div class="grade-card grade-a">A<br><small>Excellent</small><br>9</div>
+        <div class="grade-card grade-b">B<br><small>Very Good</small><br>8</div>
+        <div class="grade-card grade-c">C<br><small>Good</small><br>7</div>
+        <div class="grade-card grade-d">D<br><small>Average</small><br>6</div>
+        <div class="grade-card grade-e">E<br><small>Pass</small><br>5</div>
+        <div class="grade-card grade-f">F<br><small>Fail</small><br>0</div>
       </div>
     </div>
   </section>
 
-  <!-- Stream Page -->
+  <!-- Stream -->
   <section id="stream-page" class="page">
     <h2>Select Stream</h2>
     <div id="streams" class="button-group">
@@ -48,16 +53,24 @@
     <button class="back-btn">⬅ Back</button>
   </section>
 
-  <!-- Semester Page -->
+  <!-- Department -->
+  <section id="department-page" class="page">
+    <h2>Select Department</h2>
+    <div id="departments" class="button-group"></div>
+    <button class="back-btn">⬅ Back</button>
+  </section>
+
+  <!-- Semester -->
   <section id="semester-page" class="page">
     <h2>Select Semester</h2>
     <div id="semesters" class="button-group"></div>
     <button class="back-btn">⬅ Back</button>
   </section>
 
-  <!-- Subjects Page -->
+  <!-- Subjects -->
   <section id="subjects-page" class="page">
     <h2>Enter Grades</h2>
+
     <div id="subjects-list"></div>
 
     <div class="grade-actions">
@@ -69,9 +82,12 @@
     <div class="results">
       <p id="gpa-display"></p>
       <p id="cgpa-display"></p>
+      <p id="percentage-display"></p>
+      <p id="encouragement"></p>
     </div>
 
-    <canvas id="gpa-chart" width="400" height="200"></canvas>
+    <canvas id="gpa-chart"></canvas>
+
     <button class="back-btn">⬅ Back</button>
   </section>
 
