@@ -1,97 +1,209 @@
-let state={
-  stream:"",
-  dept:"",
-  sem:0,
-  saved:JSON.parse(localStorage.getItem("wec_saved"))||[]
+// --- Global Variables ---
+let selectedStream = '';
+let selectedDept = '';
+let selectedSem = '';
+let subjects = [];
+let semesterGrades = JSON.parse(localStorage.getItem('savedSemesters') || '{}');
+
+// Store all subject JSON data here for instant access
+let allSubjectsData = {};  
+
+// --- Navigation ---
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+// --- Start Button ---
+document.getElementById('start-btn').addEventListener('click', ()=> showPage('info-page'));
+
+// --- Next Buttons ---
+document.querySelectorAll('.next-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=> {
+    const next = btn.dataset.next;
+    showPage(next);
+  });
+});
+
+// --- Stream Selection ---
+document.querySelectorAll('.stream-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    selectedStream = btn.dataset.stream;
+    loadDepartments(selectedStream);
+    showPage('department-page');
+  });
+});
+
+// --- Load Departments ---
+const departmentsList = {
+  engineering: ["CSE","ISE","ECE","EEE","AA"],
+  bcom: ["BCOM"]
 };
-
-const grades={S:10,A:9,B:8,C:7,D:6,E:5,F:0};
-
-function showSection(id){
-  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-  window.scrollTo(0,0);
-}
-
-function selectStream(s){
-  state.stream=s;
-  loadDepartments();
-  showSection("department");
-}
-
-function loadDepartments(){
-  const depts=["CSE","ISE","ECE","EEE","AA"];
-  const box=document.getElementById("deptButtons");
-  box.innerHTML="";
-  depts.forEach(d=>{
-    const b=document.createElement("button");
-    b.innerText=d;
-    b.onclick=()=>{state.dept=d;loadSem()};
-    box.appendChild(b);
+function loadDepartments(stream){
+  const container = document.getElementById('departments');
+  container.innerHTML = '';
+  departmentsList[stream].forEach(dept=>{
+    const btn = document.createElement('button');
+    btn.classList.add('btn-purple');
+    btn.textContent = dept;
+    btn.addEventListener('click', ()=>{
+      selectedDept = dept;
+      showPage('semester-page');
+    });
+    container.appendChild(btn);
   });
 }
 
-function loadSem(){
-  const max=state.stream==="Engineering"?8:6;
-  const box=document.getElementById("semButtons");
-  box.innerHTML="";
-  for(let i=1;i<=max;i++){
-    const b=document.createElement("button");
-    b.innerText="Semester "+i;
-    b.onclick=()=>{state.sem=i;loadSubjects()};
-    box.appendChild(b);
+// --- Semester Selection ---
+document.querySelectorAll('.semester-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    selectedSem = btn.dataset.sem;
+    loadSubjects();
+  });
+});
+
+// --- Preload All Subjects Data ---
+async function preloadAllSubjects() {
+  const deptArray = Object.values(departmentsList).flat();
+  const semArray = [1,2,3,4,5,6,7,8];
+  for(const dept of deptArray){
+    allSubjectsData[dept] = {};
+    for(const sem of semArray){
+      try{
+        const res = await fetch(`data/${dept.toLowerCase()}_sem${sem}.json`);
+        if(res.ok){
+          allSubjectsData[dept][sem] = await res.json();
+        }
+      }catch(err){ /* skip missing files */ }
+    }
   }
-  showSection("semester");
 }
 
+// Call preload at the start
+preloadAllSubjects();
+
+// --- Load Subjects Dynamically ---
 function loadSubjects(){
-  const list=document.getElementById("subjects");
-  list.innerHTML="";
-  for(let i=1;i<=5;i++){
-    const d=document.createElement("div");
-    d.className="subject";
-    d.innerHTML=`Subject ${i}
-      <select>
-        ${Object.keys(grades).map(g=>`<option>${g}</option>`).join("")}
-      </select>`;
-    list.appendChild(d);
+  subjects = allSubjectsData[selectedDept][selectedSem];
+  if(!subjects){
+    alert('Subjects data not found for this semester!');
+    return;
   }
-  showSection("grades");
+  generateGradeForm();
+  showPage('grades-page');
 }
 
-function calculateGPA(){
-  let sum=0;
-  document.querySelectorAll("select").forEach(s=>sum+=grades[s.value]);
-  const gpa=(sum/5).toFixed(2);
-  document.getElementById("gpa").innerText=gpa;
-  showSection("result");
+// --- Generate Grade Form ---
+const gradePoints = { S:10,A:9,B:8,C:7,D:6,E:5,F:0 };
+function generateGradeForm(){
+  const form = document.getElementById('grades-form');
+  form.innerHTML = '';
+  subjects.forEach((sub,idx)=>{
+    const label = document.createElement('label');
+    label.textContent = sub.name + ` (${sub.credits} credits)`;
+    const select = document.createElement('select');
+    select.name = idx;
+    ['S','A','B','C','D','E','F'].forEach(g=>{
+      const option = document.createElement('option');
+      option.value = g;
+      option.textContent = g;
+      if(semesterGrades[selectedDept+'_'+selectedSem] && semesterGrades[selectedDept+'_'+selectedSem][sub.name] === g){
+        option.selected = true;
+      }
+      select.appendChild(option);
+    });
+    label.appendChild(select);
+    form.appendChild(label);
+  });
 }
 
-function saveSemester(){
-  state.saved[state.sem-1]=parseFloat(document.getElementById("gpa").innerText);
-  localStorage.setItem("wec_saved",JSON.stringify(state.saved));
-  alert("Semester saved");
+// --- Save Semester ---
+document.getElementById('save-semester').addEventListener('click', ()=>{
+  const form = document.getElementById('grades-form');
+  const grades = {};
+  subjects.forEach((sub,idx)=>{
+    grades[sub.name] = form[idx].value;
+  });
+  semesterGrades[selectedDept+'_'+selectedSem] = grades;
+  localStorage.setItem('savedSemesters',JSON.stringify(semesterGrades));
+  calculateResult();
+});
+
+// --- Reset Semester ---
+document.getElementById('reset-semester').addEventListener('click', ()=>{
+  if(semesterGrades[selectedDept+'_'+selectedSem]){
+    delete semesterGrades[selectedDept+'_'+selectedSem];
+    localStorage.setItem('savedSemesters',JSON.stringify(semesterGrades));
+    generateGradeForm();
+    alert('Semester reset successfully!');
+  }
+});
+
+// --- Calculate GPA/CGPA instantly ---
+function calculateResult(){
+  // Semester GPA
+  const grades = semesterGrades[selectedDept+'_'+selectedSem];
+  let totalCredits=0,totalPoints=0;
+  subjects.forEach(sub=>{
+    const g = grades[sub.name];
+    totalCredits += sub.credits;
+    totalPoints += (gradePoints[g]||0)*sub.credits;
+  });
+  const gpa = (totalPoints/totalCredits).toFixed(2);
+
+  // CGPA for all saved semesters
+  let totalC=0, totalP=0;
+  Object.keys(semesterGrades).forEach(key=>{
+    const [dept, sem] = key.split('_');
+    const subs = allSubjectsData[dept][sem];
+    const gds = semesterGrades[key];
+    subs.forEach(s=>{
+      totalC += s.credits;
+      totalP += (gradePoints[gds[s.name]]||0)*s.credits;
+    });
+  });
+  const cgpa = (totalP/totalC).toFixed(2);
+  const percent = (cgpa*9.5).toFixed(2);
+
+  document.getElementById('gpa-display').textContent = `Semester GPA: ${gpa}`;
+  document.getElementById('cgpa-display').textContent = `CGPA: ${cgpa} (${percent}%)`;
+
+  drawChart();
+  showPage('result-page');
 }
 
-function convert(){
-  const v=document.getElementById("cgpaInput").value;
-  document.getElementById("percent").innerText=(v*10).toFixed(1)+"%";
-}
+// --- Draw Chart instantly ---
+function drawChart(){
+  const labels = [], data = [];
+  Object.keys(semesterGrades).forEach(key=>{
+    const [dept, sem] = key.split('_');
+    const subs = allSubjectsData[dept][sem];
+    const grades = semesterGrades[key];
+    let totalC=0,totalP=0;
+    subs.forEach(s=>{
+      totalC += s.credits;
+      totalP += (gradePoints[grades[s.name]]||0)*s.credits;
+    });
+    labels.push(key.replace('_',' Sem '));
+    data.push((totalP/totalC).toFixed(2));
+  });
 
-let chart;
-function showGraph(){
-  showSection("graph");
-  const ctx=document.getElementById("chart");
-  if(chart)chart.destroy();
-  chart=new Chart(ctx,{
-    type:"line",
+  const ctx = document.getElementById('gpa-chart').getContext('2d');
+  if(window.chartInstance) window.chartInstance.destroy(); // Destroy previous chart
+  window.chartInstance = new Chart(ctx,{
+    type:'bar',
     data:{
-      labels:state.saved.map((_,i)=>"Sem "+(i+1)),
+      labels:labels,
       datasets:[{
-        data:state.saved,
-        borderColor:"#5a4fcf",
-        tension:.4
+        label:'Semester GPA',
+        data:data,
+        backgroundColor:'rgba(142,45,226,0.7)',
+        borderRadius:5
       }]
+    },
+    options:{
+      responsive:true,
+      scales:{y:{beginAtZero:true, max:10}}
     }
   });
 }
