@@ -1,86 +1,77 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  margin:0;
-  padding:0;
-  background:#f9fafb;
-  color:#1f2937;
+  background: linear-gradient(135deg, #f5f3ff, #eef2ff);
+  color: #1f2933;
 }
 
-h1,h2,h3 { margin:0.5em 0; }
-
-section { display:none; padding:20px; max-width:900px; margin:auto; }
-section.active { display:block; }
-
-button {
-  cursor:pointer;
-  padding:12px 20px;
-  margin:5px;
-  border:none;
-  border-radius:10px;
-  font-size:16px;
-  transition:0.2s;
-  background:#7c3aed;
-  color:white;
+/* HEADERS */
+h1, h2 {
+  margin-bottom: 14px;
 }
-button:hover { transform:scale(1.05); }
 
-header {
-  background:#fff;
-  padding:15px 20px;
-  box-shadow:0 2px 6px rgba(0,0,0,0.1);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+/* SECTION */
+.section {
+  padding: 20px;
 }
-header h1 { font-size:22px; }
 
-/* Grade Cubes */
-.grades {
-  display:grid;
-  grid-template-columns: repeat(auto-fit,minmax(120px,1fr));
-  gap:15px;
-  margin:20px 0;
+/* GRID */
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
 }
-.grade-cube {
-  padding:20px;
-  border-radius:12px;
-  text-align:center;
-  font-weight:500;
-  font-size:16px;
-  box-shadow:0 2px 6px rgba(0,0,0,0.1);
+
+/* 🌸 DEFAULT BUTTON (PLEASANT TRANSPARENT) */
+.button-grid button {
+  background: rgba(124, 58, 237, 0.15);
+  color: #4c1d95;
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  padding: 14px;
+  border-radius: 16px;
+  font-size: 15px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: all 0.25s ease;
 }
-.grade-cube span { display:block; font-size:22px; margin-top:5px; font-weight:bold; }
 
-.grade-cube.S { background:rgba(209,250,229,0.5); color:#166534; }
-.grade-cube.A { background:rgba(209,250,229,0.5); color:#166534; }
-.grade-cube.B { background:rgba(224,231,255,0.5); color:#3730a3; }
-.grade-cube.C { background:rgba(238,242,255,0.5); color:#4f46e5; }
-.grade-cube.D { background:rgba(245,243,255,0.5); color:#7c3aed; }
-.grade-cube.E { background:rgba(254,243,199,0.5); color:#b45309; }
-.grade-cube.F { background:rgba(254,226,226,0.5); color:#991b1b; }
-
-/* Subject Cards */
-.card {
-  padding:12px 15px;
-  margin:8px 0;
-  background:#fff;
-  border-radius:12px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  box-shadow:0 2px 6px rgba(0,0,0,0.08);
+/* HOVER */
+.button-grid button:hover {
+  background: rgba(124, 58, 237, 0.25);
 }
-.card:hover { transform: translateY(-2px); }
-select { padding:6px 8px; border-radius:8px; border:1px solid #ccc; }
 
-/* Result */
-#result { text-align:center; }
-canvas { max-width:100%; margin-top:20px; }
+/* 🔥 ACTIVE (PURPLE ON CLICK) */
+.button-grid button.active {
+  background: linear-gradient(135deg, #6d28d9, #7c3aed);
+  color: white;
+  border: none;
+  box-shadow: 0 8px 18px rgba(109, 40, 217, 0.35);
+}
 
-.back {
-  display:block;
-  margin:10px 0;
-  color:#3b82f6;
-  cursor:pointer;
-  font-style:italic;
+/* SUBJECT CARD */
+.subject {
+  background: rgba(255, 255, 255, 0.85);
+  padding: 14px;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* DROPDOWN */
+.subject select {
+  padding: 6px;
+  border-radius: 8px;
+}
+
+/* REMOVE WHITE FLASH */
+button:focus {
+  outline: none;
 }
