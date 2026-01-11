@@ -1,34 +1,38 @@
-// Save, Edit, Delete semester in localStorage
-function saveSemesterData(){
-  if(!state.stream || !state.dept || !state.sem) return;
-  const key = `${state.stream}_${state.dept}_sem${state.sem}`;
-  localStorage.setItem(key, JSON.stringify(state.grades));
-}
+// ---------- saveSemester.js ----------
 
-function loadSavedGrades(){
-  if(!state.stream || !state.dept || !state.sem) return;
-  const key = `${state.stream}_${state.dept}_sem${state.sem}`;
-  const saved = localStorage.getItem(key);
-  if(saved){
-    state.grades = JSON.parse(saved);
-    const cards = document.querySelectorAll("#subjectList .card select");
-    cards.forEach((sel,i)=>{
-      sel.value = Object.keys(gradePoints).find(g=>gradePoints[g]===state.grades[i]) || "";
-    });
+// Auto-load saved semesters
+function loadSavedSemesters() {
+  const saved = JSON.parse(localStorage.getItem("semesters") || "{}");
+  for (let dept in saved) {
+    for (let sem in saved[dept]) {
+      console.log(`Loaded: ${dept} Sem ${sem} GPA ${saved[dept][sem]}`);
+    }
   }
 }
 
-// Edit Button
-document.getElementById("editSem").onclick = ()=>{
-  loadSavedGrades();
-  show("subjects");
+// Edit or Delete saved semester
+function editSemester(dept, sem, newGPA) {
+  const saved = JSON.parse(localStorage.getItem("semesters") || "{}");
+  if (saved[dept] && saved[dept][sem]) {
+    saved[dept][sem] = parseFloat(newGPA);
+    localStorage.setItem("semesters", JSON.stringify(saved));
+    alert(`Updated ${dept} Sem ${sem} to GPA ${newGPA}`);
+  }
 }
 
-// Delete Button
-document.getElementById("deleteSem").onclick = ()=>{
-  if(!state.stream || !state.dept || !state.sem) return;
-  const key = `${state.stream}_${state.dept}_sem${state.sem}`;
-  localStorage.removeItem(key);
-  state.grades = {};
-  loadSubjects();
+function deleteSemester(dept, sem) {
+  const saved = JSON.parse(localStorage.getItem("semesters") || "{}");
+  if (saved[dept] && saved[dept][sem]) {
+    delete saved[dept][sem];
+    if (Object.keys(saved[dept]).length === 0) delete saved[dept];
+    localStorage.setItem("semesters", JSON.stringify(saved));
+    alert(`Deleted ${dept} Sem ${sem}`);
+    showChart();
+  }
 }
+
+// Auto-load chart on page load
+window.addEventListener("load", () => {
+  loadSavedSemesters();
+  showChart();
+});
