@@ -1,208 +1,161 @@
-// ---------- main.js ----------
-
 // Grade points
-const gradePoints = { S: 10, A: 9, B: 8, C: 7, D: 6, E: 5, F: 0 };
-
-// Elements
-const sections = document.querySelectorAll("section");
-const continueBtn = document.getElementById("continueBtn");
-const streamList = document.getElementById("streamList");
-const deptList = document.getElementById("deptList");
-const semList = document.getElementById("semList");
-const subjectList = document.getElementById("subjectList");
-const semTitle = document.getElementById("semTitle");
-const gpaEl = document.getElementById("gpa");
-const cgpaEl = document.getElementById("cgpa");
-const percentageEl = document.getElementById("percentage");
+const gradePoints = { S:10, A:9, B:8, C:7, D:6, E:5, F:0 };
 
 // Streams & Departments
-const streams = {
+const streams = ["Engineering", "BCom"];
+const departments = {
   Engineering: ["CSE","ISE","ECE","EEE","AA"],
   BCom: ["BCOM"]
 };
 
-let selectedStream = "";
-let selectedDept = "";
-let selectedSem = 1;
-let subjectsData = [];
+let currentStream = "";
+let currentDept = "";
+let currentSem = 1;
+let subjects = [];
 
-// ------------------- NAVIGATION -------------------
-function showSection(id) {
-  sections.forEach(s => s.classList.remove("active"));
+// Show section helper
+function showSection(id){
+  document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
 }
 
-// Back buttons
-document.querySelectorAll(".back").forEach(btn => {
-  btn.addEventListener("click", () => showSection(btn.dataset.target));
+// Start & Info
+document.getElementById("startBtn").onclick = () => showSection("info");
+document.getElementById("infoContinue").onclick = () => showSection("stream");
+
+// Back Buttons
+document.querySelectorAll(".back").forEach(b => {
+  b.onclick = () => showSection(b.dataset.target);
 });
 
-// Continue button on start page
-continueBtn.addEventListener("click", () => {
-  alert(`CGPA is Cumulative Grade Point Average. \n
-It is calculated by weighted average of all semesters.\n
-Formula: GPA = Σ(grade points × credits) / Σ(credits)\n
-Tips: Aim for high grades, maintain consistency, and track your CGPA regularly.`);
-  showSection("stream");
+// Load stream buttons
+const streamList = document.getElementById("streamList");
+streams.forEach(str => {
+  const btn = document.createElement("button");
+  btn.textContent = str;
+  btn.onclick = () => {
+    currentStream = str;
+    [...streamList.children].forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    loadDepartments();
+    showSection("department");
+  };
+  streamList.appendChild(btn);
 });
 
-// ------------------- STREAMS -------------------
-function loadStreams() {
-  streamList.innerHTML = "";
-  for (let s in streams) {
+// Load departments
+function loadDepartments(){
+  const deptDiv = document.getElementById("deptList");
+  deptDiv.innerHTML = "";
+  departments[currentStream].forEach(dep => {
     const btn = document.createElement("button");
-    btn.textContent = s;
-    btn.onclick = () => selectStream(s, btn);
-    streamList.appendChild(btn);
-  }
-}
-
-function selectStream(name, btn) {
-  selectedStream = name;
-  highlightActive(streamList, btn);
-  loadDepartments();
-  showSection("department");
-}
-
-// ------------------- DEPARTMENTS -------------------
-function loadDepartments() {
-  deptList.innerHTML = "";
-  streams[selectedStream].forEach(d => {
-    const btn = document.createElement("button");
-    btn.textContent = d;
-    btn.onclick = () => selectDepartment(d, btn);
-    deptList.appendChild(btn);
+    btn.textContent = dep;
+    btn.onclick = () => {
+      currentDept = dep;
+      [...deptDiv.children].forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+      loadSemesters();
+      showSection("semester");
+    };
+    deptDiv.appendChild(btn);
   });
 }
 
-function selectDepartment(dept, btn) {
-  selectedDept = dept;
-  highlightActive(deptList, btn);
-  loadSemesters();
-  showSection("semester");
-}
-
-// ------------------- SEMESTERS -------------------
-function loadSemesters() {
-  semList.innerHTML = "";
-  for (let i = 1; i <= 8; i++) {
+// Load semesters
+function loadSemesters(){
+  const semDiv = document.getElementById("semList");
+  semDiv.innerHTML = "";
+  for(let i=1; i<=8; i++){
     const btn = document.createElement("button");
-    btn.textContent = "Semester " + i;
-    btn.onclick = () => selectSemester(i, btn);
-    semList.appendChild(btn);
+    btn.textContent = `Semester ${i}`;
+    btn.onclick = () => {
+      currentSem = i;
+      [...semDiv.children].forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+      loadSubjects();
+      showSection("subjects");
+    };
+    semDiv.appendChild(btn);
   }
 }
 
-function selectSemester(sem, btn) {
-  selectedSem = sem;
-  highlightActive(semList, btn);
-  loadSubjects();
-  showSection("subjects");
-}
+// Load subjects from JSON
+function loadSubjects(){
+  const list = document.getElementById("subjectList");
+  list.innerHTML = "";
+  document.getElementById("semTitle").innerText = `${currentDept} - Semester ${currentSem}`;
 
-// ------------------- SUBJECTS -------------------
-function loadSubjects() {
-  subjectList.innerHTML = "";
-  semTitle.textContent = `${selectedDept} - Semester ${selectedSem}`;
-
-  const filePath = `data/${selectedDept.toLowerCase()}_sem${selectedSem}.json`;
+  const deptFile = currentDept.toLowerCase();
+  const filePath = `data/${deptFile}_sem${currentSem}.json`;
 
   fetch(filePath)
     .then(res => res.json())
     .then(data => {
-      // Handle both array or object wrapping
-      subjectsData = Array.isArray(data) ? data : data.subjects || [];
-      if (subjectsData.length === 0) {
-        alert("No subjects found in JSON.");
+      // If JSON contains array at top or inside property
+      subjects = Array.isArray(data) ? data : (data.subjects || []);
+      if(!Array.isArray(subjects)){
+        alert("Invalid JSON format in data file. Must be array or have property 'subjects'.");
         return;
       }
-      displaySubjects(subjectsData);
+      if(subjects.length === 0){
+        alert("No subjects found in JSON.");
+      }
+      subjects.forEach(sub => {
+        const div = document.createElement("div");
+        div.className = "card";
+        div.innerHTML = `
+          ${sub.name} (${sub.credits} Cr)
+          <select data-name="${sub.name}">
+            <option>S</option><option>A</option><option>B</option>
+            <option>C</option><option>D</option><option>E</option><option>F</option>
+          </select>
+        `;
+        list.appendChild(div);
+      });
     })
     .catch(err => {
-      alert("Subject file not found");
+      alert("Subject file not found! Check data path & file name.");
       console.error(err);
     });
 }
 
-function displaySubjects(subjects) {
-  subjects.forEach(s => {
-    const div = document.createElement("div");
-    div.className = "subject-item";
-    div.innerHTML = `
-      <span>${s.name} (${s.credits} Cr)</span>
-      <select>
-        <option value="S">S</option>
-        <option value="A">A</option>
-        <option value="B">B</option>
-        <option value="C">C</option>
-        <option value="D">D</option>
-        <option value="E">E</option>
-        <option value="F">F</option>
-      </select>
-    `;
-    subjectList.appendChild(div);
-  });
-}
-
-// ------------------- GPA / CGPA -------------------
-document.getElementById("calcGPA").addEventListener("click", () => {
-  let totalCredits = 0;
-  let totalPoints = 0;
-
-  subjectList.querySelectorAll(".subject-item").forEach(item => {
-    const grade = item.querySelector("select").value;
-    const credits = parseInt(item.textContent.match(/\((\d+) Cr\)/)[1]);
-    totalCredits += credits;
-    totalPoints += credits * gradePoints[grade];
+// GPA / CGPA calculation
+document.getElementById("calcGPA").onclick = () => {
+  let totalCredits=0, totalPoints=0;
+  document.querySelectorAll("#subjectList select").forEach(sel => {
+    const grade = sel.value;
+    const name = sel.dataset.name;
+    const credit = subjects.find(s=>s.name===name).credits;
+    totalCredits += credit;
+    totalPoints += gradePoints[grade]*credit;
   });
 
-  const gpa = (totalPoints / totalCredits).toFixed(2);
-  gpaEl.textContent = gpa;
+  const gpa = (totalPoints/totalCredits).toFixed(2);
+  document.getElementById("gpa").innerText = gpa;
 
-  // Save semester GPA
-  saveSemester(selectedDept, selectedSem, gpa);
+  // Save semester
+  const saved = JSON.parse(localStorage.getItem("semesters")|| "{}");
+  if(!saved[currentDept]) saved[currentDept]={};
+  saved[currentDept][currentSem]=parseFloat(gpa);
+  localStorage.setItem("semesters", JSON.stringify(saved));
 
-  // Update CGPA
-  const cgpa = calculateCGPA();
-  cgpaEl.textContent = cgpa.toFixed(2);
-  percentageEl.textContent = (cgpa * 9.5).toFixed(2) + "%";
-
-  // Encouragement
-  if (cgpa >= 9) alert("Excellent! Keep up the outstanding performance!");
-  else if (cgpa >= 8) alert("Great! You are doing very well.");
-  else if (cgpa >= 7) alert("Good! Stay consistent and improve.");
-  else alert("Keep going! You can boost your CGPA with consistent effort.");
+  const avg = calculateCGPA();
+  document.getElementById("cgpa").innerText = avg.toFixed(2);
+  document.getElementById("percentage").innerText = (avg*9.5).toFixed(2)+"%";
 
   showChart();
   showSection("result");
-});
+};
 
-// ------------------- HIGHLIGHT ACTIVE BUTTON -------------------
-function highlightActive(container, activeBtn) {
-  container.querySelectorAll("button").forEach(b => b.classList.remove("active"));
-  activeBtn.classList.add("active");
-}
-
-// ------------------- CGPA & LOCAL STORAGE -------------------
-function saveSemester(dept, sem, gpa) {
-  const saved = JSON.parse(localStorage.getItem("semesters") || "{}");
-  if (!saved[dept]) saved[dept] = {};
-  saved[dept][sem] = parseFloat(gpa);
-  localStorage.setItem("semesters", JSON.stringify(saved));
-}
-
-function calculateCGPA() {
-  const saved = JSON.parse(localStorage.getItem("semesters") || "{}");
-  let total = 0, count = 0;
-  for (let dept in saved) {
-    for (let sem in saved[dept]) {
+// CGPA calculation
+function calculateCGPA(){
+  const saved = JSON.parse(localStorage.getItem("semesters")||"{}");
+  let total=0, count=0;
+  for(let dept in saved){
+    for(let sem in saved[dept]){
       total += saved[dept][sem];
       count++;
     }
   }
-  return count === 0 ? 0 : total / count;
+  return count? total/count : 0;
 }
-
-// ------------------- INITIALIZE -------------------
-loadStreams();
-showSection("intro");
