@@ -11,24 +11,26 @@
 
 <body>
 
-<header class="app-header">
+<header class="topbar">
   <h1>WEC CGPA Tracker 🎓</h1>
-  <p>Official Academic Calculator</p>
 </header>
 
 <main class="container">
 
-<section id="start" class="section active">
-  <button class="primary-btn" onclick="showSection('info')">Get Started →</button>
+<!-- INTRO -->
+<section id="intro" class="section active">
+  <h2>Official WEC CGPA Tracker</h2>
+  <button class="primary" onclick="go('info')">Continue →</button>
 </section>
 
+<!-- INFO -->
 <section id="info" class="section">
   <div class="card">
-    <h2>What is CGPA?</h2>
-    <p>CGPA represents your overall academic performance.</p>
+    <h3>What is CGPA?</h3>
+    <p>CGPA shows your overall academic performance.</p>
 
     <h3>Formula</h3>
-    <p class="formula">CGPA = Total GPA ÷ Number of Semesters</p>
+    <p class="formula">CGPA = Σ(Credit × Grade Point) ÷ Σ Credits</p>
 
     <h3>How to Boost CGPA?</h3>
     <ul>
@@ -39,59 +41,68 @@
   </div>
 
   <div class="card">
-    <h2>Grade Point Reference (CUBIC)</h2>
+    <h3>Grade Point Reference (CUBIC)</h3>
     <div class="grade-grid">
-      <div class="grade">S<span>10</span></div>
-      <div class="grade">A<span>9</span></div>
-      <div class="grade">B<span>8</span></div>
-      <div class="grade">C<span>7</span></div>
-      <div class="grade">D<span>6</span></div>
-      <div class="grade">E<span>5</span></div>
-      <div class="grade fail">F<span>0</span></div>
+      <div class="g">S<span>10</span></div>
+      <div class="g">A<span>9</span></div>
+      <div class="g">B<span>8</span></div>
+      <div class="g">C<span>7</span></div>
+      <div class="g">D<span>6</span></div>
+      <div class="g">E<span>5</span></div>
+      <div class="g fail">F<span>0</span></div>
     </div>
   </div>
 
-  <button class="primary-btn" onclick="showSection('stream')">Continue →</button>
+  <button class="primary" onclick="go('stream')">Continue →</button>
 </section>
 
+<!-- STREAM -->
 <section id="stream" class="section">
-  <h2>Select Stream</h2>
+  <h3>Select Stream</h3>
   <div class="grid">
     <button onclick="selectStream('engineering')">Engineering</button>
     <button onclick="selectStream('bcom')">B.Com</button>
   </div>
 </section>
 
-<section id="department" class="section">
-  <h2>Select Department</h2>
-  <div id="deptButtons" class="grid"></div>
+<!-- DEPARTMENT -->
+<section id="dept" class="section">
+  <h3>Select Department</h3>
+  <div id="deptBox" class="grid"></div>
 </section>
 
-<section id="semester" class="section">
-  <h2>Select Semester</h2>
-  <div id="semButtons" class="grid"></div>
+<!-- SEMESTER -->
+<section id="sem" class="section">
+  <h3>Select Semester</h3>
+  <div id="semBox" class="grid"></div>
 </section>
 
-<section id="grades" class="section">
-  <h2>Enter Grades</h2>
+<!-- SUBJECTS -->
+<section id="subjectsSec" class="section">
+  <h3>Enter Grades</h3>
   <div id="subjects"></div>
-  <button class="primary-btn" onclick="calculateGPA()">Calculate GPA</button>
+  <button class="primary" onclick="calculate()">Calculate GPA</button>
 </section>
 
+<!-- RESULT -->
 <section id="result" class="section">
-  <div class="result-card">
-    <h2>Your GPA</h2>
+  <div class="card center">
+    <h3>Semester GPA</h3>
     <div id="gpa" class="big">0.00</div>
-    <div class="icon-row">
-      <button onclick="saveSemester()">💾 Save</button>
-      <button onclick="drawChart()">📊 Graph</button>
+    <div id="percent"></div>
+
+    <div class="row">
+      <button onclick="save()">Save</button>
+      <button onclick="go('graph')">Graph</button>
+      <button onclick="go('sem')">Edit</button>
     </div>
   </div>
 </section>
 
-<section id="graphSection" class="section">
+<!-- GRAPH -->
+<section id="graph" class="section">
   <div class="card">
-    <h2>GPA Progress</h2>
+    <h3>GPA Progress</h3>
     <canvas id="chart"></canvas>
   </div>
 </section>
