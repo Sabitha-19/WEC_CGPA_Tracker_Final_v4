@@ -1,258 +1,186 @@
-/* ------------------------ */
-/* Global Styles & Body */
-/* ------------------------ */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* ===== General Reset ===== */
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  background: #f9f9fc;
+  font-family: 'Poppins', sans-serif; /* Modern, clean font */
+}
+
+body {
+  background: #f8f8ff;
   color: #333;
+  line-height: 1.5;
+  min-height: 100vh;
+  padding-top: 60px; /* header height */
 }
 
-h1, h2, h3 {
-  font-family: 'Comic Sans MS', cursive, sans-serif;
+h1,h2,h3 {
+  font-family: 'Poppins', sans-serif;
+  color: #4B0082; /* deep purple */
+  margin-bottom: 15px;
   text-align: center;
-  margin: 10px 0;
-  color: #5f51ff;
 }
 
-/* ------------------------ */
-/* Fixed Header */
-/* ------------------------ */
+p, li, span {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ===== Header ===== */
 .fixed-header {
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
+  height: 60px;
   background: rgba(255,255,255,0.95);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 18px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 0 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   z-index: 1000;
 }
 
 .fixed-header h1 {
-  font-size: 1.3rem;
-  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 .nav-icons span {
-  font-size: 1.4rem;
-  margin-left: 12px;
   cursor: pointer;
-  transition: transform 0.2s;
+  font-size: 22px;
+  margin-left: 10px;
+  transition: all 0.2s;
 }
 
 .nav-icons span:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
-/* ------------------------ */
-/* Pages Layout */
-/* ------------------------ */
+/* ===== Pages ===== */
 .page {
   display: none;
-  padding: 80px 20px 20px 20px; /* leave space for fixed header */
+  padding: 20px 15px;
 }
 
 .page.active {
   display: block;
 }
 
-/* ------------------------ */
-/* Button Groups (Stream/Semester) */
-/* ------------------------ */
+/* ===== Buttons ===== */
+button {
+  cursor: pointer;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  background: rgba(106, 17, 203, 0.1);
+  color: #4B0082;
+  font-weight: 500;
+  margin: 8px 0;
+  transition: all 0.2s;
+}
+
+button:hover {
+  background: rgba(106, 17, 203, 0.2);
+}
+
+/* Stream / Department / Semester Buttons */
 .button-group {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin: 20px auto;
-  max-width: 320px;
-}
-
-.stream-btn, .semester-btn {
-  background: rgba(147, 129, 255, 0.2);
-  border: none;
-  border-radius: 16px;
-  padding: 14px 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.stream-btn:hover, .semester-btn:hover {
-  background: rgba(147, 129, 255, 0.4);
-  transform: translateY(-2px);
-}
-
-/* ------------------------ */
-/* Back Button */
-/* ------------------------ */
-.back-btn {
-  background: rgba(200,200,200,0.6);
-  border: none;
-  border-radius: 16px;
-  padding: 10px 18px;
-  font-size: 0.95rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  margin-top: 12px;
-  transition: all 0.2s ease;
-}
-
-.back-btn:hover {
-  background: rgba(180,180,180,0.8);
-  transform: translateY(-2px);
-}
-
-/* ------------------------ */
-/* Subjects Page */
-/* ------------------------ */
-#subjects-list {
-  max-width: 400px;
-  margin: 0 auto 20px auto;
-}
-
-.subject-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-  background: rgba(255,255,255,0.8);
-  padding: 8px 12px;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-
-.subject-item span {
-  flex: 1;
-  font-size: 0.95rem;
-}
-
-.subject-item button {
-  background: rgba(147,129,255,0.15);
-  border: none;
-  border-radius: 12px;
-  padding: 8px 14px;
-  font-weight: 600;
-  cursor: pointer;
-  margin-left: 4px;
-  transition: all 0.2s ease;
-}
-
-.subject-item button:hover {
-  background: rgba(147,129,255,0.35);
-  transform: translateY(-1px);
-}
-
-/* ------------------------ */
-/* Grade Actions Buttons */
-/* ------------------------ */
-.grade-actions {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
   gap: 12px;
-  margin-top: 14px;
+  align-items: center;
 }
 
-.grade-actions button {
-  background: rgba(147,129,255,0.2);
-  border: none;
-  border-radius: 16px;
-  padding: 10px 16px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.2s ease;
-}
-
-.grade-actions button:hover {
-  background: rgba(147,129,255,0.4);
-  transform: translateY(-2px);
-}
-
-/* ------------------------ */
-/* Results Display */
-/* ------------------------ */
-.results {
+.button-group button {
+  width: 90%;
+  max-width: 300px;
   text-align: center;
+  font-size: 16px;
+}
+
+/* Back Button */
+.back-btn {
+  background: rgba(0,0,0,0.1);
+  color: #333;
   margin-top: 20px;
 }
 
-.results p {
-  font-size: 1rem;
-  margin: 6px 0;
-  font-weight: 500;
-  color: #333;
-}
-
-/* ------------------------ */
-/* Chart Styling */
-/* ------------------------ */
-#gpa-chart {
-  margin: 20px auto;
-  display: block;
-  max-width: 90%;
-  background: rgba(255,255,255,0.8);
-  padding: 14px;
-  border-radius: 16px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-/* ------------------------ */
-/* Grade Reference Cards */
-/* ------------------------ */
+/* ===== Grade Reference ===== */
 .grade-reference {
   margin-top: 20px;
+  text-align: center;
 }
 
 .cubic-grades {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 8px;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
 }
 
 .grade-card {
-  width: 60px;
-  height: 70px;
+  padding: 12px;
+  border-radius: 10px;
+  width: 70px;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  color: #333;
+  backdrop-filter: blur(5px);
+}
+
+/* Light pleasant transparent colors */
+.grade-card:nth-child(1){ background: rgba(141, 237, 170,0.6); } /* S */
+.grade-card:nth-child(2){ background: rgba(179, 235, 143,0.6); } /* A */
+.grade-card:nth-child(3){ background: rgba(145, 213, 255,0.5); } /* B */
+.grade-card:nth-child(4){ background: rgba(173, 198, 255,0.5); } /* C */
+.grade-card:nth-child(5){ background: rgba(246, 214, 255,0.5); } /* D */
+.grade-card:nth-child(6){ background: rgba(255, 247, 186,0.5); } /* E */
+.grade-card:nth-child(7){ background: rgba(255, 163, 158,0.5); } /* F */
+
+/* ===== Subjects & Grades ===== */
+.subject {
+  background: rgba(255,255,255,0.7);
+  padding: 10px;
+  border-radius: 12px;
+  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-  font-weight: bold;
-  font-size: 0.8rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  gap: 8px;
+}
+
+.grade-buttons {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.grade-buttons button {
+  width: 36px;
+  height: 36px;
+  font-size: 14px;
+  border-radius: 8px;
+  background: rgba(106, 17, 203, 0.1);
+  color: #4B0082;
+}
+
+.grade-buttons button.selected {
+  background: rgba(106,17,203,0.4);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ===== Results & Chart ===== */
+.results {
+  margin-top: 15px;
   text-align: center;
 }
 
-/* ------------------------ */
-/* Start Page Info Box */
-/* ------------------------ */
-.cgpa-info {
-  max-width: 360px;
-  margin: 20px auto;
-  background: rgba(255,255,255,0.85);
-  padding: 14px 16px;
-  border-radius: 16px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-}
-
-.cgpa-info h3 {
-  font-size: 1.1rem;
-  margin-top: 12px;
-}
-
-.cgpa-info p, .cgpa-info ul {
-  font-size: 0.95rem;
-  margin: 6px 0;
-}
-
-.cgpa-info ul li {
-  margin: 4px 0;
+#calculate-btn, #edit-btn, #delete-btn {
+  width: 90%;
+  max-width: 300px;
+  margin: 5px 0;
 }
