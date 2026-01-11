@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WEC CGPA Tracker</title>
+  <meta charset="UTF-8">
+  <title>WEC CGPA Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="css/style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -18,82 +20,82 @@
   </div>
 </header>
 
-<!-- START -->
-<section id="start" class="active">
+<!-- START PAGE -->
+<section id="startPage" class="page active">
   <h2>Official WEC CGPA Tracker</h2>
   <p>Calculate GPA, CGPA & Percentage accurately</p>
-  <button onclick="showSection('info')">Start →</button>
+  <button id="startBtn">Start →</button>
 </section>
 
-<!-- INFO -->
-<section id="info">
+<!-- INFO PAGE -->
+<section id="infoPage" class="page">
   <h2>What is CGPA?</h2>
   <p>CGPA is the average of all semester GPAs.</p>
 
   <h3>How to boost CGPA?</h3>
   <ul>
-    <li>Score S/A in high credit subjects</li>
-    <li>Avoid backlogs</li>
-    <li>Improve each semester consistently</li>
+    <li>Focus on high-credit subjects</li>
+    <li>Improve weak subjects</li>
+    <li>Avoid arrears</li>
   </ul>
 
   <h3>Grade Point Reference</h3>
-  <div class="grade-grid">
-    <div class="cube s">S<br>10</div>
-    <div class="cube a">A<br>9</div>
-    <div class="cube b">B<br>8</div>
-    <div class="cube c">C<br>7</div>
-    <div class="cube d">D<br>6</div>
-    <div class="cube e">E<br>5</div>
-    <div class="cube f">F<br>0</div>
+  <div class="grade-cards">
+    <div class="card s">S<br>10<br>Outstanding</div>
+    <div class="card a">A<br>9<br>Excellent</div>
+    <div class="card b">B<br>8<br>Very Good</div>
+    <div class="card c">C<br>7<br>Good</div>
+    <div class="card d">D<br>6<br>Average</div>
+    <div class="card e">E<br>5<br>Pass</div>
+    <div class="card f">F<br>0<br>Fail</div>
   </div>
 
-  <button onclick="showSection('stream')">Continue →</button>
+  <button id="continueBtn">Continue →</button>
 </section>
 
 <!-- STREAM -->
-<section id="stream">
+<section id="streamPage" class="page">
   <h2>Select Stream</h2>
-  <button onclick="selectStream(this,'engineering')">Engineering</button>
-  <button onclick="selectStream(this,'bcom')">B.Com</button>
+  <button class="selectBtn" data-stream="engineering">Engineering</button>
+  <button class="selectBtn" data-stream="bcom">B.Com</button>
 </section>
 
 <!-- DEPARTMENT -->
-<section id="department">
+<section id="deptPage" class="page">
   <h2>Select Department</h2>
   <div id="deptBtns"></div>
 </section>
 
 <!-- SEMESTER -->
-<section id="semester">
+<section id="semPage" class="page">
   <h2>Select Semester</h2>
   <div id="semBtns"></div>
 </section>
 
 <!-- SUBJECTS -->
-<section id="subjects">
-  <h2 id="semTitle"></h2>
-  <div id="subjectList"></div>
-  <button onclick="calculateGPA()">Calculate GPA</button>
-</section>
+<section id="subjectPage" class="page">
+  <h2 id="subjectTitle"></h2>
+  <div id="subjects"></div>
 
-<!-- RESULT -->
-<section id="result">
-  <h2>Result</h2>
-  <p>GPA: <span id="gpa">0.00</span></p>
-  <p>CGPA: <span id="cgpa">0.00</span></p>
-  <p>Percentage: <span id="percentage">0%</span></p>
-  <p id="msg"></p>
+  <div class="result">
+    <p>GPA: <span id="gpa">0</span></p>
+    <p>CGPA: <span id="cgpa">0</span></p>
+    <p>Percentage: <span id="percentage">0%</span></p>
+    <p id="encourage"></p>
+  </div>
+
+  <button id="saveSemBtn">Save Semester</button>
 </section>
 
 <!-- GRAPH -->
-<section id="graph">
+<section id="graphPage" class="page">
   <h2>Semester-wise GPA</h2>
   <canvas id="cgpaChart"></canvas>
 </section>
 
-<script src="js/main.js"></script>
 <script src="js/saveSemester.js"></script>
 <script src="js/chart.js"></script>
+<script src="js/main.js"></script>
+
 </body>
 </html>
