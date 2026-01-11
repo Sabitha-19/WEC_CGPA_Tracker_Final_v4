@@ -1,42 +1,82 @@
-<!-- Start Page -->
-<section id="start-page" class="page active">
+<<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WEC CGPA Tracker</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<header class="fixed-header">
   <h1>WEC CGPA Tracker</h1>
-  <h2>Official Academic Calculator</h2>
-
-  <button id="start-btn" class="start-btn">Get Started ➔</button>
-
-  <div class="cgpa-info">
-    <h3>What is CGPA? 📘</h3>
-    <p>CGPA represents your overall academic performance across all semesters of your course.</p>
-
-    <h3>Formula 🧮</h3>
-    <p>CGPA = Total GPA ÷ Number of Semesters</p>
-
-    <h3>How to Boost CGPA? 🚀</h3>
-    <ul>
-      <li>🎯 Focus on high-credit subjects</li>
-      <li>📝 Score well in internals</li>
-      <li>✅ Never skip assignments</li>
-    </ul>
-
-    <h3>Encouragement 💡</h3>
-    <ul>
-      <li>🌟 Keep consistent, you can improve!</li>
-      <li>💪 Hard work + smart strategy = better CGPA</li>
-      <li>🎉 Every grade counts, don’t give up!</li>
-    </ul>
+  <div class="nav-icons">
+    <span id="home-icon" title="Home">🏠</span>
+    <span id="graph-icon" title="Graph">📊</span>
   </div>
+</header>
 
-  <div class="grade-reference">
-    <h3>Grade Reference</h3>
-    <div class="cubic-grades">
-      <div class="grade-card" style="background:#d9f7be;">S<br><small>Outstanding</small><br>10 Pts</div>
-      <div class="grade-card" style="background:#d9f7be;">A<br><small>Excellent</small><br>9 Pts</div>
-      <div class="grade-card" style="background:#91d5ff;">B<br><small>Very Good</small><br>8 Pts</div>
-      <div class="grade-card" style="background:#adc6ff;">C<br><small>Good</small><br>7 Pts</div>
-      <div class="grade-card" style="background:#f6d6ff;">D<br><small>Above Avg</small><br>6 Pts</div>
-      <div class="grade-card" style="background:#fff7ba;">E<br><small>Pass</small><br>5 Pts</div>
-      <div class="grade-card" style="background:#ffa39e;">F<br><small>Fail</small><br>0 Pts</div>
+<div id="app">
+
+  <!-- Start Page -->
+  <section id="start-page" class="page active">
+    <h2>Calculate Your CGPA Instantly</h2>
+    <button id="start-btn" class="start-btn">Calculate Now ➔</button>
+
+    <div class="grade-reference">
+      <h3>Grade Reference</h3>
+      <div class="cubic-grades">
+        <div class="grade-card" style="background:#d9f7be;">S<br>Outstanding<br>10 Pts</div>
+        <div class="grade-card" style="background:#b7eb8f;">A<br>Excellent<br>9 Pts</div>
+        <div class="grade-card" style="background:#91d5ff;">B<br>Very Good<br>8 Pts</div>
+        <div class="grade-card" style="background:#adc6ff;">C<br>Good<br>7 Pts</div>
+        <div class="grade-card" style="background:#f6d6ff;">D<br>Average<br>6 Pts</div>
+        <div class="grade-card" style="background:#fff7ba;">E<br>Pass<br>5 Pts</div>
+        <div class="grade-card" style="background:#ffa39e;">F<br>Fail<br>0 Pts</div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <!-- Stream Page -->
+  <section id="stream-page" class="page">
+    <h2>Select Stream</h2>
+    <div id="streams" class="button-group">
+      <button class="stream-btn" data-stream="engineering">Engineering</button>
+      <button class="stream-btn" data-stream="bcom">B.Com</button>
+    </div>
+    <button class="back-btn">⬅ Back</button>
+  </section>
+
+  <!-- Semester Page -->
+  <section id="semester-page" class="page">
+    <h2>Select Semester</h2>
+    <div id="semesters" class="button-group"></div>
+    <button class="back-btn">⬅ Back</button>
+  </section>
+
+  <!-- Subjects Page -->
+  <section id="subjects-page" class="page">
+    <h2>Enter Grades</h2>
+    <div id="subjects-list"></div>
+
+    <div class="grade-actions">
+      <button id="calculate-btn">Calculate GPA & CGPA</button>
+      <button id="edit-btn">Edit Semester</button>
+      <button id="delete-btn">Delete Semester</button>
+    </div>
+
+    <div class="results">
+      <p id="gpa-display"></p>
+      <p id="cgpa-display"></p>
+    </div>
+
+    <canvas id="gpa-chart" width="400" height="200"></canvas>
+    <button class="back-btn">⬅ Back</button>
+  </section>
+
+</div>
+
+<script src="js/script.js"></script>
+</body>
+</html>
