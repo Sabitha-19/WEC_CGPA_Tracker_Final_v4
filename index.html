@@ -10,67 +10,73 @@
 <body>
 
 <header>
-  <h1>WEC CGPA Tracker</h1>
+    <h1>WEC CGPA Tracker</h1>
+    <div class="icons">
+        <button id="homeBtn" title="Home">🏠</button>
+        <button id="graphBtn" title="Graph">📊</button>
+    </div>
 </header>
 
+<!-- Intro Page -->
 <section id="intro" class="active">
-  <h1>Official WEC CGPA Tracker</h1>
-  <p>Trusted academic tool for Women's Engineering College</p>
-  <button id="startBtn">Start →</button>
+    <h1>Official WEC CGPA Tracker</h1>
+    <p>Track your GPA/CGPA efficiently and plan to boost your scores.</p>
+    <ul>
+        <li>GPA/CGPA formula explained</li>
+        <li>Tips to improve grades</li>
+        <li>Encouragement and progress tracking</li>
+    </ul>
+    <button id="continueBtn">Continue →</button>
 
-  <h2>What is CGPA & How to Boost?</h2>
-  <p>CGPA (Cumulative Grade Point Average) measures your academic performance across semesters.</p>
-  <p>Focus on subjects with lower grades to boost overall GPA!</p>
-
-  <h2>Grade Point Reference</h2>
-  <div class="grades">
-    <div class="grade-cube S">S<br>Outstanding<br><span>10 Pts</span></div>
-    <div class="grade-cube A">A<br>Excellent<br><span>9 Pts</span></div>
-    <div class="grade-cube B">B<br>Very Good<br><span>8 Pts</span></div>
-    <div class="grade-cube C">C<br>Good<br><span>7 Pts</span></div>
-    <div class="grade-cube D">D<br>Above Avg<br><span>6 Pts</span></div>
-    <div class="grade-cube E">E<br>Pass<br><span>5 Pts</span></div>
-    <div class="grade-cube F">F<br>Fail<br><span>0 Pts</span></div>
-  </div>
+    <h2>Grade Point Reference</h2>
+    <div class="grades">
+        <div class="grade-cube S">S<br>Outstanding<br><span>10 Pts</span></div>
+        <div class="grade-cube A">A<br>Excellent<br><span>9 Pts</span></div>
+        <div class="grade-cube B">B<br>Very Good<br><span>8 Pts</span></div>
+        <div class="grade-cube C">C<br>Good<br><span>7 Pts</span></div>
+        <div class="grade-cube D">D<br>Above Avg<br><span>6 Pts</span></div>
+        <div class="grade-cube E">E<br>Pass<br><span>5 Pts</span></div>
+        <div class="grade-cube F">F<br>Fail<br><span>0 Pts</span></div>
+    </div>
 </section>
 
+<!-- Stream -->
 <section id="stream">
-  <h2>Select Stream</h2>
-  <div id="streamList"></div>
-  <span class="back" data-target="intro">← Back</span>
+    <h2>Select Stream</h2>
+    <div id="streamList"></div>
+    <span class="back" data-target="intro">← Back</span>
 </section>
 
+<!-- Department -->
 <section id="department">
-  <h2>Select Department</h2>
-  <div id="deptList"></div>
-  <span class="back" data-target="stream">← Back</span>
+    <h2>Select Department</h2>
+    <div id="deptList"></div>
+    <span class="back" data-target="stream">← Back</span>
 </section>
 
+<!-- Semester -->
 <section id="semester">
-  <h2>Select Semester</h2>
-  <div id="semList"></div>
-  <span class="back" data-target="department">← Back</span>
+    <h2>Select Semester</h2>
+    <div id="semList"></div>
+    <span class="back" data-target="department">← Back</span>
 </section>
 
+<!-- Subjects -->
 <section id="subjects">
-  <h2 id="semTitle">Semester</h2>
-  <div id="subjectList"></div>
-
-  <button onclick="saveSemester()">💾 Save Semester</button>
-  <button onclick="loadSavedSemester(selectedDept,selectedSem)">🔄 Load Saved</button>
-  <button onclick="deleteSemester(selectedDept,selectedSem)">🗑️ Delete Semester</button>
-
-  <p id="encouragement"></p>
-  <span class="back" data-target="semester">← Back</span>
+    <h2 id="semTitle">Semester</h2>
+    <div id="subjectList"></div>
+    <span class="back" data-target="semester">← Back</span>
 </section>
 
+<!-- Result -->
 <section id="result">
-  <h2>Result</h2>
-  <p>GPA: <span id="gpa">0</span></p>
-  <p>CGPA: <span id="cgpa">0</span></p>
-  <p>Percentage: <span id="percentage">0%</span></p>
-  <canvas id="chart"></canvas>
-  <span class="back" data-target="subjects">← Back</span>
+    <h2>Result</h2>
+    <p>GPA: <span id="gpa">0</span></p>
+    <p>CGPA: <span id="cgpa">0</span></p>
+    <p>Percentage: <span id="percentage">0%</span></p>
+    <div id="encouragement"></div>
+    <canvas id="chart"></canvas>
+    <span class="back" data-target="subjects">← Back</span>
 </section>
 
 <script src="js/main.js"></script>
