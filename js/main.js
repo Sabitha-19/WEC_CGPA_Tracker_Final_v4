@@ -1,88 +1,103 @@
-let selectedStream="", selectedDept="", selectedSem="";
-let subjects=[], grades={};
-const gradePoints={S:10,A:9,B:8,C:7,D:6,E:5,F:0};
+const pages = document.querySelectorAll('.page');
 
-function showSection(id){
-  document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
+function showPage(id){
+  pages.forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
 
-function selectStream(btn,stream){
-  selectedStream=stream;
-  activate(btn);
-  showSection("department");
+startBtn.onclick = ()=> showPage('infoPage');
+continueBtn.onclick = ()=> showPage('streamPage');
+homeBtn.onclick = ()=> showPage('startPage');
+graphBtn.onclick = ()=> {
+  showPage('graphPage');
+  drawChart();
+};
 
-  const depts = stream==="engineering"
-    ? ["cse","ise","ece","eee","aa"]
-    : ["bcom"];
+let stream, department, semester;
+let gradePoints = {S:10,A:9,B:8,C:7,D:6,E:5,F:0};
+let selectedGrades = {};
 
-  deptBtns.innerHTML="";
-  depts.forEach(d=>{
-    deptBtns.innerHTML+=`<button onclick="selectDept(this,'${d}')">${d.toUpperCase()}</button>`;
+document.querySelectorAll('[data-stream]').forEach(btn=>{
+  btn.onclick = ()=>{
+    stream = btn.dataset.stream;
+    showPage('deptPage');
+    loadDepartments();
+  };
+});
+
+function loadDepartments(){
+  const map = {
+    engineering:["CSE","ISE","ECE","EEE","AA"],
+    bcom:["BCOM"]
+  };
+  deptBtns.innerHTML='';
+  map[stream].forEach(d=>{
+    let b=document.createElement('button');
+    b.textContent=d;
+    b.onclick=()=>{
+      department=d.toLowerCase();
+      showPage('semPage');
+      loadSemesters();
+    };
+    deptBtns.appendChild(b);
   });
 }
 
-function selectDept(btn,dept){
-  selectedDept=dept;
-  activate(btn);
-  showSection("semester");
-
-  semBtns.innerHTML="";
-  for(let i=1;i<=6;i++){
-    semBtns.innerHTML+=`<button onclick="selectSem(this,${i})">Semester ${i}</button>`;
+function loadSemesters(){
+  semBtns.innerHTML='';
+  for(let i=1;i<=8;i++){
+    let b=document.createElement('button');
+    b.textContent='Semester '+i;
+    b.onclick=()=>{
+      semester=i;
+      loadSubjects();
+    };
+    semBtns.appendChild(b);
   }
 }
 
-function selectSem(btn,sem){
-  selectedSem=sem;
-  activate(btn);
-  loadSubjects();
-}
+async function loadSubjects(){
+  const path = `data/${department}_sem${semester}.json`;
+  try{
+    const res = await fetch(path);
+    const data = await res.json();
+    selectedGrades={};
+    subjects.innerHTML='';
+    subjectTitle.textContent = `${department.toUpperCase()} Semester ${semester}`;
 
-function loadSubjects(){
-  const path=`data/${selectedDept}_sem${selectedSem}.json`;
-  fetch(path)
-    .then(r=>r.json())
-    .then(data=>{
-      subjects=data;
-      semTitle.innerText=`${selectedDept.toUpperCase()} - Semester ${selectedSem}`;
-      subjectList.innerHTML="";
-      subjects.forEach((s,i)=>{
-        subjectList.innerHTML+=`
-        <div class="subject">
-          <b>${s.name}</b> (${s.credits})
-          <div>
-            ${Object.keys(gradePoints).map(g=>
-              `<button class="grade-btn" onclick="setGrade(${i},'${g}',this)">${g}</button>`
-            ).join("")}
-          </div>
-        </div>`;
+    data.subjects.forEach(s=>{
+      const div=document.createElement('div');
+      div.className='subject';
+      div.innerHTML=`<b>${s.name}</b> (${s.credits} credits)<div class="grades"></div>`;
+      const gDiv=div.querySelector('.grades');
+
+      ['S','A','B','C','D','E','F'].forEach(g=>{
+        let gb=document.createElement('button');
+        gb.textContent=g;
+        gb.onclick=()=>{
+          selectedGrades[s.code]={grade:g,credits:s.credits};
+          calculate();
+          [...gDiv.children].forEach(x=>x.classList.remove('active'));
+          gb.classList.add('active');
+        };
+        gDiv.appendChild(gb);
       });
-      showSection("subjects");
-    })
-    .catch(()=>alert("Subject file not found"));
+
+      subjects.appendChild(div);
+    });
+
+    showPage('subjectPage');
+  }catch{
+    alert("Subject file not found");
+  }
 }
 
-function setGrade(i,g,btn){
-  grades[i]=g;
-  btn.parentElement.querySelectorAll("button").forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
-}
-
-function calculateGPA(){
-  let total=0,credits=0;
-  subjects.forEach((s,i)=>{
-    if(grades[i]){
-      total+=gradePoints[grades[i]]*s.credits;
-      credits+=s.credits;
-    }
+function calculate(){
+  let total=0, credits=0;
+  Object.values(selectedGrades).forEach(v=>{
+    total += gradePoints[v.grade]*v.credits;
+    credits += v.credits;
   });
-  const gpa=(total/credits).toFixed(2);
-  gpaSpan.innerText=gpa;
-  saveSemester(gpa);
-}
-
-function activate(btn){
-  btn.parentElement.querySelectorAll("button").forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
+  let gpa = credits ? (total/credits).toFixed(2):0;
+  gpaSpan.textContent=gpa;
 }
