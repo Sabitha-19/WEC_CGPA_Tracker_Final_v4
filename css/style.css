@@ -1,68 +1,85 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #f4f6fb;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f5f7fb;
   margin: 0;
-  text-align: center;
+  color: #333;
 }
 
 header {
-  background: #ffffffaa;
-  padding: 10px;
   display: flex;
   justify-content: space-between;
-  box-shadow: 0 4px 10px rgba(0,0,0,.1);
+  padding: 12px 20px;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,.08);
 }
 
-section { display: none; padding: 20px; }
-section.active { display: block; }
+.icons span {
+  font-size: 22px;
+  margin-left: 12px;
+  cursor: pointer;
+}
+
+.page {
+  display: none;
+  padding: 25px;
+  text-align: center;
+}
+
+.page.active {
+  display: block;
+}
 
 button {
-  padding: 12px 20px;
-  margin: 8px;
+  padding: 12px 22px;
+  border-radius: 25px;
   border: none;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.6);
+  background: rgba(120,90,255,.15);
+  color: #4a3aff;
+  margin: 10px;
   cursor: pointer;
 }
 
 button.active {
-  background: linear-gradient(135deg,#6a5acd,#8a2be2);
+  background: linear-gradient(135deg,#6a5cff,#9b7bff);
   color: white;
 }
 
-.grade-grid {
+.grade-cards {
   display: grid;
-  grid-template-columns: repeat(4,1fr);
-  gap: 10px;
+  grid-template-columns: repeat(auto-fit,minmax(90px,1fr));
+  gap: 12px;
+  margin: 15px 0;
 }
 
-.cube {
+.card {
   padding: 15px;
-  border-radius: 14px;
-  box-shadow: 0 4px 8px rgba(0,0,0,.1);
+  border-radius: 15px;
+  box-shadow: 0 8px 15px rgba(0,0,0,.08);
+  font-weight: bold;
 }
 
-.s{background:#e6f7ff;}
-.a{background:#e6ffe6;}
-.b{background:#fff4e6;}
-.c{background:#f0e6ff;}
-.d{background:#ffe6e6;}
-.e{background:#e6ffff;}
-.f{background:#f5f5f5;}
+.s {background: rgba(100,255,200,.25);}
+.a {background: rgba(120,200,255,.25);}
+.b {background: rgba(180,200,255,.25);}
+.c {background: rgba(255,230,150,.25);}
+.d {background: rgba(255,190,150,.25);}
+.e {background: rgba(255,160,160,.25);}
+.f {background: rgba(200,200,200,.25);}
 
 .subject {
-  background: #ffffffcc;
-  margin: 10px;
-  padding: 10px;
-  border-radius: 12px;
+  background: white;
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 12px;
+  box-shadow: 0 8px 15px rgba(0,0,0,.08);
 }
 
-.grade-btn {
-  margin: 4px;
+.grades button {
   padding: 6px 10px;
+  margin: 4px;
 }
 
-.grade-btn.active {
-  background: #6a5acd;
-  color: white;
+.result {
+  margin-top: 20px;
+  font-weight: bold;
 }
