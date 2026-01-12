@@ -1,70 +1,15 @@
 {
-  "department": "EEE",
-  "semester": 5,
-
-  "rules": {
-    "electiveGroups": {
-      "OE": { "minSelect": 1, "maxSelect": 1 }
-    }
-  },
-
-  "subjects": [
-    {
-      "code": "EEA115",
-      "name": "Analog and Digital Integrated Circuits",
-      "credits": 4,
-      "type": "mandatory"
-    },
-    {
-      "code": "EEA116",
-      "name": "Power Electronics",
-      "credits": 3,
-      "type": "mandatory"
-    },
-    {
-      "code": "EEA117",
-      "name": "Measurement and Instrumentation",
-      "credits": 3,
-      "type": "mandatory"
-    },
-    {
-      "code": "EEA118",
-      "name": "Transmission and Distribution",
-      "credits": 3,
-      "type": "mandatory"
-    },
-    {
-      "code": "EEA119",
-      "name": "Control Systems",
-      "credits": 3,
-      "type": "mandatory"
-    },
-Topics: 
-    {
-      "code": "HSA102",
-      "name": "Industrial Economics and Management",
-      "credits": 3,
-      "type": "mandatory"
-    },
-    {
-      "code": "EEA120",
-      "name": "Electronics Laboratory - III",
-      "credits": 1.5,
-      "type": "mandatory"
-    },
-    {
-      "code": "EEA121",
-      "name": "Measurement and Control Laboratory",
-      "credits": 1.5,
-      "type": "mandatory"
-    },
-
-    {
-      "code": "ZZA3XX",
-      "name": "Open Elective",
-      "credits": 3,
-      "type": "elective",
-      "group": "OE"
-    }
-  ]
+"department": "EEE",
+"semester": 5,
+"subjects": [
+{ "code": "EEA115", "name": "Analog and Digital Integrated Circuits", "credits": 4 },
+{ "code": "EEA116", "name": "Power Electronics", "credits": 3 },
+{ "code": "EEA117", "name": "Measurement and Instrumentation", "credits": 3 },
+{ "code": "EEA118", "name": "Transmission and Distribution", "credits": 3 },
+{ "code": "EEA119", "name": "Control Systems", "credits": 3 },
+{ "code": "HSA102", "name": "Industrial Economics and Management", "credits": 3 },
+{ "code": "EEA120", "name": "Electronics Laboratory - III", "credits": 1.5 },
+{ "code": "EEA121", "name": "Measurement and Control Laboratory", "credits": 1.5 },
+{ "code": "ZZA3XX", "name": "Open Elective", "credits": 3 }
+]
 }
