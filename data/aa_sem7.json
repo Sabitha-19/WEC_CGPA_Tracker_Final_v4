@@ -1,99 +1,15 @@
 {
-  "department": "AA",
-  "semester": 7,
-
-  "rules": {
-    "electiveGroups": {
-      "PE3": { "minSelect": 1, "maxSelect": 1 },
-      "PE4": { "minSelect": 1, "maxSelect": 1 },
-      "PE5": { "minSelect": 1, "maxSelect": 1 },
-      "OE":  { "minSelect": 1, "maxSelect": 1 }
-    }
-  },
-
-  "subjects": [
-    {
-      "code": "AAA127",
-      "name": "Estimation and Specifications",
-      "credits": 3,
-      "type": "mandatory"
-    },
-    {
-      "code": "AAA128",
-      "name": "Environmental Engineering",
-      "credits": 2,
-      "type": "mandatory"
-    },
-
-    {
-      "code": "PE3",
-      "name": "Professional Elective - III",
-      "credits": 3,
-      "type": "professional",
-      "group": "PE3",
-      "options": [
-        { "code": "AAA207", "name": "Urban Transportation Planning" },
-        { "code": "AAA208", "name": "Sustainable Architecture" },
-        { "code": "AAA209", "name": "Advanced Building Materials" }
-      ]
-    },
-
-    {
-      "code": "PE4",
-      "name": "Professional Elective - IV",
-      "credits": 3,
-      "type": "professional",
-      "group": "PE4",
-      "options": [
-        { "code": "AAA210", "name": "Interior Architecture" },
-        { "code": "AAA211", "name": "Disaster Resistant Structures" },
-        { "code": "AAA212", "name": "Urban Conservation" }
-      ]
-    },
-
-    {
-      "code": "PE5",
-      "name": "Professional Elective - V",
-      "credits": 3,
-      "type": "professional",
-      "group": "PE5",
-      "options": [
-        { "code": "AAA213", "name": "Advanced Architectural Design" },
-        { "code": "AAA214", "name": "Smart Cities Planning" },
-        { "code": "AAA215", "name": "Green Building Technologies" }
-      ]
-    },
-
-    {
-      "code": "AAA129",
-      "name": "Architectural Design - IV",
-      "credits": 3,
-      "type": "mandatory"
-    },
-    {
-      "code": "AAA130",
-      "name": "Seminar",
-      "credits": 1,
-      "type": "mandatory"
-    },
-    {
-      "code": "AAA131",
-      "name": "Professional Practice, Law & Ethics",
-      "credits": 1,
-      "type": "mandatory"
-    },
-
-    {
-      "code": "OE",
-      "name": "Open Elective",
-      "credits": 3,
-      "type": "elective",
-      "group": "OE",
-      "options": [
-        { "code": "ZZA301", "name": "Entrepreneurship Development" },
-        { "code": "ZZA302", "name": "Environmental Studies" },
-        { "code": "ZZA303", "name": "Indian Heritage and Culture" }
-      ]
-    }
-  ]
+"department": "AA",
+"semester": 7,
+"subjects": [
+{ "code": "AAA127", "name": "Estimation and Specifications", "credits": 3 },
+{ "code": "AAA128", "name": "Environmental Engineering", "credits": 2 },
+{ "code": "AAA207/208/209", "name": "Professional Elective-3", "credits": 3 },
+{ "code": "AAA210/211/212", "name": "Professional Elective-4", "credits": 3 },
+{ "code": "AAA213/214/215", "name": "Professional Elective-5", "credits": 3 },
+{ "code": "AAA129", "name": "Architectural Design - IV", "credits": 3 },
+{ "code": "AAA130", "name": "Seminar", "credits": 1 },
+{ "code": "AAA131", "name": "Professional Practice, Law & Ethics", "credits": 1 },
+{ "code": "ZZA3XX", "name": "Open Elective", "credits": 3 }
+]
 }
