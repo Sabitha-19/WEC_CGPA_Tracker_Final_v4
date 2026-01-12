@@ -1,77 +1,52 @@
-{
-  "department": "AA",
-  "semester": 5,
-
-  "rules": {
-    "electiveGroups": {
-      "PE1": { "minSelect": 1, "maxSelect": 1 }
-    }
+[
+  {
+    "code": "AAA116",
+    "name": "History of Modern Architecture",
+    "credits": 3
   },
-
-  "subjects": [
-    {
-      "code": "AAA116",
-      "name": "History of Modern Architecture",
-      "credits": 3,
-      "type": "mandatory"
-    },
-    {
-      "code": "HSA102",
-      "name": "Industrial Economics and Management",
-      "credits": 3,
-      "type": "mandatory"
-    },
-    {
-      "code": "AAA117",
-      "name": "Design of Structure - I",
-      "credits": 4,
-      "type": "mandatory"
-    },
-
-    {
-      "code": "PE1",
-      "name": "Professional Elective - I",
-      "credits": 3,
-      "type": "professional",
-      "group": "PE1",
-      "options": [
-        { "code": "AAA201", "name": "Elements of Interior Design" },
-        { "code": "AAA202", "name": "Vernacular Architecture" },
-        { "code": "AAA203", "name": "Energy Efficient Architecture" }
-      ]
-    },
-
-    {
-      "code": "AAA118",
-      "name": "Architectural Design - II",
-      "credits": 3,
-      "type": "mandatory"
-    },
-    {
-      "code": "AAA119",
-      "name": "Building Construction and Detailing - III",
-      "credits": 2,
-      "type": "mandatory"
-    },
-    {
-      "code": "AAA120",
-      "name": "Computer Applications in Architecture - II",
-      "credits": 1.5,
-      "type": "mandatory"
-    },
-    {
-      "code": "EPA101",
-      "name": "Entrepreneurship",
-      "credits": 2,
-      "type": "mandatory"
-    },
-
-    {
-      "code": "ZZA3XX",
-      "name": "Open Elective",
-      "credits": 3,
-      "type": "open",
-      "options": []
-    }
-  ]
-}
+  {
+    "code": "HSA102",
+    "name": "Industrial Economics and Management",
+    "credits": 3
+  },
+  {
+    "code": "AAA117",
+    "name": "Design of Structure - I",
+    "credits": 4
+  },
+  {
+    "code": "AAA201",
+    "name": "Elements of Interior Design",
+    "credits": 3
+  },
+  {
+    "code": "AAA202",
+    "name": "Vernacular Architecture",
+    "credits": 3
+  },
+  {
+    "code": "AAA203",
+    "name": "Energy Efficient Architecture",
+    "credits": 3
+  },
+  {
+    "code": "AAA201",
+    "name": "Professional Elective - 1",
+    "credits": 3
+  },
+  {
+    "code": "AAA118",
+    "name": "Architectural Design - II",
+    "credits": 3
+  },
+  {
+    "code": "AAA119",
+    "name": "Building Construction and Detailing - III",
+    "credits": 2
+  },
+  {
+    "code": "AAA120",
+    "name": "Computer Applications in Architecture - II",
+    "credits": 1.5
+  }
+]
