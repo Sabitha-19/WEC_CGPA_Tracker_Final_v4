@@ -1,11 +1,45 @@
 {
   "department": "CSE",
   "semester": 8,
+
+  "rules": {
+    "electiveGroups": {
+      "SWA": { "minSelect": 1, "maxSelect": 1 }
+    }
+  },
+
   "subjects": [
-    { "code": "SWA3XX", "name": "Open Elective through SWAYAM", "credits": 2 },
-    { "code": "SWA3XX", "name": "Open Elective through SWAYAM", "credits": 2 },
-    { "code": "CSA131", "name": "Comprehensive Test", "credits": 1 },
-    { "code": "CSA132", "name": "Internship", "credits": 2 },
-    { "code": "CSA133", "name": "Project Work", "credits": 8 }
+    {
+      "code": "SWA",
+      "name": "Open Elective through SWAYAM",
+      "credits": 2,
+      "type": "elective",
+      "group": "SWA",
+      "options": [
+        { "code": "SWA301", "name": "Python for Everybody" },
+        { "code": "SWA302", "name": "Programming in Java" },
+        { "code": "SWA303", "name": "Data Science Foundations" },
+        { "code": "SWA304", "name": "Cloud Computing Basics" }
+      ]
+    },
+
+    {
+      "code": "CSA131",
+      "name": "Comprehensive Test",
+      "credits": 1,
+      "type": "mandatory"
+    },
+    {
+      "code": "CSA132",
+      "name": "Internship",
+      "credits": 2,
+      "type": "mandatory"
+    },
+    {
+      "code": "CSA133",
+      "name": "Project Work",
+      "credits": 8,
+      "type": "mandatory"
+    }
   ]
 }
