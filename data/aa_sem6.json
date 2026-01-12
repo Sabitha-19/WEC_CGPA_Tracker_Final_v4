@@ -1,15 +1,78 @@
 {
   "department": "AA",
   "semester": 6,
+
+  "rules": {
+    "electiveGroups": {
+      "PE2": { "minSelect": 1, "maxSelect": 1 }
+    }
+  },
+
   "subjects": [
-    { "code": "AAA121", "name": "Urban Design", "credits": 3 },
-    { "code": "AAA122", "name": "Project Management", "credits": 3 },
-    { "code": "AAA123", "name": "Design of Structure - II", "credits": 4 },
-    { "code": "AAA204/205/206", "name": "Professional Elective-2", "credits": 3 },
-    { "code": "AAA124", "name": "GIS Application in Town Planning", "credits": 1.5 },
-    { "code": "AAA125", "name": "Architectural Design - III", "credits": 3 },
-    { "code": "AAA126", "name": "Computer Application in Architecture - III", "credits": 1.5 },
-    { "code": "SHA103", "name": "Essence of Indian Traditional Knowledge", "credits": 0 },
-    { "code": "ZZA3XX", "name": "Open Elective", "credits": 3 }
+    {
+      "code": "AAA121",
+      "name": "Urban Design",
+      "credits": 3,
+      "type": "mandatory"
+    },
+    {
+      "code": "AAA122",
+      "name": "Project Management",
+      "credits": 3,
+      "type": "mandatory"
+    },
+    {
+      "code": "AAA123",
+      "name": "Design of Structure - II",
+      "credits": 4,
+      "type": "mandatory"
+    },
+
+    {
+      "code": "AAA204",
+      "name": "Landscape Architecture",
+      "credits": 3,
+      "type": "elective",
+      "group": "PE2"
+    },
+    {
+      "code": "AAA205",
+      "name": "Housing",
+      "credits": 3,
+      "type": "elective",
+      "group": "PE2"
+    },
+    {
+      "code": "AAA206",
+      "name": "Town Planning",
+      "credits": 3,
+      "type": "elective",
+      "group": "PE2"
+    },
+
+    {
+      "code": "AAA124",
+      "name": "GIS Application in Town Planning",
+      "credits": 1.5,
+      "type": "mandatory"
+    },
+    {
+      "code": "AAA125",
+      "name": "Architectural Design - III",
+      "credits": 3,
+      "type": "mandatory"
+    },
+    {
+      "code": "AAA126",
+      "name": "Computer Application in Architecture - III",
+      "credits": 1.5,
+      "type": "mandatory"
+    },
+    {
+      "code": "SHA103",
+      "name": "Essence of Indian Traditional Knowledge",
+      "credits": 0,
+      "type": "mandatory"
+    }
   ]
 }
