@@ -1,45 +1,11 @@
 {
-  "department": "AA",
-  "semester": 8,
-
-  "rules": {
-    "electiveGroups": {
-      "SW": { "minSelect": 2, "maxSelect": 2 }
-    }
-  },
-
-  "subjects": [
-    {
-      "code": "SW",
-      "name": "Open Electives through SWAYAM",
-      "credits": 2,
-      "type": "elective",
-      "group": "SW",
-      "options": [
-        { "code": "SWA301", "name": "Urban Sustainability" },
-        { "code": "SWA302", "name": "Project Management Fundamentals" },
-        { "code": "SWA303", "name": "Environmental Impact Assessment" },
-        { "code": "SWA304", "name": "Smart Infrastructure Systems" }
-      ]
-    },
-
-    {
-      "code": "AAA132",
-      "name": "Comprehensive Test",
-      "credits": 1,
-      "type": "mandatory"
-    },
-    {
-      "code": "AAA133",
-      "name": "Internship",
-      "credits": 2,
-      "type": "mandatory"
-    },
-    {
-      "code": "AAA134",
-      "name": "Project Work",
-      "credits": 8,
-      "type": "mandatory"
-    }
-  ]
+"department": "AA",
+"semester": 8,
+"subjects": [
+{ "code": "SWA3XX", "name": "Open Elective through SWAYAM", "credits": 2 },
+{ "code": "SWA3XX", "name": "Open Elective through SWAYAM", "credits": 2 },
+{ "code": "AAA132", "name": "Comprehensive Test", "credits": 1 },
+{ "code": "AAA133", "name": "Internship", "credits": 2 },
+{ "code": "AAA134", "name": "Project Work", "credits": 8 }
+]
 }
