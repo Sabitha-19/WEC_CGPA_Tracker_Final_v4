@@ -31,10 +31,35 @@ body {
   color: #4a3aff;
 }
 
+/* ===== Navigation Icons ===== */
+.nav-icons {
+  display: flex;
+  gap: 16px;
+}
+
 .nav-icons span {
-  font-size: 22px;
+  font-size: 24px;
   cursor: pointer;
-  margin-left: 12px;
+  padding: 6px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hover effect for icons */
+.nav-icons span:hover {
+  background: linear-gradient(90deg,#6a11cb,#2575fc);
+  color: #fff;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Active/selected icon */
+.nav-icons span.active {
+  background: linear-gradient(90deg,#6a11cb,#2575fc);
+  color: #fff;
 }
 
 /* ===== CGPA Info Section ===== */
@@ -69,6 +94,7 @@ body {
   margin-bottom: 6px;
   color: #444;
 }
+
 /* ===== Pages ===== */
 .page {
   display: none;
@@ -195,5 +221,9 @@ button:hover {
 @media (max-width:600px) {
   .cubic-grades {
     grid-template-columns: repeat(2,1fr);
+  }
+  .nav-icons span {
+    font-size: 20px;
+    padding: 5px;
   }
 }
