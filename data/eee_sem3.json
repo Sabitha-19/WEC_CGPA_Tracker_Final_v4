@@ -1,16 +1,75 @@
 {
   "department": "EEE",
   "semester": 3,
+
+  "rules": {
+    "electiveGroups": {
+      "OE": { "minSelect": 1, "maxSelect": 1 }
+    }
+  },
+
   "subjects": [
-    { "code": "MAA104", "name": "Transforms, Partial Differential Equations and Statistics", "credits": 4 },
-    { "code": "EEA103", "name": "Electrical Circuit Analysis", "credits": 4 },
-    { "code": "EEA104", "name": "Electromagnetic Fields", "credits": 3 },
-    { "code": "EEA105", "name": "Electronic Devices and Circuits", "credits": 3 },
-    { "code": "EEA106", "name": "Electrical Machines - I", "credits": 3 },
-    { "code": "EEA107", "name": "Signals and Systems", "credits": 3 },
-    { "code": "EEA108", "name": "Electronics Laboratory - I", "credits": 1.5 },
-    { "code": "EEA109", "name": "Electrical Machines Laboratory - I", "credits": 1.5 },
-    { "code": "SHA102", "name": "Indian Constitution", "credits": 0 },
-    { "code": "ZZA3XX", "name": "Open Elective", "credits": 3 }
+    {
+      "code": "MAA104",
+      "name": "Transforms, Partial Differential Equations and Statistics",
+      "credits": 4,
+      "type": "mandatory"
+    },
+    {
+      "code": "EEA103",
+      "name": "Electrical Circuit Analysis",
+      "credits": 4,
+      "type": "mandatory"
+    },
+    {
+      "code": "EEA104",
+      "name": "Electromagnetic Fields",
+      "credits": 3,
+      "type": "mandatory"
+    },
+    {
+      "code": "EEA105",
+      "name": "Electronic Devices and Circuits",
+      "credits": 3,
+      "type": "mandatory"
+    },
+    {
+      "code": "EEA106",
+      "name": "Electrical Machines - I",
+      "credits": 3,
+      "type": "mandatory"
+    },
+    {
+      "code": "EEA107",
+      "name": "Signals and Systems",
+      "credits": 3,
+      "type": "mandatory"
+    },
+    {
+      "code": "EEA108",
+      "name": "Electronics Laboratory - I",
+      "credits": 1.5,
+      "type": "mandatory"
+    },
+    {
+      "code": "EEA109",
+      "name": "Electrical Machines Laboratory - I",
+      "credits": 1.5,
+      "type": "mandatory"
+    },
+    {
+      "code": "SHA102",
+      "name": "Indian Constitution",
+      "credits": 0,
+      "type": "mandatory"
+    },
+
+    {
+      "code": "ZZA3XX",
+      "name": "Open Elective",
+      "credits": 3,
+      "type": "elective",
+      "group": "OE"
+    }
   ]
 }
