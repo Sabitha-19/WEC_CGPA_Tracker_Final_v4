@@ -1,15 +1,93 @@
 {
   "department": "CSE",
   "semester": 6,
+
+  "rules": {
+    "electiveGroups": {
+      "PE2": { "minSelect": 1, "maxSelect": 1 },
+      "PE3": { "minSelect": 1, "maxSelect": 1 },
+      "OE":  { "minSelect": 1, "maxSelect": 1 }
+    }
+  },
+
   "subjects": [
-    { "code": "EPA101", "name": "Entrepreneurship", "credits": 3 },
-    { "code": "CSA120", "name": "Microprocessors and Microcontrollers", "credits": 3 },
-    { "code": "CSA121", "name": "Web Technologies", "credits": 3 },
-    { "code": "CSA122", "name": "Information Security", "credits": 4 },
-    { "code": "CSA2XX", "name": "Professional Elective Course - II", "credits": 3 },
-    { "code": "CSA2XX", "name": "Professional Elective Course - III", "credits": 3 },
-    { "code": "CSA123", "name": "Microprocessors and Microcontrollers Laboratory", "credits": 1.5 },
-    { "code": "CSA124", "name": "Web Technologies Laboratory", "credits": 1.5 },
-    { "code": "ZZA3XX", "name": "Open Elective Course", "credits": 3 }
+    {
+      "code": "EPA101",
+      "name": "Entrepreneurship",
+      "credits": 3,
+      "type": "mandatory"
+    },
+    {
+      "code": "CSA120",
+      "name": "Microprocessors and Microcontrollers",
+      "credits": 3,
+      "type": "mandatory"
+    },
+    {
+      "code": "CSA121",
+      "name": "Web Technologies",
+      "credits": 3,
+      "type": "mandatory"
+    },
+    {
+      "code": "CSA122",
+      "name": "Information Security",
+      "credits": 4,
+      "type": "mandatory"
+    },
+
+    {
+      "code": "PE2",
+      "name": "Professional Elective – II",
+      "credits": 3,
+      "type": "elective",
+      "group": "PE2",
+      "options": [
+        { "code": "CSA204", "name": "Data Warehousing and Data Mining" },
+        { "code": "CSA205", "name": "Internet of Things" },
+        { "code": "CSA206", "name": "Mobile Application Development" }
+      ]
+    },
+
+    {
+      "code": "PE3",
+      "name": "Professional Elective – III",
+      "credits": 3,
+      "type": "elective",
+      "group": "PE3",
+      "options": [
+        { "code": "CSA207", "name": "Mobile Communication and Computing" },
+        { "code": "CSA208", "name": "Embedded Systems" }
+      ]
+    },
+
+    {
+      "code": "CSA123",
+      "name": "Microprocessors and Microcontrollers Laboratory",
+      "credits": 1.5,
+      "type": "mandatory"
+    },
+    {
+      "code": "CSA124",
+      "name": "Web Technologies Laboratory",
+      "credits": 1.5,
+      "type": "mandatory"
+    },
+
+    {
+      "code": "OE",
+      "name": "Open Elective",
+      "credits": 3,
+      "type": "elective",
+      "group": "OE",
+      "options": [
+        { "code": "CSA301", "name": "Introduction to Python Programming" },
+        { "code": "CSA302", "name": "Java Programming" },
+        { "code": "CSA303", "name": "Fundamentals of RDBMS" },
+        { "code": "CSA304", "name": "Essentials of Mobile Application Development" },
+        { "code": "CSA305", "name": "Introduction to Data Science" },
+        { "code": "CSA306", "name": "C# and .NET Programming" }
+      ]
+    }
   ]
 }
