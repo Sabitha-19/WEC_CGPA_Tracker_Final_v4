@@ -1,82 +1,16 @@
 {
   "department": "AA",
   "semester": 4,
-
-  "rules": {
-    "electiveGroups": {
-      "OE": { "minSelect": 1, "maxSelect": 1 }
-    }
-  },
-
   "subjects": [
-    {
-      "code": "AAA108",
-      "name": "Theory of Structures",
-      "credits": 4,
-      "type": "mandatory"
-    },
-    {
-      "code": "AAA109",
-      "name": "History of Indian Architecture",
-      "credits": 3,
-      "type": "mandatory"
-    },
-    {
-      "code": "AAA110",
-      "name": "Eco Friendly Building Materials and Construction",
-      "credits": 3,
-      "type": "mandatory"
-    },
-    {
-      "code": "AAA111",
-      "name": "Site Survey and Planning",
-      "credits": 3,
-      "type": "mandatory"
-    },
-    {
-      "code": "AAA112",
-      "name": "Building Services - II",
-      "credits": 3,
-      "type": "mandatory"
-    },
-    {
-      "code": "AAA113",
-      "name": "Architectural Design - I",
-      "credits": 3,
-      "type": "mandatory"
-    },
-    {
-      "code": "AAA114",
-      "name": "Building Construction and Detailing - II",
-      "credits": 1.5,
-      "type": "mandatory"
-    },
-    {
-      "code": "AAA115",
-      "name": "Computer Applications in Architecture - I",
-      "credits": 1.5,
-      "type": "mandatory"
-    },
-    {
-      "code": "SHA102",
-      "name": "Indian Constitution",
-      "credits": 0,
-      "type": "mandatory"
-    },
-
-    {
-      "code": "ZZA3XX",
-      "name": "Open Elective",
-      "credits": 3,
-      "type": "open",
-      "group": "OE",
-      "options": [
-        { "code": "AAA301", "name": "Art and Architecture" },
-        { "code": "AAA302", "name": "Interior Design" },
-        { "code": "AAA303", "name": "Kitchen Design" },
-        { "code": "AAA304", "name": "Lighting in Buildings" },
-        { "code": "AAA305", "name": "Ornamental Gardens for Home" }
-      ]
-    }
+    { "code": "AAA108", "name": "Theory of Structures", "credits": 4 },
+    { "code": "AAA109", "name": "History of Indian Architecture", "credits": 3 },
+    { "code": "AAA110", "name": "Eco Friendly Building Materials and Construction", "credits": 3 },
+    { "code": "AAA111", "name": "Site Survey and Planning", "credits": 3 },
+    { "code": "AAA112", "name": "Building Services II", "credits": 3 },
+    { "code": "AAA113", "name": "Architectural Design I", "credits": 3 },
+    { "code": "AAA114", "name": "Building Construction and Detailing II", "credits": 1.5 },
+    { "code": "AAA115", "name": "Computer Applications in Architecture I", "credits": 1.5 },
+    { "code": "SHA102", "name": "Indian Constitution", "credits": 0 },
+    { "code": "ZZA3XX", "name": "Open Elective", "credits": 3 }
   ]
 }
