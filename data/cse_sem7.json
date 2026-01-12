@@ -1,15 +1,94 @@
 {
   "department": "CSE",
   "semester": 7,
+
+  "rules": {
+    "electiveGroups": {
+      "PE4": { "minSelect": 1, "maxSelect": 1 },
+      "PE5": { "minSelect": 1, "maxSelect": 1 },
+      "OE":  { "minSelect": 1, "maxSelect": 1 }
+    }
+  },
+
   "subjects": [
-    { "code": "CSA125", "name": "Artificial Intelligence", "credits": 3 },
-    { "code": "CSA126", "name": "Parallel and Distributed Systems", "credits": 4 },
-    { "code": "CSA127", "name": "Data Science Essentials", "credits": 4 },
-    { "code": "CSA2XX", "name": "Professional Elective Course - IV", "credits": 3 },
-    { "code": "CSA2XX", "name": "Professional Elective Course - V", "credits": 3 },
-    { "code": "CSA128", "name": "Artificial Intelligence Laboratory", "credits": 1.5 },
-    { "code": "CSA129", "name": "Seminar", "credits": 1 },
-    { "code": "CSA130", "name": "Professional Ethics", "credits": 0 },
-    { "code": "ZZA3XX", "name": "Open Elective Course", "credits": 3 }
+    {
+      "code": "CSA125",
+      "name": "Artificial Intelligence",
+      "credits": 3,
+      "type": "mandatory"
+    },
+    {
+      "code": "CSA126",
+      "name": "Parallel and Distributed Systems",
+      "credits": 4,
+      "type": "mandatory"
+    },
+    {
+      "code": "CSA127",
+      "name": "Data Science Essentials",
+      "credits": 4,
+      "type": "mandatory"
+    },
+
+    {
+      "code": "PE4",
+      "name": "Professional Elective – IV",
+      "credits": 3,
+      "type": "elective",
+      "group": "PE4",
+      "options": [
+        { "code": "CSA208", "name": "Embedded Systems" },
+        { "code": "CSA209", "name": "Cloud Computing" },
+        { "code": "CSA210", "name": "Machine Learning" }
+      ]
+    },
+
+    {
+      "code": "PE5",
+      "name": "Professional Elective – V",
+      "credits": 3,
+      "type": "elective",
+      "group": "PE5",
+      "options": [
+        { "code": "CSA211", "name": "Business Intelligence" },
+        { "code": "CSA212", "name": "Big Data Analytics" },
+        { "code": "CSA213", "name": "Blockchain Technology" }
+      ]
+    },
+
+    {
+      "code": "CSA128",
+      "name": "Artificial Intelligence Laboratory",
+      "credits": 1.5,
+      "type": "mandatory"
+    },
+    {
+      "code": "CSA129",
+      "name": "Seminar",
+      "credits": 1,
+      "type": "mandatory"
+    },
+    {
+      "code": "CSA130",
+      "name": "Professional Ethics",
+      "credits": 0,
+      "type": "mandatory"
+    },
+
+    {
+      "code": "OE",
+      "name": "Open Elective",
+      "credits": 3,
+      "type": "elective",
+      "group": "OE",
+      "options": [
+        { "code": "CSA301", "name": "Introduction to Python Programming" },
+        { "code": "CSA302", "name": "Java Programming" },
+        { "code": "CSA303", "name": "Fundamentals of RDBMS" },
+        { "code": "CSA304", "name": "Essentials of Mobile Application Development" },
+        { "code": "CSA305", "name": "Introduction to Data Science" },
+        { "code": "CSA306", "name": "C# and .NET Programming" }
+      ]
+    }
   ]
 }
