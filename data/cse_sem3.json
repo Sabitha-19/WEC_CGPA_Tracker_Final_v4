@@ -1,83 +1,57 @@
 {
-  "department": "CSE",
-  "semester": 3,
-
-  "rules": {
-    "electiveGroups": {
-      "OE": { "minSelect": 1, "maxSelect": 1 }
-    }
-  },
-
-  "subjects": [
-    {
-      "code": "SHA101",
-      "name": "Biology for Engineers",
-      "credits": 2,
-      "type": "mandatory"
-    },
-    {
-      "code": "ECA135",
-      "name": "Electronic Devices and Digital Systems",
-      "credits": 3,
-      "type": "mandatory"
-    },
-    {
-      "code": "CSA103",
-      "name": "Computer Organization and Architecture",
-      "credits": 4,
-      "type": "mandatory"
-    },
-    {
-      "code": "CSA104",
-      "name": "Data Structures",
-      "credits": 3,
-      "type": "mandatory"
-    },
-    {
-      "code": "CSA105",
-      "name": "Object Oriented Programming Languages",
-      "credits": 3,
-      "type": "mandatory"
-    },
-    {
-      "code": "ECA136",
-      "name": "Electronic Devices and Digital Systems Laboratory",
-      "credits": 1.5,
-      "type": "mandatory"
-    },
-    {
-      "code": "CSA106",
-      "name": "Data Structures Laboratory",
-      "credits": 1.5,
-      "type": "mandatory"
-    },
-    {
-      "code": "CSA107",
-      "name": "Object Oriented Programming Languages Laboratory",
-      "credits": 1.5,
-      "type": "mandatory"
-    },
-    {
-      "code": "SHA102",
-      "name": "Indian Constitution",
-      "credits": 0,
-      "type": "mandatory"
-    },
-
-    {
-      "code": "OE",
-      "name": "Open Elective",
-      "credits": 3,
-      "type": "elective",
-      "group": "OE",
-      "options": [
-        { "code": "CSA301", "name": "Introduction to Python Programming" },
-        { "code": "CSA302", "name": "Java Programming" },
-        { "code": "CSA303", "name": "Fundamentals of RDBMS" },
-        { "code": "CSA304", "name": "Essentials of Mobile Application Development" },
-        { "code": "CSA305", "name": "Introduction to Data Science" },
-        { "code": "CSA306", "name": "C# and .NET Programming" }
-      ]
-    }
-  ]
+"department": "CSE",
+"semester": 3,
+"subjects": [
+{
+"code": "SHA101",
+"name": "Biology for Engineers",
+"credits": 2
+},
+{
+"code": "ECA135",
+"name": "Electronic Devices and Digital Systems",
+"credits": 3
+},
+{
+"code": "CSA103",
+"name": "Computer Organization and Architecture",
+"credits": 4
+},
+{
+"code": "CSA104",
+"name": "Data Structures",
+"credits": 3
+},
+{
+"code": "CSA105",
+"name": "Object Oriented Programming Languages",
+"credits": 3
+},
+{
+"code": "ECA136",
+"name": "Electronic Devices and Digital Systems Laboratory",
+"credits": 1.5
+},
+{
+"code": "CSA106",
+"name": "Data Structures Laboratory",
+"credits": 1.5
+},
+{
+"code": "CSA107",
+"name": "Object Oriented Programming Languages Laboratory",
+"credits": 1.5
+},
+{
+"code": "SHA102",
+"name": "Indian Constitution",
+"credits": 0
+},
+{
+"code": "ZZA3XX",
+"name": "Open Elective Course",
+"credits": 3
+}
+],
+"total_credits": 19.5
 }
