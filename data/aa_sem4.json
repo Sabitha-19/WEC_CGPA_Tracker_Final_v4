@@ -68,8 +68,15 @@
       "code": "ZZA3XX",
       "name": "Open Elective",
       "credits": 3,
-      "type": "elective",
-      "group": "OE"
+      "type": "open",
+      "group": "OE",
+      "options": [
+        { "code": "AAA301", "name": "Art and Architecture" },
+        { "code": "AAA302", "name": "Interior Design" },
+        { "code": "AAA303", "name": "Kitchen Design" },
+        { "code": "AAA304", "name": "Lighting in Buildings" },
+        { "code": "AAA305", "name": "Ornamental Gardens for Home" }
+      ]
     }
   ]
 }
