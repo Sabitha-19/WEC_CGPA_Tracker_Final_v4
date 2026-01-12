@@ -1,14 +1,107 @@
 {
   "department": "EEE",
   "semester": 6,
+
+  "rules": {
+    "electiveGroups": {
+      "PE": { "minSelect": 2, "maxSelect": 2 }
+    }
+  },
+
   "subjects": [
-    { "code": "EEA122", "name": "Power System Analysis", "credits": 4 },
-    { "code": "EEA123", "name": "Microprocessors and Microcontrollers", "credits": 3 },
-    { "code": "EEA2XX", "name": "Program Elective - I", "credits": 3 },
-    { "code": "EEA2XY", "name": "Program Elective - II", "credits": 3 },
-    { "code": "EPA101", "name": "Entrepreneurship", "credits": 3 },
-    { "code": "EEA124", "name": "Microprocessors and Microcontrollers Laboratory", "credits": 1.5 },
-    { "code": "EEA125", "name": "Power Electronics Laboratory", "credits": 1.5 },
-    { "code": "SHA103", "name": "Essence of Indian Traditional Knowledge", "credits": 0 }
+    {
+      "code": "EEA122",
+      "name": "Power System Analysis",
+      "credits": 4,
+      "type": "mandatory"
+    },
+    {
+      "code": "EEA123",
+      "name": "Microprocessors and Microcontrollers",
+      "credits": 3,
+      "type": "mandatory"
+    },
+
+    {
+      "code": "EEA201",
+      "name": "Electrical Safety and Quality Management",
+      "credits": 3,
+      "type": "elective",
+      "group": "PE"
+    },
+    {
+      "code": "EEA202",
+      "name": "Digital System Design using VHDL",
+      "credits": 3,
+      "type": "elective",
+      "group": "PE"
+    },
+    {
+      "code": "EEA203",
+      "name": "Special Electrical Machines",
+      "credits": 3,
+      "type": "elective",
+      "group": "PE"
+    },
+    {
+      "code": "EEA204",
+      "name": "Digital Signal Processing",
+      "credits": 3,
+      "type": "elective",
+      "group": "PE"
+    },
+    {
+      "code": "EEA205",
+      "name": "Fuzzy Logic and Neural Networks",
+      "credits": 3,
+      "type": "elective",
+      "group": "PE"
+    },
+    {
+      "code": "EEA206",
+      "name": "Modern Control Theory",
+      "credits": 3,
+      "type": "elective",
+      "group": "PE"
+    },
+    {
+      "code": "EEA207",
+      "name": "Electric and Hybrid Vehicles",
+      "credits": 3,
+      "type": "elective",
+      "group": "PE"
+    },
+    {
+      "code": "EEA208",
+      "name": "Optimization Techniques",
+      "credits": 3,
+      "type": "elective",
+      "group": "PE"
+    },
+
+    {
+      "code": "EPA101",
+      "name": "Entrepreneurship",
+      "credits": 3,
+      "type": "mandatory"
+    },
+    {
+      "code": "EEA124",
+      "name": "Microprocessors and Microcontrollers Laboratory",
+      "credits": 1.5,
+      "type": "mandatory"
+    },
+    {
+      "code": "EEA125",
+      "name": "Power Electronics Laboratory",
+      "credits": 1.5,
+      "type": "mandatory"
+    },
+    {
+      "code": "SHA103",
+      "name": "Essence of Indian Traditional Knowledge",
+      "credits": 0,
+      "type": "mandatory"
+    }
   ]
 }
