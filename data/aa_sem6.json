@@ -29,25 +29,16 @@
     },
 
     {
-      "code": "AAA204",
-      "name": "Landscape Architecture",
+      "code": "PE2",
+      "name": "Professional Elective - II",
       "credits": 3,
-      "type": "elective",
-      "group": "PE2"
-    },
-    {
-      "code": "AAA205",
-      "name": "Housing",
-      "credits": 3,
-      "type": "elective",
-      "group": "PE2"
-    },
-    {
-      "code": "AAA206",
-      "name": "Town Planning",
-      "credits": 3,
-      "type": "elective",
-      "group": "PE2"
+      "type": "professional",
+      "group": "PE2",
+      "options": [
+        { "code": "AAA204", "name": "Landscape Architecture" },
+        { "code": "AAA205", "name": "Housing" },
+        { "code": "AAA206", "name": "Town Planning" }
+      ]
     },
 
     {
