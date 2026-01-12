@@ -1,69 +1,15 @@
 {
-  "department": "EEE",
-  "semester": 4,
-
-  "rules": {
-    "electiveGroups": {
-      "OE": { "minSelect": 1, "maxSelect": 1 }
-    }
-  },
-
-  "subjects": [
-    {
-      "code": "SHA101",
-      "name": "Biology for Engineers",
-      "credits": 2,
-      "type": "mandatory"
-    },
-    {
-      "code": "EEA110",
-      "name": "Analog Electronics",
-      "credits": 3,
-      "type": "mandatory"
-    },
-    {
-      "code": "EEA111",
-      "name": "Pulse and Digital Circuits",
-      "credits": 3,
-      "type": "mandatory"
-    },
-    {
-      "code": "EEA112",
-      "name": "Electrical Machines - II",
-      "credits": 3,
-      "type": "mandatory"
-    },
-    {
-      "code": "CSA134",
-      "name": "Data Structures and Object Oriented Programming",
-      "credits": 3,
-      "type": "mandatory"
-    },
-    {
-      "code": "EEA113",
-      "name": "Electronics Laboratory - II",
-      "credits": 1.5,
-      "type": "mandatory"
-    },
-    {
-      "code": "EEA114",
-      "name": "Electrical Machines Laboratory - II",
-      "credits": 1.5,
-      "type": "mandatory"
-    },
-    {
-      "code": "CSA135",
-      "name": "Data Structures and Object Oriented Programming Laboratory",
-      "credits": 1.5,
-      "type": "mandatory"
-    },
-
-    {
-      "code": "ZZA3XX",
-      "name": "Open Elective",
-      "credits": 3,
-      "type": "elective",
-      "group": "OE"
-    }
-  ]
+"department": "EEE",
+"semester": 4,
+"subjects": [
+{ "code": "SHA101", "name": "Biology for Engineers", "credits": 2 },
+{ "code": "EEA110", "name": "Analog Electronics", "credits": 3 },
+{ "code": "EEA111", "name": "Pulse and Digital Circuits", "credits": 3 },
+{ "code": "EEA112", "name": "Electrical Machines - II", "credits": 3 },
+{ "code": "CSA134", "name": "Data Structures and Object Oriented Programming", "credits": 3 },
+{ "code": "EEA113", "name": "Electronics Laboratory - II", "credits": 1.5 },
+{ "code": "EEA114", "name": "Electrical Machines Laboratory - II", "credits": 1.5 },
+{ "code": "CSA135", "name": "Data Structures and Object Oriented Programming Laboratory", "credits": 1.5 },
+{ "code": "ZZA3XX", "name": "Open Elective", "credits": 3 }
+]
 }
