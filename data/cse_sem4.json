@@ -1,77 +1,52 @@
 {
-  "department": "CSE",
-  "semester": 4,
-
-  "rules": {
-    "electiveGroups": {
-      "OE": { "minSelect": 1, "maxSelect": 1 }
-    }
-  },
-
-  "subjects": [
-    {
-      "code": "MAA106",
-      "name": "Mathematics for Computing",
-      "credits": 4,
-      "type": "mandatory"
-    },
-    {
-      "code": "CSA108",
-      "name": "Operating Systems",
-      "credits": 3,
-      "type": "mandatory"
-    },
-    {
-      "code": "CSA109",
-      "name": "Design and Analysis of Algorithms",
-      "credits": 3,
-      "type": "mandatory"
-    },
-    {
-      "code": "CSA110",
-      "name": "Database Management Systems",
-      "credits": 3,
-      "type": "mandatory"
-    },
-    {
-      "code": "CSA111",
-      "name": "Software Engineering",
-      "credits": 4,
-      "type": "mandatory"
-    },
-    {
-      "code": "CSA112",
-      "name": "Operating System Laboratory",
-      "credits": 1.5,
-      "type": "mandatory"
-    },
-    {
-      "code": "CSA113",
-      "name": "Design and Analysis of Algorithms Laboratory",
-      "credits": 1.5,
-      "type": "mandatory"
-    },
-    {
-      "code": "CSA114",
-      "name": "Database Management Systems Laboratory",
-      "credits": 1.5,
-      "type": "mandatory"
-    },
-
-    {
-      "code": "OE",
-      "name": "Open Elective",
-      "credits": 3,
-      "type": "elective",
-      "group": "OE",
-      "options": [
-        { "code": "CSA301", "name": "Introduction to Python Programming" },
-        { "code": "CSA302", "name": "Java Programming" },
-        { "code": "CSA303", "name": "Fundamentals of RDBMS" },
-        { "code": "CSA304", "name": "Essentials of Mobile Application Development" },
-        { "code": "CSA305", "name": "Introduction to Data Science" },
-        { "code": "CSA306", "name": "C# and .NET Programming" }
-      ]
-    }
-  ]
+"department": "CSE",
+"semester": 4,
+"subjects": [
+{
+"code": "MAA106",
+"name": "Mathematics for Computing",
+"credits": 4
+},
+{
+"code": "CSA108",
+"name": "Operating Systems",
+"credits": 3
+},
+{
+"code": "CSA109",
+"name": "Design and Analysis of Algorithms",
+"credits": 3
+},
+{
+"code": "CSA110",
+"name": "Database Management Systems",
+"credits": 3
+},
+{
+"code": "CSA111",
+"name": "Software Engineering",
+"credits": 4
+},
+{
+"code": "CSA112",
+"name": "Operating System Laboratory",
+"credits": 1.5
+},
+{
+"code": "CSA113",
+"name": "Design and Analysis of Algorithms Laboratory",
+"credits": 1.5
+},
+{
+"code": "CSA114",
+"name": "Database Management Systems Laboratory",
+"credits": 1.5
+},
+{
+"code": "ZZA3XX",
+"name": "Open Elective Course",
+"credits": 3
+}
+],
+"total_credits": 21.5
 }
