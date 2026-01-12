@@ -16,10 +16,10 @@ const encouragementDisplay = document.getElementById('encouragement');
 
 const homeIcon = document.getElementById('home-icon');
 const graphIcon = document.getElementById('graph-icon');
+const saveIcon = document.getElementById('save-icon');
 
 // ===== Constants =====
 const gradePoints = { S:10, A:9, B:8, C:7, D:6, E:5, F:0 };
-
 const encouragements = [
   { min:9, msg:"Excellent work! Keep it up!" },
   { min:8, msg:"Very good! You can reach the top!" },
@@ -27,7 +27,6 @@ const encouragements = [
   { min:5, msg:"Average. Need more effort." },
   { min:0, msg:"Work harder! You can improve!" }
 ];
-
 const departments = {
   engineering:["CSE","ISE","ECE","EEE","AA"],
   bcom:["BCOM"]
@@ -51,7 +50,7 @@ startBtn.addEventListener('click', () => showPage('stream-page'));
 homeIcon.addEventListener('click', () => showPage('start-page'));
 graphIcon.addEventListener('click', () => showPage('subjects-page'));
 
-// Step-wise Back Navigation
+// Back Buttons
 document.querySelectorAll('.back-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     if(document.getElementById('subjects-page').classList.contains('active')) showPage('semester-page');
@@ -61,12 +60,10 @@ document.querySelectorAll('.back-btn').forEach(btn=>{
   });
 });
 
-// ===== STREAM BUTTONS (WHITE → BLUE+PURPLE ON CLICK) =====
+// ===== STREAM BUTTONS =====
 document.querySelectorAll('.stream-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
-    document.querySelectorAll('.stream-btn')
-      .forEach(b=>b.classList.remove('active'));
-
+    document.querySelectorAll('.stream-btn').forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
     selectedStream = btn.dataset.stream.toLowerCase();
     showDepartments();
@@ -80,38 +77,30 @@ function showDepartments(){
   departments[selectedStream].forEach(dep=>{
     const b = document.createElement('button');
     b.textContent = dep;
-
     b.addEventListener('click',()=>{
-      document.querySelectorAll('#departments button')
-        .forEach(btn=>btn.classList.remove('active'));
-
+      document.querySelectorAll('#departments button').forEach(btn=>btn.classList.remove('active'));
       b.classList.add('active');
       selectedDepartment = dep.toLowerCase();
       showSemesters();
       showPage('semester-page');
     });
-
     departmentsDiv.appendChild(b);
   });
 }
 
-// ===== SEMESTERS (YOUR REQUESTED FUNCTION – EXACT) =====
+// ===== SEMESTERS =====
 function showSemesters(){
   semestersDiv.innerHTML='';
   for(let i=1;i<=8;i++){
     const b=document.createElement('button');
     b.textContent=`Semester ${i}`;
-
     b.addEventListener('click',()=>{
-      document.querySelectorAll('#semesters button')
-        .forEach(btn=>btn.classList.remove('active'));
-
+      document.querySelectorAll('#semesters button').forEach(btn=>btn.classList.remove('active'));
       b.classList.add('active');
       selectedSemester=i;
       loadSubjects();
       showPage('subjects-page');
     });
-
     semestersDiv.appendChild(b);
   }
 }
@@ -120,7 +109,6 @@ function showSemesters(){
 async function loadSubjects(){
   subjectsList.innerHTML='';
   grades = {};
-
   try{
     const res = await fetch(`data/${selectedDepartment}_sem${selectedSemester}.json`);
     const data = await res.json();
@@ -137,13 +125,11 @@ async function loadSubjects(){
       Object.keys(gradePoints).forEach(g=>{
         const btn = document.createElement('button');
         btn.textContent = g;
-
         btn.addEventListener('click',()=>{
           grades[s.code] = g;
           Array.from(gradeDiv.children).forEach(b=>b.classList.remove('selected'));
           btn.classList.add('selected');
         });
-
         gradeDiv.appendChild(btn);
       });
 
@@ -185,6 +171,7 @@ calculateBtn.addEventListener('click',()=>{
   const gpa = (total/credits).toFixed(2);
   gpaDisplay.textContent = `GPA: ${gpa}`;
 
+  // Save semester automatically
   semesterGPAs[selectedSemester-1] = parseFloat(gpa);
   localStorage.setItem('semesterGPAs', JSON.stringify(semesterGPAs));
   localStorage.setItem(`${selectedDepartment}_sem${selectedSemester}`, JSON.stringify(grades));
@@ -218,6 +205,18 @@ deleteBtn.addEventListener('click',()=>{
   percentageDisplay.textContent='';
   encouragementDisplay.textContent='';
   updateChart();
+});
+
+// ===== SAVE SEMESTER ICON =====
+saveIcon.addEventListener('click',()=>{
+  if(selectedDepartment && selectedSemester && Object.keys(grades).length === subjects.length){
+    localStorage.setItem(`${selectedDepartment}_sem${selectedSemester}`, JSON.stringify(grades));
+    semesterGPAs[selectedSemester-1] = parseFloat(gpaDisplay.textContent.split(': ')[1]);
+    localStorage.setItem('semesterGPAs', JSON.stringify(semesterGPAs));
+    alert(`Semester ${selectedSemester} saved! ✅`);
+  } else {
+    alert("Complete all grades before saving!");
+  }
 });
 
 // ===== CHART =====
