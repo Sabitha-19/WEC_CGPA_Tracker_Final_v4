@@ -1,15 +1,86 @@
 {
   "department": "CSE",
   "semester": 5,
+
+  "rules": {
+    "electiveGroups": {
+      "PE1": { "minSelect": 1, "maxSelect": 1 },
+      "OE": { "minSelect": 1, "maxSelect": 1 }
+    }
+  },
+
   "subjects": [
-    { "code": "HSA102", "name": "Industrial Economics and Management", "credits": 3 },
-    { "code": "CSA115", "name": "Platform Technologies", "credits": 3 },
-    { "code": "CSA116", "name": "Computer Networks", "credits": 3 },
-    { "code": "CSA117", "name": "Automata Theory and Compiler Design", "credits": 4 },
-    { "code": "CSA2XX", "name": "Professional Elective Course - I", "credits": 3 },
-    { "code": "CSA118", "name": "Platform Technologies Laboratory", "credits": 1.5 },
-    { "code": "CSA119", "name": "Computer Networks Laboratory", "credits": 1.5 },
-    { "code": "SHA103", "name": "Essence of Indian Traditional Knowledge", "credits": 0 },
-    { "code": "ZZA3XX", "name": "Open Elective Course", "credits": 3 }
+    {
+      "code": "HSA102",
+      "name": "Industrial Economics and Management",
+      "credits": 3,
+      "type": "mandatory"
+    },
+    {
+      "code": "CSA115",
+      "name": "Platform Technologies",
+      "credits": 3,
+      "type": "mandatory"
+    },
+    {
+      "code": "CSA116",
+      "name": "Computer Networks",
+      "credits": 3,
+      "type": "mandatory"
+    },
+    {
+      "code": "CSA117",
+      "name": "Automata Theory and Compiler Design",
+      "credits": 4,
+      "type": "mandatory"
+    },
+
+    {
+      "code": "PE1",
+      "name": "Professional Elective – I",
+      "credits": 3,
+      "type": "elective",
+      "group": "PE1",
+      "options": [
+        { "code": "CSA201", "name": "Graphics and Image Processing" },
+        { "code": "CSA202", "name": "Software Design and Testing" },
+        { "code": "CSA203", "name": "Python Programming" }
+      ]
+    },
+
+    {
+      "code": "CSA118",
+      "name": "Platform Technologies Laboratory",
+      "credits": 1.5,
+      "type": "mandatory"
+    },
+    {
+      "code": "CSA119",
+      "name": "Computer Networks Laboratory",
+      "credits": 1.5,
+      "type": "mandatory"
+    },
+    {
+      "code": "SHA103",
+      "name": "Essence of Indian Traditional Knowledge",
+      "credits": 0,
+      "type": "mandatory"
+    },
+
+    {
+      "code": "OE",
+      "name": "Open Elective",
+      "credits": 3,
+      "type": "elective",
+      "group": "OE",
+      "options": [
+        { "code": "CSA301", "name": "Introduction to Python Programming" },
+        { "code": "CSA302", "name": "Java Programming" },
+        { "code": "CSA303", "name": "Fundamentals of RDBMS" },
+        { "code": "CSA304", "name": "Essentials of Mobile Application Development" },
+        { "code": "CSA305", "name": "Introduction to Data Science" },
+        { "code": "CSA306", "name": "C# and .NET Programming" }
+      ]
+    }
   ]
 }
