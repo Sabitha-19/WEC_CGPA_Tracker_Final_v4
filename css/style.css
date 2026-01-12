@@ -1,15 +1,6 @@
 /* ===== Global ===== */
-* {
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-
-body {
-  margin: 0;
-  background: #f7f8fc;
-  color: #333;
-  padding-top: 65px;
-}
+* { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+body { margin: 0; background: #f7f8fc; color: #333; padding-top: 65px; }
 
 /* ===== Header ===== */
 .fixed-header {
@@ -24,151 +15,34 @@ body {
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   z-index: 1000;
 }
-
-.fixed-header h1 {
-  font-size: 18px;
-  font-weight: 600;
-  color: #4a3aff;
-}
-
-/* ===== Navigation Icons ===== */
-.nav-icons {
-  display: flex;
-  gap: 16px;
-}
-
-.nav-icons span {
-  font-size: 24px;
-  cursor: pointer;
-  padding: 6px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Hover effect for icons */
-.nav-icons span:hover {
-  background: linear-gradient(90deg,#6a11cb,#2575fc);
-  color: #fff;
-  transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-/* Active/selected icon */
-.nav-icons span.active {
-  background: linear-gradient(90deg,#6a11cb,#2575fc);
-  color: #fff;
-}
+.fixed-header h1 { font-size: 18px; font-weight: 600; color: #4a3aff; }
+.nav-icons span { font-size: 22px; cursor: pointer; margin-left: 12px; }
 
 /* ===== CGPA Info Section ===== */
-.cgpa-info {
-  background: rgba(255,255,255,0.75);
-  padding: 16px;
-  border-radius: 16px;
-  max-width: 420px;
-  margin: 20px auto;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-}
-
-.cgpa-info h3 {
-  font-size: 16px;
-  margin-bottom: 8px;
-  color: #4a3aff;
-}
-
-.cgpa-info h4 {
-  font-size: 14px;
-  margin: 10px 0 6px;
-  color: #333;
-}
-
-.cgpa-info ul {
-  padding-left: 18px;
-  margin: 0;
-}
-
-.cgpa-info li {
-  font-size: 13.5px;
-  margin-bottom: 6px;
-  color: #444;
-}
+.cgpa-info { background: rgba(255,255,255,0.75); padding: 16px; border-radius: 16px; max-width: 420px; margin: 20px auto; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.cgpa-info h3 { font-size: 16px; margin-bottom: 8px; color: #4a3aff; }
+.cgpa-info h4 { font-size: 14px; margin: 10px 0 6px; color: #333; }
+.cgpa-info ul { padding-left: 18px; margin: 0; }
+.cgpa-info li { font-size: 13.5px; margin-bottom: 6px; color: #444; }
 
 /* ===== Pages ===== */
-.page {
-  display: none;
-  padding: 20px;
-}
-
-.page.active {
-  display: block;
-}
-
-h2, h3 {
-  text-align: center;
-  color: #4a3aff;
-}
+.page { display: none; padding: 20px; }
+.page.active { display: block; }
+h2, h3 { text-align: center; color: #4a3aff; }
 
 /* ===== Buttons ===== */
-button {
-  padding: 12px 20px;
-  border: none;
-  border-radius: 14px;
-  background: rgba(106,17,203,0.12);
-  color: #4a3aff;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-button:hover {
-  background: rgba(106,17,203,0.22);
-}
-
-.start-btn {
-  display: block;
-  margin: 20px auto;
-  background: linear-gradient(90deg,#6a11cb,#2575fc);
-  color: #fff;
-}
+button { padding: 12px 20px; border: none; border-radius: 14px; background: rgba(106,17,203,0.12); color: #4a3aff; font-weight: 500; cursor: pointer; }
+button:hover { background: rgba(106,17,203,0.22); }
+.start-btn { display: block; margin: 20px auto; background: linear-gradient(90deg,#6a11cb,#2575fc); color: #fff; }
 
 /* ===== Button Groups ===== */
-.button-group {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: center;
-}
-
-.button-group button {
-  width: 90%;
-  max-width: 320px;
-}
+.button-group { display: flex; flex-direction: column; gap: 12px; align-items: center; }
+.button-group button { width: 90%; max-width: 320px; }
 
 /* ===== Grade Reference ===== */
-.grade-reference {
-  margin-top: 30px;
-}
-
-.cubic-grades {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  max-width: 340px;
-  margin: auto;
-}
-
-.grade-card {
-  padding: 14px;
-  border-radius: 16px;
-  text-align: center;
-  font-weight: 600;
-  font-size: 14px;
-  color: #333;
-  backdrop-filter: blur(6px);
-}
-
-/* Light transparent colors */
+.grade-reference { margin-top: 30px; }
+.cubic-grades { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; max-width: 340px; margin: auto; }
+.grade-card { padding: 14px; border-radius: 16px; text-align: center; font-weight: 600; font-size: 14px; color: #333; backdrop-filter: blur(6px); }
 .grade-s { background: rgba(190,255,210,0.6); }
 .grade-a { background: rgba(210,255,190,0.6); }
 .grade-b { background: rgba(200,230,255,0.6); }
@@ -178,52 +52,20 @@ button:hover {
 .grade-f { background: rgba(255,200,200,0.6); }
 
 /* ===== Subjects ===== */
-.subject {
-  background: rgba(255,255,255,0.75);
-  padding: 12px;
-  border-radius: 14px;
-  margin-bottom: 12px;
-}
-
-.grade-buttons {
-  margin-top: 8px;
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.grade-buttons button {
-  width: 38px;
-  height: 38px;
-  padding: 0;
-}
-
-.grade-buttons button.selected {
-  background: linear-gradient(90deg,#6a11cb,#2575fc);
-  color: #fff;
-}
+.subject { background: rgba(255,255,255,0.75); padding: 12px; border-radius: 14px; margin-bottom: 12px; }
+.grade-buttons { margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap; }
+.grade-buttons button { width: 38px; height: 38px; padding: 0; }
+.grade-buttons button.selected { background: linear-gradient(90deg,#6a11cb,#2575fc); color: #fff; }
 
 /* ===== Results ===== */
-.results {
-  margin-top: 15px;
-  text-align: center;
-  font-weight: 500;
-}
+.results { margin-top: 15px; text-align: center; font-weight: 500; }
 
 /* ===== Back Button ===== */
-.back-btn {
-  margin-top: 20px;
-  background: rgba(0,0,0,0.1);
-  color: #333;
-}
+.back-btn { margin-top: 20px; background: rgba(0,0,0,0.1); color: #333; }
+
+/* ===== Saved Semesters Page ===== */
+#saved-list button { width: 90%; max-width: 300px; background: rgba(37,117,252,0.15); color: #2575fc; }
+#saved-list button:hover { background: rgba(37,117,252,0.3); transform: scale(1.02); }
 
 /* ===== Mobile ===== */
-@media (max-width:600px) {
-  .cubic-grades {
-    grid-template-columns: repeat(2,1fr);
-  }
-  .nav-icons span {
-    font-size: 20px;
-    padding: 5px;
-  }
-}
+@media (max-width:600px) { .cubic-grades { grid-template-columns: repeat(2,1fr); } }
