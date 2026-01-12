@@ -29,25 +29,16 @@
     },
 
     {
-      "code": "AAA201",
-      "name": "Elements of Interior Design",
+      "code": "PE1",
+      "name": "Professional Elective - I",
       "credits": 3,
-      "type": "elective",
-      "group": "PE1"
-    },
-    {
-      "code": "AAA202",
-      "name": "Vernacular Architecture",
-      "credits": 3,
-      "type": "elective",
-      "group": "PE1"
-    },
-    {
-      "code": "AAA203",
-      "name": "Energy Efficient Architecture",
-      "credits": 3,
-      "type": "elective",
-      "group": "PE1"
+      "type": "professional",
+      "group": "PE1",
+      "options": [
+        { "code": "AAA201", "name": "Elements of Interior Design" },
+        { "code": "AAA202", "name": "Vernacular Architecture" },
+        { "code": "AAA203", "name": "Energy Efficient Architecture" }
+      ]
     },
 
     {
@@ -74,11 +65,13 @@
       "credits": 2,
       "type": "mandatory"
     },
+
     {
       "code": "ZZA3XX",
       "name": "Open Elective",
       "credits": 3,
-      "type": "mandatory"
+      "type": "open",
+      "options": []
     }
   ]
 }
