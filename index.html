@@ -2,83 +2,64 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>WEC CGPA Tracker</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WEC CGPA Tracker</title>
 
 <link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-database-compat.js"></script>
+<script type="module" src="firebase.js"></script>
+<script defer src="script.js"></script>
 </head>
 
 <body>
 
 <header>
-  <h2>🎓 WEC CGPA Tracker</h2>
+  <img src="assets/cap.png">
+  <h1>WEC CGPA Tracker</h1>
 </header>
 
-<!-- 🔐 LOGIN -->
-<section id="login-page" class="page active">
-  <input id="email" placeholder="Email">
-  <input id="password" type="password" placeholder="Password">
-  <button id="signup-btn">Signup</button>
-  <button id="login-btn">Login</button>
-  <p id="login-msg"></p>
+<section id="auth">
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="signup()">Sign Up</button>
+  <button onclick="login()">Login</button>
 </section>
 
-<!-- START -->
-<section id="start-page" class="page">
-  <h3>What is CGPA?</h3>
+<section id="intro" class="card">
+  <h2>What is CGPA?</h2>
   <p>CGPA is the average of all semester GPAs.</p>
-  <button id="start-btn">Start</button>
+  <button onclick="startApp()">Start</button>
 </section>
 
-<!-- STREAM -->
-<section id="stream-page" class="page">
-  <button class="stream-btn" data-stream="engineering">Engineering</button>
-  <button class="stream-btn" data-stream="bcom">B.Com</button>
+<section id="flow" class="hidden">
+  <h3>Select Department</h3>
+  <div class="btn-group">
+    <button onclick="selectDept('CSE')">CSE</button>
+    <button onclick="selectDept('IT')">IT</button>
+  </div>
+
+  <h3>Select Semester</h3>
+  <div class="btn-group" id="semesterBtns"></div>
+
+  <div id="subjects"></div>
+
+  <button onclick="calculateGPA()">Calculate GPA</button>
+  <p id="gpaResult"></p>
+
+  <button onclick="saveSemester()">Save Semester</button>
 </section>
 
-<!-- DEPARTMENT -->
-<section id="department-page" class="page">
-  <div id="departments"></div>
+<section class="card">
+  <h2>Saved Semesters</h2>
+  <ul id="savedList"></ul>
 </section>
 
-<!-- SEMESTER -->
-<section id="semester-page" class="page">
-  <div id="semesters"></div>
-</section>
-
-<!-- SUBJECTS -->
-<section id="subjects-page" class="page">
-  <div id="subjects-list"></div>
-  <button id="calculate-btn">Calculate CGPA</button>
-
-  <h3 id="cgpa-display"></h3>
-  <h4 id="percentage-display"></h4>
-  <p id="encouragement"></p>
-</section>
-
-<!-- SAVED -->
-<section id="saved-page" class="page">
-  <h3>Saved Semesters</h3>
-  <div id="saved-list"></div>
-</section>
-
-<!-- GRAPH -->
-<section id="graph-page" class="page">
+<section class="card">
+  <h2>CGPA Progress</h2>
   <canvas id="cgpaChart"></canvas>
 </section>
 
-<footer>
-  <button onclick="show('start-page')">🏠</button>
-  <button onclick="show('saved-page')">💾</button>
-  <button onclick="show('graph-page')">📊</button>
-</footer>
-
-<script src="script.js"></script>
 </body>
 </html>
