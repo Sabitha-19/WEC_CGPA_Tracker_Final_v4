@@ -4,16 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WEC CGPA Tracker</title>
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
-  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-  <!-- Fixed Header -->
+  <!-- Header -->
   <div class="fixed-header">
     <h1>WEC CGPA Tracker</h1>
     <div class="nav-icons">
@@ -42,7 +39,7 @@
     </div>
   </div>
 
-  <!-- Stream Selection -->
+  <!-- Stream Page -->
   <div class="page" id="stream-page">
     <h2>Select Stream</h2>
     <div class="button-group">
@@ -52,21 +49,21 @@
     <button class="back-btn">Back</button>
   </div>
 
-  <!-- Department Selection -->
+  <!-- Department Page -->
   <div class="page" id="department-page">
     <h2>Select Department</h2>
     <div class="button-group" id="departments"></div>
     <button class="back-btn">Back</button>
   </div>
 
-  <!-- Semester Selection -->
+  <!-- Semester Page -->
   <div class="page" id="semester-page">
     <h2>Select Semester</h2>
     <div class="button-group" id="semesters"></div>
     <button class="back-btn">Back</button>
   </div>
 
-  <!-- Subjects & Grades -->
+  <!-- Subjects & CGPA Page -->
   <div class="page" id="subjects-page">
     <h2>Select Grades for Subjects</h2>
 
@@ -81,74 +78,41 @@
       <div class="grade-card">F<br>0</div>
     </div>
 
+    <!-- Subjects List -->
     <div id="subjects-list"></div>
 
+    <!-- Actions -->
     <div class="grade-actions">
       <button id="calculate-btn">Calculate CGPA</button>
       <button id="edit-btn">Edit</button>
       <button id="delete-btn">Delete</button>
     </div>
 
+    <!-- Results -->
     <div class="results">
       <p id="cgpa-display"></p>
       <p id="percentage-display"></p>
       <p id="encouragement"></p>
     </div>
 
+    <!-- Chart -->
     <canvas id="gpa-chart" style="max-width:700px;margin:30px auto;display:block;"></canvas>
+
     <button class="back-btn">Back</button>
   </div>
 
-  <!-- Floating Save Semester Button -->
-  <button id="save-sem-btn" style="
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: linear-gradient(90deg,#6a11cb,#2575fc);
-    color: #fff;
-    border: none;
-    border-radius: 50px;
-    padding: 12px 20px;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    z-index: 1000;
-  ">Saved Semesters</button>
+  <!-- Floating Saved Semesters Button -->
+  <button id="save-sem-btn" class="floating-btn">Saved Semesters</button>
 
   <!-- Saved Semesters Modal -->
-  <div id="saved-sem-modal" style="
-    display:none;
-    position:fixed;
-    top:0; left:0; right:0; bottom:0;
-    background:rgba(0,0,0,0.5);
-    justify-content:center;
-    align-items:center;
-    z-index:2000;
-  ">
-    <div style="
-      background:#fff;
-      padding:20px;
-      border-radius:12px;
-      max-width:400px;
-      width:90%;
-      max-height:80%;
-      overflow-y:auto;
-      text-align:center;
-      position:relative;
-    ">
+  <div id="saved-sem-modal" class="modal">
+    <div class="modal-content">
       <h2>Saved Semesters</h2>
-      <div id="saved-sem-list" style="margin-top:15px;"></div>
-      <button id="close-sem-modal" style="
-        margin-top:20px;
-        padding:8px 16px;
-        background:#ccc;
-        border:none;
-        border-radius:8px;
-        cursor:pointer;
-      ">Close</button>
+      <div id="saved-sem-list"></div>
+      <button id="close-sem-modal" class="modal-close-btn">Close</button>
     </div>
   </div>
 
-  <!-- JS -->
   <script src="script.js"></script>
 </body>
 </html>
