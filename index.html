@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <title>WEC CGPA Tracker</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -17,25 +17,36 @@
   <h3>WEC CGPA Tracker</h3>
   <div class="nav-icons">
     <span id="home-icon">🏠</span>
-    <span id="graph-icon">📊</span>
-    <span id="print-icon">🖨️</span>
+<div class="nav-icons">
+  
+  <span id="graph-icon" title="Graph">📊</span>
+  <span id="print-icon" title="Print">🖨️</span>
+</div>
+    <span id="faq-icon">❓</span>
   </div>
 </header>
 
-<!-- START -->
+<!-- WELCOME PAGE -->
 <section id="start-page" class="page active">
-  <h2>Calculate Your CGPA Instantly</h2>
-  <button onclick="showPage('stream-page')">Calculate Now ➜</button>
+  <h1 class="welcome">
+    Welcome to <br>
+    <span>Women’s Engineering College</span><br>
+    CGPA Tracker 👩🏻‍🎓
+  </h1>
 
+  <button onclick="showPage('stream-page')">Start Calculation ➜</button>
+
+  <!-- GRADE POINT REFERENCE -->
   <h2>Grade Point Reference</h2>
-  <div class="cubic-grades">
-    <div class="grade-card">S<br>10</div>
-    <div class="grade-card">A<br>9</div>
-    <div class="grade-card">B<br>8</div>
-    <div class="grade-card">C<br>7</div>
-    <div class="grade-card">D<br>6</div>
-    <div class="grade-card">E<br>5</div>
-    <div class="grade-card">F<br>0</div>
+
+  <div class="grade-grid">
+    <div class="grade-card">S<br><span>10</span></div>
+    <div class="grade-card">A<br><span>9</span></div>
+    <div class="grade-card">B<br><span>8</span></div>
+    <div class="grade-card">C<br><span>7</span></div>
+    <div class="grade-card">D<br><span>6</span></div>
+    <div class="grade-card">E<br><span>5</span></div>
+    <div class="grade-card fail">F<br><span>0</span></div>
   </div>
 </section>
 
@@ -63,11 +74,44 @@
 <section id="subjects-page" class="page">
   <h2>Enter Grades</h2>
   <div id="subjects-list"></div>
+
   <button id="calculate-btn">Calculate GPA & CGPA</button>
 
-  <p id="gpa"></p>
-  <p id="cgpa"></p>
-  <p id="percentage"></p>
+  <div class="result">
+    <p id="gpa"></p>
+    <p id="cgpa"></p>
+    <p id="percentage"></p>
+  </div>
+</section>
+
+<!-- FAQ PAGE -->
+<section id="faq-page" class="page">
+  <h2>Frequently Asked Questions</h2>
+
+  <div class="faq">
+    <h4>📌 What is CGPA?</h4>
+    <p>CGPA (Cumulative Grade Point Average) is the average of GPA obtained in all semesters.</p>
+  </div>
+
+  <div class="faq">
+    <h4>📌 How is GPA calculated?</h4>
+    <p>GPA = (Sum of (Grade Point × Credits)) / Total Credits.</p>
+  </div>
+
+  <div class="faq">
+    <h4>📌 How is percentage calculated?</h4>
+    <p>Percentage = CGPA × 9.5 (as per Anna University norm).</p>
+  </div>
+
+  <div class="faq">
+    <h4>📌 Does F grade affect CGPA?</h4>
+    <p>Yes. F grade has 0 grade points and reduces GPA & CGPA.</p>
+  </div>
+
+  <div class="faq">
+    <h4>📌 Is this CGPA official?</h4>
+    <p>No. This tool is for reference only. Final CGPA is provided by the university.</p>
+  </div>
 </section>
 
 <script src="script.js"></script>
