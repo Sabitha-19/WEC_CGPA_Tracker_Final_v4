@@ -1,5 +1,5 @@
 body { 
-  font-family: Arial; 
+  font-family: Poppins, Arial; 
   margin:0; 
   padding:0; 
   background:#f5f5f5; 
@@ -49,7 +49,6 @@ button:hover { opacity:0.85; }
 .grade-buttons button.selected { background:linear-gradient(90deg,#6a11cb,#2575fc); color:#fff; }
 
 .results { text-align:center; margin-top:20px; font-size:18px; font-weight:bold; }
-
 .grade-actions { display:flex; justify-content:center; gap:10px; margin-top:10px; }
 
 .fixed-header {
@@ -59,4 +58,50 @@ button:hover { opacity:0.85; }
 .nav-icons span { cursor:pointer; font-size:1.5rem; margin-left:10px; transition:0.3s; }
 .nav-icons span:hover { transform:scale(1.2); }
 
-@media(max-width:600px){ .button-group { flex-direction:column; } .subject { flex-direction:column; align-items:flex-start; } }
+.floating-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: linear-gradient(90deg,#6a11cb,#2575fc);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  z-index: 1000;
+}
+
+.modal {
+  display:none;
+  position:fixed;
+  top:0; left:0; right:0; bottom:0;
+  background:rgba(0,0,0,0.5);
+  justify-content:center;
+  align-items:center;
+  z-index:2000;
+}
+.modal-content {
+  background:#fff;
+  padding:20px;
+  border-radius:12px;
+  max-width:400px;
+  width:90%;
+  max-height:80%;
+  overflow-y:auto;
+  text-align:center;
+  position:relative;
+}
+.modal-close-btn {
+  margin-top:20px;
+  padding:8px 16px;
+  background:#ccc;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+@media(max-width:600px){ 
+  .button-group { flex-direction:column; } 
+  .subject { flex-direction:column; align-items:flex-start; } 
+}
