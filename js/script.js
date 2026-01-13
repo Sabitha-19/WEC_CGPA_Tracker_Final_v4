@@ -35,17 +35,15 @@ function showPage(id){
   document.getElementById(id).classList.add('active');
   updateNavHighlight(id);
 }
-
 function updateNavHighlight(id){
   homeIcon.style.opacity = (id==='start-page')?1:0.5;
   graphIcon.style.opacity = (id==='subjects-page')?1:0.5;
 }
-
 document.querySelectorAll('.back-btn').forEach(b=>b.addEventListener('click',()=>{ showPage('start-page'); }));
 startBtn.addEventListener('click',()=>showPage('cgpa-info-page'));
+continueBtn.addEventListener('click',()=>showPage('stream-page'));
 homeIcon.addEventListener('click',()=>showPage('start-page'));
 graphIcon.addEventListener('click',()=>showPage('subjects-page'));
-continueBtn.addEventListener('click',()=>showPage('stream-page'));
 
 // Streams
 document.querySelectorAll('.stream-btn').forEach(btn=>{
@@ -112,7 +110,7 @@ async function loadSubjects(){
   }catch(e){ subjectsList.innerHTML="<p>Subjects not found!</p>"; }
 }
 
-// Calculate CGPA & Percentage
+// Calculate CGPA
 calculateBtn.addEventListener('click',calculate);
 editBtn.addEventListener('click',()=>loadSubjects());
 deleteBtn.addEventListener('click',()=>{
@@ -120,16 +118,13 @@ deleteBtn.addEventListener('click',()=>{
   semesterGPAs[selectedSemester-1]=null; 
   localStorage.setItem('semesterGPAs',JSON.stringify(semesterGPAs));
   grades={}; subjectsList.innerHTML=''; updateChart(); 
-  cgpaDisplay.textContent=''; 
-  percentageDisplay.textContent=''; 
-  encouragementDisplay.textContent='';
+  cgpaDisplay.textContent=''; percentageDisplay.textContent=''; encouragementDisplay.textContent='';
 });
-
 function calculate(){
   if(Object.keys(grades).length!==subjects.length){ alert("Select all grades."); return; }
   let total=0,creditsSum=0;
   subjects.forEach(s=>{ total+=gradePoints[grades[s.code]]*s.credits; creditsSum+=s.credits; });
-  const gpa=(total/creditsSum).toFixed(2); // GPA internal only
+  const gpa=(total/creditsSum).toFixed(2); 
   localStorage.setItem(`${selectedDepartment}_sem${selectedSemester}`,JSON.stringify(grades));
   semesterGPAs[selectedSemester-1]=parseFloat(gpa); 
   localStorage.setItem('semesterGPAs',JSON.stringify(semesterGPAs));
@@ -146,14 +141,7 @@ const gpaChart=new Chart(ctx,{
   type:'line',
   data:{ 
     labels:['Sem1','Sem2','Sem3','Sem4','Sem5','Sem6','Sem7','Sem8'], 
-    datasets:[{ 
-      label:'Semester CGPA', 
-      data:semesterGPAs, 
-      borderColor:'rgba(106,17,203,1)', 
-      backgroundColor:'rgba(37,117,252,0.3)', 
-      fill:true, 
-      tension:0.3 
-    }] 
+    datasets:[{ label:'Semester CGPA', data:semesterGPAs, borderColor:'rgba(106,17,203,1)', backgroundColor:'rgba(37,117,252,0.3)', fill:true, tension:0.3 }] 
   },
   options:{ responsive:true, scales:{ y:{ min:0,max:10 } } }
 });
@@ -187,5 +175,4 @@ saveSemBtn.addEventListener('click',()=>{
   savedModal.style.display='flex';
 });
 
-closeModal.addEventListener('click',()=>{ savedModal.style.display='none'; });
-savedModal.addEventListener('click',(e)=>{ if(e.target===savedModal) savedModal.style.display='none'; });
+closeModal.addEventListener('
