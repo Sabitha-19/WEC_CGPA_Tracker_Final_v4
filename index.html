@@ -1,65 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WEC CGPA Tracker</title>
-
-<link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<!-- Firebase -->
-<script type="module" src="firebase.js"></script>
-<script defer src="script.js"></script>
+  <meta charset="UTF-8">
+  <title>WEC CGPA Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
 <body>
 
-<header>
-  <img src="assets/cap.png">
+<header class="header">
   <h1>WEC CGPA Tracker</h1>
+  <div class="icons">
+    <span id="home-icon">🏠</span>
+    <span id="graph-icon">📈</span>
+    <span id="saved-icon">💾</span>
+  </div>
 </header>
 
-<section id="auth">
-  <input type="email" id="email" placeholder="Email">
-  <input type="password" id="password" placeholder="Password">
-  <button onclick="signup()">Sign Up</button>
-  <button onclick="login()">Login</button>
+<!-- LOGIN -->
+<section id="login-page" class="page active">
+  <h2>Login / Signup</h2>
+  <input id="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
+  <button id="login-btn">Login</button>
+  <button id="signup-btn">Signup</button>
+  <p id="login-msg"></p>
 </section>
 
-<section id="intro" class="card">
-  <h2>What is CGPA?</h2>
-  <p>CGPA is the average of all semester GPAs.</p>
-  <button onclick="startApp()">Start</button>
+<!-- START -->
+<section id="start-page" class="page">
+  <h2>Welcome</h2>
+  <p>CGPA measures your overall academic performance.</p>
+  <button id="start-btn">Start</button>
+
+  <div class="grade-cards">
+    <div>S = 10</div><div>A = 9</div><div>B = 8</div>
+    <div>C = 7</div><div>D = 6</div><div>E = 5</div><div>F = 0</div>
+  </div>
 </section>
 
-<section id="flow" class="hidden">
-  <h3>Select Department</h3>
+<!-- STREAM -->
+<section id="stream-page" class="page">
+  <h2>Select Stream</h2>
   <div class="btn-group">
-    <button onclick="selectDept('CSE')">CSE</button>
-    <button onclick="selectDept('IT')">IT</button>
+    <button class="stream-btn" data-stream="engineering">Engineering</button>
+    <button class="stream-btn" data-stream="bcom">B.Com</button>
+  </div>
+  <button class="back-btn">Back</button>
+</section>
+
+<!-- DEPARTMENT -->
+<section id="department-page" class="page">
+  <h2>Select Department</h2>
+  <div id="departments" class="btn-group"></div>
+  <button class="back-btn">Back</button>
+</section>
+
+<!-- SEMESTER -->
+<section id="semester-page" class="page">
+  <h2>Select Semester</h2>
+  <div id="semesters" class="btn-group"></div>
+  <button class="back-btn">Back</button>
+</section>
+
+<!-- SUBJECTS -->
+<section id="subjects-page" class="page">
+  <h2>Enter Grades</h2>
+  <div id="subjects-list"></div>
+
+  <button id="calculate-btn">Calculate CGPA</button>
+
+  <div class="results">
+    <p id="cgpa-display"></p>
+    <p id="percentage-display"></p>
+    <p id="encouragement"></p>
   </div>
 
-  <h3>Select Semester</h3>
-  <div class="btn-group" id="semesterBtns"></div>
-
-  <div id="subjects"></div>
-
-  <button onclick="calculateGPA()">Calculate GPA</button>
-  <p id="gpaResult"></p>
-
-  <button onclick="saveSemester()">Save Semester</button>
+  <button class="back-btn">Back</button>
 </section>
 
-<section class="card">
-  <h2>Saved Semesters</h2>
-  <ul id="savedList"></ul>
-</section>
-
-<section class="card">
+<!-- GRAPH -->
+<section id="graph-page" class="page">
   <h2>CGPA Progress</h2>
-  <canvas id="cgpaChart"></canvas>
+  <canvas id="cgpa-chart"></canvas>
+  <button class="back-btn">Back</button>
 </section>
 
+<!-- SAVED SEMESTERS -->
+<section id="saved-page" class="page">
+  <h2>Saved Semesters</h2>
+  <div id="saved-list"></div>
+  <button class="back-btn">Back</button>
+</section>
+
+<script type="module" src="script.js"></script>
 </body>
 </html>
