@@ -1,31 +1,68 @@
-* { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-body { margin:0; background:#f7f8fc; color:#333; padding-top:65px; }
-
-/* Header */
-.fixed-header { position:fixed; top:0;width:100%;background:rgba(255,255,255,0.95);display:flex;justify-content:space-between;align-items:center;padding:12px 18px;box-shadow:0 2px 8px rgba(0,0,0,0.1);z-index:1000;}
-.fixed-header h1 { font-size:18px;color:#4a3aff;font-weight:600;}
-.nav-icons span{font-size:22px;cursor:pointer;margin-left:12px;}
-
-/* Pages */
-.page{display:none;padding:20px;}
-.page.active{display:block;}
-h2,h3{text-align:center;color:#4a3aff;}
-button{padding:12px 20px;border:none;border-radius:14px;background:rgba(106,17,203,0.12);color:#4a3aff;cursor:pointer;}
-button:hover{background:rgba(106,17,203,0.22);}
-.start-btn{display:block;margin:20px auto;background:linear-gradient(90deg,#6a11cb,#2575fc);color:#fff;}
-.button-group{display:flex;flex-direction:column;gap:12px;align-items:center;}
-.button-group button{width:90%;max-width:320px;}
-.back-btn{margin-top:20px;background:rgba(0,0,0,0.1);color:#333;}
-.cgpa-info{background:rgba(255,255,255,0.75);padding:16px;border-radius:16px;max-width:420px;margin:20px auto;box-shadow:0 4px 12px rgba(0,0,0,0.06);}
-.cubic-grades{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:340px;margin:auto;}
-.grade-card{padding:14px;border-radius:16px;text-align:center;font-weight:600;font-size:14px;color:#333;backdrop-filter:blur(6px);}
-.grade-s{background:rgba(190,255,210,0.6);} .grade-a{background:rgba(210,255,190,0.6);} .grade-b{background:rgba(200,230,255,0.6);} 
-.grade-c{background:rgba(210,220,255,0.6);} .grade-d{background:rgba(240,220,255,0.6);} .grade-e{background:rgba(255,245,200,0.6);} .grade-f{background:rgba(255,200,200,0.6);}
-.subject{background:rgba(255,255,255,0.75);padding:12px;border-radius:14px;margin-bottom:12px;}
-.grade-buttons{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;}
-.grade-buttons button{width:38px;height:38px;padding:0;}
-.grade-buttons button.selected{background:linear-gradient(90deg,#6a11cb,#2575fc);color:#fff;}
-.results{text-align:center;margin-top:15px;font-weight:500;}
-.saved-semester{background:#fff;padding:12px;margin:8px 0;border-radius:12px;box-shadow:0 2px 5px rgba(0,0,0,0.1);}
-.saved-semester button{margin-left:10px;padding:4px 8px;font-size:12px;}
-@media(max-width:600px){.cubic-grades{grid-template-columns:repeat(2,1fr);}}
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f5f5f5;
+  color: #333;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+header h1 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #4a4af4;
+}
+.icons span {
+  cursor: pointer;
+  font-size: 1.5rem;
+  margin-left: 10px;
+}
+.page {
+  display: none;
+  padding: 20px;
+}
+.page.active {
+  display: block;
+}
+button {
+  padding: 8px 15px;
+  margin: 5px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(106,17,203,0.2);
+  color: #4a4af4;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button.active {
+  background: linear-gradient(90deg, #6a11cb, #2575fc);
+  color: #fff;
+}
+button.selected {
+  background: #2575fc;
+  color: #fff;
+}
+input {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+.subject {
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.grade-buttons button {
+  margin-right: 5px;
+}
