@@ -1,56 +1,94 @@
-body {
+body{
   font-family: Arial, sans-serif;
-  background: #f6f7fb;
-  margin: 0;
+  background:#f4f6ff;
+  margin:0;
+  padding-top:70px;
 }
 
-header {
-  background: linear-gradient(90deg,#6a11cb,#2575fc);
-  color: white;
-  padding: 15px;
-  text-align: center;
+.header{
+  position:fixed;
+  top:0;left:0;right:0;
+  background:#fff;
+  padding:10px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 2px 8px rgba(0,0,0,0.15);
 }
 
-.page {
-  display: none;
-  padding: 20px;
+.icons span{
+  font-size:22px;
+  margin-left:15px;
+  cursor:pointer;
 }
 
-.page.active {
-  display: block;
+.page{display:none;padding:20px;}
+.page.active{display:block;}
+
+h2{text-align:center;color:#4a3aff;}
+
+.btn-group{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:12px;
 }
 
-button {
-  padding: 10px 16px;
-  margin: 6px;
-  border-radius: 8px;
-  border: none;
-  background: #eaeaea;
+button{
+  padding:10px 20px;
+  border:none;
+  border-radius:12px;
+  background:rgba(255,255,255,0.7);
+  cursor:pointer;
 }
 
-button.active {
-  background: linear-gradient(90deg,#6a11cb,#2575fc);
-  color: white;
+button.active{
+  background:linear-gradient(90deg,#6a11cb,#2575fc);
+  color:white;
 }
 
-.subject {
-  background: white;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 10px;
+.back-btn{margin-top:20px;}
+
+.grade-cards{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
 }
 
-.grade-buttons button.selected {
-  background: #2575fc;
-  color: white;
+.grade-cards div{
+  background:#fff;
+  padding:12px;
+  border-radius:12px;
+  font-weight:bold;
 }
 
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: white;
-  display: flex;
-  justify-content: space-around;
-  padding: 10px;
+.subject{
+  background:#fff;
+  padding:12px;
+  border-radius:12px;
+  margin:10px 0;
+}
+
+.grade-buttons button.selected{
+  background:linear-gradient(90deg,#6a11cb,#2575fc);
+  color:white;
+}
+
+.results{
+  text-align:center;
+  font-weight:bold;
+}
+
+#saved-list div{
+  background:white;
+  padding:12px;
+  margin:10px 0;
+  border-radius:12px;
+  display:flex;
+  justify-content:space-between;
+}
+
+@media(max-width:600px){
+  .btn-group{flex-direction:column;}
 }
