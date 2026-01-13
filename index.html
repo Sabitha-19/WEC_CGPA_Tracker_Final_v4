@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>WEC CGPA Tracker</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>WEC CGPA Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -14,15 +14,14 @@
 <!-- HEADER -->
 <header class="fixed-header">
   <span id="back-btn">⬅</span>
+
   <h3>WEC CGPA Tracker</h3>
+
   <div class="nav-icons">
-    <span id="home-icon">🏠</span>
-<div class="nav-icons">
-  
-  <span id="graph-icon" title="Graph">📊</span>
-  <span id="print-icon" title="Print">🖨️</span>
-</div>
-    <span id="faq-icon">❓</span>
+    <span id="home-icon" title="Home">🏠</span>
+    <span id="graph-icon" title="Graph">📊</span>
+    <span id="print-icon" title="Print">🖨️</span>
+    <span id="faq-icon" title="FAQ">❓</span>
   </div>
 </header>
 
@@ -54,7 +53,7 @@
 <section id="stream-page" class="page">
   <h2>Select Stream</h2>
   <div class="button-group">
-    <button onclick="selectStream('engineering',this)">Engineering</button>
+    <button onclick="selectStream('engineering', this)">Engineering</button>
   </div>
 </section>
 
@@ -73,6 +72,7 @@
 <!-- SUBJECTS -->
 <section id="subjects-page" class="page">
   <h2>Enter Grades</h2>
+
   <div id="subjects-list"></div>
 
   <button id="calculate-btn">Calculate GPA & CGPA</button>
