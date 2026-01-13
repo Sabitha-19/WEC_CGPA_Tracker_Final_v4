@@ -1,185 +1,158 @@
-// ===== Firebase Config =====
+// 🔥 Firebase config (YOURS)
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY", // <-- replace with your Firebase API key
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
-  projectId: "YOUR_PROJECT_ID",
+  apiKey: "YOUR_API_KEY",
+  authDomain: "wec-cgpa-tracker.firebaseapp.com",
+  databaseURL: "https://wec-cgpa-tracker-default-rtdb.firebaseio.com",
+  projectId: "wec-cgpa-tracker",
 };
 firebase.initializeApp(firebaseConfig);
+
 const auth = firebase.auth();
 const db = firebase.database();
 
-// ===== Elements =====
-const pages=document.querySelectorAll('.page');
-const startBtn=document.getElementById('start-btn');
-const streamsDiv=document.getElementById('streams');
-const departmentsDiv=document.getElementById('departments');
-const semestersDiv=document.getElementById('semesters');
-const subjectsList=document.getElementById('subjects-list');
-const calculateBtn=document.getElementById('calculate-btn');
-const cgpaDisplay=document.getElementById('cgpa-display');
-const percentageDisplay=document.getElementById('percentage-display');
-const encouragementDisplay=document.getElementById('encouragement');
-const savedListDiv=document.getElementById('saved-list');
+// Elements
+const pages = document.querySelectorAll(".page");
+const startBtn = document.getElementById("start-btn");
+const departmentsDiv = document.getElementById("departments");
+const semestersDiv = document.getElementById("semesters");
+const subjectsList = document.getElementById("subjects-list");
+const calculateBtn = document.getElementById("calculate-btn");
+const savedList = document.getElementById("saved-list");
 
-const homeIcon=document.getElementById('home-icon');
-const graphIcon=document.getElementById('graph-icon');
-const savedIcon=document.getElementById('saved-icon');
+const email = document.getElementById("email");
+const password = document.getElementById("password");
+const loginMsg = document.getElementById("login-msg");
 
-const emailInput=document.getElementById('email');
-const passwordInput=document.getElementById('password');
-const signupBtn=document.getElementById('signup-btn');
-const loginBtn=document.getElementById('login-btn');
-const loginMsg=document.getElementById('login-msg');
+// Data
+const gradePoints = { S:10,A:9,B:8,C:7,D:6,E:5,F:0 };
+let selectedDept="", selectedSem=0;
+let subjects=[], grades={}, semesterCGPA={};
 
-// ===== Constants =====
-const gradePoints={S:10,A:9,B:8,C:7,D:6,E:5,F:0};
-const encouragements=[{min:9,msg:"Excellent work!"},{min:8,msg:"Very good!"},{min:7,msg:"Good!"},{min:5,msg:"Average!"},{min:0,msg:"Work harder!"}];
-const departments={engineering:["CSE","ISE","ECE","EEE","AA"],bcom:["BCOM"]};
-const maxSem=8;
+// Navigation
+function show(id){
+  pages.forEach(p=>p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
 
-// ===== State =====
-let selectedStream='',selectedDepartment='',selectedSemester=0,subjects=[],grades={},semesterCGPA={};
+// Login
+document.getElementById("signup-btn").onclick=()=>{
+  auth.createUserWithEmailAndPassword(email.value,password.value)
+  .then(()=>loginMsg.textContent="Signup success");
+};
 
-// ===== Chart.js =====
-const ctx=document.getElementById('gpa-chart').getContext('2d');
-const chart=new Chart(ctx,{
-  type:'line',
-  data:{labels:[...Array(maxSem).keys()].map(i=>`Sem ${i+1}`),datasets:[{label:'CGPA',data:Array(maxSem).fill(null),borderColor:'rgba(106,17,203,1)',backgroundColor:'rgba(37,117,252,0.3)',fill:true,tension:0.3}]},
-  options:{scales:{y:{min:0,max:10}}}
-});
+document.getElementById("login-btn").onclick=()=>{
+  auth.signInWithEmailAndPassword(email.value,password.value)
+  .then(()=>{ show("start-page"); loadData(); });
+};
 
-// ===== Navigation =====
-function show(id){pages.forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');}
-startBtn?.addEventListener('click',()=>show('start-page'));
-homeIcon.addEventListener('click',()=>show('start-page'));
-graphIcon.addEventListener('click',()=>show('chart-page'));
-savedIcon.addEventListener('click',()=>{renderSaved();show('saved-page');});
-
-// ===== Signup/Login =====
-signupBtn?.addEventListener('click',()=>{
-  auth.createUserWithEmailAndPassword(emailInput.value,passwordInput.value)
-    .then(()=>loginMsg.textContent="Signup successful!")
-    .catch(e=>loginMsg.textContent=e.message);
-});
-loginBtn?.addEventListener('click',()=>{
-  auth.signInWithEmailAndPassword(emailInput.value,passwordInput.value)
-    .then(()=>{loginMsg.textContent="Login successful!"; loadUserData(); show('start-page');})
-    .catch(e=>loginMsg.textContent=e.message);
-});
-
-// ===== Stream Buttons =====
-document.querySelectorAll('.stream-btn').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.stream-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    selectedStream=btn.dataset.stream.toLowerCase();
+// Stream
+document.querySelectorAll(".stream-btn").forEach(b=>{
+  b.onclick=()=>{
+    selectedDept = b.dataset.stream==="bcom"?"bcom":"cse";
     showDepartments();
-    show('department-page');
-  });
+    show("department-page");
+  };
 });
 
-// ===== Departments =====
+// Departments
 function showDepartments(){
-  departmentsDiv.innerHTML='';
-  departments[selectedStream].forEach(dep=>{
-    const b=document.createElement('button'); b.textContent=dep;
-    b.addEventListener('click',()=>{
-      document.querySelectorAll('#departments button').forEach(btn=>btn.classList.remove('active'));
-      b.classList.add('active');
-      selectedDepartment=dep.toLowerCase();
-      showSemesters();
-      show('semester-page');
-    });
-    departmentsDiv.appendChild(b);
+  departmentsDiv.innerHTML="";
+  ["cse"].forEach(d=>{
+    const btn=document.createElement("button");
+    btn.textContent=d.toUpperCase();
+    btn.onclick=()=>{ selectedDept=d; showSemesters(); show("semester-page"); };
+    departmentsDiv.appendChild(btn);
   });
 }
 
-// ===== Semesters =====
+// Semesters
 function showSemesters(){
-  semestersDiv.innerHTML='';
-  for(let i=1;i<=maxSem;i++){
-    const b=document.createElement('button'); b.textContent=`Semester ${i}`;
-    b.addEventListener('click',()=>{
-      document.querySelectorAll('#semesters button').forEach(btn=>btn.classList.remove('active'));
-      b.classList.add('active');
-      selectedSemester=i;
-      loadSubjects();
-      show('subjects-page');
-    });
+  semestersDiv.innerHTML="";
+  for(let i=1;i<=8;i++){
+    const b=document.createElement("button");
+    b.textContent="Semester "+i;
+    b.onclick=()=>{ selectedSem=i; loadSubjects(); show("subjects-page"); };
     semestersDiv.appendChild(b);
   }
 }
 
-// ===== Load Subjects =====
+// Load subjects
 async function loadSubjects(){
-  subjectsList.innerHTML=''; grades={};
-  try{
-    const res=await fetch(`data/${selectedDepartment}_sem${selectedSemester}.json`);
-    const data=await res.json();
-    subjects=data.subjects||[];
-    subjects.forEach(s=>{
-      const div=document.createElement('div'); div.className='subject';
-      div.innerHTML=`<strong>${s.code}</strong> - ${s.name} (${s.credits} cr)`;
-      const gradeDiv=document.createElement('div'); gradeDiv.className='grade-buttons';
-      Object.keys(gradePoints).forEach(g=>{
-        const btn=document.createElement('button'); btn.textContent=g;
-        btn.addEventListener('click',()=>{
-          grades[s.code]=g;
-          Array.from(gradeDiv.children).forEach(b=>b.classList.remove('selected'));
-          btn.classList.add('selected');
-        });
-        gradeDiv.appendChild(btn);
-      });
-      div.appendChild(gradeDiv);
-      subjectsList.appendChild(div);
+  subjectsList.innerHTML="";
+  grades={};
+  const res=await fetch(`data/${selectedDept}_sem${selectedSem}.json`);
+  const data=await res.json();
+  subjects=data.subjects;
+
+  subjects.forEach(s=>{
+    const div=document.createElement("div");
+    div.className="subject";
+    div.innerHTML=`<b>${s.code}</b> (${s.credits} cr)`;
+    const g=document.createElement("div");
+    g.className="grade-buttons";
+
+    Object.keys(gradePoints).forEach(gr=>{
+      const b=document.createElement("button");
+      b.textContent=gr;
+      b.onclick=()=>{ grades[s.code]=gr; };
+      g.appendChild(b);
     });
-  } catch {subjectsList.innerHTML="<p>Subjects not found!</p>";}
+    div.appendChild(g);
+    subjectsList.appendChild(div);
+  });
 }
 
-// ===== Calculate CGPA =====
-calculateBtn?.addEventListener('click',()=>{
-  if(Object.keys(grades).length!==subjects.length){alert("Select all grades"); return;}
+// Calculate CGPA
+calculateBtn.onclick=()=>{
   let total=0,credits=0;
-  subjects.forEach(s=>{total+=gradePoints[grades[s.code]]*s.credits; credits+=s.credits;});
+  subjects.forEach(s=>{
+    total+=gradePoints[grades[s.code]]*s.credits;
+    credits+=s.credits;
+  });
   const cgpa=(total/credits).toFixed(2);
-  cgpaDisplay.textContent=`CGPA: ${cgpa}`;
-  percentageDisplay.textContent=`Percentage: ${(cgpa*9.5).toFixed(2)}%`;
-  encouragements.some(e=>{if(cgpa>=e.min){encouragementDisplay.textContent=e.msg;return true;}});
-  saveSemesterCGPA(selectedSemester,cgpa,grades);
-});
 
-// ===== Save Semester to Firebase =====
-function saveSemesterCGPA(sem,cgpa,grades){
-  semesterCGPA[sem]={cgpa:parseFloat(cgpa),grades:{...grades}};
+  document.getElementById("cgpa-display").textContent="CGPA: "+cgpa;
+  document.getElementById("percentage-display").textContent=
+    "Percentage: "+(cgpa*9.5).toFixed(2)+"%";
+
+  saveSemester(cgpa);
+};
+
+// Save to Firebase
+function saveSemester(cgpa){
   const uid=auth.currentUser.uid;
-  db.ref('users/'+uid+'/semesters').set(semesterCGPA);
-  updateChart();
+  semesterCGPA[selectedSem]=cgpa;
+  db.ref("users/"+uid+"/semesters").set(semesterCGPA);
 }
 
-// ===== Update Chart =====
-function updateChart(){
-  chart.data.datasets[0].data=[...Array(maxSem).keys()].map(i=>semesterCGPA[i+1]?.cgpa||null);
-  chart.update();
-}
-
-// ===== Load User Data =====
-function loadUserData(){
+// Load saved
+function loadData(){
   const uid=auth.currentUser.uid;
-  db.ref('users/'+uid+'/semesters').once('value').then(snapshot=>{
-    semesterCGPA=snapshot.val()||{};
+  db.ref("users/"+uid+"/semesters").once("value",s=>{
+    semesterCGPA=s.val()||{};
+    renderSaved();
     updateChart();
   });
 }
 
-// ===== Saved Semesters =====
+// Saved list
 function renderSaved(){
-  savedListDiv.innerHTML='';
-  for(let i=1;i<=maxSem;i++){
-    if(semesterCGPA[i]){
-      const div=document.createElement('div');
-      div.textContent=`Semester ${i} → CGPA: ${semesterCGPA[i].cgpa}`;
-      savedListDiv.appendChild(div);
-    }
-  }
+  savedList.innerHTML="";
+  Object.keys(semesterCGPA).forEach(s=>{
+    savedList.innerHTML+=`<p>Semester ${s}: ${semesterCGPA[s]}</p>`;
+  });
+}
+
+// Chart
+const ctx=document.getElementById("cgpaChart");
+const chart=new Chart(ctx,{
+  type:"line",
+  data:{labels:[1,2,3,4,5,6,7,8],
+    datasets:[{label:"CGPA",data:Array(8).fill(null)}]},
+});
+
+function updateChart(){
+  chart.data.datasets[0].data=
+    Array(8).fill(null).map((_,i)=>semesterCGPA[i+1]||null);
+  chart.update();
 }
