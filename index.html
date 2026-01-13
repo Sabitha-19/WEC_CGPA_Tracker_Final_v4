@@ -4,82 +4,151 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WEC CGPA Tracker</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-<!-- Home / Start Page -->
-<div id="home-page" class="page active">
-  <h1>WEC CGPA Tracker 🎓</h1>
-  <p>Welcome to your academic performance assistant</p>
-  <button id="start-btn">Calculate Now ➔</button>
-</div>
-
-<!-- Semester Selection Page -->
-<div id="semester-page" class="page">
-  <h2>Select Semester</h2>
-  <div id="semesters"></div>
-  <button id="back-sem">← Back</button>
-</div>
-
-<!-- Subjects Page -->
-<div id="subjects-page" class="page">
-  <h2>Enter Your Grades</h2>
-  <div id="subjects-list"></div>
-  <button id="calculate-gpa">Calculate GPA & CGPA</button>
-  <button id="edit-sem">Edit Semester</button>
-  <button id="delete-sem">Delete Semester</button>
-  <div id="results">
-    <p id="gpa"></p>
-    <p id="cgpa"></p>
-    <p id="percentage"></p>
-    <p id="advice"></p>
+  <!-- Fixed Header -->
+  <div class="fixed-header">
+    <h1>WEC CGPA Tracker</h1>
+    <div class="nav-icons">
+      <span id="home-icon">🏠</span>
+      <span id="graph-icon">📊</span>
+    </div>
   </div>
-  <canvas id="gpaChart"></canvas>
-  <button id="back-to-sem">← Back</button>
-</div>
 
-<!-- FAQ Page -->
-<div id="faq-page" class="page">
-  <h2>Frequently Asked Questions</h2>
-  <div class="faq-item">
-    <p class="question">How to convert CGPA to Percentage?</p>
+  <!-- Pages -->
+
+  <!-- Start Page -->
+  <div class="page active" id="start-page">
+    <h2>Welcome to WEC CGPA Tracker 👩🏻‍🎓</h2>
+    <div class="button-group">
+      <button id="start-btn">Start</button>
+    </div>
   </div>
-  <div class="faq-item">
-    <p class="question">Difference between R2020 and NEP 2024?</p>
+
+  <!-- CGPA Info / Tips Page -->
+  <div class="page" id="cgpa-info-page">
+    <h2>CGPA Tips & Info</h2>
+    <p>Keep track of your grades, calculate CGPA easily, and get encouragement messages!</p>
+    <div class="button-group">
+      <button class="back-btn">Back</button>
+      <button id="continue-btn">Continue</button>
+    </div>
   </div>
-  <div class="faq-item">
-    <p class="question">Does 'W' (Withdrawal) affect CGPA?</p>
+
+  <!-- Stream Selection -->
+  <div class="page" id="stream-page">
+    <h2>Select Stream</h2>
+    <div class="button-group">
+      <button class="stream-btn" data-stream="engineering">Engineering</button>
+      <button class="stream-btn" data-stream="bcom">BCom</button>
+    </div>
+    <button class="back-btn">Back</button>
   </div>
-  <button class="back-btn">← Back</button>
-</div>
 
-<!-- Saved Semesters Page -->
-<div id="saved-page" class="page">
-  <h2>Saved Semester GPAs</h2>
-  <div id="saved-list"></div>
-  <button class="back-btn">← Back</button>
-</div>
+  <!-- Department Selection -->
+  <div class="page" id="department-page">
+    <h2>Select Department</h2>
+    <div class="button-group" id="departments"></div>
+    <button class="back-btn">Back</button>
+  </div>
 
-<!-- Grade Reference -->
-<div id="grade-reference">
-  <h2>Grade Point Reference</h2>
-  <div class="grade-card">S<br>Outstanding<br>10</div>
-  <div class="grade-card">A<br>Excellent<br>9</div>
-  <div class="grade-card">B<br>Very Good<br>8</div>
-  <div class="grade-card">C<br>Good<br>7</div>
-  <div class="grade-card">D<br>Above Avg<br>6</div>
-  <div class="grade-card">E<br>Pass<br>5</div>
-  <div class="grade-card">F<br>Fail<br>0</div>
-</div>
+  <!-- Semester Selection -->
+  <div class="page" id="semester-page">
+    <h2>Select Semester</h2>
+    <div class="button-group" id="semesters"></div>
+    <button class="back-btn">Back</button>
+  </div>
 
-<!-- Floating Buttons -->
-<div class="floating-buttons">
-  <button id="faq-btn">❓ FAQ</button>
-  <button id="saved-btn">💾 Saved Semesters</button>
-</div>
+  <!-- Subjects & Grades -->
+  <div class="page" id="subjects-page">
+    <h2>Select Grades for Subjects</h2>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="script.js"></script>
+    <!-- Grade Reference Cubes -->
+    <div class="cubic-grades" id="grade-reference">
+      <div class="grade-card">S<br>10</div>
+      <div class="grade-card">A<br>9</div>
+      <div class="grade-card">B<br>8</div>
+      <div class="grade-card">C<br>7</div>
+      <div class="grade-card">D<br>6</div>
+      <div class="grade-card">E<br>5</div>
+      <div class="grade-card">F<br>0</div>
+    </div>
+
+    <div id="subjects-list"></div>
+
+    <div class="grade-actions">
+      <button id="calculate-btn">Calculate CGPA</button>
+      <button id="edit-btn">Edit</button>
+      <button id="delete-btn">Delete</button>
+    </div>
+
+    <div class="results">
+      <p id="cgpa-display"></p>
+      <p id="percentage-display"></p>
+      <p id="encouragement"></p>
+    </div>
+
+    <canvas id="gpa-chart" style="max-width:700px;margin:30px auto;display:block;"></canvas>
+    <button class="back-btn">Back</button>
+  </div>
+
+  <!-- Floating Save Semester Button -->
+  <button id="save-sem-btn" style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(90deg,#6a11cb,#2575fc);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 1000;
+  ">Saved Semesters</button>
+
+  <!-- Saved Semesters Modal -->
+  <div id="saved-sem-modal" style="
+    display:none;
+    position:fixed;
+    top:0; left:0; right:0; bottom:0;
+    background:rgba(0,0,0,0.5);
+    justify-content:center;
+    align-items:center;
+    z-index:2000;
+  ">
+    <div style="
+      background:#fff;
+      padding:20px;
+      border-radius:12px;
+      max-width:400px;
+      width:90%;
+      max-height:80%;
+      overflow-y:auto;
+      text-align:center;
+      position:relative;
+    ">
+      <h2>Saved Semesters</h2>
+      <div id="saved-sem-list" style="margin-top:15px;"></div>
+      <button id="close-sem-modal" style="
+        margin-top:20px;
+        padding:8px 16px;
+        background:#ccc;
+        border:none;
+        border-radius:8px;
+        cursor:pointer;
+      ">Close</button>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="script.js"></script>
 </body>
 </html>
