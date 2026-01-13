@@ -1,197 +1,89 @@
-/* ===== GLOBAL ===== */
+*{ box-sizing:border-box; }
+
 body{
-  font-family: Poppins, Arial, sans-serif;
+  font-family:Poppins,Arial;
   margin:0;
   background:#f5f6ff;
   padding-top:70px;
 }
 
-.page{
-  display:none;
-  padding:20px;
-}
-.page.active{
-  display:block;
-}
+.page{ display:none; padding:20px; }
+.page.active{ display:block; }
 
-h2{
-  text-align:center;
-  color:#4a3aff;
-}
-
-/* ===== BUTTONS ===== */
-button{
-  padding:10px 18px;
-  border:none;
-  border-radius:12px;
-  cursor:pointer;
-  transition:.3s;
-  font-size:15px;
-}
-
-button:hover{
-  opacity:0.85;
-}
-
-.button-group{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:12px;
-  margin-top:20px;
-}
-
-.button-group button{
-  background:rgba(180,180,255,.4);
-}
-
-.back-btn{
-  margin:25px auto 0;
-  display:block;
-  background:#ddd;
-}
-
-/* ===== GRADE REFERENCE ===== */
-.cubic-grades{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:12px;
-  margin-top:15px;
-}
-
-.grade-card{
-  padding:15px;
-  min-width:70px;
-  text-align:center;
-  border-radius:12px;
-  font-weight:bold;
-  background:#fff;
-}
-
-/* ===== SUBJECT LIST ===== */
-#subjects-list{
-  max-width:700px;
-  margin:0 auto;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
-.subject{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:#fff;
-  padding:12px;
-  border-radius:12px;
-}
-
-.grade-buttons{
-  display:flex;
-  gap:5px;
-}
-
-.grade-buttons button{
-  min-width:40px;
-  background:rgba(180,180,255,.4);
-}
-
-.grade-buttons button.selected{
-  background:#4a3aff;
-  color:#fff;
-}
-
-/* ===== RESULTS ===== */
-.results{
-  text-align:center;
-  margin-top:20px;
-  font-weight:bold;
-}
-
-.grade-actions{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin-top:15px;
-}
-
-/* ===== HEADER ===== */
 .fixed-header{
   position:fixed;
   top:0;
   width:100%;
   background:#fff;
-  padding:10px 20px;
+  padding:12px 16px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  box-shadow:0 2px 5px rgba(0,0,0,.15);
-  z-index:1000;
+  box-shadow:0 2px 6px rgba(0,0,0,.15);
 }
 
+#back-btn{ font-size:20px; cursor:pointer; }
+
 .nav-icons span{
+  margin-left:10px;
   cursor:pointer;
-  font-size:1.5rem;
-  margin-left:12px;
+  font-size:18px;
+}
+
+h2{ text-align:center; color:#4a3aff; }
+
+button{
+  background:#f1f2f6;
+  color:#333;
+  border:none;
+  padding:12px 18px;
+  border-radius:14px;
+  cursor:pointer;
   transition:.3s;
 }
 
-.nav-icons span:hover{
-  transform:scale(1.2);
+button.active,
+button.selected{
+  background:linear-gradient(135deg,#4a3aff,#6a5cff);
+  color:white;
 }
 
-/* ===== FAQ ===== */
-.faq{
-  max-width:700px;
-  margin:20px auto;
+.button-group{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:12px;
 }
 
-.faq-item{
+/* SUBJECT */
+.subject{
   background:#fff;
-  margin-bottom:15px;
   padding:15px;
-  border-radius:12px;
-  box-shadow:0 2px 5px rgba(0,0,0,.1);
-}
-
-.faq-item h4{
-  margin:0;
-  color:#4a3aff;
-}
-
-.faq-item p{
-  margin-top:8px;
-  color:#444;
-}
-
-/* ===== HISTORY ===== */
-.history-cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(150px,1fr));
-  gap:15px;
-  margin-top:20px;
-}
-
-.history-card{
-  background:linear-gradient(135deg,#6a11cb,#2575fc);
-  color:#fff;
-  padding:20px;
+  margin-bottom:15px;
   border-radius:15px;
-  text-align:center;
-  font-weight:bold;
-  box-shadow:0 4px 10px rgba(0,0,0,.2);
 }
 
-/* ===== MOBILE ===== */
-@media(max-width:600px){
-  .subject{
-    flex-direction:column;
-    align-items:flex-start;
-    gap:10px;
-  }
+.grade-buttons{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+}
 
-  .grade-actions{
-    flex-direction:column;
-  }
+.grade-buttons button{
+  min-width:40px;
+}
+
+/* GRADE CARDS */
+.cubic-grades{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.grade-card{
+  background:#eef;
+  border-radius:16px;
+  padding:20px;
+  font-weight:bold;
+  text-align:center;
 }
