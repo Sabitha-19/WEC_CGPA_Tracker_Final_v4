@@ -1,92 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WEC CGPA Tracker</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WEC CGPA Tracker</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-<!-- Fixed Header with Icons -->
-<div class="fixed-header">
-  <h1>WEC CGPA Tracker</h1>
-  <div class="nav-icons">
-    <span id="home-icon" title="Home">🏠</span>
-    <span id="graph-icon" title="Graph">📊</span>
-    <span id="save-icon" title="Save Semester">🖨️</span>
+  <!-- Fixed Header -->
+  <div class="fixed-header">
+    <h1>WEC CGPA Tracker 👩🏻‍🎓</h1>
+    <div class="nav-icons">
+      <span id="home-icon">🏠</span>
+      <span id="graph-icon">📊</span>
+    </div>
   </div>
-</div>
 
-<!-- Pages -->
-<div id="start-page" class="page active">
-  <h2>Welcome to WEC CGPA Tracker</h2>
-  <p>Calculate your GPA/CGPA, track progress, and boost your scores!</p>
-  <button id="start-btn">Start</button>
-</div>
+  <!-- Start Page -->
+  <div class="page active" id="start-page">
+    <h2>Welcome to Women's Engineering College CGPA Tracker</h2>
+    <p style="text-align:center;">Track your GPA, CGPA, and get encouragement!</p>
+    <div style="text-align:center; margin-top:30px;">
+      <button id="start-btn">Start</button>
+    </div>
+  </div>
 
-<div id="stream-page" class="page">
-  <h2>Select Stream</h2>
-  <div class="button-group" id="streams">
-    <button class="stream-btn" data-stream="engineering">Engineering</button>
-    <button class="stream-btn" data-stream="bcom">B.Com</button>
+  <!-- Stream Page -->
+  <div class="page" id="stream-page">
+    <h2>Select Stream</h2>
+    <div class="button-group">
+      <button class="stream-btn" data-stream="engineering">Engineering</button>
+      <button class="stream-btn" data-stream="bcom">BCom</button>
+    </div>
+    <button class="back-btn">Back</button>
+  </div>
+
+  <!-- Department Page -->
+  <div class="page" id="department-page">
+    <h2>Select Department</h2>
+    <div class="button-group" id="departments"></div>
+    <button class="back-btn">Back</button>
+  </div>
+
+  <!-- Semester Page -->
+  <div class="page" id="semester-page">
+    <h2>Select Semester</h2>
+    <div class="button-group" id="semesters"></div>
+    <button class="back-btn">Back</button>
+  </div>
+
+  <!-- Subjects Page -->
+  <div class="page" id="subjects-page">
+    <h2>Subjects & Grades</h2>
+    <div id="subjects-list"></div>
+
+    <div class="grade-actions">
+      <button id="calculate-btn">Calculate GPA</button>
+      <button id="edit-btn">Edit Grades</button>
+      <button id="delete-btn">Reset Semester</button>
+      <button id="save-semester-btn">🖨️ Saved Semesters</button>
+    </div>
+
+    <div class="results">
+      <p id="gpa-display"></p>
+      <p id="cgpa-display"></p>
+      <p id="percentage-display"></p>
+      <p id="encouragement"></p>
+    </div>
+
+    <canvas id="gpa-chart" style="max-width:700px; margin:20px auto; display:block;"></canvas>
+    <button class="back-btn">Back</button>
+  </div>
+
+  <!-- Saved Semester Page -->
+  <div class="page" id="saved-semesters-page">
+    <h2>Saved Semester GPAs</h2>
+    <div id="saved-semesters-list" class="button-group"></div>
+    <button class="back-btn">Back</button>
+  </div>
+<!-- Grade Reference Page -->
+<div class="page" id="grade-reference-page">
+  <h2>Grade Reference Points</h2>
+  <div class="cubic-grades">
+    <div class="grade-card grade-s">
+      <h3>S</h3>
+      <p>Outstanding</p>
+      <p>10 Pts</p>
+    </div>
+    <div class="grade-card grade-a">
+      <h3>A</h3>
+      <p>Excellent</p>
+      <p>9 Pts</p>
+    </div>
+    <div class="grade-card grade-b">
+      <h3>B</h3>
+      <p>Very Good</p>
+      <p>8 Pts</p>
+    </div>
+    <div class="grade-card grade-c">
+      <h3>C</h3>
+      <p>Good</p>
+      <p>7 Pts</p>
+    </div>
+    <div class="grade-card grade-d">
+      <h3>D</h3>
+      <p>Above Avg</p>
+      <p>6 Pts</p>
+    </div>
+    <div class="grade-card grade-e">
+      <h3>E</h3>
+      <p>Pass</p>
+      <p>5 Pts</p>
+    </div>
+    <div class="grade-card grade-f">
+      <h3>F</h3>
+      <p>Fail</p>
+      <p>0 Pts</p>
+    </div>
   </div>
   <button class="back-btn">Back</button>
 </div>
 
-<div id="department-page" class="page">
-  <h2>Select Department</h2>
-  <div class="button-group" id="departments"></div>
-  <button class="back-btn">Back</button>
-</div>
-
-<div id="semester-page" class="page">
-  <h2>Select Semester</h2>
-  <div class="button-group" id="semesters"></div>
-  <button class="back-btn">Back</button>
-</div>
-
-<div id="subjects-page" class="page">
-  <h2>Enter Grades</h2>
-  <div id="subjects-list"></div>
-  <div class="grade-actions">
-    <button id="calculate-btn">Calculate CGPA</button>
-  </div>
-  <div class="results">
-    <p id="gpa-display"></p>
-    <p id="cgpa-display"></p>
-    <p id="percentage-display"></p>
-    <p id="encouragement"></p>
-  </div>
-  <button class="back-btn">Back</button>
-</div>
-
-<div id="graph-page" class="page">
-  <h2>CGPA Progression</h2>
-  <canvas id="gpa-chart"></canvas>
-  <button class="back-btn">Back</button>
-</div>
-
-<div id="saved-page" class="page">
-  <h2>Saved Semesters</h2>
-  <div id="saved-list"></div>
-  <button class="back-btn">Back</button>
-</div>
-
-<!-- Firebase Login/Signup -->
-<div id="login-page" class="page">
-  <h2>Login / Signup</h2>
-  <input type="email" id="email" placeholder="Email"><br>
-  <input type="password" id="password" placeholder="Password"><br>
-  <button id="signup-btn">Signup</button>
-  <button id="login-btn">Login</button>
-  <p id="login-msg"></p>
-</div>
-
-<script type="module" src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
