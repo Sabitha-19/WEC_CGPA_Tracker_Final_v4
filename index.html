@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>WEC CGPA Tracker</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>WEC CGPA Tracker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -14,42 +14,32 @@
 <!-- HEADER -->
 <header class="fixed-header">
   <span id="back-btn">⬅</span>
-
   <h3>WEC CGPA Tracker</h3>
-
   <div class="nav-icons">
-    <span id="home-icon" title="Home">🏠</span>
-    <span id="graph-icon" title="Graph">📊</span>
-    <span id="print-icon" title="Print">🖨️</span>
-    <span id="faq-icon" title="FAQ">❓</span>
+    <span id="home-icon">🏠</span>
+    <span id="graph-icon">📊</span>
+    <span id="print-icon">🖨️</span>
   </div>
 </header>
 
-<!-- WELCOME PAGE -->
+<!-- START PAGE -->
 <section id="start-page" class="page active">
-  <h1 class="welcome">
-    Welcome to <br>
-    <span>Women’s Engineering College</span><br>
-    CGPA Tracker 👩🏻‍🎓
-  </h1>
+  <h2>Calculate Your CGPA Instantly</h2>
+  <button onclick="showPage('stream-page')">Calculate Now ➜</button>
 
-  <button onclick="showPage('stream-page')">Start Calculation ➜</button>
-
-  <!-- GRADE POINT REFERENCE -->
   <h2>Grade Point Reference</h2>
-
-  <div class="grade-grid">
-    <div class="grade-card">S<br><span>10</span></div>
-    <div class="grade-card">A<br><span>9</span></div>
-    <div class="grade-card">B<br><span>8</span></div>
-    <div class="grade-card">C<br><span>7</span></div>
-    <div class="grade-card">D<br><span>6</span></div>
-    <div class="grade-card">E<br><span>5</span></div>
-    <div class="grade-card fail">F<br><span>0</span></div>
+  <div class="cubic-grades">
+    <div class="grade-card">S<br>10</div>
+    <div class="grade-card">A<br>9</div>
+    <div class="grade-card">B<br>8</div>
+    <div class="grade-card">C<br>7</div>
+    <div class="grade-card">D<br>6</div>
+    <div class="grade-card">E<br>5</div>
+    <div class="grade-card fail">F<br>0</div>
   </div>
 </section>
 
-<!-- STREAM -->
+<!-- STREAM PAGE -->
 <section id="stream-page" class="page">
   <h2>Select Stream</h2>
   <div class="button-group">
@@ -57,37 +47,32 @@
   </div>
 </section>
 
-<!-- DEPARTMENT -->
+<!-- DEPARTMENT PAGE -->
 <section id="department-page" class="page">
   <h2>Select Department</h2>
   <div id="departments" class="button-group"></div>
 </section>
 
-<!-- SEMESTER -->
+<!-- SEMESTER PAGE -->
 <section id="semester-page" class="page">
   <h2>Select Semester</h2>
   <div id="semesters" class="button-group"></div>
 </section>
 
-<!-- SUBJECTS -->
+<!-- SUBJECTS PAGE -->
 <section id="subjects-page" class="page">
   <h2>Enter Grades</h2>
-
   <div id="subjects-list"></div>
-
   <button id="calculate-btn">Calculate GPA & CGPA</button>
 
-  <div class="result">
-    <p id="gpa"></p>
-    <p id="cgpa"></p>
-    <p id="percentage"></p>
-  </div>
+  <p id="gpa"></p>
+  <p id="cgpa"></p>
+  <p id="percentage"></p>
 </section>
 
 <!-- FAQ PAGE -->
 <section id="faq-page" class="page">
   <h2>Frequently Asked Questions</h2>
-
   <div class="faq">
     <h4>📌 What is CGPA?</h4>
     <p>CGPA (Cumulative Grade Point Average) is the average of GPA obtained in all semesters.</p>
