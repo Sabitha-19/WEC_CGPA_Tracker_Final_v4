@@ -2,110 +2,74 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WEC CGPA Tracker</title>
-
-<link rel="stylesheet" href="css/style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header class="fixed-header">
-  <h1>WEC CGPA Tracker</h1>
+  <span id="back-btn">⬅</span>
+  <h3>WEC CGPA Tracker</h3>
   <div class="nav-icons">
     <span id="home-icon">🏠</span>
     <span id="graph-icon">📊</span>
-    <span id="history-icon">🗂️</span>
-    <span id="faq-icon">❓</span>
+    <span id="print-icon">🖨️</span>
   </div>
 </header>
 
-<div id="app">
+<!-- START -->
+<section id="start-page" class="page active">
+  <h2>Calculate Your CGPA Instantly</h2>
+  <button onclick="showPage('stream-page')">Calculate Now ➜</button>
 
-  <!-- Start Page -->
-  <section id="start-page" class="page active">
-    <h2>Calculate Your CGPA Instantly</h2>
-    <button id="start-btn">Calculate Now ➜</button>
-  </section>
+  <h2>Grade Point Reference</h2>
+  <div class="cubic-grades">
+    <div class="grade-card">S<br>10</div>
+    <div class="grade-card">A<br>9</div>
+    <div class="grade-card">B<br>8</div>
+    <div class="grade-card">C<br>7</div>
+    <div class="grade-card">D<br>6</div>
+    <div class="grade-card">E<br>5</div>
+    <div class="grade-card">F<br>0</div>
+  </div>
+</section>
 
-  <!-- Stream -->
-  <section id="stream-page" class="page">
-    <h2>Select Stream</h2>
-    <div class="button-group">
-      <button class="stream-btn" data-stream="engineering">Engineering</button>
-      <button class="stream-btn" data-stream="bcom">B.Com</button>
-    </div>
-    <button class="back-btn">⬅ Back</button>
-  </section>
+<!-- STREAM -->
+<section id="stream-page" class="page">
+  <h2>Select Stream</h2>
+  <div class="button-group">
+    <button onclick="selectStream('engineering',this)">Engineering</button>
+  </div>
+</section>
 
-  <!-- Department -->
-  <section id="department-page" class="page">
-    <h2>Select Department</h2>
-    <div id="departments" class="button-group"></div>
-    <button class="back-btn">⬅ Back</button>
-  </section>
+<!-- DEPARTMENT -->
+<section id="department-page" class="page">
+  <h2>Select Department</h2>
+  <div id="departments" class="button-group"></div>
+</section>
 
-  <!-- Semester -->
-  <section id="semester-page" class="page">
-    <h2>Select Semester</h2>
-    <div id="semesters" class="button-group"></div>
-    <button class="back-btn">⬅ Back</button>
-  </section>
+<!-- SEMESTER -->
+<section id="semester-page" class="page">
+  <h2>Select Semester</h2>
+  <div id="semesters" class="button-group"></div>
+</section>
 
-  <!-- Subjects -->
-  <section id="subjects-page" class="page">
-    <h2>Enter Grades</h2>
-    <div id="subjects-list"></div>
+<!-- SUBJECTS -->
+<section id="subjects-page" class="page">
+  <h2>Enter Grades</h2>
+  <div id="subjects-list"></div>
+  <button id="calculate-btn">Calculate GPA & CGPA</button>
 
-    <div class="grade-actions">
-      <button id="calculate-btn">Calculate</button>
-      <button id="edit-btn">Edit</button>
-      <button id="delete-btn">Delete</button>
-    </div>
+  <p id="gpa"></p>
+  <p id="cgpa"></p>
+  <p id="percentage"></p>
+</section>
 
-    <div class="results">
-      <p id="gpa-display"></p>
-      <p id="cgpa-display"></p>
-      <p id="percentage-display"></p>
-      <p id="encouragement"></p>
-    </div>
-
-    <canvas id="gpa-chart"></canvas>
-    <button class="back-btn">⬅ Back</button>
-  </section>
-
-  <!-- FAQ Page -->
-  <section id="faq-page" class="page">
-    <h2>Frequently Asked Questions</h2>
-
-    <div class="faq">
-      <div class="faq-item">
-        <h4>How is GPA calculated?</h4>
-        <p>Total grade points ÷ total credits.</p>
-      </div>
-      <div class="faq-item">
-        <h4>How is CGPA calculated?</h4>
-        <p>Average of all semester GPAs.</p>
-      </div>
-      <div class="faq-item">
-        <h4>Is my data saved?</h4>
-        <p>Yes, using browser localStorage.</p>
-      </div>
-    </div>
-
-    <button class="back-btn">⬅ Back</button>
-  </section>
-
-  <!-- History Page -->
-  <section id="history-page" class="page">
-    <h2>Saved Semester History</h2>
-    <div id="history-cards" class="history-cards"></div>
-    <button class="back-btn">⬅ Back</button>
-  </section>
-
-</div>
-
-<script src="js/script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
