@@ -2,79 +2,83 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WEC CGPA Tracker</title>
-<link rel="stylesheet" href="css/style.css">
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-<!-- Chart.js -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-database-compat.js"></script>
 </head>
+
 <body>
 
 <header>
-  <h1>WEC CGPA Tracker</h1>
-  <div class="icons">
-    <span id="home-icon">🏠</span>
-    <span id="graph-icon">📊</span>
-    <span id="saved-icon">💾</span>
-  </div>
+  <h2>🎓 WEC CGPA Tracker</h2>
 </header>
 
-<!-- Pages -->
-<div id="login-page" class="page active">
-  <h2>Login / Signup</h2>
-  <input type="email" id="email" placeholder="Email">
-  <input type="password" id="password" placeholder="Password">
-  <button id="signup-btn">Sign Up</button>
+<!-- 🔐 LOGIN -->
+<section id="login-page" class="page active">
+  <input id="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
+  <button id="signup-btn">Signup</button>
   <button id="login-btn">Login</button>
   <p id="login-msg"></p>
-</div>
+</section>
 
-<div id="start-page" class="page">
+<!-- START -->
+<section id="start-page" class="page">
+  <h3>What is CGPA?</h3>
+  <p>CGPA is the average of all semester GPAs.</p>
   <button id="start-btn">Start</button>
-  <p>CGPA info & tips...</p>
-</div>
+</section>
 
-<div id="stream-page" class="page">
-  <h2>Select Stream</h2>
-  <div id="streams">
-    <button class="stream-btn" data-stream="engineering">Engineering</button>
-    <button class="stream-btn" data-stream="bcom">BCom</button>
-  </div>
-</div>
+<!-- STREAM -->
+<section id="stream-page" class="page">
+  <button class="stream-btn" data-stream="engineering">Engineering</button>
+  <button class="stream-btn" data-stream="bcom">B.Com</button>
+</section>
 
-<div id="department-page" class="page">
-  <h2>Select Department</h2>
+<!-- DEPARTMENT -->
+<section id="department-page" class="page">
   <div id="departments"></div>
-</div>
+</section>
 
-<div id="semester-page" class="page">
-  <h2>Select Semester</h2>
+<!-- SEMESTER -->
+<section id="semester-page" class="page">
   <div id="semesters"></div>
-</div>
+</section>
 
-<div id="subjects-page" class="page">
-  <h2>Enter Grades</h2>
+<!-- SUBJECTS -->
+<section id="subjects-page" class="page">
   <div id="subjects-list"></div>
   <button id="calculate-btn">Calculate CGPA</button>
-  <p id="cgpa-display"></p>
-  <p id="percentage-display"></p>
+
+  <h3 id="cgpa-display"></h3>
+  <h4 id="percentage-display"></h4>
   <p id="encouragement"></p>
-</div>
+</section>
 
-<div id="saved-page" class="page">
-  <h2>Saved Semesters</h2>
+<!-- SAVED -->
+<section id="saved-page" class="page">
+  <h3>Saved Semesters</h3>
   <div id="saved-list"></div>
-</div>
+</section>
 
-<div id="chart-page" class="page">
-  <h2>CGPA Graph</h2>
-  <canvas id="gpa-chart"></canvas>
-</div>
+<!-- GRAPH -->
+<section id="graph-page" class="page">
+  <canvas id="cgpaChart"></canvas>
+</section>
 
-<script src="js/script.js"></script>
+<footer>
+  <button onclick="show('start-page')">🏠</button>
+  <button onclick="show('saved-page')">💾</button>
+  <button onclick="show('graph-page')">📊</button>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
