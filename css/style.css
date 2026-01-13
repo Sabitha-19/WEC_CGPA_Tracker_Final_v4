@@ -1,71 +1,45 @@
 /* ===== Global ===== */
-* { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-body { margin: 0; background: #f7f8fc; color: #333; padding-top: 65px; }
+*{box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{margin:0;background:#f7f8fc;color:#333;padding-top:65px;}
+h2,h3{text-align:center;color:#4a3aff;}
 
-/* ===== Header ===== */
-.fixed-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: rgba(255,255,255,0.95);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 18px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  z-index: 1000;
-}
-.fixed-header h1 { font-size: 18px; font-weight: 600; color: #4a3aff; }
-.nav-icons span { font-size: 22px; cursor: pointer; margin-left: 12px; }
+/* Header */
+.fixed-header{position:fixed;top:0;width:100%;background:rgba(255,255,255,0.95);display:flex;justify-content:space-between;align-items:center;padding:12px 18px;box-shadow:0 2px 8px rgba(0,0,0,0.1);z-index:1000;}
+.fixed-header h1{font-size:18px;font-weight:600;color:#4a3aff;}
+.nav-icons span{font-size:22px;cursor:pointer;margin-left:12px;}
 
-/* ===== CGPA Info Section ===== */
-.cgpa-info { background: rgba(255,255,255,0.75); padding: 16px; border-radius: 16px; max-width: 420px; margin: 20px auto; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
-.cgpa-info h3 { font-size: 16px; margin-bottom: 8px; color: #4a3aff; }
-.cgpa-info h4 { font-size: 14px; margin: 10px 0 6px; color: #333; }
-.cgpa-info ul { padding-left: 18px; margin: 0; }
-.cgpa-info li { font-size: 13.5px; margin-bottom: 6px; color: #444; }
+/* Buttons */
+button{padding:12px 20px;border:none;border-radius:14px;background:rgba(106,17,203,0.12);color:#4a3aff;font-weight:500;cursor:pointer;}
+button:hover{background:rgba(106,17,203,0.22);}
+.start-btn{display:block;margin:20px auto;background:linear-gradient(90deg,#6a11cb,#2575fc);color:#fff;}
+.back-btn{margin-top:20px;background:rgba(0,0,0,0.1);color:#333;}
 
-/* ===== Pages ===== */
-.page { display: none; padding: 20px; }
-.page.active { display: block; }
-h2, h3 { text-align: center; color: #4a3aff; }
+/* Pages */
+.page{display:none;padding:20px;}
+.page.active{display:block;}
 
-/* ===== Buttons ===== */
-button { padding: 12px 20px; border: none; border-radius: 14px; background: rgba(106,17,203,0.12); color: #4a3aff; font-weight: 500; cursor: pointer; }
-button:hover { background: rgba(106,17,203,0.22); }
-.start-btn { display: block; margin: 20px auto; background: linear-gradient(90deg,#6a11cb,#2575fc); color: #fff; }
+/* Button Groups */
+.button-group{display:flex;flex-direction:column;gap:12px;align-items:center;}
+.button-group button{width:90%;max-width:320px;}
 
-/* ===== Button Groups ===== */
-.button-group { display: flex; flex-direction: column; gap: 12px; align-items: center; }
-.button-group button { width: 90%; max-width: 320px; }
+/* Cubic Grades */
+.grade-reference{margin-top:30px;}
+.cubic-grades{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:340px;margin:auto;}
+.grade-card{padding:14px;border-radius:16px;text-align:center;font-weight:600;font-size:14px;color:#333;backdrop-filter:blur(6px);}
+.grade-s{background:rgba(190,255,210,0.6);}
+.grade-a{background:rgba(210,255,190,0.6);}
+.grade-b{background:rgba(200,230,255,0.6);}
+.grade-c{background:rgba(210,220,255,0.6);}
+.grade-d{background:rgba(240,220,255,0.6);}
+.grade-e{background:rgba(255,245,200,0.6);}
+.grade-f{background:rgba(255,200,200,0.6);}
 
-/* ===== Grade Reference ===== */
-.grade-reference { margin-top: 30px; }
-.cubic-grades { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; max-width: 340px; margin: auto; }
-.grade-card { padding: 14px; border-radius: 16px; text-align: center; font-weight: 600; font-size: 14px; color: #333; backdrop-filter: blur(6px); }
-.grade-s { background: rgba(190,255,210,0.6); }
-.grade-a { background: rgba(210,255,190,0.6); }
-.grade-b { background: rgba(200,230,255,0.6); }
-.grade-c { background: rgba(210,220,255,0.6); }
-.grade-d { background: rgba(240,220,255,0.6); }
-.grade-e { background: rgba(255,245,200,0.6); }
-.grade-f { background: rgba(255,200,200,0.6); }
+/* Subjects */
+.subject{background:rgba(255,255,255,0.75);padding:12px;border-radius:14px;margin-bottom:12px;}
+.grade-buttons{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;}
+.grade-buttons button{width:38px;height:38px;padding:0;}
+.grade-buttons button.selected{background:linear-gradient(90deg,#6a11cb,#2575fc);color:#fff;}
 
-/* ===== Subjects ===== */
-.subject { background: rgba(255,255,255,0.75); padding: 12px; border-radius: 14px; margin-bottom: 12px; }
-.grade-buttons { margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap; }
-.grade-buttons button { width: 38px; height: 38px; padding: 0; }
-.grade-buttons button.selected { background: linear-gradient(90deg,#6a11cb,#2575fc); color: #fff; }
-
-/* ===== Results ===== */
-.results { margin-top: 15px; text-align: center; font-weight: 500; }
-
-/* ===== Back Button ===== */
-.back-btn { margin-top: 20px; background: rgba(0,0,0,0.1); color: #333; }
-
-/* ===== Saved Semesters Page ===== */
-#saved-list button { width: 90%; max-width: 300px; background: rgba(37,117,252,0.15); color: #2575fc; }
-#saved-list button:hover { background: rgba(37,117,252,0.3); transform: scale(1.02); }
-
-/* ===== Mobile ===== */
-@media (max-width:600px) { .cubic-grades { grid-template-columns: repeat(2,1fr); } }
+/* Results */
+.results{text-align:center;font-weight:500;margin-top:15px;}
+input{padding:10px;margin:6px 0;width:90%;max-width:300px;border-radius:10px;border:1px solid #ccc;}
