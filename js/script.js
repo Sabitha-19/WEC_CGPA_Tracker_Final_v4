@@ -1,125 +1,191 @@
-// =================== Data ===================
-const gradePoints = { S:10, A:9, B:8, C:7, D:6, E:5, F:0 };
-const subjectsData = {
-  1:[{name:"Maths",credits:4},{name:"Physics",credits:3}],
-  2:[{name:"Chemistry",credits:3},{name:"English",credits:2}],
-  // Add all your semesters and subjects here
-};
-
-let selectedSemester = null;
-let semesterGPAs = JSON.parse(localStorage.getItem('semesterGPAs')) || Array(8).fill(null);
-
-// =================== Navigation ===================
-function showPage(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
-document.getElementById('start-btn').addEventListener('click',()=>showPage('semester-page'));
-document.getElementById('back-sem').addEventListener('click',()=>showPage('home-page'));
-document.getElementById('back-to-sem').addEventListener('click',()=>showPage('semester-page'));
-document.querySelectorAll('.back-btn').forEach(btn=>btn.addEventListener('click',()=>showPage('home-page')));
-
-// =================== Semester Buttons ===================
+// ===== Variables =====
+const pages = document.querySelectorAll('.page');
+const startBtn = document.getElementById('start-btn');
+const continueBtn = document.getElementById('continue-btn');
+const streamsDiv = document.getElementById('streams');
+const departmentsDiv = document.getElementById('departments');
 const semestersDiv = document.getElementById('semesters');
-for(let i=1;i<=8;i++){
-  const b=document.createElement('button'); b.textContent=`Semester ${i}`;
-  b.addEventListener('click',()=>{
-    selectedSemester=i;
-    loadSubjects();
-    showPage('subjects-page');
-  });
-  semestersDiv.appendChild(b);
+const subjectsList = document.getElementById('subjects-list');
+const calculateBtn = document.getElementById('calculate-btn');
+const editBtn = document.getElementById('edit-btn');
+const deleteBtn = document.getElementById('delete-btn');
+const cgpaDisplay = document.getElementById('cgpa-display');
+const percentageDisplay = document.getElementById('percentage-display');
+const encouragementDisplay = document.getElementById('encouragement');
+
+const homeIcon = document.getElementById('home-icon');
+const graphIcon = document.getElementById('graph-icon');
+
+const gradePoints = { "S":10,"A":9,"B":8,"C":7,"D":6,"E":5,"F":0 };
+const encouragements = [
+  { min:9,msg:"Excellent work! Keep it up!" },
+  { min:8,msg:"Very good! You can reach the top!" },
+  { min:7,msg:"Good! Focus on improving slightly." },
+  { min:5,msg:"Average. Need more effort." },
+  { min:0,msg:"Work harder! You can improve!" }
+];
+
+let selectedStream='', selectedDepartment='', selectedSemester=0;
+let subjects=[], grades={};
+let semesterGPAs = JSON.parse(localStorage.getItem('semesterGPAs')) || [];
+
+// ===== Navigation =====
+function showPage(id){
+  pages.forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  updateNavHighlight(id);
 }
 
-// =================== Load Subjects ===================
-const subjectsListDiv = document.getElementById('subjects-list');
-function loadSubjects(){
-  subjectsListDiv.innerHTML='';
-  const subjects = subjectsData[selectedSemester];
-  subjects.forEach((sub,index)=>{
-    const div=document.createElement('div');
-    div.innerHTML=`${sub.name} (${sub.credits} cr)
-      <select id="grade-${index}">
-        ${Object.keys(gradePoints).map(g=>`<option value="${g}">${g}</option>`).join('')}
-      </select>`;
-    subjectsListDiv.appendChild(div);
-  });
+function updateNavHighlight(id){
+  homeIcon.style.opacity = (id==='start-page')?1:0.5;
+  graphIcon.style.opacity = (id==='subjects-page')?1:0.5;
 }
 
-// =================== GPA Calculation ===================
-document.getElementById('calculate-gpa').addEventListener('click',()=>{
-  const subjects = subjectsData[selectedSemester];
-  let totalPoints=0, totalCredits=0;
-  subjects.forEach((sub,index)=>{
-    const grade=document.getElementById(`grade-${index}`).value;
-    totalPoints += gradePoints[grade]*sub.credits;
-    totalCredits += sub.credits;
+document.querySelectorAll('.back-btn').forEach(b=>b.addEventListener('click',()=>{ showPage('start-page'); }));
+startBtn.addEventListener('click',()=>showPage('cgpa-info-page'));
+homeIcon.addEventListener('click',()=>showPage('start-page'));
+graphIcon.addEventListener('click',()=>showPage('subjects-page'));
+continueBtn.addEventListener('click',()=>showPage('stream-page'));
+
+// Streams
+document.querySelectorAll('.stream-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    selectedStream = btn.dataset.stream;
+    showDepartments(); showPage('department-page');
   });
-  const gpa = (totalPoints/totalCredits).toFixed(2);
-  semesterGPAs[selectedSemester-1] = parseFloat(gpa);
-  localStorage.setItem('semesterGPAs',JSON.stringify(semesterGPAs));
-  displayResults();
-  renderChart();
 });
 
-// =================== Display Results ===================
-function displayResults(){
-  const gpa = semesterGPAs[selectedSemester-1];
-  const cgpa = (semesterGPAs.filter(g=>g!==null).reduce((a,b)=>a+b,0)/semesterGPAs.filter(g=>g!==null).length).toFixed(2);
-  document.getElementById('gpa').textContent=`GPA: ${gpa}`;
-  document.getElementById('cgpa').textContent=`CGPA: ${cgpa}`;
-  document.getElementById('percentage').textContent=`Percentage: ${(cgpa*9.5).toFixed(2)}%`;
-  document.getElementById('advice').textContent = gpa>=8 ? "Excellent! Keep it up." : "Good! Focus on improving slightly.";
-}
-
-// =================== Chart ===================
-let chart=null;
-function renderChart(){
-  const ctx = document.getElementById('gpaChart').getContext('2d');
-  if(chart) chart.destroy();
-  chart = new Chart(ctx,{
-    type:'line',
-    data:{
-      labels:['Sem1','Sem2','Sem3','Sem4','Sem5','Sem6','Sem7','Sem8'],
-      datasets:[{ label:'Semester GPA', data:semesterGPAs, borderColor:'#6a11cb', backgroundColor:'#aabbff66', fill:true }]
-    },
-    options:{ responsive:true, scales:{ y:{ min:0, max:10 } } }
+// Departments
+const departments = { engineering:["CSE","ISE","ECE","EEE","AA"], bcom:["BCOM"] };
+function showDepartments(){
+  departmentsDiv.innerHTML='';
+  departments[selectedStream].forEach(dep=>{
+    const b=document.createElement('button'); b.textContent=dep;
+    b.addEventListener('click',()=>{
+      selectedDepartment=dep.toLowerCase(); showSemesters(); showPage('semester-page');
+    });
+    departmentsDiv.appendChild(b);
   });
 }
 
-// =================== Floating Buttons ===================
-const faqBtn = document.getElementById('faq-btn');
-const savedBtn = document.getElementById('saved-btn');
-const savedList = document.getElementById('saved-list');
+// Semesters
+function showSemesters(){
+  semestersDiv.innerHTML='';
+  for(let i=1;i<=8;i++){
+    const b=document.createElement('button'); b.textContent=`Semester ${i}`;
+    b.addEventListener('click',()=>{
+      selectedSemester=i; loadSubjects(); showPage('subjects-page');
+    });
+    semestersDiv.appendChild(b);
+  }
+}
 
-faqBtn.addEventListener('click',()=>showPage('faq-page'));
-savedBtn.addEventListener('click',()=>{
-  showPage('saved-page');
-  renderSavedSemesters();
-});
-
-// Render Saved Semesters
-function renderSavedSemesters(){
-  savedList.innerHTML='';
-  semesterGPAs.forEach((gpa,i)=>{
-    if(gpa!==null && gpa!==undefined){
-      const div=document.createElement('div'); div.className='saved-item';
-      div.innerHTML=`<span>Semester ${i+1}:</span> <span>GPA: ${gpa}</span>`;
-      const delBtn=document.createElement('button'); delBtn.textContent='Delete';
-      delBtn.addEventListener('click',()=>{
-        semesterGPAs[i]=null;
-        localStorage.setItem('semesterGPAs',JSON.stringify(semesterGPAs));
-        renderSavedSemesters();
-        renderChart();
+// Load Subjects
+async function loadSubjects(){
+  subjectsList.innerHTML=''; grades={};
+  try{
+    const res = await fetch(`data/${selectedDepartment}_sem${selectedSemester}.json`);
+    const data = await res.json(); subjects = data.subjects;
+    subjects.forEach(s=>{
+      const div=document.createElement('div'); div.className='subject';
+      div.innerHTML=`<span>${s.code} - ${s.name} (${s.credits}cr)</span>`;
+      const gradeDiv=document.createElement('div'); gradeDiv.className='grade-buttons';
+      ["S","A","B","C","D","E","F"].forEach(g=>{
+        const btn=document.createElement('button'); btn.textContent=g;
+        btn.addEventListener('click',()=>{
+          grades[s.code]=g; 
+          Array.from(gradeDiv.children).forEach(b=>b.classList.remove('selected')); 
+          btn.classList.add('selected'); 
+        });
+        gradeDiv.appendChild(btn);
       });
-      div.appendChild(delBtn);
+      div.appendChild(gradeDiv); subjectsList.appendChild(div);
+    });
+    const saved=JSON.parse(localStorage.getItem(`${selectedDepartment}_sem${selectedSemester}`))||{};
+    Object.keys(saved).forEach(code=>{
+      const subDiv = Array.from(subjectsList.querySelectorAll('.subject')).find(d=>d.textContent.includes(code));
+      if(subDiv){
+        const btn = Array.from(subDiv.querySelectorAll('button')).find(b=>b.textContent===saved[code]);
+        if(btn){ btn.classList.add('selected'); grades[code]=saved[code]; }
+      }
+    });
+  }catch(e){ subjectsList.innerHTML="<p>Subjects not found!</p>"; }
+}
+
+// Calculate CGPA & Percentage
+calculateBtn.addEventListener('click',calculate);
+editBtn.addEventListener('click',()=>loadSubjects());
+deleteBtn.addEventListener('click',()=>{
+  localStorage.removeItem(`${selectedDepartment}_sem${selectedSemester}`);
+  semesterGPAs[selectedSemester-1]=null; 
+  localStorage.setItem('semesterGPAs',JSON.stringify(semesterGPAs));
+  grades={}; subjectsList.innerHTML=''; updateChart(); 
+  cgpaDisplay.textContent=''; 
+  percentageDisplay.textContent=''; 
+  encouragementDisplay.textContent='';
+});
+
+function calculate(){
+  if(Object.keys(grades).length!==subjects.length){ alert("Select all grades."); return; }
+  let total=0,creditsSum=0;
+  subjects.forEach(s=>{ total+=gradePoints[grades[s.code]]*s.credits; creditsSum+=s.credits; });
+  const gpa=(total/creditsSum).toFixed(2); // GPA internal only
+  localStorage.setItem(`${selectedDepartment}_sem${selectedSemester}`,JSON.stringify(grades));
+  semesterGPAs[selectedSemester-1]=parseFloat(gpa); 
+  localStorage.setItem('semesterGPAs',JSON.stringify(semesterGPAs));
+  const cgpa=(semesterGPAs.filter(Boolean).reduce((a,b)=>a+b,0)/semesterGPAs.filter(Boolean).length).toFixed(2);
+  cgpaDisplay.textContent=`CGPA: ${cgpa}`;
+  percentageDisplay.textContent=`Percentage: ${(cgpa*9.5).toFixed(2)}%`;
+  for(const e of encouragements){ if(cgpa>=e.min){ encouragementDisplay.textContent=e.msg; break; } }
+  updateChart();
+}
+
+// Chart
+const ctx=document.getElementById('gpa-chart').getContext('2d');
+const gpaChart=new Chart(ctx,{
+  type:'line',
+  data:{ 
+    labels:['Sem1','Sem2','Sem3','Sem4','Sem5','Sem6','Sem7','Sem8'], 
+    datasets:[{ 
+      label:'Semester CGPA', 
+      data:semesterGPAs, 
+      borderColor:'rgba(106,17,203,1)', 
+      backgroundColor:'rgba(37,117,252,0.3)', 
+      fill:true, 
+      tension:0.3 
+    }] 
+  },
+  options:{ responsive:true, scales:{ y:{ min:0,max:10 } } }
+});
+function updateChart(){ gpaChart.data.datasets[0].data=semesterGPAs; gpaChart.update(); }
+
+// Saved Semesters Modal
+const saveSemBtn = document.getElementById('save-sem-btn');
+const savedModal = document.getElementById('saved-sem-modal');
+const closeModal = document.getElementById('close-sem-modal');
+const savedList = document.getElementById('saved-sem-list');
+
+saveSemBtn.addEventListener('click',()=>{
+  savedList.innerHTML = '';
+  semesterGPAs.forEach((gpa,index)=>{
+    if(gpa){
+      const semNum = index+1;
+      const cgpa = gpa.toFixed(2);
+      const percentage = (cgpa*9.5).toFixed(2);
+      let msg = '';
+      for(const e of encouragements){ if(cgpa>=e.min){ msg=e.msg; break; } }
+      const div = document.createElement('div');
+      div.style.background = '#f5f5ff';
+      div.style.padding = '10px';
+      div.style.margin = '8px 0';
+      div.style.borderRadius = '8px';
+      div.innerHTML = `<strong>Semester ${semNum}:</strong> CGPA: ${cgpa} | ${percentage}%<br>${msg}`;
       savedList.appendChild(div);
     }
   });
-}
-
-// FAQ Click
-document.querySelectorAll('.faq-item .question').forEach(q=>{
-  q.addEventListener('click',()=>alert("This is a placeholder answer. You can add the real answer here."));
+  if(savedList.innerHTML==='') savedList.innerHTML='<p>No saved semesters yet!</p>';
+  savedModal.style.display='flex';
 });
+
+closeModal.addEventListener('click',()=>{ savedModal.style.display='none'; });
+savedModal.addEventListener('click',(e)=>{ if(e.target===savedModal) savedModal.style.display='none'; });
