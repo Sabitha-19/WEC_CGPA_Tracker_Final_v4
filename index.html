@@ -2,97 +2,90 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>WEC CGPA Tracker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WEC CGPA Tracker</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-<header class="header">
+<!-- Fixed Header with Icons -->
+<div class="fixed-header">
   <h1>WEC CGPA Tracker</h1>
-  <div class="icons">
-    <span id="home-icon">🏠</span>
-    <span id="graph-icon">📈</span>
-    <span id="saved-icon">💾</span>
+  <div class="nav-icons">
+    <span id="home-icon" title="Home">🏠</span>
+    <span id="graph-icon" title="Graph">📊</span>
+    <span id="save-icon" title="Save Semester">🖨️</span>
   </div>
-</header>
+</div>
 
-<!-- LOGIN -->
-<section id="login-page" class="page active">
-  <h2>Login / Signup</h2>
-  <input id="email" placeholder="Email">
-  <input id="password" type="password" placeholder="Password">
-  <button id="login-btn">Login</button>
-  <button id="signup-btn">Signup</button>
-  <p id="login-msg"></p>
-</section>
-
-<!-- START -->
-<section id="start-page" class="page">
-  <h2>Welcome</h2>
-  <p>CGPA measures your overall academic performance.</p>
+<!-- Pages -->
+<div id="start-page" class="page active">
+  <h2>Welcome to WEC CGPA Tracker</h2>
+  <p>Calculate your GPA/CGPA, track progress, and boost your scores!</p>
   <button id="start-btn">Start</button>
+</div>
 
-  <div class="grade-cards">
-    <div>S = 10</div><div>A = 9</div><div>B = 8</div>
-    <div>C = 7</div><div>D = 6</div><div>E = 5</div><div>F = 0</div>
-  </div>
-</section>
-
-<!-- STREAM -->
-<section id="stream-page" class="page">
+<div id="stream-page" class="page">
   <h2>Select Stream</h2>
-  <div class="btn-group">
+  <div class="button-group" id="streams">
     <button class="stream-btn" data-stream="engineering">Engineering</button>
     <button class="stream-btn" data-stream="bcom">B.Com</button>
   </div>
   <button class="back-btn">Back</button>
-</section>
+</div>
 
-<!-- DEPARTMENT -->
-<section id="department-page" class="page">
+<div id="department-page" class="page">
   <h2>Select Department</h2>
-  <div id="departments" class="btn-group"></div>
+  <div class="button-group" id="departments"></div>
   <button class="back-btn">Back</button>
-</section>
+</div>
 
-<!-- SEMESTER -->
-<section id="semester-page" class="page">
+<div id="semester-page" class="page">
   <h2>Select Semester</h2>
-  <div id="semesters" class="btn-group"></div>
+  <div class="button-group" id="semesters"></div>
   <button class="back-btn">Back</button>
-</section>
+</div>
 
-<!-- SUBJECTS -->
-<section id="subjects-page" class="page">
+<div id="subjects-page" class="page">
   <h2>Enter Grades</h2>
   <div id="subjects-list"></div>
-
-  <button id="calculate-btn">Calculate CGPA</button>
-
+  <div class="grade-actions">
+    <button id="calculate-btn">Calculate CGPA</button>
+  </div>
   <div class="results">
+    <p id="gpa-display"></p>
     <p id="cgpa-display"></p>
     <p id="percentage-display"></p>
     <p id="encouragement"></p>
   </div>
-
   <button class="back-btn">Back</button>
-</section>
+</div>
 
-<!-- GRAPH -->
-<section id="graph-page" class="page">
-  <h2>CGPA Progress</h2>
-  <canvas id="cgpa-chart"></canvas>
+<div id="graph-page" class="page">
+  <h2>CGPA Progression</h2>
+  <canvas id="gpa-chart"></canvas>
   <button class="back-btn">Back</button>
-</section>
+</div>
 
-<!-- SAVED SEMESTERS -->
-<section id="saved-page" class="page">
+<div id="saved-page" class="page">
   <h2>Saved Semesters</h2>
   <div id="saved-list"></div>
   <button class="back-btn">Back</button>
-</section>
+</div>
+
+<!-- Firebase Login/Signup -->
+<div id="login-page" class="page">
+  <h2>Login / Signup</h2>
+  <input type="email" id="email" placeholder="Email"><br>
+  <input type="password" id="password" placeholder="Password"><br>
+  <button id="signup-btn">Signup</button>
+  <button id="login-btn">Login</button>
+  <p id="login-msg"></p>
+</div>
 
 <script type="module" src="script.js"></script>
 </body>
