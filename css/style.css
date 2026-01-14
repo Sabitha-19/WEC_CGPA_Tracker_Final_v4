@@ -1,178 +1,151 @@
-/* ======================= RESET ======================= */
+/* RESET */
 *,
 *::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+*::after{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
-/* ======================= BODY ======================= */
-body {
-  font-family: 'Poppins', Arial, sans-serif;
-  background: #f4f6ff;
-  padding-top: 70px; /* space for fixed header */
-  color: #333;
+/* BODY */
+body{
+  font-family:'Poppins', Arial, sans-serif;
+  background:#f4f6ff;
+  padding-top:70px;
+  color:#333;
 }
 
-/* ======================= PAGES ======================= */
-.page {
-  display: none;
-  padding: 20px;
+/* PAGES */
+.page{
+  display:none;
+  padding:20px;
 }
 
-.page.active {
-  display: block;
+.page.active{
+  display:block;
 }
 
-/* ======================= HEADER ======================= */
-.fixed-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: #fff;
-  padding: 12px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
+/* HEADER */
+.fixed-header{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  background:#fff;
+  padding:12px 16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.15);
+  z-index:1000;
 }
 
-#back-btn {
-  font-size: 20px;
-  cursor: pointer;
-  user-select: none;
+#back-btn{
+  font-size:20px;
+  cursor:pointer;
 }
 
-/* ======================= NAV ICONS ======================= */
-.nav-icons span {
-  cursor: pointer;
-  font-size: 20px;
-  margin-left: 12px;
-  transition: 0.3s;
+/* NAV ICONS */
+.nav-icons span{
+  cursor:pointer;
+  font-size:20px;
+  margin-left:12px;
+  transition:0.3s;
 }
 
-.nav-icons span:hover {
-  transform: scale(1.2);
+.nav-icons span:hover{
+  transform:scale(1.2);
 }
 
-/* ======================= HEADINGS ======================= */
-h2 {
-  text-align: center;
-  color: #4a3aff;
-  margin-bottom: 16px;
+/* HEADINGS */
+h2{text-align:center;color:#4a3aff;margin-bottom:16px;}
+h4{margin-bottom:8px;}
+
+/* BUTTONS */
+button{
+  background:#f1f2f6;
+  color:#333;
+  border:none;
+  padding:12px 18px;
+  border-radius:16px;
+  cursor:pointer;
+  transition:0.3s;
+  font-family:inherit;
 }
 
-h4 {
-  margin-bottom: 8px;
-}
-
-/* ======================= BUTTONS ======================= */
-button {
-  background: #f1f2f6;
-  color: #333;
-  border: none;
-  padding: 12px 18px;
-  border-radius: 16px;
-  cursor: pointer;
-  transition: 0.3s;
-  font-family: inherit;
-}
-
-button:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+button:hover{
+  transform:translateY(-2px) scale(1.02);
+  box-shadow:0 4px 12px rgba(0,0,0,0.1);
 }
 
 button.active,
-button.selected {
-  background: linear-gradient(135deg, #4a3aff, #6a5cff);
-  color: #fff;
+button.selected{
+  background:linear-gradient(135deg,#4a3aff,#6a5cff);
+  color:#fff;
 }
 
-/* ======================= BUTTON GROUP ======================= */
-.button-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: center;
-  margin-bottom: 20px;
+/* BUTTON GROUP */
+.button-group{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  justify-content:center;
+  margin-bottom:20px;
 }
 
-/* ======================= GRADE GRID ======================= */
-.grade-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-  margin-top: 15px;
+/* GRADE GRID */
+.grade-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  margin-top:15px;
 }
 
-.grade-card {
-  background: linear-gradient(135deg, #eef0ff, #dde0ff);
-  padding: 20px;
-  border-radius: 18px;
-  text-align: center;
-  font-weight: 600;
-  transition: 0.3s;
+.grade-card{
+  background:linear-gradient(135deg,#eef0ff,#dde0ff);
+  padding:20px;
+  border-radius:18px;
+  text-align:center;
+  font-weight:600;
+  transition:0.3s;
 }
 
-.grade-card:hover {
-  transform: scale(1.05);
+.grade-card:hover{transform:scale(1.05);}
+.grade-card span{font-size:22px;color:#4a3aff;}
+.grade-card.fail{background:#ffecec;color:#d60000;}
+
+/* SUBJECT CARD */
+.subject{
+  background:#fff;
+  padding:15px;
+  border-radius:16px;
+  margin-bottom:15px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.08);
 }
 
-.grade-card span {
-  font-size: 22px;
-  color: #4a3aff;
+/* GRADE BUTTONS */
+.grade-buttons{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+  flex-wrap:wrap;
 }
 
-.grade-card.fail {
-  background: #ffecec;
-  color: #d60000;
+/* FAQ */
+.faq{
+  background:#fff;
+  padding:15px;
+  border-radius:16px;
+  margin-bottom:12px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.08);
 }
 
-/* ======================= SUBJECT CARD ======================= */
-.subject {
-  background: #fff;
-  padding: 15px;
-  border-radius: 16px;
-  margin-bottom: 15px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+/* RESPONSIVE */
+@media (max-width: 600px){
+  .grade-grid{grid-template-columns:repeat(2,1fr);}
+  .button-group{flex-direction:column;gap:10px;}
+  .nav-icons span{font-size:18px;}
 }
 
-/* ======================= GRADE BUTTONS ======================= */
-.grade-buttons {
-  display: flex;
-  gap: 8px;
-  margin-top: 10px;
-  flex-wrap: wrap;
-}
-
-/* ======================= FAQ ======================= */
-.faq {
-  background: #fff;
-  padding: 15px;
-  border-radius: 16px;
-  margin-bottom: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-}
-
-/* ======================= RESPONSIVE ======================= */
-@media (max-width: 600px) {
-  .grade-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .button-group {
-    flex-direction: column;
-    gap: 10px;
-  }
-  .nav-icons span {
-    font-size: 18px;
-  }
-}
-
-/* ======================= SMOOTH SCROLL ======================= */
-html {
-  scroll-behavior: smooth;
-}
+/* SMOOTH SCROLL */
+html{scroll-behavior:smooth;}
