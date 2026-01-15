@@ -206,3 +206,14 @@ button.active,
   max-height: 300px;
   padding: 10px 20px 18px;
 }
+
+#faq-icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+#faq-icon:hover {
+  transform: scale(1.2);
+  color: #6a11cb;
+}
