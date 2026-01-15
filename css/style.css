@@ -1,329 +1,281 @@
 /* =====================
-   GLOBAL STYLES
+   RESET & BASE
 ===================== */
-
-* {
-  box-sizing: border-box;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #f3f6ff, #f9f7ff);
-  padding-top: 70px;
-  color: #333;
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#f3f6ff,#f9f7ff);
+  padding-top:70px;
+  color:#333;
 }
 
-.page {
-  display: none;
-  padding: 20px;
-  min-height: 100vh;
+/* =====================
+   PAGE CONTROL
+===================== */
+.page{
+  display:none;
+  min-height:100vh;
+  padding:20px;
+}
+.page.active{
+  display:block;
 }
 
-.page.active {
-  display: block;
-}
-
-h2 {
-  text-align: center;
-  color: #4a3aff;
-  margin-bottom: 20px;
-}
-
-p {
-  line-height: 1.6;
+h2{
+  text-align:center;
+  color:#4a3aff;
+  margin-bottom:20px;
 }
 
 /* =====================
    HEADER
 ===================== */
-
-.fixed-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 18px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-  z-index: 1000;
+.fixed-header{
+  position:fixed;
+  top:0;left:0;right:0;
+  height:60px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 18px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.08);
+  z-index:1000;
 }
 
-.fixed-header h3 {
-  margin: 0;
-  font-size: 18px;
-  color: #4a3aff;
+.fixed-header h3{
+  color:#4a3aff;
+  font-size:18px;
 }
 
-.nav-icons span {
-  font-size: 22px;
-  margin-left: 12px;
-  cursor: pointer;
-  transition: transform 0.2s;
+.nav-icons span{
+  font-size:22px;
+  margin-left:12px;
+  cursor:pointer;
+  transition:0.2s;
 }
-
-.nav-icons span:hover {
-  transform: scale(1.2);
+.nav-icons span:hover{
+  transform:scale(1.2);
 }
 
 /* =====================
-   BUTTONS
+   ALL BUTTONS DEFAULT
+   (GREY)
 ===================== */
-
-button {
-  padding: 12px 24px;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  font-size: 15px;
-  transition: 0.3s;
-}
-
-/* Default buttons */
-.button-group button,
+button,
 .stream-btn,
 .department-btn,
-.semester-btn {
-  background: rgba(200, 200, 200, 0.4);
-  color: #333;
+.semester-btn,
+.grade-buttons button{
+  background:rgba(190,190,190,0.45);
+  color:#333;
+  border:none;
+  border-radius:50px;
+  padding:12px 24px;
+  font-size:15px;
+  cursor:pointer;
+  transition:0.3s;
 }
 
-/* Active / selected */
+/* =====================
+   ACTIVE BUTTON
+   (BLUE + PURPLE)
+===================== */
 button.active,
-.button-group button.active,
-.grade-buttons button.selected {
-  background: linear-gradient(90deg, #6a11cb, #2575fc);
-  color: #fff;
+.stream-btn.active,
+.department-btn.active,
+.semester-btn.active,
+.grade-buttons button.selected{
+  background:linear-gradient(90deg,#6a11cb,#2575fc);
+  color:#fff;
+  box-shadow:0 8px 20px rgba(106,17,203,0.35);
 }
 
 /* Hover */
-button:hover {
-  opacity: 0.9;
-}
-
-/* Button groups */
-.button-group {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  margin: 20px 0;
+button:hover{
+  opacity:0.9;
 }
 
 /* =====================
-   START PAGE CARDS
+   BUTTON GROUPS
 ===================== */
-
-.info-card {
-  background: rgba(255,255,255,0.6);
-  border-radius: 18px;
-  padding: 20px;
-  max-width: 700px;
-  margin: 20px auto;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+.button-group{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:14px;
+  margin:20px 0;
 }
 
 /* =====================
-   GRADE POINT REFERENCE
-   (MATCHES YOUR PHOTO)
+   PRIMARY BUTTON
 ===================== */
-
-.section-title {
-  text-align: center;
-  font-size: 22px;
-  color: #4a3aff;
-  margin: 35px 0 20px;
+.primary-btn{
+  display:block;
+  margin:25px auto;
+  padding:14px 36px;
+  font-size:16px;
 }
 
-.grade-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-  max-width: 500px;
-  margin: auto;
+/* =====================
+   INFO CARD
+===================== */
+.overview-card{
+  background:rgba(255,255,255,0.65);
+  border-radius:20px;
+  padding:20px;
+  max-width:720px;
+  margin:20px auto;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
 }
 
-.grade-box {
-  height: 110px;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+/* =====================
+   GRADE POINT GRID
+   (EXACT LIKE PHOTO)
+===================== */
+.section-title{
+  margin:35px 0 20px;
+  text-align:center;
+  font-size:22px;
+  color:#4a3aff;
 }
 
-/* Text */
-.grade-box .letter {
-  font-size: 28px;
-  font-weight: 600;
-  color: #000;   /* BLACK LETTER */
+.grade-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+  max-width:500px;
+  margin:auto;
 }
 
-.grade-box .desc {
-  font-size: 13px;
-  color: #444;
-  margin-top: 4px;
+.grade-box{
+  height:110px;
+  border-radius:20px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
 }
 
-.grade-box .pts {
-  font-size: 15px;
-  font-weight: 500;
-  margin-top: 4px;
+.grade-box .letter{
+  font-size:28px;
+  font-weight:600;
+  color:#000;
+}
+.grade-box .desc{
+  font-size:13px;
+  color:#444;
+}
+.grade-box .pts{
+  font-size:15px;
+  font-weight:500;
 }
 
-/* Pastel backgrounds (from your image) */
-.g-s { background: #e9f9f0; }
-.g-a { background: #e9fcef; }
-.g-b { background: #e7f2ff; }
-.g-c { background: #edf0ff; }
-.g-d { background: #f5ecff; }
-.g-e { background: #fff9e6; }
-.g-f { background: #ffefef; }
+/* Pastel colors */
+.g-s{background:#e9f9f0;}
+.g-a{background:#e9fcef;}
+.g-b{background:#e7f2ff;}
+.g-c{background:#edf0ff;}
+.g-d{background:#f5ecff;}
+.g-e{background:#fff9e6;}
+.g-f{background:#ffefef;}
 
 /* =====================
    SUBJECT LIST
 ===================== */
-
-#subjects-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  max-width: 720px;
-  margin: auto;
+#subjects-list{
+  max-width:720px;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  gap:15px;
 }
 
-.subject {
-  background: rgba(255,255,255,0.6);
-  border-radius: 14px;
-  padding: 12px 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.subject{
+  background:rgba(255,255,255,0.6);
+  border-radius:14px;
+  padding:12px 15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
-.grade-buttons button {
-  min-width: 42px;
-  margin: 0 3px;
-  background: rgba(200,200,255,0.3);
-  border-radius: 10px;
+.grade-buttons button{
+  min-width:42px;
+  margin:0 3px;
+  border-radius:12px;
 }
 
 /* =====================
    RESULTS
 ===================== */
-
-.results {
-  margin-top: 25px;
-  text-align: center;
-  font-size: 18px;
-  font-weight: 600;
+.results{
+  margin-top:25px;
+  text-align:center;
+  font-size:18px;
+  font-weight:600;
 }
 
-#encouragement {
-  margin-top: 10px;
-  color: #6a11cb;
-}
-
-/* =====================
-   ACTION BUTTONS
-===================== */
-
-.grade-actions {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 20px;
+#encouragement{
+  margin-top:10px;
+  color:#6a11cb;
 }
 
 /* =====================
    FAQ
 ===================== */
-
-.faq-container {
-  max-width: 720px;
-  margin: auto;
+.faq-item{
+  margin-bottom:15px;
 }
-
-.faq-item {
-  margin-bottom: 15px;
+.faq-question{
+  background:rgba(255,255,255,0.6);
+  padding:12px;
+  border-radius:14px;
+  cursor:pointer;
 }
-
-.faq-question {
-  background: rgba(255,255,255,0.6);
-  padding: 12px;
-  border-radius: 12px;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.faq-answer {
-  display: none;
-  padding: 12px;
-  margin-top: 6px;
-  background: rgba(255,255,255,0.4);
-  border-radius: 12px;
-}
-
-/* =====================
-   SAVED SEMESTER PAGE
-===================== */
-
-#saved-list {
-  max-width: 600px;
-  margin: auto;
-}
-
-#reset-semesters {
-  background: #ffdddd;
-  color: #900;
-  margin: 25px auto;
-  display: block;
+.faq-answer{
+  display:none;
+  padding:12px;
+  margin-top:6px;
+  background:rgba(255,255,255,0.4);
+  border-radius:14px;
 }
 
 /* =====================
    CHART
 ===================== */
+.chart-container{
+  max-width:700px;
+  margin:30px auto;
+  padding:20px;
+  background:rgba(255,255,255,0.65);
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
 
-canvas {
-  margin-top: 30px;
-  max-width: 100%;
+canvas{
+  width:100%!important;
+  height:320px!important;
 }
 
 /* =====================
    MOBILE
 ===================== */
-
-@media (max-width: 600px) {
-  .button-group {
-    flex-direction: column;
+@media(max-width:600px){
+  .button-group{
+    flex-direction:column;
   }
-
-  .subject {
-    flex-direction: column;
-    align-items: flex-start;
+  .subject{
+    flex-direction:column;
+    align-items:flex-start;
   }
-
-  .grade-grid {
-    grid-template-columns: 1fr;
+  .grade-grid{
+    grid-template-columns:1fr;
   }
-}
-
-.chart-container {
-  max-width: 700px;
-  margin: 30px auto;
-  padding: 20px;
-  background: rgba(255,255,255,0.65);
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-}
-
-canvas {
-  width: 100% !important;
-  height: 320px !important;
 }
