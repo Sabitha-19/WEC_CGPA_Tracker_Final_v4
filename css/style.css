@@ -102,3 +102,27 @@ h2{text-align:center;color:#4a3aff;}
   margin-bottom:10px;
 }
 .faq-answer{display:none;}
+
+.overview-card{
+  background: rgba(255,255,255,0.7);
+  border-radius: 18px;
+  padding: 20px;
+  margin: 25px auto;
+  max-width: 500px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.overview-card h3{
+  text-align:center;
+  color:#5a3dff;
+}
+
+.overview-card h4{
+  margin-top:15px;
+  color:#333;
+}
+
+.overview-card ul{
+  padding-left:18px;
+  color:#444;
+}
