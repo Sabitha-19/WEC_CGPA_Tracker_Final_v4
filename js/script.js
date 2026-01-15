@@ -170,3 +170,74 @@ document.getElementById('save-btn')?.addEventListener('click', () => {
   localStorage.setItem('savedSemesters', JSON.stringify(savedSemesters));
   alert("Semester saved 💾");
 });
+
+let semesterChart;
+
+// Call this whenever you open graph page
+function renderSemesterGraph() {
+
+  // Prepare semester-wise GPA (Sem1 → Sem8)
+  let semesterData = Array(8).fill(null);
+
+  savedSemesters.forEach(s => {
+    const index = parseInt(s.semester) - 1;
+    semesterData[index] = parseFloat(s.gpa);
+  });
+
+  const ctx = document.getElementById('semesterChart').getContext('2d');
+
+  // Destroy old chart if exists
+  if (semesterChart) semesterChart.destroy();
+
+  semesterChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Sem1','Sem2','Sem3','Sem4','Sem5','Sem6','Sem7','Sem8'],
+      datasets: [{
+        label: 'Semester GPA',
+        data: semesterData,
+        borderColor: '#6a11cb',
+        backgroundColor: 'rgba(106,17,203,0.25)', // blue fill
+        fill: true,
+        tension: 0.4,
+        pointRadius: 6,
+        pointHoverRadius: 7,
+        pointBackgroundColor: '#fff',
+        pointBorderColor: '#6a11cb',
+        pointBorderWidth: 3
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          labels: {
+            boxWidth: 30,
+            color: '#555',
+            font: { size: 14 }
+          }
+        }
+      },
+      scales: {
+        y: {
+          min: 0,
+          max: 10,
+          ticks: {
+            stepSize: 2,
+            color: '#666'
+          },
+          grid: {
+            color: 'rgba(0,0,0,0.08)'
+          }
+        },
+        x: {
+          ticks: { color: '#666' },
+          grid: {
+            display: false
+          }
+        }
+      }
+    }
+  });
+}
