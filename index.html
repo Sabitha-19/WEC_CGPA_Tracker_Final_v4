@@ -4,129 +4,92 @@
   <meta charset="UTF-8">
   <title>WEC CGPA Tracker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- HEADER -->
-<header class="fixed-header">
-  <span id="back-btn">⬅</span>
-  <h3>WEC CGPA Tracker</h3>
-  <div class="nav-icons">
-    <span id="home-icon" title="Home">🏠</span>
-    <span id="graph-icon" title="Graph">📊</span>
-    <span id="faq-icon" title="FAQ">❓</span>
-    <span id="print-icon" title="Print">🖨️</span>
-  </div>
-</header>
+  <header class="fixed-header">
+    <span id="back-btn">⬅</span>
+    <h3>WEC CGPA Tracker</h3>
+    <div class="nav-icons">
+      <span id="home-icon" title="Home">🏠</span>
+      <span id="graph-icon" title="View Saved">📊</span>
+      <span id="faq-icon" title="FAQ">❓</span>
+      <span id="print-icon" title="Print" onclick="window.print()">🖨️</span>
+    </div>
+  </header>
 
-<!-- START PAGE -->
-<section id="start-page" class="page active">
-  <h2>Calculate Your CGPA Instantly</h2>
-  <button id="start-btn">Calculate Now ➜</button>
+  <section id="start-page" class="page active">
+    <h2>Calculate Your CGPA Instantly</h2>
+    <button id="start-btn">Calculate Now ➜</button>
+    <h2 class="sub-title">Grade Point Reference</h2>
+    <div class="cubic-grades">
+      <div class="grade-card">S<br><span>10</span></div>
+      <div class="grade-card">A<br><span>9</span></div>
+      <div class="grade-card">B<br><span>8</span></div>
+      <div class="grade-card">C<br><span>7</span></div>
+      <div class="grade-card">D<br><span>6</span></div>
+      <div class="grade-card">E<br><span>5</span></div>
+      <div class="grade-card">F<br><span>0</span></div>
+    </div>
+  </section>
 
-  <h2 class="sub-title">Grade Point Reference</h2>
-  <div class="cubic-grades">
-    <div class="grade-card">S<br><span>10</span></div>
-    <div class="grade-card">A<br><span>9</span></div>
-    <div class="grade-card">B<br><span>8</span></div>
-    <div class="grade-card">C<br><span>7</span></div>
-    <div class="grade-card">D<br><span>6</span></div>
-    <div class="grade-card">E<br><span>5</span></div>
-    <div class="grade-card">F<br><span>0</span></div>
-  </div>
-</section>
+  <section id="stream-page" class="page">
+    <h2>Select Stream</h2>
+    <div class="button-group">
+      <button class="stream-btn" data-stream="engineering">Engineering</button>
+    </div>
+  </section>
 
-<!-- STREAM -->
-<section id="stream-page" class="page">
-  <h2>Select Stream</h2>
-  <div class="button-group">
-    <button class="stream-btn" data-stream="engineering">Engineering</button>
-  </div>
-</section>
+  <section id="department-page" class="page">
+    <h2>Select Department</h2>
+    <div id="departments" class="button-group"></div>
+  </section>
 
-<!-- DEPARTMENT -->
-<section id="department-page" class="page">
-  <h2>Select Department</h2>
-  <div id="departments" class="button-group"></div>
-</section>
+  <section id="semester-page" class="page">
+    <h2>Select Semester</h2>
+    <div id="semesters" class="button-group"></div>
+  </section>
 
-<!-- SEMESTER -->
-<section id="semester-page" class="page">
-  <h2>Select Semester</h2>
-  <div id="semesters" class="button-group"></div>
-</section>
+  <section id="subjects-page" class="page">
+    <h2>Enter Grades</h2>
+    <div id="subjects-list"></div>
+    <button id="calculate-btn">Calculate GPA & CGPA</button>
+    <div class="results">
+      <p id="gpa-display"></p>
+      <p id="cgpa-display"></p>
+      <p id="percentage-display"></p>
+    </div>
+  </section>
 
-<!-- SUBJECTS -->
-<section id="subjects-page" class="page">
-  <h2>Enter Grades</h2>
-  <div id="subjects-list"></div>
-  <button id="calculate-btn">Calculate GPA & CGPA</button>
+  <section id="saved-page" class="page">
+    <h2>Saved Semester-wise GPA</h2>
+    <div id="saved-list"></div>
+    <h3 id="final-cgpa"></h3>
+    <button onclick="localStorage.clear(); location.reload();" style="background: #ff4d4d; color: white; margin-top: 10px;">Clear Data</button>
+  </section>
 
-  <div class="results">
-    <p id="gpa-display"></p>
-    <p id="cgpa-display"></p>
-    <p id="percentage-display"></p>
-  </div>
-</section>
-
-<!-- SAVED SEMESTER PAGE -->
-<section id="saved-page" class="page">
-  <h2>Saved Semester-wise GPA</h2>
-  <div id="saved-list"></div>
-  <h3 id="final-cgpa"></h3>
-</section>
-
-<!-- FAQ PAGE -->
-<section id="faq-page" class="page">
-  <h2>Frequently Asked Questions</h2>
-  <div class="faq-container">
-    <div class="faq-item">
-      <div class="faq-question">📘 What is CGPA?</div>
-      <div class="faq-answer">
-        CGPA (Cumulative Grade Point Average) is the average of GPAs obtained in all semesters.
+  <section id="faq-page" class="page">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-container">
+      <div class="faq-item">
+        <div class="faq-question">📘 What is CGPA?</div>
+        <div class="faq-answer">CGPA (Cumulative Grade Point Average) is the average of GPAs obtained in all semesters.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">🧮 How is GPA calculated?</div>
+        <div class="faq-answer">GPA is calculated using the formula: Σ (Credit × Grade Point) / Σ Credits</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">📊 How is Percentage calculated?</div>
+        <div class="faq-answer">As per VTU standards, Percentage = (CGPA - 0.75) × 10 (or CGPA × 9.5 depending on your scheme).</div>
       </div>
     </div>
-    <div class="faq-item">
-      <div class="faq-question">🧮 How is GPA calculated?</div>
-      <div class="faq-answer">
-        GPA is calculated using the formula:<br>
-        <b>Σ (Credit × Grade Point) / Σ Credits</b>
-      </div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question">💾 What does “Save Semester” do?</div>
-      <div class="faq-answer">
-        It stores your semester GPA in your device so you can view semester-wise CGPA later.
-      </div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question">📊 How is CGPA calculated?</div>
-      <div class="faq-answer">
-        CGPA is the average of all saved semester GPAs.
-      </div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question">📱 Will my data be lost?</div>
-      <div class="faq-answer">
-        No. Your data is stored using <b>localStorage</b> and remains until you clear browser data.
-      </div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question">🎓 Is this app official?</div>
-      <div class="faq-answer">
-        This app is for reference and academic planning only. Final results depend on university records.
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- FLOATING SAVE BUTTON -->
-<button id="floating-save-btn" title="Save Semester">💾</button>
+  <button id="floating-save-btn" title="View History">📂</button>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
