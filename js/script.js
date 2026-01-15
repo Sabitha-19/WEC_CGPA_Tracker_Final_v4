@@ -48,6 +48,23 @@ document.querySelectorAll('.stream-btn').forEach(btn => {
     showPage('department-page');
   });
 });
+let selectedStream = "";
+let selectedDepartment = "";
+let selectedSemester = 0;
+
+function showPage(id) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+function selectStream(stream) {
+  selectedStream = stream;
+
+  document.querySelectorAll(".stream-btn").forEach(b => b.classList.remove("active"));
+  event.target.classList.add("active");
+
+  // 👇 THIS LINE WAS MISSING
+  showPage("department-page");
+}
 
 // =====================
 // DEPARTMENT SELECTION
@@ -60,6 +77,14 @@ document.querySelectorAll('.department-btn').forEach(btn => {
     showPage('semester-page');
   });
 });
+function selectDepartment(dept) {
+  selectedDepartment = dept;
+
+  document.querySelectorAll(".dept-btn").forEach(b => b.classList.remove("active"));
+  event.target.classList.add("active");
+
+  showPage("semester-page");
+}
 
 // =====================
 // SEMESTER SELECTION
