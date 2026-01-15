@@ -241,3 +241,8 @@ function renderSemesterGraph() {
     }
   });
 }
+
+document.getElementById('graph-icon')?.addEventListener('click', () => {
+  showPage('graph-page');
+  renderSemesterGraph();
+});
