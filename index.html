@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,26 +10,23 @@
 <link rel="stylesheet" href="style.css">
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
 <header class="fixed-header">
-  <span id="back-btn">⬅</span>
+  <span onclick="goBack()">⬅</span>
   <h3>WEC CGPA Tracker 👩🏻‍🎓</h3>
   <div class="nav-icons">
-    <span id="home-icon">🏡</span>
-    <span id="graph-icon">📈</span>
-    <span id="faq-icon">❓</span>
-    <span id="save-icon">💾</span>
+    <span onclick="showPage('start-page')">🏡</span>
+    <span onclick="openGraph()">📈</span>
+    <span onclick="showPage('faq-page')">❓</span>
+    <span onclick="saveSemester()">💾</span>
   </div>
 </header>
 
-<!-- START PAGE -->
+<!-- START -->
 <section id="start-page" class="page active">
   <h2>Women's Engineering College</h2>
-  <p>CGPA Calculator</p>
-
   <button id="start-btn" class="primary-btn">Calculate Now</button>
 
 <div class="overview-card">
@@ -43,89 +41,64 @@
   </ul>
 </div>
 
+
   <h2 class="section-title">Grade Point Reference</h2>
 
-<div class="grade-grid">
-  <div class="grade-box g-s">
-    <div class="letter">S</div>
-    <div class="desc">Outstanding</div>
-    <div class="pts">10</div>
+  <div class="grade-grid">
+    <div class="grade-box g-s"><div class="letter">S</div><div>Outstanding</div><div>10</div></div>
+    <div class="grade-box g-a"><div class="letter">A</div><div>Excellent</div><div>9</div></div>
+    <div class="grade-box g-b"><div class="letter">B</div><div>Very Good</div><div>8</div></div>
+    <div class="grade-box g-c"><div class="letter">C</div><div>Good</div><div>7</div></div>
+    <div class="grade-box g-d"><div class="letter">D</div><div>Above Avg</div><div>6</div></div>
+    <div class="grade-box g-e"><div class="letter">E</div><div>Pass</div><div>5</div></div>
+    <div class="grade-box g-f"><div class="letter">F</div><div>Fail</div><div>0</div></div>
   </div>
-
-  <div class="grade-box g-a">
-    <div class="letter">A</div>
-    <div class="desc">Excellent</div>
-    <div class="pts">9</div>
-  </div>
-
-  <div class="grade-box g-b">
-    <div class="letter">B</div>
-    <div class="desc">Very Good</div>
-    <div class="pts">8</div>
-  </div>
-
-  <div class="grade-box g-c">
-    <div class="letter">C</div>
-    <div class="desc">Good</div>
-    <div class="pts">7</div>
-  </div>
-
-  <div class="grade-box g-d">
-    <div class="letter">D</div>
-    <div class="desc">Above Avg</div>
-    <div class="pts">6</div>
-  </div>
-
-  <div class="grade-box g-e">
-    <div class="letter">E</div>
-    <div class="desc">Pass</div>
-    <div class="pts">5</div>
-  </div>
-
-  <div class="grade-box g-f">
-    <div class="letter">F</div>
-    <div class="desc">Fail</div>
-    <div class="pts">0</div>
-  </div>
-</div>
 </section>
 
 <!-- STREAM -->
 <section id="stream-page" class="page">
   <h2>Select Stream</h2>
-  <div class="button-group">
-    <button class="stream-btn" data-stream="engineering">Engineering</button>
-    <button class="stream-btn" data-stream="bcom">BCom</button>
+  <div class="cube-grid">
+    <button onclick="selectStream('engineering')" class="cube-btn">Engineering</button>
+    <button onclick="selectStream('bcom')" class="cube-btn">BCom</button>
   </div>
 </section>
 
 <!-- DEPARTMENT -->
 <section id="department-page" class="page">
   <h2>Select Department</h2>
-  <div id="departments" class="button-group"></div>
+  <div id="department-grid" class="cube-grid"></div>
 </section>
 
 <!-- SEMESTER -->
 <section id="semester-page" class="page">
   <h2>Select Semester</h2>
-  <div id="semesters" class="button-group"></div>
+  <div id="semester-grid" class="cube-grid"></div>
 </section>
 
-<!-- SUBJECTS -->
+<!-- SUBJECT -->
 <section id="subjects-page" class="page">
   <h2>Enter Grades</h2>
   <div id="subjects-list"></div>
+  <button id="calculate-btn" class="primary-btn">Calculate GPA & CGPA</button>
+</section>
 
-  <button id="calculate-btn" class="primary-btn">Calculate</button>
-
+<!-- RESULT -->
+<section id="result-page" class="page">
   <div class="results">
     <p id="gpa-display"></p>
     <p id="cgpa-display"></p>
     <p id="percentage-display"></p>
     <p id="encouragement"></p>
   </div>
+</section>
 
-  <canvas id="gpaChart"></canvas>
+<!-- GRAPH -->
+<section id="graph-page" class="page">
+  <h2>Semester GPA</h2>
+  <div class="chart-container">
+    <canvas id="semesterChart"></canvas>
+  </div>
 </section>
 
 <!-- FAQ -->
@@ -134,26 +107,26 @@
   <div class="faq-item">
     <div class="faq-question">What is CGPA?</div>
     <div class="faq-answer">Average of all semester GPAs.</div>
-  </div>
-  <div class="faq-item">
+
+<div class="faq-item">
     <div class="faq-question">How is GPA calculated?</div>
     <div class="faq-answer">Σ(credits × grade point) / Σ credits</div>
   </div>
 </section>
 
-<section id="graph-page" class="page">
-  <h2>Semester GPA Trend</h2>
 
-  <div class="chart-container">
-    <canvas id="semesterChart"></canvas>
   </div>
-
-  <button class="back-btn" onclick="showPage('result-page')">← Back</button>
 </section>
 
 <link rel="stylesheet" href="css/
 
 style.css">
-<script src="js/script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
+
+
+
+
+
+
