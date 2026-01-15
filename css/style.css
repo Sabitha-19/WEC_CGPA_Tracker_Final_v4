@@ -1,27 +1,54 @@
-* { box-sizing: border-box; font-family:'Poppins',sans-serif; }
-body { margin:0; padding-top:70px; background:linear-gradient(135deg, rgba(255,250,245,0.9), rgba(240,255,250,0.9)); min-height:100vh; }
-.fixed-header { position:fixed; top:0; left:0; right:0; background:rgba(255,255,255,0.85); backdrop-filter:blur(10px); display:flex; justify-content:space-between; align-items:center; padding:12px 20px; z-index:1000; }
-.nav-icons span { font-size:1.5rem; cursor:pointer; margin-left:12px; transition:0.3s; }
-.nav-icons span:hover { transform:scale(1.2); color:#6a11cb; }
-.page { display:none; padding:20px; }
-.page.active { display:block; }
-.page > * { background:rgba(255,255,255,0.7); backdrop-filter:blur(12px); border-radius:18px; padding:20px; margin-bottom:15px; }
-h2,h3 { text-align:center; color:#6a11cb; }
-button { background:#eee; color:#333; border:none; border-radius:12px; padding:10px 16px; margin:5px; cursor:pointer; transition:all 0.3s; }
-button.active { background: linear-gradient(135deg,#6a5cff,#9f7aea); color:#fff; }
-.button-group { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; }
-.cubic-grades { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:15px; }
-.grade-card { width:80px; height:80px; display:flex; flex-direction:column; justify-content:center; align-items:center; border-radius:16px; font-weight:500; box-shadow:0 6px 12px rgba(0,0,0,0.1); }
-.grade-card span { font-size:1.1rem; }
-#subjects-list { max-width:700px; margin:auto; display:flex; flex-direction:column; gap:12px; }
-.subject { display:flex; justify-content:space-between; padding:10px; border-radius:12px; background:rgba(255,255,255,0.7); }
-.results { text-align:center; margin-top:15px; }
-.saved-card { background:rgba(255,255,255,0.7); padding:14px; border-radius:14px; margin:5px; text-align:center; }
-#floating-save-btn { position:fixed; bottom:20px; right:20px; width:50px; height:50px; font-size:22px; border-radius:50%; background:linear-gradient(135deg,#6a5cff,#9f7aea); color:#fff; cursor:pointer; }
-.faq-container { max-width:700px; margin:auto; display:flex; flex-direction:column; gap:12px; }
-.faq-item { background:rgba(255,255,255,0.85); border-radius:16px; overflow:hidden; }
-.faq-question { padding:14px; font-weight:500; cursor:pointer; color:#6a11cb; }
-.faq-question::after { content:"➕"; float:right; }
-.faq-item.active .faq-question::after { content:"➖"; }
-.faq-answer { max-height:0; overflow:hidden; padding:0 14px; transition:0.4s; color:#333; }
-.faq-item.active .faq-answer { max-height:300px; padding:10px 14px; }
+/* GENERAL */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #e0eafc, #cfdef3);
+  color: #333;
+}
+
+.page { display: none; padding: 20px; min-height: 100vh; }
+.page.active { display: block; }
+
+/* START PAGE */
+.start-container {
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+.start-container h1 { font-size: 1.8em; margin-bottom: 30px; }
+.pill-btn {
+  padding: 15px 30px;
+  border: none; border-radius: 50px;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: #fff; font-size: 1.2em; cursor: pointer;
+}
+
+/* BUTTONS */
+.buttons-container { display: flex; flex-wrap: wrap; gap: 15px; margin: 20px 0; }
+button { font-size: 1em; padding: 10px 20px; border-radius: 50px; border: none; cursor: pointer; transition: all 0.3s; }
+.stream-btn, .dept-btn, .sem-btn { background: rgba(255,255,255,0.5); }
+.stream-btn.active, .dept-btn.active, .sem-btn.active { background: linear-gradient(135deg, #6a11cb, #2575fc); color: #fff; }
+
+/* BACK BUTTON */
+.back-btn { background: #ccc; color: #333; margin-top: 15px; }
+
+/* SUBJECTS */
+.subjects-container { display: flex; flex-direction: column; gap: 10px; }
+.subject-card { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 10px; }
+.grade-btn { width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,0.5); }
+.grade-btn.selected { background: linear-gradient(135deg, #6a11cb, #2575fc); color: #fff; }
+
+/* RESULTS */
+.results { margin: 15px 0; font-size: 1.1em; }
+#encouragement { font-weight: bold; margin-top: 10px; color: #6a11cb; }
+
+/* FAQ */
+.faq-card { margin-bottom: 15px; }
+.faq-answer { display: none; background: rgba(255,255,255,0.5); padding: 10px; border-radius: 10px; }
+.faq-question { width: 100%; background: rgba(255,255,255,0.5); padding: 10px; border-radius: 10px; cursor: pointer; text-align: left; }
+
+/* FLOATING ICONS */
+.floating-icons {
+  position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 10px;
+}
+.floating-icons button { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #6a11cb, #2575fc); color: #fff; font-size: 1.5em; border: none; cursor: pointer; }
