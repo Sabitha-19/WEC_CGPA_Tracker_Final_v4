@@ -1,118 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>WEC CGPA Tracker</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
 
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-<header class="fixed-header">
-  <span id="back-btn">⬅</span>
-  <h3>WEC CGPA Tracker</h3>
-  <div class="nav-icons">
-    <span id="home-icon">🏠</span>
-    <span id="graph-icon">📊</span>
-    <span id="faq-icon">❓</span>
-    <span onclick="window.print()">🖨️</span>
+<!-- ================= HEADER ================= -->
+<header class="app-header">
+  <span id="backBtn" class="icon">⬅</span>
+  <h1>WEC CGPA Tracker</h1>
+  <div class="icons">
+    <span id="homeBtn">🏠</span>
+    <span id="saveBtn">📂</span>
+    <span id="graphBtn">📊</span>
+    <span id="faqBtn">❓</span>
   </div>
 </header>
 
-<!-- START -->
-<section id="start-page" class="page active">
-  <h2>Calculate Your CGPA Instantly</h2>
-  <button id="start-btn">Calculate Now ➜</button>
-
-  <h2>Grade Point Reference</h2>
-  <div class="cubic-grades">
-    <div class="grade-card">S<br><span>10</span></div>
-    <div class="grade-card">A<br><span>9</span></div>
-    <div class="grade-card">B<br><span>8</span></div>
-    <div class="grade-card">C<br><span>7</span></div>
-    <div class="grade-card">D<br><span>6</span></div>
-    <div class="grade-card">E<br><span>5</span></div>
-    <div class="grade-card">F<br><span>0</span></div>
-  </div>
+<!-- ================= START PAGE ================= -->
+<section id="startPage" class="page active hero">
+  <h2>Welcome to<br>Women’s Engineering College<br>CGPA Tracker 👩🏻‍🎓</h2>
+  <p class="tag">Updated for 2024–25</p>
+  <button id="startBtn" class="primary-btn">Start ➜</button>
 </section>
 
-<!-- STREAM -->
-<section id="stream-page" class="page">
+<!-- ================= INFO PAGE ================= -->
+<section id="infoPage" class="page card">
+  <h2>CGPA Info & Tips</h2>
+  <ul class="info-list">
+    <li>CGPA is the average of all semester GPAs</li>
+    <li>Higher CGPA improves placement chances</li>
+    <li>Consistent performance matters more than one semester</li>
+  </ul>
+  <button id="continueBtn" class="primary-btn">Continue</button>
+</section>
+
+<!-- ================= STREAM PAGE ================= -->
+<section id="streamPage" class="page card">
   <h2>Select Stream</h2>
-  <div class="button-group">
-    <button class="stream-btn" data-stream="engineering">Engineering</button>
+  <div class="btn-group">
+    <button class="select-btn" data-stream="engineering">Engineering</button>
+    <button class="select-btn" data-stream="bcom">B.Com</button>
   </div>
 </section>
 
-<!-- DEPARTMENT -->
-<section id="department-page" class="page">
+<!-- ================= DEPARTMENT PAGE ================= -->
+<section id="departmentPage" class="page card">
   <h2>Select Department</h2>
-  <div id="departments" class="button-group"></div>
+  <div id="departmentList" class="btn-group"></div>
 </section>
 
-<!-- SEMESTER -->
-<section id="semester-page" class="page">
+<!-- ================= SEMESTER PAGE ================= -->
+<section id="semesterPage" class="page card">
   <h2>Select Semester</h2>
-  <div id="semesters" class="button-group"></div>
+  <div id="semesterList" class="btn-group"></div>
 </section>
 
-<!-- SUBJECTS -->
-<section id="subjects-page" class="page">
+<!-- ================= SUBJECT PAGE ================= -->
+<section id="subjectPage" class="page card">
   <h2>Enter Grades</h2>
-  <div id="subjects-list"></div>
-  <button id="calculate-btn">Calculate GPA & CGPA</button>
+  <div id="subjectList"></div>
 
-  <div class="results">
-    <p id="gpa-display"></p>
-    <p id="cgpa-display"></p>
-    <p id="percentage-display"></p>
+  <button id="calculateBtn" class="primary-btn">Calculate GPA & CGPA</button>
+
+  <div class="result-box">
+    <p id="gpaText"></p>
+    <p id="cgpaText"></p>
+    <p id="percentText"></p>
+    <p id="encourageText" class="encourage"></p>
   </div>
 </section>
 
-<!-- SAVED -->
-<section id="saved-page" class="page">
-  <h2>Saved Semester-wise GPA</h2>
-  <div id="saved-list"></div>
-  <h3 id="final-cgpa"></h3>
+<!-- ================= SAVED SEMESTERS PAGE ================= -->
+<section id="savedPage" class="page card">
+  <h2>Semester-wise Performance</h2>
+  <div id="savedList"></div>
 </section>
 
-<!-- GRAPH -->
-<section id="graph-page" class="page">
+<!-- ================= GRAPH PAGE ================= -->
+<section id="graphPage" class="page card">
   <h2>Semester GPA Trend</h2>
-  <canvas id="gpa-chart"></canvas>
+  <canvas id="gpaChart"></canvas>
 </section>
 
-<!-- FAQ -->
-<section id="faq-page" class="page">
+<!-- ================= FAQ PAGE ================= -->
+<section id="faqPage" class="page card">
   <h2>Frequently Asked Questions</h2>
 
-  <div class="faq-container">
-    <div class="faq-item">
-      <div class="faq-question">What is CGPA?</div>
-      <div class="faq-answer">CGPA is the average of all semester GPAs.</div>
-    </div>
+  <div class="faq-item">
+    <div class="faq-q">What is CGPA?</div>
+    <div class="faq-a">CGPA is the average of GPAs obtained in all semesters.</div>
+  </div>
 
-    <div class="faq-item">
-      <div class="faq-question">How is GPA calculated?</div>
-      <div class="faq-answer">Σ (Credits × Grade Points) ÷ Σ Credits</div>
-    </div>
+  <div class="faq-item">
+    <div class="faq-q">How is GPA calculated?</div>
+    <div class="faq-a">GPA = Σ (Credits × Grade Points) ÷ Total Credits</div>
+  </div>
 
-    <div class="faq-item">
-      <div class="faq-question">Is data saved?</div>
-      <div class="faq-answer">Yes, using browser localStorage.</div>
-    </div>
+  <div class="faq-item">
+    <div class="faq-q">How is percentage calculated?</div>
+    <div class="faq-a">Percentage = CGPA × 9.5</div>
   </div>
 </section>
 
-<!-- FLOATING SAVE -->
-<button id="floating-save-btn">📂</button>
-<link rel="stylesheet" href="css/style.css">
-<script src="js/script.js"></script>
+<!-- ================= JS ================= -->
 <script src="js/script.js"></script>
 </body>
 </html>
