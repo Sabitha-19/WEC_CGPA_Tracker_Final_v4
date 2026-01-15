@@ -1,128 +1,315 @@
-body{
-  font-family:'Poppins',sans-serif;
-  margin:0;
-  padding-top:70px;
-  background:linear-gradient(135deg,#e0eafc,#cfdef3);
+/* =====================
+   GLOBAL STYLES
+===================== */
+
+* {
+  box-sizing: border-box;
 }
 
-.page{display:none;padding:20px;min-height:100vh;}
-.page.active{display:block;}
-
-.fixed-header{
-  position:fixed;top:0;left:0;right:0;
-  background:#fff;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:10px 20px;
-  box-shadow:0 2px 8px rgba(0,0,0,0.2);
-  z-index:1000;
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #f3f6ff, #f9f7ff);
+  padding-top: 70px;
+  color: #333;
 }
 
-h2{text-align:center;color:#4a3aff;}
-
-.primary-btn{
-  display:block;
-  margin:20px auto;
-  padding:14px 35px;
-  border-radius:50px;
-  border:none;
-  background:linear-gradient(90deg,#6a11cb,#2575fc);
-  color:#fff;
-  font-size:16px;
+.page {
+  display: none;
+  padding: 20px;
+  min-height: 100vh;
 }
 
-.button-group{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:12px;
+.page.active {
+  display: block;
 }
 
-.button-group button{
-  background:rgba(255,255,255,0.4);
-  border:none;
-  padding:12px 25px;
-  border-radius:50px;
+h2 {
+  text-align: center;
+  color: #4a3aff;
+  margin-bottom: 20px;
 }
 
-.cubic-grades{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:15px;
+p {
+  line-height: 1.6;
 }
 
-.grade-card{
-  width:130px;
-  height:90px;
-  border-radius:14px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+/* =====================
+   HEADER
+===================== */
+
+.fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  z-index: 1000;
 }
 
-.grade-letter{font-size:24px;color:#000;font-weight:600;}
-.grade-desc{font-size:12px;color:#555;}
-.grade-point{font-size:13px;color:#000;}
-
-.g1{background:#dff7e3}
-.g2{background:#e0f8f1}
-.g3{background:#e5e7ff}
-.g4{background:#f0f0ff}
-.g5{background:#f7eaff}
-.g6{background:#fffbe0}
-.g7{background:#ffeaea}
-
-.subject{
-  background:rgba(255,255,255,0.5);
-  padding:10px;
-  border-radius:12px;
-  margin-bottom:10px;
+.fixed-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #4a3aff;
 }
 
-.grade-buttons button{
-  margin:3px;
-  border-radius:8px;
+.nav-icons span {
+  font-size: 22px;
+  margin-left: 12px;
+  cursor: pointer;
+  transition: transform 0.2s;
 }
 
-.grade-buttons .selected{
-  background:linear-gradient(90deg,#6a11cb,#2575fc);
-  color:#fff;
+.nav-icons span:hover {
+  transform: scale(1.2);
 }
 
-.results{text-align:center;font-weight:600;}
+/* =====================
+   BUTTONS
+===================== */
 
-.faq-item{
-  background:rgba(255,255,255,0.5);
-  padding:12px;
-  border-radius:12px;
-  margin-bottom:10px;
+button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.3s;
 }
-.faq-answer{display:none;}
 
-.overview-card{
-  background: rgba(255,255,255,0.7);
+/* Default buttons */
+.button-group button,
+.stream-btn,
+.department-btn,
+.semester-btn {
+  background: rgba(200, 200, 200, 0.4);
+  color: #333;
+}
+
+/* Active / selected */
+button.active,
+.button-group button.active,
+.grade-buttons button.selected {
+  background: linear-gradient(90deg, #6a11cb, #2575fc);
+  color: #fff;
+}
+
+/* Hover */
+button:hover {
+  opacity: 0.9;
+}
+
+/* Button groups */
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+/* =====================
+   START PAGE CARDS
+===================== */
+
+.info-card {
+  background: rgba(255,255,255,0.6);
   border-radius: 18px;
   padding: 20px;
-  margin: 25px auto;
-  max-width: 500px;
+  max-width: 700px;
+  margin: 20px auto;
   box-shadow: 0 10px 25px rgba(0,0,0,0.08);
 }
 
-.overview-card h3{
-  text-align:center;
-  color:#5a3dff;
+/* =====================
+   GRADE POINT REFERENCE
+   (MATCHES YOUR PHOTO)
+===================== */
+
+.section-title {
+  text-align: center;
+  font-size: 22px;
+  color: #4a3aff;
+  margin: 35px 0 20px;
 }
 
-.overview-card h4{
-  margin-top:15px;
-  color:#333;
+.grade-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  max-width: 500px;
+  margin: auto;
 }
 
-.overview-card ul{
-  padding-left:18px;
-  color:#444;
+.grade-box {
+  height: 110px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* Text */
+.grade-box .letter {
+  font-size: 28px;
+  font-weight: 600;
+  color: #000;   /* BLACK LETTER */
+}
+
+.grade-box .desc {
+  font-size: 13px;
+  color: #444;
+  margin-top: 4px;
+}
+
+.grade-box .pts {
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* Pastel backgrounds (from your image) */
+.g-s { background: #e9f9f0; }
+.g-a { background: #e9fcef; }
+.g-b { background: #e7f2ff; }
+.g-c { background: #edf0ff; }
+.g-d { background: #f5ecff; }
+.g-e { background: #fff9e6; }
+.g-f { background: #ffefef; }
+
+/* =====================
+   SUBJECT LIST
+===================== */
+
+#subjects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 720px;
+  margin: auto;
+}
+
+.subject {
+  background: rgba(255,255,255,0.6);
+  border-radius: 14px;
+  padding: 12px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.grade-buttons button {
+  min-width: 42px;
+  margin: 0 3px;
+  background: rgba(200,200,255,0.3);
+  border-radius: 10px;
+}
+
+/* =====================
+   RESULTS
+===================== */
+
+.results {
+  margin-top: 25px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+#encouragement {
+  margin-top: 10px;
+  color: #6a11cb;
+}
+
+/* =====================
+   ACTION BUTTONS
+===================== */
+
+.grade-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* =====================
+   FAQ
+===================== */
+
+.faq-container {
+  max-width: 720px;
+  margin: auto;
+}
+
+.faq-item {
+  margin-bottom: 15px;
+}
+
+.faq-question {
+  background: rgba(255,255,255,0.6);
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.faq-answer {
+  display: none;
+  padding: 12px;
+  margin-top: 6px;
+  background: rgba(255,255,255,0.4);
+  border-radius: 12px;
+}
+
+/* =====================
+   SAVED SEMESTER PAGE
+===================== */
+
+#saved-list {
+  max-width: 600px;
+  margin: auto;
+}
+
+#reset-semesters {
+  background: #ffdddd;
+  color: #900;
+  margin: 25px auto;
+  display: block;
+}
+
+/* =====================
+   CHART
+===================== */
+
+canvas {
+  margin-top: 30px;
+  max-width: 100%;
+}
+
+/* =====================
+   MOBILE
+===================== */
+
+@media (max-width: 600px) {
+  .button-group {
+    flex-direction: column;
+  }
+
+  .subject {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .grade-grid {
+    grid-template-columns: 1fr;
+  }
 }
