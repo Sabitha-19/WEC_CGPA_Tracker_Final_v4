@@ -151,3 +151,105 @@ button.active,
   max-height:200px;
   padding:10px 16px;
 }
+
+* {
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  margin: 0;
+  padding-top: 70px;
+  background: linear-gradient(135deg, #f3e7ff, #e3f0ff);
+}
+
+/* HEADER */
+.fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(90deg, #6a11cb, #2575fc);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
+  z-index: 1000;
+}
+
+.nav-icons span {
+  font-size: 1.4rem;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+/* PAGES */
+.page {
+  display: none;
+  padding: 20px;
+}
+
+.page.active {
+  display: block;
+}
+
+/* BUTTONS */
+button {
+  background: rgba(255,255,255,0.6);
+  border: none;
+  padding: 12px 22px;
+  border-radius: 14px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button.active,
+button:hover {
+  background: linear-gradient(90deg, #6a11cb, #2575fc);
+  color: white;
+}
+
+/* GRADE CARDS */
+.cubic-grades {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.grade-card {
+  width: 80px;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.7);
+  text-align: center;
+  font-weight: bold;
+}
+
+/* SUBJECT CARD */
+.subject {
+  background: rgba(255,255,255,0.8);
+  padding: 12px;
+  border-radius: 14px;
+  margin-bottom: 12px;
+}
+
+/* FLOATING SAVE BUTTON */
+.floating-save {
+  position: fixed;
+  bottom: 25px;
+  right: 20px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, #6a11cb, #2575fc);
+  color: white;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+  cursor: pointer;
+}
