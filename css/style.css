@@ -29,3 +29,4 @@ button:hover{opacity:0.9;}
 .chart-container{max-width:700px;margin:30px auto;padding:20px;background:rgba(255,255,255,0.65);border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,0.08);}
 canvas{width:100%!important;height:320px!important;}
 @media(max-width:600px){.cube-grid{flex-direction:column;}#subjects-list{flex-direction:column;}}
+
