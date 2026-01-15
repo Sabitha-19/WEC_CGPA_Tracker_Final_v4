@@ -3,7 +3,7 @@ const pages = document.querySelectorAll(".page");
 const startBtn = document.getElementById("start-btn");
 const backBtn = document.getElementById("back-btn");
 const homeIcon = document.getElementById("home-icon");
-const saveIcon = document.getElementById("save-icon");
+const faqIcon = document.getElementById("faq-icon");
 const floatingSaveBtn = document.getElementById("floating-save-btn");
 
 const departmentsDiv = document.getElementById("departments");
@@ -23,10 +23,9 @@ const gradePoints = { S:10,A:9,B:8,C:7,D:6,E:5,F:0 };
 
 let selectedStream="", selectedDepartment="", selectedSemester=0;
 let subjects=[], grades={};
-
 let semesterGPAs = JSON.parse(localStorage.getItem("semesterGPAs")) || [];
 
-/* PAGE NAV */
+/* NAVIGATION */
 function showPage(id){
   pages.forEach(p=>p.classList.remove("active"));
   document.getElementById(id).classList.add("active");
@@ -35,7 +34,7 @@ function showPage(id){
 startBtn.onclick = ()=>showPage("stream-page");
 backBtn.onclick = ()=>showPage("start-page");
 homeIcon.onclick = ()=>showPage("start-page");
-saveIcon.onclick = ()=>{ renderSaved(); showPage("saved-page"); };
+faqIcon.onclick = ()=>showPage("faq-page");
 
 /* STREAM */
 document.querySelectorAll(".stream-btn").forEach(btn=>{
@@ -47,8 +46,8 @@ document.querySelectorAll(".stream-btn").forEach(btn=>{
   };
 });
 
+/* DEPARTMENT */
 const departments={ engineering:["CSE","ISE","ECE","EEE","AA"] };
-
 function loadDepartments(){
   departmentsDiv.innerHTML="";
   departments[selectedStream].forEach(dep=>{
@@ -64,6 +63,7 @@ function loadDepartments(){
   });
 }
 
+/* SEMESTERS */
 function loadSemesters(){
   semestersDiv.innerHTML="";
   for(let i=1;i<=8;i++){
@@ -79,41 +79,48 @@ function loadSemesters(){
   }
 }
 
+/* LOAD SUBJECTS */
 async function loadSubjects(){
   subjectsList.innerHTML="";
   grades={};
 
-  const res=await fetch(`data/${selectedDepartment}_sem${selectedSemester}.json`);
-  const data=await res.json();
-  subjects=data.subjects;
+  try{
+    const res = await fetch(`data/${selectedDepartment}_sem${selectedSemester}.json`);
+    const data = await res.json();
+    subjects = data.subjects;
 
-  subjects.forEach(s=>{
-    const div=document.createElement("div");
-    div.className="subject";
-    div.innerHTML=`<span>${s.code} - ${s.name}</span>`;
+    subjects.forEach(s=>{
+      const div=document.createElement("div");
+      div.className="subject";
+      div.innerHTML=`<span>${s.code} - ${s.name} (${s.credits}cr)</span>`;
 
-    const gDiv=document.createElement("div");
-    gDiv.className="grade-buttons";
+      const gDiv=document.createElement("div");
+      gDiv.className="grade-buttons";
 
-    Object.keys(gradePoints).forEach(g=>{
-      const b=document.createElement("button");
-      b.textContent=g;
-      b.onclick=()=>{
-        grades[s.code]=g;
-        [...gDiv.children].forEach(x=>x.classList.remove("selected"));
-        b.classList.add("selected");
-      };
-      gDiv.appendChild(b);
+      Object.keys(gradePoints).forEach(g=>{
+        const b=document.createElement("button");
+        b.textContent=g;
+        b.onclick=()=>{
+          grades[s.code]=g;
+          [...gDiv.children].forEach(x=>x.classList.remove("selected"));
+          b.classList.add("selected");
+        };
+        gDiv.appendChild(b);
+      });
+      div.appendChild(gDiv);
+      subjectsList.appendChild(div);
     });
-
-    div.appendChild(gDiv);
-    subjectsList.appendChild(div);
-  });
+  }catch(e){ subjectsList.innerHTML="<p>Subjects not found!</p>"; }
 }
 
 /* CALCULATE */
 calculateBtn.onclick=()=>{
-  let total=0,credits=0;
+  if(Object.keys(grades).length!==subjects.length){
+    alert("Select all grades!");
+    return;
+  }
+
+  let total=0, credits=0;
   subjects.forEach(s=>{
     total+=gradePoints[grades[s.code]]*s.credits;
     credits+=s.credits;
@@ -131,7 +138,7 @@ calculateBtn.onclick=()=>{
   percentageDisplay.textContent=`Percentage: ${(cgpa*9.5).toFixed(2)}%`;
 };
 
-/* SAVE */
+/* SAVE SEMESTER */
 floatingSaveBtn.onclick=()=>{
   renderSaved();
   showPage("saved-page");
@@ -152,31 +159,10 @@ function renderSaved(){
 
   if(valid.length){
     finalCgpa.textContent=`Final CGPA : ${(valid.reduce((a,b)=>a+b,0)/valid.length).toFixed(2)}`;
-  }
+  } else { finalCgpa.textContent=""; }
 }
 
 /* FAQ TOGGLE */
-document.querySelectorAll(".faq-question").forEach(q => {
-  q.onclick = () => {
-    q.parentElement.classList.toggle("active");
-  };
-});
-
-/* OPEN FAQ PAGE FROM HEADER (LONG PRESS SAVE ICON OPTIONAL) */
-// Optional: tap save icon twice to open FAQ
-let faqTap = 0;
-saveIcon.onclick = () => {
-  faqTap++;
-  if (faqTap === 2) {
-    showPage("faq-page");
-    faqTap = 0;
-  } else {
-    setTimeout(() => faqTap = 0, 400);
-  }
-};
-
-const faqIcon = document.getElementById("faq-icon");
-
-faqIcon.addEventListener("click", () => {
-  showPage("faq-page");
+document.querySelectorAll(".faq-question").forEach(q=>{
+  q.onclick=()=>q.parentElement.classList.toggle("active");
 });
