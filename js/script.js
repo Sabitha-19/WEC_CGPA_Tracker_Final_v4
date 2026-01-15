@@ -154,3 +154,23 @@ function renderSaved(){
     finalCgpa.textContent=`Final CGPA : ${(valid.reduce((a,b)=>a+b,0)/valid.length).toFixed(2)}`;
   }
 }
+
+/* FAQ TOGGLE */
+document.querySelectorAll(".faq-question").forEach(q => {
+  q.onclick = () => {
+    q.parentElement.classList.toggle("active");
+  };
+});
+
+/* OPEN FAQ PAGE FROM HEADER (LONG PRESS SAVE ICON OPTIONAL) */
+// Optional: tap save icon twice to open FAQ
+let faqTap = 0;
+saveIcon.onclick = () => {
+  faqTap++;
+  if (faqTap === 2) {
+    showPage("faq-page");
+    faqTap = 0;
+  } else {
+    setTimeout(() => faqTap = 0, 400);
+  }
+};
