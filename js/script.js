@@ -1,3 +1,23 @@
+document.addEventListener("DOMContentLoaded", () => {
+
+  const pages = document.querySelectorAll(".page");
+  const startBtn = document.getElementById("start-btn");
+
+  function showPage(id) {
+    pages.forEach(p => p.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+    window.scrollTo(0,0);
+  }
+
+  if(startBtn){
+    startBtn.addEventListener("click", () => {
+      showPage("stream-page");
+    });
+  }
+
+});
+
+
 const pages=document.querySelectorAll('.page');
 const startBtn=document.getElementById('start-btn');
 const departmentsDiv=document.getElementById('departments');
