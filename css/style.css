@@ -1,190 +1,57 @@
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
+/* ================= BODY ================= */
 body {
-  margin: 0;
-  padding-top: 70px;
   background: linear-gradient(135deg,
-    rgba(255,240,246,0.95),
-    rgba(245,235,255,0.95),
-    rgba(240,248,255,0.95));
+    rgba(235, 242, 255, 0.95),
+    rgba(245, 238, 255, 0.95),
+    rgba(240, 248, 255, 0.95)
+  );
   min-height: 100vh;
-}
-
-/* HEADER */
-.fixed-header {
-  position: fixed;
-  top:0; left:0; right:0;
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(10px);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:12px 20px;
-  box-shadow:0 4px 12px rgba(0,0,0,0.15);
-  z-index:1000;
-}
-
-.nav-icons span {
-  font-size:1.5rem;
-  cursor:pointer;
-  margin-left:12px;
-  transition:0.3s;
-}
-.nav-icons span:hover { transform:scale(1.2); color:#6a11cb; }
-
-/* PAGES */
-.page { display:none; padding:20px; }
-.page.active { display:block; }
-
-.page > * {
-  background: rgba(255,255,255,0.78);
-  backdrop-filter: blur(12px);
-  border-radius:22px;
-  padding:20px;
-  margin-bottom:20px;
-  box-shadow:0 10px 25px rgba(160,120,200,0.18);
-}
-
-h2,h3 { text-align:center; color:#6a11cb; }
-
-/* BUTTONS */
-button {
-  padding:12px 22px;
-  border:none;
-  border-radius:16px;
-  background:#fff;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-button.active,
-.grade-buttons button.selected {
-  background: linear-gradient(135deg,#d870d6,#8a2be2);
-  color:#fff;
-}
-
-/* GROUPS */
-.button-group {
-  display:flex;
-  justify-content:center;
-  gap:12px;
-  flex-wrap:wrap;
-}
-
-/* GRADE CARDS */
-.cubic-grades {
-  display:flex;
-  gap:12px;
-  justify-content:center;
-  flex-wrap:wrap;
-}
-.grade-card {
-  width:90px;
-  height:90px;
-  background:#fff;
-  border-radius:15px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-}
-.grade-card span { color:#b46ddb; }
-
-/* SUBJECTS */
-#subjects-list {
-  max-width:700px;
-  margin:auto;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-.subject {
-  background:#fff;
-  padding:12px;
-  border-radius:14px;
-  display:flex;
-  justify-content:space-between;
-}
-
-/* FLOATING SAVE */
-#floating-save-btn {
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  width:60px;
-  height:60px;
-  border-radius:50%;
-  font-size:24px;
-  background:linear-gradient(135deg,#d870d6,#8a2be2);
-  color:#fff;
-  box-shadow:0 6px 16px rgba(0,0,0,0.3);
-}
-
-/* FAQ */
-.faq-container {
-  max-width:700px;
-  margin:auto;
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-}
-.faq-item {
-  background:#fff;
-  border-radius:18px;
-  overflow:hidden;
-}
-.faq-question {
-  padding:16px;
-  cursor:pointer;
-  color:#6a11cb;
-}
-.faq-answer {
-  max-height:0;
-  overflow:hidden;
-  padding:0 16px;
-  transition:0.4s;
-}
-.faq-item.active .faq-answer {
-  max-height:200px;
-  padding:10px 16px;
-}
-
-* {
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-
-body {
-  margin: 0;
   padding-top: 70px;
-  background: linear-gradient(135deg, #f3e7ff, #e3f0ff);
+  color: #333;
 }
 
-/* HEADER */
-.fixed-header {
+/* ================= HEADER ================= */
+.app-header {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(90deg, #6a11cb, #2575fc);
-  color: white;
+  top: 0; left: 0; right: 0;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 12px 18px;
+  justify-content: space-between;
+  padding: 0 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
   z-index: 1000;
 }
 
-.nav-icons span {
-  font-size: 1.4rem;
-  margin-left: 10px;
-  cursor: pointer;
+.app-header h1 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #4b4bff;
 }
 
-/* PAGES */
+.icon,
+.icons span {
+  font-size: 1.4rem;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: transform 0.3s ease;
+}
+
+.icon:hover,
+.icons span:hover {
+  transform: scale(1.2);
+}
+
+/* ================= PAGES ================= */
 .page {
   display: none;
   padding: 20px;
@@ -194,62 +61,197 @@ body {
   display: block;
 }
 
-/* BUTTONS */
-button {
-  background: rgba(255,255,255,0.6);
-  border: none;
-  padding: 12px 22px;
-  border-radius: 14px;
-  font-size: 15px;
-  cursor: pointer;
-  transition: 0.3s;
+/* ================= HERO ================= */
+.hero {
+  background: linear-gradient(135deg, #4b6cff, #6a5bff);
+  color: white;
+  border-radius: 30px;
+  margin: 15px;
+  padding: 40px 20px;
+  text-align: center;
 }
 
-button.active,
-button:hover {
-  background: linear-gradient(90deg, #6a11cb, #2575fc);
+.hero h2 {
+  font-size: 1.8rem;
+  line-height: 1.4;
+}
+
+.tag {
+  margin: 15px auto;
+  padding: 6px 14px;
+  display: inline-block;
+  background: rgba(255,255,255,0.25);
+  border-radius: 20px;
+  font-size: 0.85rem;
+}
+
+/* ================= CARDS ================= */
+.card {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  padding: 20px;
+  margin: 15px;
+  box-shadow: 0 12px 30px rgba(150,120,255,0.18);
+}
+
+.card h2 {
+  text-align: center;
+  color: #5a4bff;
+  margin-bottom: 15px;
+}
+
+/* ================= BUTTONS ================= */
+.primary-btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  background: white;
+  color: #4b4bff;
+  transition: all 0.3s ease;
+}
+
+.primary-btn:hover {
+  background: linear-gradient(135deg, #5f7cff, #8a6cff);
   color: white;
 }
 
-/* GRADE CARDS */
-.cubic-grades {
+/* ================= SELECT BUTTONS ================= */
+.btn-group {
   display: flex;
   flex-wrap: wrap;
+  gap: 12px;
   justify-content: center;
-  gap: 10px;
 }
 
-.grade-card {
-  width: 80px;
-  padding: 14px;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.7);
-  text-align: center;
-  font-weight: bold;
-}
-
-/* SUBJECT CARD */
-.subject {
-  background: rgba(255,255,255,0.8);
-  padding: 12px;
-  border-radius: 14px;
-  margin-bottom: 12px;
-}
-
-/* FLOATING SAVE BUTTON */
-.floating-save {
-  position: fixed;
-  bottom: 25px;
-  right: 20px;
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
-  background: linear-gradient(90deg, #6a11cb, #2575fc);
-  color: white;
-  font-size: 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+.select-btn {
+  padding: 12px 22px;
+  border-radius: 22px;
+  border: none;
+  background: white;
+  color: #555;
   cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  transition: all 0.3s ease;
+}
+
+.select-btn.active {
+  background: linear-gradient(135deg, #4b6cff, #8b5cff);
+  color: white;
+  transform: scale(1.05);
+}
+
+/* ================= SUBJECTS ================= */
+#subjectList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.subject {
+  background: white;
+  border-radius: 18px;
+  padding: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.subject-title {
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.grade-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.grade-row button {
+  padding: 8px 14px;
+  border-radius: 16px;
+  border: none;
+  background: #f1edff;
+  color: #5a4bff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.grade-row button.selected {
+  background: linear-gradient(135deg, #4b6cff, #8b5cff);
+  color: white;
+}
+
+/* ================= RESULTS ================= */
+.result-box {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.result-box p {
+  margin: 6px 0;
+  font-size: 1.05rem;
+}
+
+.encourage {
+  font-weight: 600;
+  color: #5a4bff;
+  margin-top: 10px;
+}
+
+/* ================= SAVED ================= */
+#savedList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.saved-item {
+  background: white;
+  border-radius: 16px;
+  padding: 14px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+/* ================= FAQ ================= */
+.faq-item {
+  margin-bottom: 12px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.faq-q {
+  background: #f1edff;
+  padding: 14px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.faq-a {
+  display: none;
+  padding: 14px;
+  background: white;
+  line-height: 1.5;
+}
+
+.faq-item.active .faq-a {
+  display: block;
+}
+
+/* ================= GRAPH ================= */
+canvas {
+  max-width: 100%;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 480px) {
+  .hero h2 {
+    font-size: 1.5rem;
+  }
 }
