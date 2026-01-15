@@ -174,3 +174,9 @@ saveIcon.onclick = () => {
     setTimeout(() => faqTap = 0, 400);
   }
 };
+
+const faqIcon = document.getElementById("faq-icon");
+
+faqIcon.addEventListener("click", () => {
+  showPage("faq-page");
+});
