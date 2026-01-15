@@ -2,115 +2,92 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>WEC CGPA Tracker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WEC CGPA Tracker</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-<header class="fixed-header">
-  <span id="back-btn">⬅</span>
-  <h3>WEC CGPA Tracker 👩🏻‍🎓</h3>
-  <div class="nav-icons">
-    <span id="home-icon" title="Home">🏡</span>
-    <span id="graph-icon" title="Graph">📈</span>
-    <span id="faq-icon" title="FAQ">❓</span>
-    <span id="floating-save-btn" title="Save Semester">💾</span>
-  </div>
-</header>
-
-<!-- START PAGE -->
-<section id="start-page" class="page active">
-  <h2>Welcome to Women's Engineering College CGPA Tracker</h2>
-  <p>Calculate your CGPA and track your progress!</p>
-  <button id="start-btn">Start ➜</button>
-
-  <h2 class="sub-title">Grade Point Reference</h2>
-  <div class="cubic-grades">
-    <div class="grade-card" style="background:rgba(255,200,200,0.4)">S<br><span>10</span></div>
-    <div class="grade-card" style="background:rgba(200,255,200,0.4)">A<br><span>9</span></div>
-    <div class="grade-card" style="background:rgba(200,200,255,0.4)">B<br><span>8</span></div>
-    <div class="grade-card" style="background:rgba(255,255,200,0.4)">C<br><span>7</span></div>
-    <div class="grade-card" style="background:rgba(255,200,255,0.4)">D<br><span>6</span></div>
-    <div class="grade-card" style="background:rgba(200,255,255,0.4)">E<br><span>5</span></div>
-    <div class="grade-card" style="background:rgba(220,220,220,0.4)">F<br><span>0</span></div>
-  </div>
-</section>
-
-<!-- STREAM PAGE -->
-<section id="stream-page" class="page">
-  <h2>Select Stream</h2>
-  <div class="button-group">
-    <button class="stream-btn" data-stream="engineering">Engineering</button>
-    <button class="stream-btn" data-stream="bcom">BCom</button>
-  </div>
-</section>
-
-<!-- DEPARTMENT PAGE -->
-<section id="department-page" class="page">
-  <h2>Select Department</h2>
-  <div id="departments" class="button-group"></div>
-</section>
-
-<!-- SEMESTER PAGE -->
-<section id="semester-page" class="page">
-  <h2>Select Semester</h2>
-  <div id="semesters" class="button-group"></div>
-</section>
-
-<!-- SUBJECTS PAGE -->
-<section id="subjects-page" class="page">
-  <h2>Enter Grades</h2>
-  <div id="subjects-list"></div>
-  <button id="calculate-btn">Calculate GPA & CGPA</button>
-
-  <div class="results">
-    <p id="gpa-display"></p>
-    <p id="cgpa-display"></p>
-    <p id="percentage-display"></p>
-    <p id="encouragement"></p>
-  </div>
-</section>
-
-<!-- SAVED SEMESTER PAGE -->
-<section id="saved-page" class="page">
-  <h2>Saved Semester-wise GPA</h2>
-  <div id="saved-list"></div>
-  <h3 id="final-cgpa"></h3>
-  <button id="reset-semesters">Reset All Semesters</button>
-</section>
-
-<!-- GRAPH PAGE -->
-<section id="graph-page" class="page">
-  <h2>Semester GPA Trend</h2>
-  <canvas id="gpaChart" width="400" height="250"></canvas>
-</section>
-
-<!-- FAQ PAGE -->
-<section id="faq-page" class="page">
-  <h2>Frequently Asked Questions</h2>
-  <div class="faq-container">
-    <div class="faq-item">
-      <div class="faq-question">📘 What is CGPA?</div>
-      <div class="faq-answer">CGPA (Cumulative Grade Point Average) is the average of GPAs obtained in all semesters.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question">🧮 How is GPA calculated?</div>
-      <div class="faq-answer">GPA = Σ (Credit × Grade Point) / Σ Credits</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question">📊 How is Percentage calculated?</div>
-      <div class="faq-answer">Percentage = CGPA × 9.5</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question">💾 What does Save Semester do?</div>
-      <div class="faq-answer">Stores GPA for each semester so you can see your progress later.</div>
+  <!-- START PAGE -->
+  <div class="page" id="start-page">
+    <div class="start-container">
+      <h1>Welcome to Women's Engineering College CGPA Tracker 👩🏻‍🎓</h1>
+      <button id="start-btn" class="pill-btn">Calculate Now →</button>
     </div>
   </div>
-</section>
 
-<script src="js/script.js"></script>
+  <!-- STREAM PAGE -->
+  <div class="page" id="stream-page">
+    <h2>Select Stream</h2>
+    <div class="buttons-container" id="streams">
+      <button class="stream-btn">Engineering</button>
+      <button class="stream-btn">B.Com</button>
+    </div>
+    <button class="back-btn" id="stream-back">← Back</button>
+  </div>
+
+  <!-- DEPARTMENT PAGE -->
+  <div class="page" id="department-page">
+    <h2>Select Department</h2>
+    <div class="buttons-container" id="departments">
+      <button class="dept-btn" data-dept="CSE">CSE</button>
+      <button class="dept-btn" data-dept="ECE">ECE</button>
+      <button class="dept-btn" data-dept="EEE">EEE</button>
+      <button class="dept-btn" data-dept="ISE">ISE</button>
+      <button class="dept-btn" data-dept="AA">AA</button>
+    </div>
+    <button class="back-btn" id="dept-back">← Back</button>
+  </div>
+
+  <!-- SEMESTER PAGE -->
+  <div class="page" id="semester-page">
+    <h2>Select Semester</h2>
+    <div class="buttons-container" id="semesters"></div>
+    <button class="back-btn" id="sem-back">← Back</button>
+  </div>
+
+  <!-- SUBJECTS PAGE -->
+  <div class="page" id="subjects-page">
+    <h2>Enter Grades</h2>
+    <div class="subjects-container" id="subjects-list"></div>
+    <div class="action-btns">
+      <button id="calculate-btn">Calculate GPA & CGPA</button>
+      <button id="edit-btn">Edit Semester</button>
+      <button id="delete-btn">Delete Semester</button>
+    </div>
+    <div class="results">
+      <p id="gpa-display">GPA: 0.00</p>
+      <p id="cgpa-display">CGPA: 0.00</p>
+      <p id="percentage-display">Percentage: 0%</p>
+      <p id="encouragement"></p>
+    </div>
+    <canvas id="gpa-chart" width="400" height="200"></canvas>
+    <button class="back-btn" id="subjects-back">← Back</button>
+  </div>
+
+  <!-- FAQ PAGE -->
+  <div class="page" id="faq-page">
+    <h2>FAQ</h2>
+    <div class="faq-card">
+      <button class="faq-question">How to calculate CGPA?</button>
+      <div class="faq-answer">Select your grades for each subject, then click "Calculate GPA & CGPA".</div>
+    </div>
+    <div class="faq-card">
+      <button class="faq-question">How to save semester?</button>
+      <div class="faq-answer">Click the save icon to save the current semester GPA. You can view it later.</div>
+    </div>
+    <button class="back-btn" id="faq-back">← Back</button>
+  </div>
+
+  <!-- FLOATING ICONS -->
+  <div class="floating-icons">
+    <button id="home-icon" title="Home">🏡</button>
+    <button id="save-icon" title="Save Semester">💾</button>
+    <button id="graph-icon" title="View Chart">📈</button>
+  </div>
+
+  <script src="js/script.js"></script>
 </body>
 </html>
