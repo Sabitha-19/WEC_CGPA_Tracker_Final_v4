@@ -4,7 +4,7 @@ let savedSemesters=JSON.parse(localStorage.getItem("savedSemesters"))||[];
 let semesterChart;
 
 const departments={
-  engineering:["CSE","ISE","ECE","EEE","AI"],
+  engineering:["CSE","ISE","ECE","EEE","AA"],
   bcom:["BCOM"]
 };
 
@@ -69,25 +69,44 @@ function selectSemester(sem,btn){
 }
 
 function loadSubjects(){
-  grades={};
-  subjects=[
-    {code:"SUB1",name:"Subject 1",credits:3},
-    {code:"SUB2",name:"Subject 2",credits:4}
-  ];
+  grades = {};
+  const list = document.getElementById("subjects-list");
+  list.innerHTML = "Loading subjects...";
 
-  const list=document.getElementById("subjects-list");
-  list.innerHTML="";
-  subjects.forEach(s=>{
-    const div=document.createElement("div");
-    div.className="subject";
-    div.innerHTML=`
-      <div>${s.name}</div>
-      <div class="grade-buttons">
-        ${Object.keys(gradePoints).map(g=>`<button onclick="selectGrade('${s.code}','${g}',this)">${g}</button>`).join("")}
-      </div>`;
-    list.appendChild(div);
-  });
-  showPage("subjects-page");
+  const file = `data/${selectedDepartment}_sem${selectedSemester}.json`;
+
+  fetch(file)
+    .then(res => {
+      if(!res.ok) throw new Error("File not found");
+      return res.json();
+    })
+    .then(data => {
+      subjects = data;
+      list.innerHTML = "";
+
+      subjects.forEach(s => {
+        const div = document.createElement("div");
+        div.className = "subject";
+        div.innerHTML = `
+          <div>
+            <strong>${s.code}</strong><br>
+            ${s.name} (${s.credits} credits)
+          </div>
+          <div class="grade-buttons">
+            ${Object.keys(gradePoints).map(g =>
+              `<button onclick="selectGrade('${s.code}','${g}',this)">${g}</button>`
+            ).join("")}
+          </div>
+        `;
+        list.appendChild(div);
+      });
+
+      showPage("subjects-page");
+    })
+    .catch(err=>{
+      alert("Subjects file missing:\n" + file);
+      console.error(err);
+    });
 }
 
 function selectGrade(code,grade,btn){
