@@ -142,25 +142,70 @@ function saveSemester(){
   alert("Saved 💾");
 }
 
+
+  
+
 function openGraph(){
-  if(savedSemesters.length===0){alert("No data");return;}
   showPage("graph-page");
-  const data=Array(8).fill(null);
-  savedSemesters.forEach(s=>data[s.semester-1]=s.gpa);
-  const ctx=document.getElementById("semesterChart");
-  if(semesterChart)semesterChart.destroy();
-  semesterChart=new Chart(ctx,{
+
+  const data = Array(8).fill(null);
+  savedSemesters.forEach(s=>{
+    data[s.semester-1] = s.gpa;
+  });
+
+  const ctx = document.getElementById("semesterChart").getContext("2d");
+  if(semesterChart) semesterChart.destroy();
+
+  semesterChart = new Chart(ctx,{
     type:"line",
-    data:{labels:["S1","S2","S3","S4","S5","S6","S7","S8"],
-    datasets:[{data,fill:true}]},
-    options:{scales:{y:{min:0,max:10}}}
+    data:{
+      labels:["Sem1","Sem2","Sem3","Sem4","Sem5","Sem6","Sem7","Sem8"],
+      datasets:[{
+        label:"Semester GPA",
+        data:data,
+        borderColor:"#6a11cb",
+        backgroundColor:"rgba(106,17,203,0.25)",
+        fill:true,
+        tension:0.45,
+        pointRadius:6,
+        pointHoverRadius:8,
+        pointBackgroundColor:"#ffffff",
+        pointBorderColor:"#6a11cb",
+        pointBorderWidth:3
+      }]
+    },
+    options:{
+      responsive:true,
+      maintainAspectRatio:false,
+      plugins:{
+        legend:{
+          labels:{
+            boxWidth:35,
+            color:"#6a11cb",
+            font:{size:14,weight:"500"}
+          }
+        }
+      },
+      scales:{
+        y:{
+          min:0,
+          max:10,
+          ticks:{
+            stepSize:2,
+            color:"#777"
+          },
+          grid:{
+            color:"rgba(0,0,0,0.08)"
+          }
+        },
+        x:{
+          ticks:{color:"#777"},
+          grid:{display:false}
+        }
+      }
+    }
   });
 }
-
-document.querySelectorAll(".faq-question").forEach(q=>{
-  q.onclick=()=>q.nextElementSibling.style.display=
-    q.nextElementSibling.style.display==="block"?"none":"block";
-});
 
 function showSaved(){
   showPage("saved-page");
