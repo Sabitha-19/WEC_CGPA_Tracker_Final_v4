@@ -20,15 +20,15 @@ function goBack(){
 }
 
 document.getElementById("start-btn").onclick=()=>showPage("stream-page");
+function selectStream(stream){
+  selectedStream = stream;
 
-function selectStream(stream,btn){
-  selectedStream=stream;
   document.querySelectorAll(".cube-btn").forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
+  event.target.classList.add("active");
+
   showDepartments();
   showPage("department-page");
 }
-
 function showDepartments(){
   const grid=document.getElementById("department-grid");
   grid.innerHTML="";
