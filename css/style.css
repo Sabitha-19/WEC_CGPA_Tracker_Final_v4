@@ -64,18 +64,40 @@ button.active{
   justify-content:center;gap:14px
 }
 
+/* SUBJECT CARD */
 .subject{
-  background:#fff;border-radius:14px;
-  padding:12px;display:flex;
-  justify-content:space-between
+  background: rgba(255,255,255,0.75);
+  border-radius: 22px;
+  padding: 18px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
 }
 
+/* GRADE BUTTON CONTAINER */
+.grade-buttons{
+  display:flex;
+  gap:12px;
+  margin-top:12px;
+}
+
+/* GRADE BUTTONS */
 .grade-buttons button{
-  margin:2px;border-radius:10px
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  border:none;
+  background:#efe6ff;
+  color:#6a11cb;
+  font-weight:600;
+  font-size:15px;
+  transition:0.3s;
 }
 
+/* ACTIVE GRADE (BLUE + PURPLE) */
 .grade-buttons button.active{
-  background:#6a11cb;color:white
+  background:linear-gradient(135deg,#6a11cb,#2575fc);
+  color:#fff;
+  box-shadow:0 8px 18px rgba(106,17,203,0.35);
+  transform:scale(1.08);
 }
 
 .results{text-align:center;font-size:18px;font-weight:600}
