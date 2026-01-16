@@ -161,3 +161,24 @@ document.querySelectorAll(".faq-question").forEach(q=>{
   q.onclick=()=>q.nextElementSibling.style.display=
     q.nextElementSibling.style.display==="block"?"none":"block";
 });
+
+function showSaved(){
+  showPage("saved-page");
+  const list = document.getElementById("saved-list");
+  list.innerHTML = "";
+
+  if(savedSemesters.length === 0){
+    list.innerHTML = "<p>No saved data</p>";
+    return;
+  }
+
+  savedSemesters.forEach(s=>{
+    const div = document.createElement("div");
+    div.className = "subject";
+    div.innerHTML = `
+      <strong>Semester ${s.semester}</strong>
+      <span>GPA: ${s.gpa}</span>
+    `;
+    list.appendChild(div);
+  });
+}
