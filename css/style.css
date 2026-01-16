@@ -95,9 +95,21 @@ button.active{
 }
 
 .cube-btn{
-  background:#d9d9d9;
+  width:140px;
+  height:60px;
+  background:#dcdcdc;
+  border-radius:16px;
+  font-size:16px;
+  font-weight:500;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:0.3s;
 }
+
 .cube-btn.active{
   background:linear-gradient(135deg,#6a11cb,#2575fc);
   color:#fff;
+  transform:scale(1.05);
+  box-shadow:0 10px 25px rgba(106,17,203,0.35);
 }
