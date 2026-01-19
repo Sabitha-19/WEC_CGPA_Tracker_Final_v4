@@ -1,85 +1,63 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>WEC CGPA Tracker</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
 <header class="fixed-header">
-  <span onclick="goBack()">⬅</span>
-  <h3>WEC CGPA Tracker 👩🏻‍🎓</h3>
+  <span onclick="showPage('start-page')">⬅</span>
+  <h3>WEC CGPA Tracker</h3>
   <div class="nav-icons">
-    <span onclick="showPage('start-page')">🏡</span>
+    <span onclick="showPage('start-page')">🏠</span>
     <span onclick="openGraph()">📈</span>
     <span onclick="showPage('faq-page')">❓</span>
-    
-<span onclick="showSaved()">💾</span>
+    <span onclick="showSaved()">💾</span>
   </div>
 </header>
 
-<!-- START PAGE -->
+<!-- START -->
 <section id="start-page" class="page active">
   <h2>Women's Engineering College</h2>
-  <button id="start-btn" class="primary-btn">Calculate Now</button>
-
-  <div class="overview-card">
-    <h3>Welcome to your academic performance assistant</h3>
-    <h4>CGPA Overview</h4>
-    <ul>
-      <li>CGPA is the average of grade points obtained in all semesters.</li>
-      <li>Used for academic evaluation</li>
-      <li>Required for placements & higher studies</li>
-      <li>Shows consistent academic performance</li>
-    </ul>
-  </div>
-
-  <h2 class="section-title">Grade Point Reference</h2>
-  <div class="grade-grid">
-    <div class="grade-box g-s"><div class="letter">S</div><div>Outstanding</div><div>10</div></div>
-    <div class="grade-box g-a"><div class="letter">A</div><div>Excellent</div><div>9</div></div>
-    <div class="grade-box g-b"><div class="letter">B</div><div>Very Good</div><div>8</div></div>
-    <div class="grade-box g-c"><div class="letter">C</div><div>Good</div><div>7</div></div>
-    <div class="grade-box g-d"><div class="letter">D</div><div>Above Avg</div><div>6</div></div>
-    <div class="grade-box g-e"><div class="letter">E</div><div>Pass</div><div>5</div></div>
-    <div class="grade-box g-f"><div class="letter">F</div><div>Fail</div><div>0</div></div>
-  </div>
+  <button class="primary-btn" onclick="showPage('stream-page')">Calculate Now</button>
 </section>
 
-<!-- STREAM PAGE -->
+<!-- STREAM -->
 <section id="stream-page" class="page">
   <h2>Select Stream</h2>
   <div class="cube-grid">
-    <button class="cube-btn" onclick="selectStream('engineering', this)">Engineering</button>
-<button class="cube-btn" onclick="selectStream('bcom', this)">BCom</button>
+    <button class="cube-btn" onclick="selectStream('engineering',this)">Engineering</button>
+    <button class="cube-btn" onclick="selectStream('bcom',this)">BCom</button>
   </div>
 </section>
 
-<!-- DEPARTMENT PAGE -->
+<!-- DEPARTMENT -->
 <section id="department-page" class="page">
   <h2>Select Department</h2>
   <div id="department-grid" class="cube-grid"></div>
 </section>
 
-<!-- SEMESTER PAGE -->
+<!-- SEMESTER -->
 <section id="semester-page" class="page">
   <h2>Select Semester</h2>
   <div id="semester-grid" class="cube-grid"></div>
 </section>
 
-<!-- SUBJECTS PAGE -->
+<!-- SUBJECTS -->
 <section id="subjects-page" class="page">
   <h2>Enter Grades</h2>
   <div id="subjects-list"></div>
   <button id="calculate-btn" class="primary-btn">Calculate GPA & CGPA</button>
 </section>
 
-<!-- RESULT PAGE -->
+<!-- RESULT -->
 <section id="result-page" class="page">
   <div class="results">
     <p id="gpa-display"></p>
@@ -89,7 +67,7 @@
   </div>
 </section>
 
-<!-- GRAPH PAGE -->
+<!-- GRAPH -->
 <section id="graph-page" class="page">
   <h2>Semester GPA</h2>
   <div class="chart-container">
@@ -97,21 +75,17 @@
   </div>
 </section>
 
-<!-- FAQ PAGE -->
+<!-- SAVED -->
+<section id="saved-page" class="page">
+  <h2>Saved Semesters</h2>
+  <div id="saved-list"></div>
+</section>
+
+<!-- FAQ -->
 <section id="faq-page" class="page">
   <h2>FAQ</h2>
-  <div class="faq-item">
-    <div class="faq-question">What is CGPA?</div>
-    <div class="faq-answer">Average of all semester GPAs.</div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-question">How is GPA calculated?</div>
-    <div class="faq-answer">Σ(credits × grade point) / Σ credits</div>
-  </div>
-</section>
-<section id="saved-page" class="page">
-  <h2>Saved Semesters 💾</h2>
-  <div id="saved-list"></div>
+  <div class="faq-question">What is CGPA?</div>
+  <div class="faq-answer">Average of all semester GPAs.</div>
 </section>
 
 <script src="js/script.js"></script>
