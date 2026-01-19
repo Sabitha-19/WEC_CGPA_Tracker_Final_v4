@@ -11,7 +11,6 @@
 </head>
 
 <body>
-
 <header class="fixed-header">
   <span onclick="showPage('start-page')">⬅</span>
   <h3>WEC CGPA Tracker</h3>
@@ -23,7 +22,7 @@
   </div>
 </header>
 
-<!-- START -->
+<!-- START PAGE -->
 <section id="start-page" class="page active">
   <h2>Women's Engineering College</h2>
   <button class="primary-btn" onclick="showPage('stream-page')">Calculate Now</button>
@@ -54,13 +53,12 @@
 <section id="subjects-page" class="page">
   <h2>Enter Grades</h2>
   <div id="subjects-list"></div>
-  <button id="calculate-btn" class="primary-btn">Calculate GPA & CGPA</button>
+  <button id="calculate-btn" class="primary-btn">Calculate CGPA</button>
 </section>
 
 <!-- RESULT -->
 <section id="result-page" class="page">
   <div class="results">
-    
     <p id="cgpa-display"></p>
     <p id="percentage-display"></p>
     <p id="encouragement"></p>
@@ -69,7 +67,7 @@
 
 <!-- GRAPH -->
 <section id="graph-page" class="page">
-  <h2>Semester GPA</h2>
+  <h2>Semester CGPA Trend</h2>
   <div class="chart-container">
     <canvas id="semesterChart"></canvas>
   </div>
@@ -85,48 +83,23 @@
 <section id="faq-page" class="page">
   <h2>FAQ</h2>
   <div class="faq-question">What is CGPA?</div>
-  <div class="faq-answer">Average of all semester GPAs.</div>
+  <div class="faq-answer">Average of all semester grades in CGPA scale.</div>
 </section>
+
+<!-- GRADE REFERENCE -->
 <section class="grade-reference">
   <h2>Grade Reference Points</h2>
-
   <div class="grade-cube-grid">
-    <div class="grade-cube">
-      <span class="grade-letter">S</span>
-      <span class="grade-point">10</span>
-    </div>
-
-    <div class="grade-cube">
-      <span class="grade-letter">A</span>
-      <span class="grade-point">9</span>
-    </div>
-
-    <div class="grade-cube">
-      <span class="grade-letter">B</span>
-      <span class="grade-point">8</span>
-    </div>
-
-    <div class="grade-cube">
-      <span class="grade-letter">C</span>
-      <span class="grade-point">7</span>
-    </div>
-
-    <div class="grade-cube">
-      <span class="grade-letter">D</span>
-      <span class="grade-point">6</span>
-    </div>
-
-    <div class="grade-cube">
-      <span class="grade-letter">E</span>
-      <span class="grade-point">5</span>
-    </div>
-
-    <div class="grade-cube">
-      <span class="grade-letter">F</span>
-      <span class="grade-point">0</span>
-    </div>
+    <div class="grade-cube"><span class="grade-letter">S</span><span class="grade-point">10</span></div>
+    <div class="grade-cube"><span class="grade-letter">A</span><span class="grade-point">9</span></div>
+    <div class="grade-cube"><span class="grade-letter">B</span><span class="grade-point">8</span></div>
+    <div class="grade-cube"><span class="grade-letter">C</span><span class="grade-point">7</span></div>
+    <div class="grade-cube"><span class="grade-letter">D</span><span class="grade-point">6</span></div>
+    <div class="grade-cube"><span class="grade-letter">E</span><span class="grade-point">5</span></div>
+    <div class="grade-cube"><span class="grade-letter">F</span><span class="grade-point">0</span></div>
   </div>
 </section>
+
 <script src="js/script.js"></script>
 </body>
 </html>
