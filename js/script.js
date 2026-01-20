@@ -108,3 +108,42 @@ function toggleFAQ(){
   showPage("start-page");
   document.getElementById("faq-section").classList.toggle("hidden");
 }
+
+/* ================= GRAPH ================= */
+let semesterChart=null;
+
+function openGraph(){
+  showPage("graph-page");
+
+  const data=Array(8).fill(null);
+  savedSemesters.forEach(s=>{
+    data[s.semester-1]=s.gpa;
+  });
+
+  const ctx=document.getElementById("semesterChart");
+
+  if(semesterChart) semesterChart.destroy();
+
+  semesterChart=new Chart(ctx,{
+    type:"line",
+    data:{
+      labels:["S1","S2","S3","S4","S5","S6","S7","S8"],
+      datasets:[{
+        label:"Semester-wise CGPA",
+        data:data,
+        fill:true,
+        tension:0.4,
+        borderWidth:3
+      }]
+    },
+    options:{
+      responsive:true,
+      scales:{
+        y:{
+          beginAtZero:true,
+          max:10
+        }
+      }
+    }
+  });
+}
