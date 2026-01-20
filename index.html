@@ -16,126 +16,95 @@
   <div class="nav-icons">
     <span onclick="showPage('start-page')">🏠</span>
     <span onclick="openGraph()">📈</span>
-    <span onclick="showPage('faq-page')">❓</span>
+    <span onclick="toggleFAQ()">❓</span>
     <span onclick="showSaved()">💾</span>
   </div>
 </header>
 
-<!-- START PAGE -->
+<!-- ================= START PAGE ================= -->
 <section id="start-page" class="page active">
   <h2>Welcome to Women's Engineering College CGPA Tracker 👩🏻‍🎓</h2>
   <button class="primary-btn" onclick="showPage('stream-page')">Start Now</button>
+
+  <!-- FAQ (hidden initially) -->
+  <section id="faq-section" class="hidden">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <button class="faq-question">What is CGPA?</button>
+      <div class="faq-answer">CGPA represents overall academic performance.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">How is CGPA calculated?</button>
+      <div class="faq-answer">Σ(Credit × Grade Point) / Σ Credits</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">Is this official?</button>
+      <div class="faq-answer">No. For reference only.</div>
+    </div>
+  </section>
+
+  <!-- Grade Reference ONLY HERE -->
+  <section id="grade-reference">
+    <h2 class="section-title">Grade Point Reference</h2>
+    <div class="grade-ref-grid">
+      <div class="grade-card s">S<br>10</div>
+      <div class="grade-card a">A<br>9</div>
+      <div class="grade-card b">B<br>8</div>
+      <div class="grade-card c">C<br>7</div>
+      <div class="grade-card d">D<br>6</div>
+      <div class="grade-card e">E<br>5</div>
+      <div class="grade-card f">F<br>0</div>
+    </div>
+  </section>
 </section>
 
-<!-- STREAM -->
+<!-- ================= STREAM ================= -->
 <section id="stream-page" class="page">
   <h2>Select Stream</h2>
   <div class="cube-grid">
-    <button class="cube-btn" onclick="selectStream('engineering', this)">Engineering</button>
-    <button class="cube-btn" onclick="selectStream('bcom', this)">BCom</button>
+    <button class="cube-btn" onclick="selectStream('engineering',this)">Engineering</button>
+    <button class="cube-btn" onclick="selectStream('bcom',this)">BCom</button>
   </div>
 </section>
 
-<!-- DEPARTMENT -->
+<!-- ================= DEPARTMENT ================= -->
 <section id="department-page" class="page">
   <h2>Select Department</h2>
   <div id="department-grid" class="cube-grid"></div>
 </section>
 
-<!-- SEMESTER -->
+<!-- ================= SEMESTER ================= -->
 <section id="semester-page" class="page">
   <h2>Select Semester</h2>
   <div id="semester-grid" class="cube-grid"></div>
 </section>
 
-<!-- SUBJECTS -->
+<!-- ================= SUBJECTS ================= -->
 <section id="subjects-page" class="page">
   <h2>Enter Grades</h2>
   <div id="subjects-list"></div>
   <button id="calculate-btn" class="primary-btn">Calculate CGPA</button>
 </section>
 
-<!-- RESULT -->
+<!-- ================= RESULT ================= -->
 <section id="result-page" class="page">
-  <div class="results">
-    <p id="cgpa-display"></p>
-    <p id="percentage-display"></p>
-    <p id="encouragement"></p>
-  </div>
+  <p id="cgpa-display"></p>
+  <p id="percentage-display"></p>
+  <p id="encouragement"></p>
 </section>
 
-<!-- GRAPH -->
+<!-- ================= GRAPH ================= -->
 <section id="graph-page" class="page">
-  <h2>Semester CGPA</h2>
-  <div class="chart-container">
-    <canvas id="semesterChart"></canvas>
-  </div>
+  <canvas id="semesterChart"></canvas>
 </section>
 
-<!-- SAVED -->
+<!-- ================= SAVED ================= -->
 <section id="saved-page" class="page">
   <h2>Saved Semesters</h2>
   <div id="saved-list"></div>
-</section>
-
-<!-- FAQ -->
-class="section-title">Frequently Asked Questions</h2>
-<section id="faq-page" class="page">
-  <h2>FAQ</h2>
-  <div class="faq-question">What is CGPA?</div>
-  <div class="faq-answer">Average of all semester grades converted into a cumulative point.</div>
-</section>
-
-<section id="faq-section">
-  <h2 
-
-  <div class="faq-item">
-    <button class="faq-question">What is CGPA?</button>
-    <div class="faq-answer">
-      CGPA (Cumulative Grade Point Average) represents the overall academic
-      performance of a student across all semesters.
-    </div>
-  </div>
-
-  <div class="faq-item">
-    <button class="faq-question">How is CGPA calculated?</button>
-    <div class="faq-answer">
-      CGPA is calculated using the formula:
-      <br><b>CGPA = Σ(Credit × Grade Point) / Σ Credits</b>
-    </div>
-  </div>
-
-  <div class="faq-item">
-    <button class="faq-question">Does this app calculate semester-wise GPA?</button>
-    <div class="faq-answer">
-      Yes. This application calculates GPA for each semester and CGPA overall.
-    </div>
-  </div>
-
-  
-
-  <div class="faq-item">
-    <button class="faq-question">Is this CGPA calculator official?</button>
-    <div class="faq-answer">
-      No. This tool is for reference and academic use only. Always verify with
-      official university results.
-    </div>
-  </div>
-</section>
-
-
-<!-- GRADE REFERENCE POINTS -->
-<section id="grade-reference" class="grade-reference">
-  <h2 class="section-title">Grade Point Reference</h2>
-  <div class="grade-ref-grid">
-    <div class="grade-card s"><h3>S</h3><p>Outstanding</p><span>10 Pts</span></div>
-    <div class="grade-card a"><h3>A</h3><p>Excellent</p><span>9 Pts</span></div>
-    <div class="grade-card b"><h3>B</h3><p>Very Good</p><span>8 Pts</span></div>
-    <div class="grade-card c"><h3>C</h3><p>Good</p><span>7 Pts</span></div>
-    <div class="grade-card d"><h3>D</h3><p>Above Avg</p><span>6 Pts</span></div>
-    <div class="grade-card e"><h3>E</h3><p>Pass</p><span>5 Pts</span></div>
-    <div class="grade-card f"><h3>F</h3><p>Fail</p><span>0 Pts</span></div>
-  </div>
 </section>
 
 <script src="js/script.js"></script>
