@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>WEC CGPA Tracker</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8">
+  <title>WEC CGPA Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
 <header class="fixed-header">
@@ -26,34 +29,17 @@
   <h2>Welcome to Women's Engineering College CGPA Tracker 👩🏻‍🎓</h2>
   <button class="primary-btn" onclick="showPage('stream-page')">Start Now</button>
 
-  <!-- FAQ (hidden initially) -->
   <section id="faq-section" class="hidden">
     <h2 class="section-title">Frequently Asked Questions</h2>
+
     <div class="faq-item">
       <button class="faq-question">What is CGPA?</button>
       <div class="faq-answer">CGPA represents overall academic performance.</div>
     </div>
+
     <div class="faq-item">
       <button class="faq-question">How is CGPA calculated?</button>
       <div class="faq-answer">Σ(Credit × Grade Point) / Σ Credits</div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-question">Is this official?</button>
-      <div class="faq-answer">No. For reference only.</div>
-    </div>
-  </section>
-
-  <!-- Grade Reference (only on start page) -->
-  <section class="grade-reference">
-    <h2 class="section-title">Grade Point Reference</h2>
-    <div class="grade-ref-grid">
-      <div class="grade-card s"><h3>S</h3><p>Outstanding</p><span>10 Pts</span></div>
-      <div class="grade-card a"><h3>A</h3><p>Excellent</p><span>9 Pts</span></div>
-      <div class="grade-card b"><h3>B</h3><p>Very Good</p><span>8 Pts</span></div>
-      <div class="grade-card c"><h3>C</h3><p>Good</p><span>7 Pts</span></div>
-      <div class="grade-card d"><h3>D</h3><p>Above Avg</p><span>6 Pts</span></div>
-      <div class="grade-card e"><h3>E</h3><p>Pass</p><span>5 Pts</span></div>
-      <div class="grade-card f"><h3>F</h3><p>Fail</p><span>0 Pts</span></div>
     </div>
   </section>
 </section>
@@ -79,7 +65,7 @@
   <div id="semester-grid" class="cube-grid"></div>
 </section>
 
-<!-- SUBJECTS PAGE -->
+<!-- SUBJECT PAGE -->
 <section id="subjects-page" class="page">
   <h2>Enter Grades</h2>
   <div id="subjects-list"></div>
