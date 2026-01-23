@@ -12,6 +12,7 @@
 
 <body>
 
+<!-- HEADER -->
 <header class="fixed-header">
   <span onclick="showPage('start-page')">⬅</span>
   <h3>WEC CGPA Tracker</h3>
@@ -21,13 +22,14 @@
     <span onclick="toggleFAQ()">❓</span>
     <span onclick="showSaved()">💾</span>
   </div>
-<div id="saved-list"></div>
 </header>
 
+<!-- START PAGE -->
 <section id="start-page" class="page active">
   <h2>Welcome to Women's Engineering College CGPA Tracker 👩🏻‍🎓</h2>
   <button class="primary-btn" onclick="showPage('stream-page')">Start Now</button>
 
+  <!-- FAQ -->
   <section id="faq-section" class="hidden">
     <h2 class="section-title">Frequently Asked Questions</h2>
 
@@ -48,6 +50,7 @@
   </section>
 </section>
 
+<!-- STREAM -->
 <section id="stream-page" class="page">
   <h2>Select Stream</h2>
   <div class="cube-grid">
@@ -56,38 +59,47 @@
   </div>
 </section>
 
+<!-- DEPARTMENT -->
 <section id="department-page" class="page">
   <h2>Select Department</h2>
   <div id="department-grid" class="cube-grid"></div>
 </section>
 
+<!-- SEMESTER -->
 <section id="semester-page" class="page">
   <h2>Select Semester</h2>
   <div id="semester-grid" class="cube-grid"></div>
 </section>
 
+<!-- SUBJECTS -->
 <section id="subjects-page" class="page">
   <h2>Enter Grades</h2>
   <div id="subjects-list"></div>
-  <button class="primary-btn" onclick="calculateGPA()">Calculate CGPA</button>
+
+  <button class="primary-btn" onclick="calculateGPA()">Calculate GPA</button>
+
+  <p id="encouragement-text" class="encourage"></p>
 </section>
 
-<p id="encouragement-text" class="encourage"></p>
-
+<!-- RESULT -->
 <section id="result-page" class="page">
   <p id="cgpa-display"></p>
+  <p id="cgpa-message" class="encourage"></p>
 </section>
 
+<!-- GRAPH -->
 <section id="graph-page" class="page">
   <canvas id="semesterChart"></canvas>
 </section>
 
+<!-- SAVED -->
 <section id="saved-page" class="page">
   <h2>Saved Semesters</h2>
   <div id="saved-list"></div>
 </section>
-<p id="cgpa-message" class="encourage"></p>
-<section class="page" id="grade-reference-page">
+
+<!-- GRADE REFERENCE -->
+<section id="grade-reference-page" class="page">
   <h2 class="section-title">Grade Point Reference</h2>
 
   <div class="grade-ref-grid">
@@ -100,6 +112,7 @@
     <div class="grade-card f"><h3>F</h3><p>Fail</p><span>0 Pts</span></div>
   </div>
 </section>
+
 <script src="js/script.js"></script>
 </body>
 </html>
