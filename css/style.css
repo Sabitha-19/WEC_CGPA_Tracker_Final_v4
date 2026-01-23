@@ -1,34 +1,60 @@
-*{box-sizing:border-box;margin:0;padding:0}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
 body{
   font-family:Poppins,sans-serif;
   background:linear-gradient(135deg,#f3f6ff,#f9f7ff);
   padding-top:70px;
 }
 
-.page{display:none;padding:20px}
+/* ================= PAGES ================= */
+.page{
+  display:none;
+  padding:20px;
+}
 .page.active{display:block}
 
+.hidden{display:none}
+
+/* ================= HEADER ================= */
 .fixed-header{
-  position:fixed;top:0;left:0;right:0;height:60px;
-  background:#fff;display:flex;align-items:center;
-  justify-content:space-between;padding:0 16px;
-  box-shadow:0 4px 12px rgba(0,0,0,.1)
+  position:fixed;
+  top:0;left:0;right:0;
+  height:60px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 16px;
+  box-shadow:0 4px 12px rgba(0,0,0,.1);
+  z-index:10;
 }
 
+/* ================= BUTTONS ================= */
 .primary-btn{
-  padding:14px 26px;border:none;border-radius:18px;
+  padding:14px 26px;
+  border:none;
+  border-radius:18px;
   background:linear-gradient(135deg,#6a11cb,#2575fc);
-  color:#fff;cursor:pointer;
+  color:#fff;
+  cursor:pointer;
   box-shadow:0 8px 18px rgba(106,17,203,.35);
 }
 
 .cube-grid{
-  display:flex;gap:14px;justify-content:center;flex-wrap:wrap;
+  display:flex;
+  gap:14px;
+  justify-content:center;
+  flex-wrap:wrap;
 }
 
-/* Glassy default */
-.cube-btn,.grade-buttons button{
-  width:140px;height:60px;
+.cube-btn{
+  width:140px;
+  height:60px;
   background:rgba(160,120,255,0.18);
   backdrop-filter:blur(10px);
   border:1px solid rgba(160,120,255,0.35);
@@ -37,15 +63,14 @@ body{
   transition:.3s;
 }
 
-/* Active gradient */
-.cube-btn.active,
-.grade-buttons button.active{
+.cube-btn.active{
   background:linear-gradient(135deg,#6a11cb,#2575fc);
   color:#fff;
   box-shadow:0 10px 25px rgba(106,17,203,.45);
   transform:scale(1.05);
 }
 
+/* ================= SUBJECT ================= */
 .subject{
   background:#fff;
   border-radius:18px;
@@ -53,98 +78,25 @@ body{
   margin:12px 0;
 }
 
-.grade-buttons{
-  display:flex;
-  gap:8px;
-  margin-top:10px;
-}
-
-.grade-reference{
-  margin-top:40px;
-  padding:30px 15px;
-}
-
-.grade-ref-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:18px;
-  max-width:420px;
-  margin:auto;
-}
-
-/* Card base */
-.grade-card{
-  border-radius:20px;
-  padding:22px 10px;
-  text-align:center;
-  background:#fff;
-  box-shadow:0 6px 16px rgba(0,0,0,0.05);
-}
-
-/* Letter */
-.grade-card h3{
-  font-size:28px;
-  font-weight:500;
-  margin-bottom:6px;
-}
-
-/* Description */
-.grade-card p{
-  font-size:11px;
-  letter-spacing:1px;
-  opacity:0.7;
-  margin-bottom:8px;
-}
-
-/* Points */
-.grade-card span{
-  font-size:13px;
-  font-weight:500;
-}
-
-/* Pastel colors (MATCH IMAGE) */
-.grade-card.s{background:#eafaf0;color:#2e7d32}
-.grade-card.a{background:#eaf3ff;color:#1e5bb8}
-.grade-card.b{background:#edf4ff;color:#3f51b5}
-.grade-card.c{background:#f1efff;color:#5e35b1}
-.grade-card.d{background:#f6efff;color:#7b1fa2}
-.grade-card.e{background:#fff9e6;color:#9c6f19}
-.grade-card.f{background:#fff1f1;color:#b71c1c}
-
-/* Mobile perfect */
-@media (max-width:480px){
-  .grade-ref-grid{
-    grid-template-columns:1fr;
-  }
-}
-
-.grade-card{
-  transition:transform 0.3s ease;
-}
-.grade-card:hover{
-  transform:translateY(-4px);
-}
-
-.hidden { display: none; }
-
+/* ================= FAQ ================= */
 .faq-question{
-width:100%;
-padding:12px;
-border:none;
-border-radius:10px;
-background:#ede7ff;
-margin-top:10px;
-cursor:pointer;
-font-weight:500;
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:#ede7ff;
+  margin-top:10px;
+  cursor:pointer;
+  font-weight:500;
 }
 
 .faq-answer{
-padding:10px;
-font-size:13px;
-opacity:0.8;
+  padding:10px;
+  font-size:13px;
+  opacity:0.8;
 }
 
-
+/* ================= GRADE REFERENCE ================= */
 .grade-ref-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -158,8 +110,13 @@ opacity:0.8;
   padding:18px;
   text-align:center;
   background:rgba(255,255,255,0.75);
-  backdrop-filter: blur(6px);
+  backdrop-filter:blur(6px);
   box-shadow:0 8px 18px rgba(0,0,0,0.05);
+  transition:transform 0.3s ease;
+}
+
+.grade-card:hover{
+  transform:translateY(-4px);
 }
 
 .grade-card h3{
@@ -177,7 +134,7 @@ opacity:0.8;
   font-weight:600;
 }
 
-/* Grade Colors */
+/* Grade colors */
 .grade-card.s{background:#eefaf3;color:#2e7d32}
 .grade-card.a{background:#eef6ff;color:#1e5bb8}
 .grade-card.b{background:#f0f4ff;color:#3f51b5}
@@ -186,6 +143,7 @@ opacity:0.8;
 .grade-card.e{background:#fff8e1;color:#9c6f19}
 .grade-card.f{background:#fff0f0;color:#b71c1c}
 
+/* ================= CGPA BOX ================= */
 .cgpa-box{
   margin:20px auto;
   padding:18px;
@@ -207,6 +165,7 @@ opacity:0.8;
   font-weight:600;
 }
 
+/* ================= ENCOURAGEMENT ================= */
 .encourage{
   margin-top:14px;
   text-align:center;
@@ -216,4 +175,11 @@ opacity:0.8;
   background:#f3f6ff;
   padding:10px 14px;
   border-radius:12px;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width:480px){
+  .grade-ref-grid{
+    grid-template-columns:1fr;
+  }
 }
