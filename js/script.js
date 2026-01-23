@@ -4,7 +4,13 @@ let selectedSemester = 0;
 
 let subjects = [];
 let grades = {};
-
+const list = document.getElementById("saved-list");
+list.innerHTML = `
+  <div class="cgpa-box">
+    <h3>Overall CGPA</h3>
+    <span id="cgpa-value">${calculateCGPA()}</span>
+  </div>
+`;
 const departments = {
   engineering: ["cse", "ise", "ece", "eee", "aa"],
   bcom: ["bcom"]
@@ -206,3 +212,5 @@ function calculateCGPA() {
 
   return (total / savedSemesters.length).toFixed(2);
 }
+
+document.getElementById("cgpa-value").innerText = calculateCGPA();
