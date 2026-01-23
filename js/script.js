@@ -214,3 +214,33 @@ function calculateCGPA() {
 }
 
 document.getElementById("cgpa-value").innerText = calculateCGPA();
+
+
+function getEncouragement(score, type = "GPA") {
+  if (score >= 9) {
+    return `🌟 Outstanding! Your ${type} is excellent. Keep shining!`;
+  } 
+  else if (score >= 8) {
+    return `🔥 Very good! You're doing great. Aim even higher!`;
+  } 
+  else if (score >= 7) {
+    return `👍 Good work! Stay consistent and you'll improve more.`;
+  } 
+
+document.getElementById("encouragement-text").innerText =
+  getEncouragement(gpa, "GPA");
+
+
+  else if (score >= 6) {
+    return `💪 You passed! With a little more effort, you can do much better.`;
+  } 
+  else {
+    return `🌱 Don’t give up! Every topper once struggled. Keep trying!`;
+  }
+}
+
+document.getElementById("encouragement-text").innerText =
+  getEncouragement(gpa, "GPA");
+
+document.getElementById("cgpa-message").innerText =
+  getEncouragement(parseFloat(calculateCGPA()), "CGPA");
