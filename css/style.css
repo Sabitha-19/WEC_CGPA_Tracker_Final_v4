@@ -206,3 +206,14 @@ opacity:0.8;
   font-size:32px;
   font-weight:600;
 }
+
+.encourage{
+  margin-top:14px;
+  text-align:center;
+  font-size:14px;
+  font-weight:500;
+  color:#444;
+  background:#f3f6ff;
+  padding:10px 14px;
+  border-radius:12px;
+}
