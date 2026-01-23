@@ -195,3 +195,14 @@ document.querySelectorAll(".faq-question").forEach(btn => {
       answer.style.display === "block" ? "none" : "block";
   });
 });
+
+
+/* CGPA CALCULATION */
+function calculateCGPA() {
+  if (savedSemesters.length === 0) return "0.00";
+
+  let total = 0;
+  savedSemesters.forEach(s => total += s.gpa);
+
+  return (total / savedSemesters.length).toFixed(2);
+}
