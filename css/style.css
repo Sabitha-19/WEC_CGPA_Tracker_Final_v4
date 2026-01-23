@@ -185,3 +185,24 @@ opacity:0.8;
 .grade-card.d{background:#f7f1ff;color:#7b1fa2}
 .grade-card.e{background:#fff8e1;color:#9c6f19}
 .grade-card.f{background:#fff0f0;color:#b71c1c}
+
+.cgpa-box{
+  margin:20px auto;
+  padding:18px;
+  max-width:260px;
+  border-radius:16px;
+  background:linear-gradient(135deg,#6a11cb,#2575fc);
+  color:#fff;
+  text-align:center;
+  box-shadow:0 10px 22px rgba(0,0,0,0.15);
+}
+
+.cgpa-box h3{
+  font-size:14px;
+  opacity:.9;
+}
+
+.cgpa-box span{
+  font-size:32px;
+  font-weight:600;
+}
