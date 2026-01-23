@@ -118,3 +118,80 @@ function calculateGPA(){
 function toggleFAQ(){
   document.getElementById("faq-section").classList.toggle("hidden");
 }
+
+let semesterChart = null;
+
+/* GRAPH */
+function openGraph(){
+  showPage("graph-page");
+
+  const data = Array(8).fill(null);
+  savedSemesters.forEach(s => {
+    data[s.semester - 1] = s.gpa;
+  });
+
+  const ctx = document.getElementById("semesterChart").getContext("2d");
+
+  if (semesterChart) semesterChart.destroy();
+
+  semesterChart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: ["S1","S2","S3","S4","S5","S6","S7","S8"],
+      datasets: [{
+        label: "Semester GPA",
+        data: data,
+        borderWidth: 3,
+        fill: true,
+        tension: 0.4,
+        pointRadius: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: true }
+      },
+      scales: {
+        y: {
+          min: 0,
+          max: 10
+        }
+      }
+    }
+  });
+}
+
+/* SAVED SEMESTERS */
+function showSaved(){
+  showPage("saved-page");
+
+  const list = document.getElementById("saved-list");
+  list.innerHTML = "";
+
+  if (savedSemesters.length === 0) {
+    list.innerHTML = "<p>No CGPA data saved</p>";
+    return;
+  }
+
+  savedSemesters.forEach(s => {
+    list.innerHTML += `
+      <div class="subject">
+        Semester ${s.semester} – GPA: <b>${s.gpa}</b>
+      </div>
+    `;
+  });
+}
+
+document.querySelectorAll(".faq-question").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const answer = btn.nextElementSibling;
+
+    document.querySelectorAll(".faq-answer").forEach(a => {
+      if (a !== answer) a.style.display = "none";
+    });
+
+    answer.style.display =
+      answer.style.display === "block" ? "none" : "block";
+  });
+});
