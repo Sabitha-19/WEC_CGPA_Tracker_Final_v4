@@ -7,7 +7,7 @@
 
 body {
   font-family: Poppins, sans-serif;
-  background: linear-gradient(135deg, #f3f6ff, #f9f7ff);
+  background: linear-gradient(135deg, #f0f4ff, #faf5ff);
   padding-top: 70px;
   min-height: 100vh;
 }
@@ -67,7 +67,7 @@ body:has(#start-page.active) .fixed-header {
 /* ================== LANDING PAGE ================== */
 #start-page {
   padding: 0 !important;
-  background: linear-gradient(135deg, #4285f4 0%, #5a7de8 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
   position: fixed;
   top: 0;
@@ -104,7 +104,7 @@ body:has(#start-page.active) .fixed-header {
 .landing-title {
   font-size: 2.8rem;
   font-weight: 400;
-  color: #000;
+  color: #fff;
   margin-bottom: 50px;
   line-height: 1.2;
 }
@@ -113,18 +113,18 @@ body:has(#start-page.active) .fixed-header {
   font-weight: 700;
   font-size: 3.5rem;
   display: inline-block;
-  color: #000;
+  color: #fff;
 }
 
 .instantly-text {
   font-style: italic;
   font-weight: 400;
-  color: #000;
+  color: #fff;
 }
 
 .calculate-now-btn {
   background: #fff;
-  color: #4285f4;
+  color: #667eea;
   border: none;
   border-radius: 12px;
   padding: 18px 40px;
@@ -135,14 +135,14 @@ body:has(#start-page.active) .fixed-header {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
   margin-bottom: 20px;
 }
 
 .calculate-now-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .calculate-now-btn:active {
@@ -201,6 +201,7 @@ body:has(#start-page.active) .fixed-header {
   transform: translateY(-2px);
 }
 
+
 /* FAQ Overlay */
 .faq-overlay {
   position: fixed;
@@ -232,6 +233,7 @@ body:has(#start-page.active) .fixed-header {
   overflow-y: auto;
   position: relative;
 }
+
 .faq-header {
   display: flex;
   justify-content: space-between;
@@ -242,7 +244,7 @@ body:has(#start-page.active) .fixed-header {
 }
 
 .faq-header h2 {
-  color: #6a11cb;
+  color: #667eea;
   font-size: 1.5rem;
   margin: 0;
 }
@@ -272,10 +274,10 @@ body:has(#start-page.active) .fixed-header {
   padding: 14px 26px;
   border: none;
   border-radius: 18px;
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  background: linear-gradient(135deg, #667eea, #764ba2);
   color: #fff;
   cursor: pointer;
-  box-shadow: 0 8px 18px rgba(106, 17, 203, 0.35);
+  box-shadow: 0 8px 18px rgba(102, 126, 234, 0.4);
   font-family: Poppins, sans-serif;
   transition: all 0.3s ease;
   font-size: 15px;
@@ -284,48 +286,51 @@ body:has(#start-page.active) .fixed-header {
 
 .primary-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 24px rgba(106, 17, 203, 0.45);
+  box-shadow: 0 12px 24px rgba(102, 126, 234, 0.5);
 }
 
 .primary-btn:active {
   transform: translateY(0);
 }
 
-/* ================== CUBE GRID ================== */
+/* ================== CUBE GRID - VERTICAL LAYOUT ================== */
 .cube-grid {
   display: flex;
+  flex-direction: column;
   gap: 14px;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 600px;
+  align-items: center;
+  max-width: 400px;
   margin: 0 auto;
 }
 
 .cube-btn {
-  width: 140px;
+  width: 100%;
+  max-width: 350px;
   height: 60px;
-  background: rgba(160, 120, 255, 0.18);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(160, 120, 255, 0.35);
-  color: #4b2a85;
+  background: #fff;
+  border: 2px solid #e0e7ff;
+  color: #667eea;
   border-radius: 14px;
   transition: all 0.3s ease;
   cursor: pointer;
   font-family: Poppins, sans-serif;
-  font-weight: 500;
-  font-size: 15px;
+  font-weight: 600;
+  font-size: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .cube-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(106, 17, 203, 0.25);
+  box-shadow: 0 6px 15px rgba(102, 126, 234, 0.25);
+  border-color: #667eea;
 }
 
 .cube-btn.active {
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  background: linear-gradient(135deg, #667eea, #764ba2);
   color: #fff;
-  box-shadow: 0 10px 25px rgba(106, 17, 203, 0.45);
-  transform: scale(1.05);
+  border-color: transparent;
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.45);
+  transform: scale(1.02);
 }
 
 /* ================== SUBJECT ================== */
@@ -375,8 +380,8 @@ body:has(#start-page.active) .fixed-header {
   height: 55px;
   border-radius: 16px;
   border: none;
-  background: rgba(160, 120, 255, 0.15);
-  color: #6a11cb;
+  background: rgba(102, 126, 234, 0.15);
+  color: #667eea;
   font-size: 20px;
   font-weight: 600;
   cursor: pointer;
@@ -388,16 +393,16 @@ body:has(#start-page.active) .fixed-header {
 }
 
 .grade-btn:hover {
-  background: rgba(160, 120, 255, 0.25);
+  background: rgba(102, 126, 234, 0.25);
   transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(106, 17, 203, 0.2);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
 .grade-btn.selected {
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  background: linear-gradient(135deg, #667eea, #764ba2);
   color: #fff;
   transform: scale(1.08);
-  box-shadow: 0 8px 20px rgba(106, 17, 203, 0.45);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
 }
 
 .grade-btn:active {
@@ -424,13 +429,13 @@ body:has(#start-page.active) .fixed-header {
   font-weight: 500;
   font-family: Poppins, sans-serif;
   text-align: left;
-  color: #4b2a85;
+  color: #667eea;
   transition: all 0.2s ease;
   font-size: 14px;
 }
 
 .faq-question:hover {
-  background: #ddd0ff;
+  background: #e0d7ff;
 }
 
 .faq-answer {
@@ -528,10 +533,10 @@ body:has(#start-page.active) .fixed-header {
   padding: 25px;
   max-width: 300px;
   border-radius: 20px;
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  background: linear-gradient(135deg, #667eea, #764ba2);
   color: #fff;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(106, 17, 203, 0.3);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
 }
 
 .cgpa-box h3 {
@@ -562,7 +567,7 @@ body:has(#start-page.active) .fixed-header {
   font-size: 14px;
   font-weight: 500;
   color: #444;
-  background: #f3f6ff;
+  background: #f0f4ff;
   padding: 12px 16px;
   border-radius: 12px;
   max-width: 600px;
@@ -581,7 +586,7 @@ body:has(#start-page.active) .fixed-header {
 
 /* ================== SECTION TITLES ================== */
 .section-title {
-  color: #6a11cb;
+  color: #667eea;
   text-align: center;
   margin-bottom: 20px;
   font-size: 1.5rem;
@@ -589,10 +594,9 @@ body:has(#start-page.active) .fixed-header {
 }
 
 h2 {
-  color: #6a11cb;
+  color: #667eea;
   font-weight: 600;
 }
-
 
 /* ================== RESULT PAGE ================== */
 .result-container {
@@ -606,21 +610,21 @@ h2 {
 }
 
 .result-container h2 {
-  color: #6a11cb;
+  color: #667eea;
   margin-bottom: 20px;
 }
 
 .gpa-result {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #6a11cb;
+  color: #667eea;
   margin: 20px 0;
 }
 
 #cgpa-display {
   font-size: 2rem;
   font-weight: 700;
-  color: #6a11cb;
+  color: #667eea;
   margin: 20px 0;
 }
 
@@ -630,7 +634,7 @@ h2 {
   font-size: 14px;
   font-weight: 500;
   color: #444;
-  background: #f3f6ff;
+  background: #f0f4ff;
   padding: 12px 16px;
   border-radius: 12px;
 }
@@ -709,13 +713,9 @@ h2 {
   }
 
   .cube-btn {
-    width: 120px;
+    max-width: 100%;
     height: 55px;
-    font-size: 14px;
-  }
-
-  .cube-grid {
-    gap: 10px;
+    font-size: 15px;
   }
 
   .subject {
@@ -749,7 +749,8 @@ h2 {
     padding: 20px;
     max-width: 280px;
   }
-.cgpa-box span {
+
+  .cgpa-box span {
     font-size: 40px;
   }
 }
@@ -768,14 +769,9 @@ h2 {
     font-size: 15px;
   }
 
-  .cube-grid {
-    gap: 8px;
-  }
-
   .cube-btn {
-    width: 100px;
     height: 50px;
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .grade-btn {
