@@ -13,9 +13,7 @@ const departments = {
   bcom: ["bcom"]
 };
 
-const gradePoints = {
-  S: 10, A: 9, B: 8, C: 7, D: 6, E: 5, F: 0
-};
+const gradePoints = { S: 10, A: 9, B: 8, C: 7, D: 6, E: 5, F: 0 };
 
 /* ================= PAGE NAVIGATION ================= */
 function showPage(pageId) {
@@ -28,8 +26,7 @@ function showPage(pageId) {
 /* ================= STREAM ================= */
 function selectStream(stream, btn) {
   selectedStream = stream;
-  document.querySelectorAll("#stream-page .cube-btn")
-    .forEach(b => b.classList.remove("active"));
+  document.querySelectorAll("#stream-page .cube-btn").forEach(b => b.classList.remove("active"));
   btn.classList.add("active");
 
   showDepartments();
@@ -52,8 +49,7 @@ function showDepartments() {
 
 function selectDepartment(dep, btn) {
   selectedDepartment = dep;
-  document.querySelectorAll("#department-grid .cube-btn")
-    .forEach(b => b.classList.remove("active"));
+  document.querySelectorAll("#department-grid .cube-btn").forEach(b => b.classList.remove("active"));
   btn.classList.add("active");
 
   showSemesters();
@@ -76,8 +72,7 @@ function showSemesters() {
 
 function selectSemester(sem, btn) {
   selectedSemester = sem;
-  document.querySelectorAll("#semester-grid .cube-btn")
-    .forEach(b => b.classList.remove("active"));
+  document.querySelectorAll("#semester-grid .cube-btn").forEach(b => b.classList.remove("active"));
   btn.classList.add("active");
 
   loadSubjects();
@@ -154,11 +149,8 @@ function calculateGPA() {
 
   const gpa = credits ? (total / credits).toFixed(2) : "0.00";
 
-  document.getElementById("cgpa-display").innerText =
-    `Semester GPA: ${gpa}`;
-
-  document.getElementById("encouragement-text").innerText =
-    getEncouragement(parseFloat(gpa), "GPA");
+  document.getElementById("cgpa-display").innerText = `Semester GPA: ${gpa}`;
+  document.getElementById("encouragement-text").innerText = getEncouragement(parseFloat(gpa), "GPA");
 
   saveSemester(gpa);
   showPage("result-page");
@@ -166,9 +158,7 @@ function calculateGPA() {
 
 /* ================= SAVE SEMESTER ================= */
 function saveSemester(gpa) {
-  savedSemesters = savedSemesters.filter(
-    s => s.semester !== selectedSemester
-  );
+  savedSemesters = savedSemesters.filter(s => s.semester !== selectedSemester);
 
   savedSemesters.push({
     semester: selectedSemester,
@@ -247,25 +237,9 @@ function openGraph() {
 }
 
 /* ================= FAQ TOGGLE ================= */
-document.querySelectorAll(".faq-question").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const ans = btn.nextElementSibling;
-
-    document.querySelectorAll(".faq-answer").forEach(a => {
-      if (a !== ans) a.style.display = "none";
-    });
-
-    ans.style.display =
-      ans.style.display === "block" ? "none" : "block";
-  });
-});
-
-/* ================= FAQ SECTION TOGGLE ================= */
 function toggleFAQ() {
   const faq = document.getElementById("faq-section");
   faq.classList.toggle("hidden");
-
-  // Always go to start page when FAQ opens
   showPage("start-page");
 }
 
@@ -277,7 +251,6 @@ document.querySelectorAll(".faq-question").forEach(btn => {
       if (a !== ans) a.style.display = "none";
     });
 
-    ans.style.display =
-      ans.style.display === "block" ? "none" : "block";
+    ans.style.display = ans.style.display === "block" ? "none" : "block";
   });
 });
