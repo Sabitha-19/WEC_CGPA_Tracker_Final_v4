@@ -1,576 +1,655 @@
-/* ================== GLOBAL VARIABLES ================== */  
-let selectedStream = "";  
-let selectedDepartment = "";  
-let selectedSemester = 0;  
-let subjects = [];  
-let grades = {};  
-let savedSemesters = [];  
-let semesterChart = null;  
+
+/* ================== GLOBAL VARIABLES ================== */
+let selectedStream = "";
+let selectedDepartment = "";
+let selectedSemester = 0;
+let subjects = [];
+let grades = {};
+let savedSemesters = [];
+let semesterChart = null;
+
+const departments = {
+  engineering: ["CSE", "ISE", "ECE", "EEE", "AA"],
+  bcom: ["BCom"]
+};
+
+const gradePoints = { 
+  S: 10, 
+  A: 9, 
+  B: 8, 
+  C: 7, 
+  D: 6, 
+  E: 5, 
+  F: 0 
+};
+
+/* ================== INITIALIZE ON PAGE LOAD ================== */
+window.addEventListener('DOMContentLoaded', function() {
+  console.log("Page loaded!");
   
-const departments = {  
-  engineering: ["CSE", "ISE", "ECE", "EEE", "AA"],  
-  bcom: ["BCom"]  
-};  
-  
-const gradePoints = {   
-  S: 10,   
-  A: 9,   
-  B: 8,   
-  C: 7,   
-  D: 6,   
-  E: 5,   
-  F: 0   
-};  
-  
-/* ================== INITIALIZE ON PAGE LOAD ================== */  
-document.addEventListener('DOMContentLoaded', function() {  
-  // FAQ accordion functionality  
-  document.querySelectorAll(".faq-question").forEach(btn => {  
-    btn.addEventListener("click", () => {  
-      const ans = btn.nextElementSibling;  
-      const isOpen = ans.style.display === "block";  
-        
-      // Close all answers  
-      document.querySelectorAll(".faq-answer").forEach(a => {  
-        a.style.display = "none";  
-      });  
-        
-      // Toggle current answer  
-      ans.style.display = isOpen ? "none" : "block";  
-    });  
-  });  
-  
-  // Load saved data from localStorage  
-  loadSavedData();  
-});  
-  
-/* ================== LOCAL STORAGE FUNCTIONS ================== */  
-function loadSavedData() {  
-  const saved = localStorage.getItem('wec_cgpa_data');  
-  if (saved) {  
-    try {  
-      savedSemesters = JSON.parse(saved);  
-    } catch (e) {  
-      console.error("Error loading saved data:", e);  
-      savedSemesters = [];  
-    }  
-  }  
-}  
-  
-function saveToLocalStorage() {  
-  try {  
-    localStorage.setItem('wec_cgpa_data', JSON.stringify(savedSemesters));  
-  } catch (e) {  
-    console.error("Error saving data:", e);  
-    alert("Error saving data to local storage!");  
-  }  
-}  
-  
-/* ================== PAGE NAVIGATION ================== */  
-function showPage(id) {  
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));  
-  const page = document.getElementById(id);  
-  if (page) {  
-    page.classList.add("active");  
-  }  
-}  
-  
-/* ================== STREAM SELECTION ================== */  
-function selectStream(stream, btn) {  
-  selectedStream = stream;  
-  document.querySelectorAll("#stream-page .cube-btn").forEach(b => b.classList.remove("active"));  
-  btn.classList.add("active");  
-  showDepartments();  
-  showPage("department-page");  
-}  
-  
-/* ================== DEPARTMENT SELECTION ================== */  
-function showDepartments() {  
-  const grid = document.getElementById("department-grid");  
-  grid.innerHTML = "";  
-  
-  departments[selectedStream].forEach(dep => {  
-    const b = document.createElement("button");  
-    b.className = "cube-btn";  
-    b.textContent = dep;  
-    b.onclick = () => selectDepartment(dep.toLowerCase(), b);  
-    grid.appendChild(b);  
-  });  
-}  
-  
-function selectDepartment(dep, btn) {  
-  selectedDepartment = dep;  
-  document.querySelectorAll("#department-grid .cube-btn").forEach(b => b.classList.remove("active"));  
-  btn.classList.add("active");  
-  showSemesters();  
-  showPage("semester-page");  
-}  
-  
-/* ================== SEMESTER SELECTION ================== */  
-function showSemesters() {  
-  const grid = document.getElementById("semester-grid");  
-  grid.innerHTML = "";  
-  
-  for (let i = 1; i <= 8; i++) {  
-    const b = document.createElement("button");  
-    b.className = "cube-btn";  
-    b.textContent = "Semester " + i;  
-    b.onclick = () => selectSemester(i, b);  
-    grid.appendChild(b);  
-  }  
-}  
-  
-function selectSemester(sem, btn) {  
-  selectedSemester = sem;  
-  document.querySelectorAll("#semester-grid .cube-btn").forEach(b => b.classList.remove("active"));  
-  btn.classList.add("active");  
-  loadSubjects();  
-}  
-  
-/* ================== LOAD SUBJECTS FROM JSON ================== */  
-function loadSubjects() {  
-  grades = {};  
-    
-  // Construct the file path based on department and semester  
-  const fileName = `${selectedDepartment}_sem${selectedSemester}.json`;  
-  const filePath = `data/${fileName}`;  
-    
-  fetch(filePath)  
-    .then(res => {  
-      if (!res.ok) {  
-        throw new Error(`HTTP error! status: ${res.status}`);  
-      }  
-      return res.json();  
-    })  
-    .then(data => {  
-      subjects = data;  
-      renderSubjects();  
-      showPage("subjects-page");  
-    })  
-    .catch(error => {  
-      console.error("Error loading subjects:", error);  
-      alert(`Could not load subjects for ${selectedDepartment.toUpperCase()} Semester ${selectedSemester}.\n\nPlease make sure the file '${fileName}' exists in the data folder.`);  
-    });  
-}  
-  
-/* ================== RENDER SUBJECTS ================== */  
-function renderSubjects() {  
-  const box = document.getElementById("subjects-list");  
-  box.innerHTML = "";  
-  
-  if (!subjects || subjects.length === 0) {  
-    box.innerHTML = "<p style='text-align:center; color:#999; padding:20px;'>No subjects found.</p>";  
-    return;  
-  }  
-  
-  subjects.forEach(sub => {  
-    const div = document.createElement("div");  
-    div.className = "subject";  
+  // FAQ accordion functionality
+  const faqButtons = document.querySelectorAll(".faq-question");
+  faqButtons.forEach(btn => {
+    btn.addEventListener("click", function() {
+      const ans = this.nextElementSibling;
+      const isOpen = ans.style.display === "block";
       
-    const strong = document.createElement("strong");  
-    strong.textContent = `${sub.name} (${sub.credits} credits)`;  
+      // Close all answers
+      document.querySelectorAll(".faq-answer").forEach(a => {
+        a.style.display = "none";
+      });
       
-    const select = document.createElement("select");  
-    select.style.cssText = "padding:8px 16px; border:2px solid #6a11cb; border-radius:10px; background:#fff; color:#6a11cb; font-weight:600; cursor:pointer; font-family:Poppins,sans-serif; font-size:14px;";  
-    select.onchange = function() {  
-      grades[sub.code] = this.value;  
-    };  
+      // Toggle current answer
+      ans.style.display = isOpen ? "none" : "block";
+    });
+  });
+
+  // Load saved data from localStorage
+  loadSavedData();
+});
+
+/* ================== LOCAL STORAGE FUNCTIONS ================== */
+function loadSavedData() {
+  try {
+    const saved = localStorage.getItem('wec_cgpa_data');
+    if (saved) {
+      savedSemesters = JSON.parse(saved);
+      console.log("Loaded saved data:", savedSemesters);
+    }
+  } catch (e) {
+    console.error("Error loading saved data:", e);
+    savedSemesters = [];
+  }
+}
+
+function saveToLocalStorage() {
+  try {
+    localStorage.setItem('wec_cgpa_data', JSON.stringify(savedSemesters));
+    console.log("Data saved successfully");
+  } catch (e) {
+    console.error("Error saving data:", e);
+    alert("Error saving data!");
+  }
+}
+
+/* ================== PAGE NAVIGATION ================== */
+function showPage(id) {
+  console.log("Showing page:", id);
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  const page = document.getElementById(id);
+  if (page) {
+    page.classList.add("active");
+  } else {
+    console.error("Page not found:", id);
+  }
+}
+
+/* ================== STREAM SELECTION ================== */
+function selectStream(stream, btn) {
+  console.log("Stream selected:", stream);
+  selectedStream = stream;
+  document.querySelectorAll("#stream-page .cube-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  showDepartments();
+  showPage("department-page");
+}
+
+/* ================== DEPARTMENT SELECTION ================== */
+function showDepartments() {
+  console.log("Showing departments for:", selectedStream);
+  const grid = document.getElementById("department-grid");
+  if (!grid) {
+    console.error("department-grid not found!");
+    return;
+  }
+  
+  grid.innerHTML = "";
+
+  const deptList = departments[selectedStream];
+  if (!deptList) {
+    console.error("No departments found for stream:", selectedStream);
+    return;
+  }
+
+  deptList.forEach(dep => {
+    const b = document.createElement("button");
+    b.className = "cube-btn";
+    b.textContent = dep;
+    b.onclick = () => selectDepartment(dep.toLowerCase(), b);
+    grid.appendChild(b);
+  });
+}
+
+function selectDepartment(dep, btn) {
+  console.log("Department selected:", dep);
+  selectedDepartment = dep;
+  document.querySelectorAll("#department-grid .cube-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  showSemesters();
+  showPage("semester-page");
+}
+
+/* ================== SEMESTER SELECTION ================== */
+function showSemesters() {
+  console.log("Showing semesters");
+  const grid = document.getElementById("semester-grid");
+  if (!grid) {
+    console.error("semester-grid not found!");
+    return;
+  }
+  
+  grid.innerHTML = "";
+
+  for (let i = 1; i <= 8; i++) {
+    const b = document.createElement("button");
+    b.className = "cube-btn";
+    b.textContent = "Semester " + i;
+    b.onclick = () => selectSemester(i, b);
+    grid.appendChild(b);
+  }
+}
+
+function selectSemester(sem, btn) {
+  console.log("Semester selected:", sem);
+  selectedSemester = sem;
+  document.querySelectorAll("#semester-grid .cube-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  loadSubjects();
+}
+
+/* ================== LOAD SUBJECTS FROM JSON ================== */
+function loadSubjects() {
+  console.log("=== LOADING SUBJECTS ===");
+  console.log("Stream:", selectedStream);
+  console.log("Department:", selectedDepartment);
+  console.log("Semester:", selectedSemester);
+  
+  grades = {};
+  subjects = [];
+  
+  // Construct the file path
+  const fileName = selectedDepartment + "_sem" + selectedSemester + ".json";
+  const filePath = "data/" + fileName;
+  
+  console.log("File path:", filePath);
+  console.log("Fetching from:", window.location.origin + "/" + filePath);
+  
+  // Show the subjects page with loading indicator
+  showPage("subjects-page");
+  
+  const box = document.getElementById("subjects-list");
+  if (!box) {
+    console.error("subjects-list element not found!");
+    alert("Error: subjects-list element not found!");
+    return;
+  }
+  
+  // Show loading message
+  box.innerHTML = `
+    <div style="text-align:center; padding:40px; background:#fff; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
+      <div style="font-size:40px; margin-bottom:15px;">⏳</div>
+      <p style="color:#6a11cb; font-size:16px; font-weight:600;">Loading subjects...</p>
+      <p style="color:#999; font-size:13px; margin-top:8px;">${fileName}</p>
+    </div>
+  `;
+  
+  // Fetch the JSON file
+  fetch(filePath)
+    .then(response => {
+      console.log("Response status:", response.status);
+      console.log("Response ok:", response.ok);
       
-    const defaultOption = document.createElement("option");  
-    defaultOption.value = "";  
-    defaultOption.textContent = "Select Grade";  
-    select.appendChild(defaultOption);  
+      if (!response.ok) {
+        throw new Error("File not found (Status: " + response.status + ")");
+      }
+      return response.text(); // Get as text first
+    })
+    .then(text => {
+      console.log("Raw response:", text.substring(0, 200)); // Log first 200 chars
       
-    ["S", "A", "B", "C", "D", "E", "F"].forEach(grade => {  
-      const option = document.createElement("option");  
-      option.value = grade;  
-      option.textContent = grade;  
-      select.appendChild(option);  
-    });  
+      // Try to parse JSON
+      const data = JSON.parse(text);
+      console.log("Parsed data:", data);
+      console.log("Data type:", typeof data);
+      console.log("Is array:", Array.isArray(data));
+      console.log("Number of items:", data.length);
       
-    div.appendChild(strong);  
-    div.appendChild(select);  
-    box.appendChild(div);  
-  });  
+      if (!Array.isArray(data)) {
+        throw new Error("Data is not an array");
+      }
+      
+      if (data.length === 0) {
+        throw new Error("Data array is empty");
+      }
+      
+      subjects = data;
+      console.log("Subjects loaded successfully:", subjects);
+      renderSubjects();
+    })
+    .catch(error => {
+      console.error("=== ERROR LOADING SUBJECTS ===");
+      console.error("Error:", error);
+      console.error("Error message:", error.message);
+      
+      // Show detailed error message
+      box.innerHTML = `
+        <div style="text-align:center; padding:30px; background:#fff3f3; border-radius:16px; border:2px solid #ef4444;">
+          <div style="font-size:40px; margin-bottom:15px;">❌</div>
+          <p style="color:#ef4444; font-size:18px; font-weight:600; margin-bottom:15px;">Could not load subjects</p>
+          
+          <div style="background:#fff; padding:15px; border-radius:8px; margin:15px 0; text-align:left;">
+            <p style="color:#666; font-size:13px; margin:5px 0;"><strong>Stream:</strong> ${selectedStream}</p>
+            <p style="color:#666; font-size:13px; margin:5px 0;"><strong>Department:</strong> ${selectedDepartment.toUpperCase()}</p>
+            <p style="color:#666; font-size:13px; margin:5px 0;"><strong>Semester:</strong> ${selectedSemester}</p>
+            <p style="color:#666; font-size:13px; margin:5px 0;"><strong>File:</strong> ${fileName}</p>
+            <p style="color:#ef4444; font-size:13px; margin:10px 0 5px 0;"><strong>Error:</strong> ${error.message}</p>
+          </div>
+          
+          <p style="color:#999; font-size:13px; margin:15px 0;">
+            Please check:<br>
+            • File exists in 'data' folder<br>
+            • File name is correct (lowercase)<br>
+            • JSON format is valid
+          </p>
+          
+          <button onclick="showPage('semester-page')" style="padding:12px 24px; background:#6a11cb; color:#fff; border:none; border-radius:10px; cursor:pointer; font-family:Poppins,sans-serif; font-size:14px; margin-top:10px;">
+            ← Go Back to Semester Selection
+          </button>
+        </div>
+      `;
+    });
+}
+
+/* ================== RENDER SUBJECTS ================== */
+function renderSubjects() {
+  console.log("=== RENDERING SUBJECTS ===");
+  console.log("Number of subjects:", subjects.length);
   
-  // Clear encouragement text  
-  document.getElementById("encouragement-text").innerText = "";  
-}  
+  const box = document.getElementById("subjects-list");
   
-/* ================== CALCULATE GPA ================== */  
-function calculateGPA() {  
-  let total = 0;  
-  let credits = 0;  
-  let missingGrades = false;  
+  if (!box) {
+    console.error("subjects-list element not found!");
+    alert("Error: subjects-list element not found!");
+    return;
+  }
   
-  subjects.forEach(s => {  
-    const g = grades[s.code];  
-    if (g && gradePoints[g] !== undefined) {  
-      total += gradePoints[g] * s.credits;  
-      credits += s.credits;  
-    } else {  
-      missingGrades = true;  
-    }  
-  });  
-  
-  if (credits === 0) {  
-    alert("Please select grades for at least one subject!");  
-    return;  
-  }  
-  
-  if (missingGrades) {  
-    const confirmCalc = confirm("Some subjects don't have grades selected. Continue with calculation?");  
-    if (!confirmCalc) return;  
-  }  
-  
-  const gpa = (total / credits).toFixed(2);  
-  
-  document.getElementById("cgpa-display").innerText = `Semester ${selectedSemester} GPA: ${gpa}`;  
-  document.getElementById("encouragement-text").innerText = getEncouragement(parseFloat(gpa), "GPA");  
-  
-  saveSemester(gpa);  
-  showPage("result-page");  
-}  
-  
-/* ================== SAVE SEMESTER ================== */  
-function saveSemester(gpa) {  
-  // Remove existing entry for this semester/department/stream if any  
-  savedSemesters = savedSemesters.filter(s =>   
-    !(s.semester === selectedSemester &&   
-      s.department === selectedDepartment &&   
-      s.stream === selectedStream)  
-  );  
-  
-  // Add new entry  
-  savedSemesters.push({  
-    stream: selectedStream,  
-    department: selectedDepartment,  
-    semester: selectedSemester,  
-    gpa: parseFloat(gpa),  
-    subjects: subjects.length,  
-    date: new Date().toLocaleDateString()  
-  });  
-  
-  // Sort by stream, department, then semester  
-  savedSemesters.sort((a, b) => {  
-    if (a.stream !== b.stream) return a.stream.localeCompare(b.stream);  
-    if (a.department !== b.department) return a.department.localeCompare(b.department);  
-    return a.semester - b.semester;  
-  });  
-  
-  // Save to localStorage  
-  saveToLocalStorage();  
-  
-  const cgpa = calculateCGPA();  
-  document.getElementById("cgpa-message").innerText =   
-    `Overall CGPA: ${cgpa} - ${getEncouragement(parseFloat(cgpa), "CGPA")}`;  
-}  
-  
-/* ================== CALCULATE CGPA ================== */  
-function calculateCGPA() {  
-  if (savedSemesters.length === 0) return "0.00";  
-  
-  let total = 0;  
-  savedSemesters.forEach(s => total += s.gpa);  
-  
-  return (total / savedSemesters.length).toFixed(2);  
-}  
-  
-/* ================== SHOW SAVED SEMESTERS ================== */  
-function showSaved() {  
-  showPage("saved-page");  
-  
-  const list = document.getElementById("saved-list");  
-  const cgpa = calculateCGPA();  
+  box.innerHTML = "";
+
+  if (!subjects || subjects.length === 0) {
+    console.warn("No subjects to render!");
+    box.innerHTML = `
+      <div style="text-align:center; padding:40px; background:#fff; border-radius:16px;">
+        <div style="font-size:40px; margin-bottom:15px;">📚</div>
+        <p style="color:#999; font-size:16px; margin-bottom:15px;">No subjects found</p>
+        <button onclick="showPage('semester-page')" style="padding:12px 24px; background:#6a11cb; color:#fff; border:none; border-radius:10px; cursor:pointer; font-family:Poppins,sans-serif; font-size:14px;">
+          ← Go Back
+        </button>
+      </div>
+    `;
+    return;
+  }
+
+  // Create subjects container
+  const container = document.createElement("div");
+  container.style.cssText = "background:#fff; border-radius:16px; padding:20px; box-shadow:0 4px 12px rgba(0,0,0,0.08); margin-bottom:20px;";
+
+  subjects.forEach((sub, index) => {
+    console.log("Rendering subject:", sub);
     
-  list.innerHTML = `  
-    <div class="cgpa-box">  
-      <h3>Overall CGPA</h3>  
-      <span>${cgpa}</span>  
-      <p style="margin-top:12px; font-size:14px; opacity:0.9;">${getEncouragement(parseFloat(cgpa), "CGPA")}</p>  
-      <p style="margin-top:8px; font-size:13px; opacity:0.8;">${savedSemesters.length} semester(s) recorded</p>  
-    </div>  
-  `;  
-  
-  if (savedSemesters.length === 0) {  
-    list.innerHTML += `  
-      <div style="background:#fff; padding:30px; border-radius:16px; text-align:center; margin-top:20px;">  
-        <p style="color:#666; margin-bottom:10px; font-size:15px;">📚 No semester data yet</p>  
-        <p style="color:#999; font-size:13px;">Start by calculating your first GPA!</p>  
-      </div>  
-    `;  
-    return;  
-  }  
-  
-  // Group by stream and department  
-  let currentGroup = null;  
+    const div = document.createElement("div");
+    div.style.cssText = "display:flex; justify-content:space-between; align-items:center; padding:15px 10px; border-bottom:1px solid #f0f0f0;";
     
-  savedSemesters.forEach(s => {  
-    const groupKey = `${s.stream}_${s.department}`;  
-      
-    if (currentGroup !== groupKey) {  
-      currentGroup = groupKey;  
-      const groupHeader = document.createElement("div");  
-      groupHeader.style.cssText = "margin-top:25px; margin-bottom:12px; color:#6a11cb; font-weight:600; font-size:16px; text-align:center;";  
-      groupHeader.textContent = `${s.stream.toUpperCase()} - ${s.department.toUpperCase()}`;  
-      list.appendChild(groupHeader);  
-    }  
-      
-    const div = document.createElement("div");  
-    div.className = "subject";  
-    div.style.cssText = "display:flex; justify-content:space-between; align-items:center;";  
-      
-    div.innerHTML = `  
-      <div>  
-        <strong style="color:#333; font-size:15px;">Semester ${s.semester}</strong>  
-        <small style="display:block; color:#999; margin-top:5px; font-size:12px;">  
-          ${s.subjects} subjects • ${s.date}  
-        </small>  
-      </div>  
-      <div style="text-align:right;">  
-        <b style="color:#6a11cb; font-size:18px;">GPA: ${s.gpa}</b>  
-        <button onclick="deleteSemester(${s.semester}, '${s.department}', '${s.stream}')"   
-                style="display:block; margin-top:8px; background:#ef4444; color:#fff; border:none; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px; font-family:Poppins,sans-serif;">  
-          Delete  
-        </button>  
-      </div>  
-    `;  
-    list.appendChild(div);  
-  });  
-}  
-  
-/* ================== DELETE SEMESTER ================== */  
-function deleteSemester(semester, department, stream) {  
-  const confirmed = confirm(`Are you sure you want to delete Semester ${semester} data for ${department.toUpperCase()}?`);  
-  if (!confirmed) return;  
-  
-  savedSemesters = savedSemesters.filter(s =>   
-    !(s.semester === semester &&   
-      s.department === department &&   
-      s.stream === stream)  
-  );  
-  
-  saveToLocalStorage();  
-  showSaved();  
-}  
-  
-/* ================== CLEAR ALL DATA ================== */  
-function clearAllData() {  
-  const confirmed = confirm("⚠️ WARNING ⚠️\n\nAre you sure you want to delete ALL saved semester data?\n\nThis action CANNOT be undone!");  
-  if (!confirmed) return;  
-  
-  const doubleCheck = confirm("This is your last chance!\n\nAll your GPA records will be permanently deleted.\n\nClick OK to proceed with deletion.");  
-  if (!doubleCheck) return;  
-  
-  savedSemesters = [];  
-  saveToLocalStorage();  
-  showSaved();  
-  alert("All data has been cleared.");  
-}  
-  
-/* ================== OPEN GRAPH ================== */  
-function openGraph() {  
-  if (savedSemesters.length === 0) {  
-    alert("No data to display. Please calculate at least one semester GPA first.");  
-    return;  
-  }  
-  
-  showPage("graph-page");  
-  
-  // Prepare data for all semesters (1-8)  
-  const data = Array(8).fill(null);  
+    if (index === subjects.length - 1) {
+      div.style.borderBottom = "none";
+    }
     
-  // Fill in the data for saved semesters  
-  const semesterData = {};  
-  savedSemesters.forEach(s => {  
-    if (!semesterData[s.semester]) {  
-      semesterData[s.semester] = [];  
-    }  
-    semesterData[s.semester].push(s.gpa);  
-  });  
-  
-  // Calculate average for each semester if multiple entries exist  
-  Object.keys(semesterData).forEach(sem => {  
-    const gpas = semesterData[sem];  
-    const avg = gpas.reduce((a, b) => a + b, 0) / gpas.length;  
-    data[sem - 1] = parseFloat(avg.toFixed(2));  
-  });  
-  
-  const ctx = document.getElementById("semesterChart").getContext("2d");  
+    const strong = document.createElement("strong");
+    strong.textContent = sub.name + " (" + sub.credits + " credits)";
+    strong.style.cssText = "flex:1; color:#333; font-size:14px; font-weight:500; margin-right:10px;";
     
-  if (semesterChart) {  
-    semesterChart.destroy();  
-  }  
-  
-  semesterChart = new Chart(ctx, {  
-    type: "line",  
-    data: {  
-      labels: ["Sem 1", "Sem 2", "Sem 3", "Sem 4", "Sem 5", "Sem 6", "Sem 7", "Sem 8"],  
-      datasets: [{  
-        label: "Semester GPA",  
-        data: data,  
-        borderColor: "#6a11cb",  
-        backgroundColor: "rgba(106, 17, 203, 0.1)",  
-        borderWidth: 3,  
-        fill: true,  
-        tension: 0.4,  
-        pointRadius: 6,  
-        pointBackgroundColor: "#6a11cb",  
-        pointBorderColor: "#fff",  
-        pointBorderWidth: 2,  
-        pointHoverRadius: 8,  
-        pointHoverBackgroundColor: "#2575fc",  
-        pointHoverBorderWidth: 3  
-      }]  
-    },  
-    options: {  
-      responsive: true,  
-      maintainAspectRatio: true,  
-      scales: {  
-        y: {  
-          min: 0,  
-          max: 10,  
-          ticks: {  
-            stepSize: 1  
-          },  
-          title: {  
-            display: true,  
-            text: 'GPA',  
-            font: {  
-              size: 14,  
-              weight: 'bold'  
-            }  
-          },  
-          grid: {  
-            color: 'rgba(0, 0, 0, 0.05)'  
-          }  
-        },  
-        x: {  
-          title: {  
-            display: true,  
-            text: 'Semester',  
-            font: {  
-              size: 14,  
-              weight: 'bold'  
-            }  
-          },  
-          grid: {  
-            color: 'rgba(0, 0, 0, 0.05)'  
-          }  
-        }  
-      },  
-      plugins: {  
-        legend: {  
-          display: true,  
-          position: 'top',  
-          labels: {  
-            font: {  
-              size: 14,  
-              family: 'Poppins'  
-            },  
-            color: '#333'  
-          }  
-        },  
-        tooltip: {  
-          backgroundColor: 'rgba(106, 17, 203, 0.9)',  
-          titleFont: {  
-            size: 14,  
-            family: 'Poppins'  
-          },  
-          bodyFont: {  
-            size: 13,  
-            family: 'Poppins'  
-          },  
-          padding: 12,  
-          cornerRadius: 8,  
-          callbacks: {  
-            label: function(context) {  
-              let label = context.dataset.label || '';  
-              if (label) {  
-                label += ': ';  
-              }  
-              if (context.parsed.y !== null) {  
-                label += context.parsed.y.toFixed(2);  
-              }  
-              return label;  
-            }  
-          }  
-        }  
-      }  
-    }  
-  });  
-}  
-  
-/* ================== TOGGLE FAQ ================== */  
-function toggleFAQ() {  
-  const faqSection = document.getElementById("faq-section");  
-  faqSection.classList.toggle("hidden");  
-}  
-  
-/* ================== ENCOURAGEMENT MESSAGES ================== */  
-function getEncouragement(score, type = "GPA") {  
-  if (score >= 9.5) return `🌟 Perfect! Your ${type} is outstanding. You're a star!`;  
-  if (score >= 9) return `🎉 Excellent! Your ${type} is superb. Keep up the great work!`;  
-  if (score >= 8.5) return `🔥 Amazing! Your ${type} is impressive. You're doing great!`;  
-  if (score >= 8) return `💪 Very good! Your ${type} is strong. Keep pushing!`;  
-  if (score >= 7.5) return `👍 Good job! Your ${type} is solid. Stay consistent!`;  
-  if (score >= 7) return `✅ Well done! Your ${type} is good. Keep it up!`;  
-  if (score >= 6.5) return `📚 Fair performance! Your ${type} shows effort. Aim higher!`;  
-  if (score >= 6) return `💡 You passed! Push yourself a bit more next time.`;  
-  if (score >= 5) return `🌱 Keep trying! Every expert was once a beginner.`;  
-  return `💪 Don't give up! Every topper once struggled. You can do it!`;  
-}  
-  
-/* ================== EXPORT DATA ================== */  
-function exportData() {  
-  if (savedSemesters.length === 0) {  
-    alert("No data to export! Calculate some GPAs first.");  
-    return;  
-  }  
-  
-  const dataStr = JSON.stringify(savedSemesters, null, 2);  
-  const dataBlob = new Blob([dataStr], { type: 'application/json' });  
-  const url = URL.createObjectURL(dataBlob);  
-  const link = document.createElement('a');  
-  link.href = url;  
-  link.download = `wec_cgpa_data_${new Date().toISOString().split('T')[0]}.json`;  
-  link.click();  
-  URL.revokeObjectURL(url);  
+    const select = document.createElement("select");
+    select.style.cssText = "padding:8px 16px; border:2px solid #6a11cb; border-radius:10px; background:#fff; color:#6a11cb; font-weight:600; cursor:pointer; font-family:Poppins,sans-serif; font-size:14px; min-width:80px;";
+    select.onchange = function() {
+      grades[sub.code] = this.value;
+      console.log("Grade selected:", sub.code, "=", this.value);
+    };
     
-  alert("Data exported successfully!");  
-}  
+    const defaultOption = document.createElement("option");
+    defaultOption.value = "";
+    defaultOption.textContent = "Grade";
+    select.appendChild(defaultOption);
+    
+    const gradeOptions = ["S", "A", "B", "C", "D", "E", "F"];
+    gradeOptions.forEach(grade => {
+      const option = document.createElement("option");
+      option.value = grade;
+      option.textContent = grade;
+      select.appendChild(option);
+    });
+    
+    div.appendChild(strong);
+    div.appendChild(select);
+    container.appendChild(div);
+  });
+
+  box.appendChild(container);
   
-/* ================== IMPORT DATA ================== */  
-function importData() {  
-  const input = document.createElement('input');  
-  input.type = 'file';  
-  input.accept = 'application/json';  
+  console.log("Subjects rendered successfully!");
+  
+  // Clear encouragement text
+  const encouragement = document.getElementById("encouragement-text");
+  if (encouragement) {
+    encouragement.innerText = "";
+  }
+}
+
+/* ================== CALCULATE GPA ================== */
+function calculateGPA() {
+  console.log("Calculating GPA...");
+  console.log("Grades:", grades);
+  
+  let total = 0;
+  let credits = 0;
+  let missingGrades = 0;
+
+  subjects.forEach(s => {
+    const g = grades[s.code];
+    if (g && gradePoints[g] !== undefined) {
+      total += gradePoints[g] * s.credits;
+      credits += s.credits;
+      console.log(s.code, ":", g, "=", gradePoints[g], "x", s.credits);
+    } else {
+      missingGrades++;
+      console.log(s.code, ": No grade selected");
+    }
+  });
+
+  console.log("Total points:", total);
+  console.log("Total credits:", credits);
+  console.log("Missing grades:", missingGrades);
+
+  if (credits === 0) {
+    alert("⚠️ Please select grades for at least one subject!");
+    return;
+  }
+
+  if (missingGrades > 0) {
+    const confirmCalc = confirm("⚠️ " + missingGrades + " subject(s) don't have grades selected.\n\nDo you want to continue with calculation?");
+    if (!confirmCalc) return;
+  }
+
+  const gpa = (total / credits).toFixed(2);
+  console.log("Calculated GPA:", gpa);
+
+  const displayElem = document.getElementById("cgpa-display");
+  const encourageElem = document.getElementById("encouragement-text");
+  
+  if (displayElem) {
+    displayElem.innerText = "Semester " + selectedSemester + " GPA: " + gpa;
+  }
+  
+  if (encourageElem) {
+    encourageElem.innerText = getEncouragement(parseFloat(gpa), "GPA");
+  }
+
+  saveSemester(gpa);
+  showPage("result-page");
+}
+
+/* ================== SAVE SEMESTER ================== */
+function saveSemester(gpa) {
+  console.log("Saving semester...");
+  
+  // Remove existing entry
+  savedSemesters = savedSemesters.filter(s => 
+    !(s.semester === selectedSemester && 
+      s.department === selectedDepartment && 
+      s.stream === selectedStream)
+  );
+
+  // Add new entry
+  savedSemesters.push({
+    stream: selectedStream,
+    department: selectedDepartment,
+    semester: selectedSemester,
+    gpa: parseFloat(gpa),
+    subjects: subjects.length,
+    date: new Date().toLocaleDateString()
+  });
+
+  // Sort
+  savedSemesters.sort((a, b) => {
+    if (a.stream !== b.stream) return a.stream.localeCompare(b.stream);
+    if (a.department !== b.department) return a.department.localeCompare(b.department);
+    return a.semester - b.semester;
+  });
+
+  saveToLocalStorage();
+
+  const cgpa = calculateCGPA();
+  const messageElem = document.getElementById("cgpa-message");
+  if (messageElem) {
+    messageElem.innerText = "Overall CGPA: " + cgpa + " - " + getEncouragement(parseFloat(cgpa), "CGPA");
+  }
+  
+  console.log("Semester saved successfully!");
+}
+
+/* ================== CALCULATE CGPA ================== */
+function calculateCGPA() {
+  if (savedSemesters.length === 0) return "0.00";
+
+  let total = 0;
+  savedSemesters.forEach(s => total += s.gpa);
+
+  return (total / savedSemesters.length).toFixed(2);
+}
+
+/* ================== SHOW SAVED SEMESTERS ================== */
+function showSaved() {
+  console.log("Showing saved semesters");
+  showPage("saved-page");
+
+  const list = document.getElementById("saved-list");
+  if (!list) {
+    console.error("saved-list element not found!");
+    return;
+  }
+  
+  const cgpa = calculateCGPA();
+  
+  list.innerHTML = `
+    <div class="cgpa-box">
+      <h3>Overall CGPA</h3>
+      <span>${cgpa}</span>
+      <p style="margin-top:12px; font-size:14px; opacity:0.9;">${getEncouragement(parseFloat(cgpa), "CGPA")}</p>
+      <p style="margin-top:8px; font-size:13px; opacity:0.8;">${savedSemesters.length} semester(s) recorded</p>
+    </div>
+  `;
+
+  if (savedSemesters.length === 0) {
+    list.innerHTML += `
+      <div style="background:#fff; padding:30px; border-radius:16px; text-align:center; margin-top:20px;">
+        <div style="font-size:40px; margin-bottom:15px;">📚</div>
+        <p style="color:#666; margin-bottom:10px; font-size:15px;">No semester data yet</p>
+        <p style="color:#999; font-size:13px;">Start by calculating your first GPA!</p>
+      </div>
+    `;
+    return;
+  }
+
+  let currentGroup = null;
+  
+  savedSemesters.forEach(s => {
+    const groupKey = s.stream + "_" + s.department;
     
-  input.onchange = function(e) {  
-    const file = e.target.files[0];  
-    if (!file) return;  
-      
-    const reader = new FileReader();  
-    reader.onload = function(event) {  
-      try {  
-        const importedData = JSON.parse(event.target.result);  
-        if (Array.isArray(importedData)) {  
-          const confirmed = confirm("⚠️ This will REPLACE all existing data!\n\nDo you want to continue?");  
-          if (confirmed) {  
-            savedSemesters = importedData;  
-            saveToLocalStorage();  
-            alert("✅ Data imported successfully!");  
-            showSaved();  
-          }  
-        } else {  
-          alert("❌ Invalid data format! Please select a valid JSON file.");  
-        }  
-      } catch (error) {  
-        alert("❌ Error importing data: " + error.message);  
-      }  
-    };  
-    reader.readAsText(file);  
-  };  
+    if (currentGroup !== groupKey) {
+      currentGroup = groupKey;
+      const groupHeader = document.createElement("div");
+      groupHeader.style.cssText = "margin-top:25px; margin-bottom:12px; color:#6a11cb; font-weight:600; font-size:16px; text-align:center;";
+      groupHeader.textContent = s.stream.toUpperCase() + " - " + s.department.toUpperCase();
+      list.appendChild(groupHeader);
+    }
     
-  input.click();  
+    const div = document.createElement("div");
+    div.className = "subject";
+    div.style.cssText = "display:flex; justify-content:space-between; align-items:center;";
+    
+    div.innerHTML = `
+      <div>
+        <strong style="color:#333; font-size:15px;">Semester ${s.semester}</strong>
+        <small style="display:block; color:#999; margin-top:5px; font-size:12px;">
+          ${s.subjects} subjects • ${s.date}
+        </small>
+      </div>
+      <div style="text-align:right;">
+        <b style="color:#6a11cb; font-size:18px;">GPA: ${s.gpa}</b>
+        <button onclick="deleteSemester(${s.semester}, '${s.department}', '${s.stream}')" 
+                style="display:block; margin-top:8px; background:#ef4444; color:#fff; border:none; padding:6px 12px; border-radius:8px; cursor:pointer; font-size:12px; font-family:Poppins,sans-serif;">
+          Delete
+        </button>
+      </div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+/* ================== DELETE SEMESTER ================== */
+function deleteSemester(semester, department, stream) {
+  const confirmed = confirm("Are you sure you want to delete Semester " + semester + " data for " + department.toUpperCase() + "?");
+  if (!confirmed) return;
+
+  savedSemesters = savedSemesters.filter(s => 
+    !(s.semester === semester && 
+      s.department === department && 
+      s.stream === stream)
+  );
+
+  saveToLocalStorage();
+  showSaved();
+}
+
+/* ================== CLEAR ALL DATA ================== */
+function clearAllData() {
+  const confirmed = confirm("⚠️ WARNING ⚠️\n\nAre you sure you want to delete ALL saved semester data?\n\nThis action CANNOT be undone!");
+  if (!confirmed) return;
+
+  const doubleCheck = confirm("This is your last chance!\n\nAll your GPA records will be permanently deleted.\n\nClick OK to proceed.");
+  if (!doubleCheck) return;
+
+  savedSemesters = [];
+  saveToLocalStorage();
+  showSaved();
+  alert("✅ All data has been cleared.");
+}
+
+/* ================== OPEN GRAPH ================== */
+function openGraph() {
+  if (savedSemesters.length === 0) {
+    alert("📊 No data to display.\n\nPlease calculate at least one semester GPA first.");
+    return;
+  }
+
+  showPage("graph-page");
+
+  const data = Array(8).fill(null);
+  
+  const semesterData = {};
+  savedSemesters.forEach(s => {
+    if (!semesterData[s.semester]) {
+      semesterData[s.semester] = [];
+    }
+    semesterData[s.semester].push(s.gpa);
+  });
+
+  Object.keys(semesterData).forEach(sem => {
+    const gpas = semesterData[sem];
+    const avg = gpas.reduce((a, b) => a + b, 0) / gpas.length;
+    data[sem - 1] = parseFloat(avg.toFixed(2));
+  });
+
+  const canvas = document.getElementById("semesterChart");
+  if (!canvas) {
+    console.error("Canvas element not found!");
+    alert("Error: Chart canvas not found!");
+    return;
+  }
+  
+  const ctx = canvas.getContext("2d");
+  
+  if (semesterChart) {
+    semesterChart.destroy();
+  }
+
+  semesterChart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: ["Sem 1", "Sem 2", "Sem 3", "Sem 4", "Sem 5", "Sem 6", "Sem 7", "Sem 8"],
+      datasets: [{
+        label: "Semester GPA",
+        data: data,
+        borderColor: "#6a11cb",
+        backgroundColor: "rgba(106, 17, 203, 0.1)",
+        borderWidth: 3,
+        fill: true,
+        tension: 0.4,
+        pointRadius: 6,
+        pointBackgroundColor: "#6a11cb",
+        pointBorderColor: "#fff",
+        pointBorderWidth: 2,
+        pointHoverRadius: 8
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      scales: {
+        y: {
+          min: 0,
+          max: 10,
+          ticks: { stepSize: 1 },
+          title: {
+            display: true,
+            text: 'GPA',
+            font: { size: 14, weight: 'bold' }
+          }
+        },
+        x: {
+          title: {
+            display: true,
+            text: 'Semester',
+            font: { size: 14, weight: 'bold' }
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top'
+        }
+      }
+    }
+  });
+}
+
+/* ================== TOGGLE FAQ ================== */
+function toggleFAQ() {
+  const faqSection = document.getElementById("faq-section");
+  if (faqSection) {
+    faqSection.classList.toggle("hidden");
+  }
+}
+
+/* ================== ENCOURAGEMENT MESSAGES ================== */
+function getEncouragement(score, type) {
+  if (score >= 9.5) return "🌟 Perfect! Your " + type + " is outstanding!";
+  if (score >= 9) return "🎉 Excellent! Your " + type + " is superb!";
+  if (score >= 8.5) return "🔥 Amazing! You're doing great!";
+  if (score >= 8) return "💪 Very good! Keep pushing!";
+  if (score >= 7.5) return "👍 Good job! Stay consistent!";
+  if (score >= 7) return "✅ Well done! Keep it up!";
+  if (score >= 6.5) return "📚 Fair performance! Aim higher!";
+  if (score >= 6) return "💡 You passed! Push more next time!";
+  if (score >= 5) return "🌱 Keep trying! You can improve!";
+  return "💪 Don't give up! You can do it!";
 }
