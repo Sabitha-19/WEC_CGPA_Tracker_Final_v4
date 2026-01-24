@@ -4,121 +4,159 @@
   <meta charset="UTF-8">
   <title>WEC CGPA Tracker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-
-  <!-- CSS -->
   <link rel="stylesheet" href="css/style.css">
-
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
 <body>
-
-<!-- ================= HEADER ================= -->
-<header class="fixed-header">
-  <span onclick="showPage('start-page')">⬅</span>
-  <h3>WEC CGPA Tracker</h3>
-
-  <div class="nav-icons">
-    <span onclick="showPage('start-page')">🏠</span>
-    <span onclick="openGraph()">📈</span>
-    <span onclick="toggleFAQ()">❓</span>
-    <span onclick="showSaved()">💾</span>
-  </div>
-</header>
-
-<!-- ================= START PAGE ================= -->
-<section id="start-page" class="page active">
-  <h2>Welcome to Women's Engineering College CGPA Tracker 👩🏻‍🎓</h2>
-  <button class="primary-btn" onclick="showPage('stream-page')">Start Now</button>
-
-  <!-- FAQ -->
-  <section id="faq-section" class="hidden">
-    <h2 class="section-title">Frequently Asked Questions</h2>
-
-    <div class="faq-item">
-      <button class="faq-question">What is CGPA?</button>
-      <div class="faq-answer">CGPA represents your overall academic performance.</div>
+  
+  <!-- HEADER -->
+  <header class="fixed-header">
+    <span style="cursor:pointer; font-size:24px;" onclick="showPage('start-page')">⬅</span>
+    <h3 style="color:#6a11cb; font-weight:600;">WEC CGPA Tracker</h3>
+    <div class="nav-icons">
+      <span onclick="showPage('start-page')" title="Home" style="cursor:pointer; font-size:20px; margin:0 8px;">🏠</span>
+      <span onclick="openGraph()" title="Graph" style="cursor:pointer; font-size:20px; margin:0 8px;">📈</span>
+      <span onclick="toggleFAQ()" title="FAQ" style="cursor:pointer; font-size:20px; margin:0 8px;">❓</span>
+      <span onclick="showSaved()" title="Saved" style="cursor:pointer; font-size:20px; margin:0 8px;">💾</span>
     </div>
+  </header>
 
-    <div class="faq-item">
-      <button class="faq-question">How is CGPA calculated?</button>
-      <div class="faq-answer">Σ(Credit × Grade Point) / Σ Credits</div>
+  <!-- START PAGE -->
+  <section id="start-page" class="page active">
+    <div style="text-align:center; padding:30px 20px;">
+      <h1 style="color:#6a11cb; margin-bottom:15px;">Welcome to WEC CGPA Tracker 👩🏻‍🎓</h1>
+      <p style="color:#666; margin-bottom:30px; font-size:16px;">Track your semester GPA and overall CGPA with ease</p>
+      <button class="primary-btn" onclick="showPage('stream-page')" style="display:block; margin:15px auto; width:220px; font-size:16px; font-weight:600;">Start Now</button>
+      <button class="primary-btn" onclick="showPage('grade-reference-page')" style="display:block; margin:15px auto; width:220px; font-size:16px; font-weight:600; background:linear-gradient(135deg,#2575fc,#6a11cb);">View Grade Reference</button>
     </div>
+    
+    <!-- FAQ SECTION -->
+    <section id="faq-section" class="hidden" style="margin-top:30px; padding:20px; background:#fff; border-radius:16px; max-width:600px; margin-left:auto; margin-right:auto;">
+      <h2 style="text-align:center; color:#6a11cb; margin-bottom:20px;">Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <button class="faq-question">What is CGPA?</button>
+        <div class="faq-answer">CGPA (Cumulative Grade Point Average) represents your overall academic performance across all semesters.</div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question">How is CGPA calculated?</button>
+        <div class="faq-answer">CGPA = Σ(Credit × Grade Point) / Σ Credits. It's the weighted average of all your semester GPAs.</div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question">Is this official?</button>
+        <div class="faq-answer">This tool is for student reference only and not an official college platform.</div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-question">How do I save my data?</button>
+        <div class="faq-answer">Your semester GPAs are automatically saved when you calculate them. View them by clicking the save icon (💾).</div>
+      </div>
+    </section>
+  </section>
 
-    <div class="faq-item">
-      <button class="faq-question">Is this official?</button>
-      <div class="faq-answer">This tool is for student reference only.</div>
+  <!-- STREAM SELECTION -->
+  <section id="stream-page" class="page">
+    <h2 style="text-align:center; color:#6a11cb; margin-bottom:20px;">Select Stream</h2>
+    <div class="cube-grid">
+      <button class="cube-btn" onclick="selectStream('engineering', this)">Engineering</button>
+      <button class="cube-btn" onclick="selectStream('bcom', this)">BCom</button>
     </div>
   </section>
-</section>
 
-<!-- ================= STREAM ================= -->
-<section id="stream-page" class="page">
-  <h2>Select Stream</h2>
-  <div class="cube-grid">
-    <button class="cube-btn" onclick="selectStream('engineering', this)">Engineering</button>
-    <button class="cube-btn" onclick="selectStream('bcom', this)">BCom</button>
-  </div>
-</section>
+  <!-- DEPARTMENT SELECTION -->
+  <section id="department-page" class="page">
+    <h2 style="text-align:center; color:#6a11cb; margin-bottom:20px;">Select Department</h2>
+    <div id="department-grid" class="cube-grid"></div>
+  </section>
 
-<!-- ================= DEPARTMENT ================= -->
-<section id="department-page" class="page">
-  <h2>Select Department</h2>
-  <div id="department-grid" class="cube-grid"></div>
-</section>
+  <!-- SEMESTER SELECTION -->
+  <section id="semester-page" class="page">
+    <h2 style="text-align:center; color:#6a11cb; margin-bottom:20px;">Select Semester</h2>
+    <div id="semester-grid" class="cube-grid"></div>
+  </section>
 
-<!-- ================= SEMESTER ================= -->
-<section id="semester-page" class="page">
-  <h2>Select Semester</h2>
-  <div id="semester-grid" class="cube-grid"></div>
-</section>
+  <!-- SUBJECTS & GRADES -->
+  <section id="subjects-page" class="page">
+    <h2 style="text-align:center; color:#6a11cb; margin-bottom:20px;">Enter Grades</h2>
+    <div id="subjects-list" style="max-width:600px; margin:0 auto;"></div>
+    <button class="primary-btn" onclick="calculateGPA()" style="display:block; margin:20px auto; width:220px; font-size:16px; font-weight:600;">Calculate GPA</button>
+    <p id="encouragement-text" class="encourage"></p>
+  </section>
 
-<!-- ================= SUBJECTS ================= -->
-<section id="subjects-page" class="page">
-  <h2>Enter Grades</h2>
-  <div id="subjects-list"></div>
+  <!-- RESULT PAGE -->
+  <section id="result-page" class="page">
+    <div style="background:#fff; border-radius:20px; padding:40px 30px; text-align:center; max-width:500px; margin:0 auto; box-shadow:0 8px 25px rgba(0,0,0,0.1);">
+      <h2 style="color:#6a11cb; margin-bottom:20px;">Your Results 🎯</h2>
+      <p id="cgpa-display" style="font-size:2rem; font-weight:700; color:#6a11cb; margin:20px 0;"></p>
+      <p id="cgpa-message" class="encourage"></p>
+      <button class="primary-btn" onclick="showSaved()" style="margin:15px auto; width:220px; font-size:16px;">View All Semesters</button>
+      <button class="primary-btn" onclick="showPage('start-page')" style="margin:15px auto; width:220px; font-size:16px; background:linear-gradient(135deg,#2575fc,#6a11cb);">Back to Home</button>
+    </div>
+  </section>
 
-  <button class="primary-btn" onclick="calculateGPA()">Calculate GPA</button>
-  <p id="encouragement-text" class="encourage"></p>
-</section>
+  <!-- GRAPH PAGE -->
+  <section id="graph-page" class="page">
+    <h2 style="text-align:center; color:#6a11cb; margin-bottom:20px;">Semester Progress 📊</h2>
+    <div style="background:#fff; padding:20px; border-radius:15px; max-width:700px; margin:0 auto 20px; box-shadow:0 4px 15px rgba(0,0,0,0.1);">
+      <canvas id="semesterChart"></canvas>
+    </div>
+    <button class="primary-btn" onclick="showPage('start-page')" style="display:block; margin:0 auto; width:220px; font-size:16px;">Back to Home</button>
+  </section>
 
-<!-- ================= RESULT ================= -->
-<section id="result-page" class="page">
-  <p id="cgpa-display"></p>
-  <p id="cgpa-message" class="encourage"></p>
-</section>
+  <!-- SAVED SEMESTERS -->
+  <section id="saved-page" class="page">
+    <h2 style="text-align:center; color:#6a11cb; margin-bottom:20px;">Saved Semesters 💾</h2>
+    <div id="saved-list" style="max-width:600px; margin:0 auto;"></div>
+    <button class="primary-btn" onclick="clearAllData()" style="display:block; margin:20px auto; width:220px; font-size:16px; background:#ef4444;">Clear All Data</button>
+    <button class="primary-btn" onclick="showPage('start-page')" style="display:block; margin:10px auto; width:220px; font-size:16px; background:linear-gradient(135deg,#2575fc,#6a11cb);">Back to Home</button>
+  </section>
 
-<!-- ================= GRAPH ================= -->
-<section id="graph-page" class="page">
-  <canvas id="semesterChart"></canvas>
-</section>
+  <!-- GRADE REFERENCE -->
+  <section id="grade-reference-page" class="page">
+    <h2 style="text-align:center; color:#6a11cb; margin-bottom:25px;">Grade Point Reference 📚</h2>
+    <div class="grade-ref-grid">
+      <div class="grade-card s">
+        <h3>S</h3>
+        <p>Outstanding</p>
+        <span>10 Points</span>
+      </div>
+      <div class="grade-card a">
+        <h3>A</h3>
+        <p>Excellent</p>
+        <span>9 Points</span>
+      </div>
+      <div class="grade-card b">
+        <h3>B</h3>
+        <p>Very Good</p>
+        <span>8 Points</span>
+      </div>
+      <div class="grade-card c">
+        <h3>C</h3>
+        <p>Good</p>
+        <span>7 Points</span>
+      </div>
+      <div class="grade-card d">
+        <h3>D</h3>
+        <p>Above Average</p>
+        <span>6 Points</span>
+      </div>
+      <div class="grade-card e">
+        <h3>E</h3>
+        <p>Pass</p>
+        <span>5 Points</span>
+      </div>
+      <div class="grade-card f">
+        <h3>F</h3>
+        <p>Fail</p>
+        <span>0 Points</span>
+      </div>
+    </div>
+    <button class="primary-btn" onclick="showPage('start-page')" style="display:block; margin:20px auto; width:220px; font-size:16px;">Back to Home</button>
+  </section>
 
-<!-- ================= SAVED ================= -->
-<section id="saved-page" class="page">
-  <h2>Saved Semesters</h2>
-  <div id="saved-list"></div>
-</section>
-
-<!-- ================= GRADE REFERENCE ================= -->
-<section id="grade-reference-page" class="page">
-  <h2 class="section-title">Grade Point Reference</h2>
-
-  <div class="grade-ref-grid">
-    <div class="grade-card s"><h3>S</h3><p>Outstanding</p><span>10 Pts</span></div>
-    <div class="grade-card a"><h3>A</h3><p>Excellent</p><span>9 Pts</span></div>
-    <div class="grade-card b"><h3>B</h3><p>Very Good</p><span>8 Pts</span></div>
-    <div class="grade-card c"><h3>C</h3><p>Good</p><span>7 Pts</span></div>
-    <div class="grade-card d"><h3>D</h3><p>Above Avg</p><span>6 Pts</span></div>
-    <div class="grade-card e"><h3>E</h3><p>Pass</p><span>5 Pts</span></div>
-    <div class="grade-card f"><h3>F</h3><p>Fail</p><span>0 Pts</span></div>
-  </div>
-</section>
-
-<!-- ================= JS ================= -->
-<script src="js/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>
