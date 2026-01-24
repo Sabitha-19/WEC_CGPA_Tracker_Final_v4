@@ -17,9 +17,7 @@ const gradePoints = { S: 10, A: 9, B: 8, C: 7, D: 6, E: 5, F: 0 };
 
 /* ================= PAGE NAVIGATION ================= */
 function showPage(pageId) {
-  document.querySelectorAll(".page").forEach(p =>
-    p.classList.remove("active")
-  );
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
   document.getElementById(pageId)?.classList.add("active");
 }
 
@@ -78,15 +76,14 @@ function selectSemester(sem, btn) {
   loadSubjects();
 }
 
-/* ================= SUBJECT LOADING (GITHUB SAFE) ================= */
+/* ================= SUBJECT LOADING ================= */
 function loadSubjects() {
   grades = {};
 
-  const basePath = window.location.pathname.includes("WEC_CGPA_Tracker_Final_v4")
-    ? "/WEC_CGPA_Tracker_Final_v4/"
-    : "/";
+  // GitHub Pages safe path (relative to index.html)
+  const filePath = `data/${selectedDepartment}_sem${selectedSemester}.json`;
 
-  fetch(`${basePath}data/${selectedDepartment}_sem${selectedSemester}.json`)
+  fetch(filePath)
     .then(res => {
       if (!res.ok) throw new Error("JSON not found");
       return res.json();
@@ -97,7 +94,7 @@ function loadSubjects() {
       showPage("subjects-page");
     })
     .catch(err => {
-      alert("Subject file not found!");
+      alert(`Subject file not found!\nCheck file: ${filePath}`);
       console.error(err);
     });
 }
@@ -124,14 +121,10 @@ function renderSubjects() {
 
 /* ================= ENCOURAGEMENT ================= */
 function getEncouragement(score, type = "GPA") {
-  if (score >= 9)
-    return `🌟 Outstanding! Your ${type} is excellent. Keep shining!`;
-  if (score >= 8)
-    return `🔥 Very good! You're doing great. Aim even higher!`;
-  if (score >= 7)
-    return `👍 Good work! Stay consistent and improve.`;
-  if (score >= 6)
-    return `💪 You passed! Push a little harder next time.`;
+  if (score >= 9) return `🌟 Outstanding! Your ${type} is excellent. Keep shining!`;
+  if (score >= 8) return `🔥 Very good! You're doing great. Aim even higher!`;
+  if (score >= 7) return `👍 Good work! Stay consistent and improve.`;
+  if (score >= 6) return `💪 You passed! Push a little harder next time.`;
   return `🌱 Don’t give up. Every topper once struggled.`;
 }
 
@@ -172,7 +165,6 @@ function saveSemester(gpa) {
 /* ================= CGPA ================= */
 function calculateCGPA() {
   if (savedSemesters.length === 0) return "0.00";
-
   let total = 0;
   savedSemesters.forEach(s => total += s.gpa);
   return (total / savedSemesters.length).toFixed(2);
@@ -196,11 +188,7 @@ function showSaved() {
   }
 
   savedSemesters.forEach(s => {
-    list.innerHTML += `
-      <div class="subject">
-        Semester ${s.semester} – GPA: <b>${s.gpa}</b>
-      </div>
-    `;
+    list.innerHTML += `<div class="subject">Semester ${s.semester} – GPA: <b>${s.gpa}</b></div>`;
   });
 }
 
@@ -229,9 +217,8 @@ function openGraph() {
       }]
     },
     options: {
-      scales: {
-        y: { min: 0, max: 10 }
-      }
+      scales: { y: { min: 0, max: 10 } },
+      responsive: true
     }
   });
 }
@@ -240,17 +227,15 @@ function openGraph() {
 function toggleFAQ() {
   const faq = document.getElementById("faq-section");
   faq.classList.toggle("hidden");
-  showPage("start-page");
+  showPage("start-page"); // always go to start page when FAQ opens
 }
 
 document.querySelectorAll(".faq-question").forEach(btn => {
   btn.addEventListener("click", () => {
     const ans = btn.nextElementSibling;
-
     document.querySelectorAll(".faq-answer").forEach(a => {
       if (a !== ans) a.style.display = "none";
     });
-
     ans.style.display = ans.style.display === "block" ? "none" : "block";
   });
 });
