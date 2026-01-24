@@ -70,6 +70,8 @@ body {
   box-shadow: 0 8px 18px rgba(106, 17, 203, 0.35);
   font-family: Poppins, sans-serif;
   transition: all 0.3s ease;
+  font-size: 15px;
+  font-weight: 600;
 }
 
 .primary-btn:hover {
@@ -124,14 +126,18 @@ body {
   border-radius: 16px;
   padding: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-width: 800px;
+  margin: 0 auto 20px;
 }
 
 .subject {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
+  padding: 20px 15px;
   border-bottom: 1px solid #f0f0f0;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .subject:last-child {
@@ -139,33 +145,60 @@ body {
 }
 
 .subject strong {
-  flex: 1;
+  width: 100%;
   color: #333;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
+  text-align: left;
 }
 
-.subject select {
-  padding: 8px 16px;
-  border: 2px solid #6a11cb;
-  border-radius: 10px;
-  background: #fff;
+/* Grade Button Container */
+.grade-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+/* Grade Buttons */
+.grade-btn {
+  width: 55px;
+  height: 55px;
+  border-radius: 16px;
+  border: none;
+  background: rgba(160, 120, 255, 0.15);
   color: #6a11cb;
+  font-size: 20px;
   font-weight: 600;
   cursor: pointer;
+  transition: all 0.3s ease;
   font-family: Poppins, sans-serif;
-  font-size: 14px;
-  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.subject select:hover {
-  border-color: #2575fc;
+.grade-btn:hover {
+  background: rgba(160, 120, 255, 0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(106, 17, 203, 0.2);
 }
 
-.subject select:focus {
-  outline: none;
-  border-color: #2575fc;
-  box-shadow: 0 0 0 3px rgba(37, 117, 252, 0.1);
+.grade-btn.selected {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: #fff;
+  transform: scale(1.08);
+  box-shadow: 0 8px 20px rgba(106, 17, 203, 0.45);
+}
+
+.grade-btn:active {
+  transform: scale(0.95);
+}
+
+/* Remove old select styling */
+.subject select {
+  display: none;
 }
 
 /* ================== FAQ ================== */
@@ -189,6 +222,7 @@ body {
   text-align: left;
   color: #4b2a85;
   transition: all 0.2s ease;
+  font-size: 14px;
 }
 
 .faq-question:hover {
@@ -249,13 +283,40 @@ body {
 }
 
 /* Grade colors */
-.grade-card.s { background: #eefaf3; color: #2e7d32; }
-.grade-card.a { background: #eef6ff; color: #1e5bb8; }
-.grade-card.b { background: #f0f4ff; color: #3f51b5; }
-.grade-card.c { background: #f4f1ff; color: #5e35b1; }
-.grade-card.d { background: #f7f1ff; color: #7b1fa2; }
-.grade-card.e { background: #fff8e1; color: #9c6f19; }
-.grade-card.f { background: #fff0f0; color: #b71c1c; }
+.grade-card.s {
+  background: #eefaf3;
+  color: #2e7d32;
+}
+
+.grade-card.a {
+  background: #eef6ff;
+  color: #1e5bb8;
+}
+
+.grade-card.b {
+  background: #f0f4ff;
+  color: #3f51b5;
+}
+
+.grade-card.c {
+  background: #f4f1ff;
+  color: #5e35b1;
+}
+
+.grade-card.d {
+  background: #f7f1ff;
+  color: #7b1fa2;
+}
+
+.grade-card.e {
+  background: #fff8e1;
+  color: #9c6f19;
+}
+
+.grade-card.f {
+  background: #fff0f0;
+  color: #b71c1c;
+}
 
 /* ================== CGPA BOX ================== */
 .cgpa-box {
@@ -283,6 +344,13 @@ body {
   margin: 15px 0;
 }
 
+.cgpa-box span {
+  font-size: 48px;
+  font-weight: 700;
+  display: block;
+  margin: 15px 0;
+}
+
 /* ================== ENCOURAGEMENT ================== */
 .encourage {
   margin-top: 16px;
@@ -298,42 +366,228 @@ body {
   margin-right: auto;
 }
 
+/* ================== CHART CONTAINER ================== */
+.chart-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
 /* ================== MOBILE RESPONSIVE ================== */
 @media (max-width: 600px) {
+  body {
+    padding-top: 65px;
+  }
+
+  .fixed-header {
+    height: 60px;
+  }
+
+  .fixed-header h3 {
+    font-size: 16px;
+  }
+
+  .nav-icons span {
+    font-size: 18px;
+    margin: 0 6px;
+  }
+
   .grade-ref-grid {
     grid-template-columns: 1fr;
     max-width: 300px;
   }
-  
+
   .cube-btn {
     width: 120px;
     height: 55px;
     font-size: 14px;
   }
-  
-  .fixed-header h3 {
-    font-size: 16px;
-  }
-  
-  .subject {
-    flex-direction: column;
-    align-items: flex-start;
+
+  .cube-grid {
     gap: 10px;
   }
-  
-  .subject select {
-    width: 100%;
+
+  .subject {
+    padding: 15px 10px;
+  }
+
+  .subject strong {
+    font-size: 14px;
+  }
+
+  .grade-btn {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+  }
+
+  .grade-buttons {
+    gap: 8px;
+  }
+
+  #subjects-list {
+    padding: 15px;
+  }
+
+  .primary-btn {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+
+  .cgpa-box {
+    padding: 20px;
+    max-width: 280px;
+  }
+
+  .cgpa-box span {
+    font-size: 40px;
   }
 }
 
 @media (max-width: 400px) {
   .cube-grid {
-    gap: 10px;
+    gap: 8px;
   }
-  
+
   .cube-btn {
     width: 100px;
     height: 50px;
     font-size: 13px;
   }
+
+  .grade-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 16px;
+    border-radius: 14px;
+  }
+
+  .grade-buttons {
+    gap: 6px;
+  }
+
+  .subject strong {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 360px) {
+  .grade-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 15px;
+  }
+}
+
+/* ================== SECTION TITLES ================== */
+.section-title {
+  color: #6a11cb;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+h2 {
+  color: #6a11cb;
+  font-weight: 600;
+}
+
+/* ================== RESULT PAGE ================== */
+.result-container {
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px 30px;
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.result-container h2 {
+  color: #6a11cb;
+  margin-bottom: 20px;
+}
+
+.gpa-result {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #6a11cb;
+  margin: 20px 0;
+}
+
+#cgpa-display {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #6a11cb;
+  margin: 20px 0;
+}
+
+#cgpa-message {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+  background: #f3f6ff;
+  padding: 12px 16px;
+  border-radius: 12px;
+}
+
+/* ================== SAVED PAGE ================== */
+#saved-list .subject {
+  background: #fff;
+  border-radius: 14px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  padding: 16px;
+  flex-direction: row;
+}
+
+#saved-list .subject:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+/* ================== LOADING STATES ================== */
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #6a11cb;
+}
+
+/* ================== ANIMATIONS ================== */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.subject {
+  animation: slideIn 0.3s ease;
+}
+
+/* ================== UTILITY CLASSES ================== */
+.text-center {
+  text-align: center;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.p-20 {
+  padding: 20px;
 }
