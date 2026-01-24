@@ -1,4 +1,3 @@
-
 /* ================== GLOBAL VARIABLES ================== */
 let selectedStream = "";
 let selectedDepartment = "";
@@ -54,7 +53,7 @@ function loadSavedData() {
     const saved = localStorage.getItem('wec_cgpa_data');
     if (saved) {
       savedSemesters = JSON.parse(saved);
-      console.log("Loaded saved data:", savedSemesters);
+      console.log("Loaded saved data:", savedSemesters.length, "semesters");
     }
   } catch (e) {
     console.error("Error loading saved data:", e);
@@ -172,7 +171,6 @@ function loadSubjects() {
   const filePath = "data/" + fileName;
   
   console.log("File path:", filePath);
-  console.log("Fetching from:", window.location.origin + "/" + filePath);
   
   // Show the subjects page with loading indicator
   showPage("subjects-page");
@@ -184,7 +182,7 @@ function loadSubjects() {
     return;
   }
   
-  // Show loading message
+// Show loading message
   box.innerHTML = `
     <div style="text-align:center; padding:40px; background:#fff; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
       <div style="font-size:40px; margin-bottom:15px;">⏳</div>
@@ -202,28 +200,38 @@ function loadSubjects() {
       if (!response.ok) {
         throw new Error("File not found (Status: " + response.status + ")");
       }
-      return response.text(); // Get as text first
+      return response.json();
     })
-    .then(text => {
-      console.log("Raw response:", text.substring(0, 200)); // Log first 200 chars
-      
-      // Try to parse JSON
-      const data = JSON.parse(text);
-      console.log("Parsed data:", data);
+    .then(data => {
+      console.log("Raw data received:", data);
       console.log("Data type:", typeof data);
       console.log("Is array:", Array.isArray(data));
-      console.log("Number of items:", data.length);
       
-      if (!Array.isArray(data)) {
-        throw new Error("Data is not an array");
+      // Check if data has 'subjects' property (nested format)
+      // Format: { "department": "AA", "semester": 3, "subjects": [...] }
+      if (data && typeof data === 'object' && data.subjects && Array.isArray(data.subjects)) {
+        console.log("Found subjects array inside object!");
+        subjects = data.subjects;
+      }
+      // Check if data is already an array (direct format)
+      // Format: [{ "code": "...", "name": "...", "credits": ... }]
+      else if (Array.isArray(data)) {
+        console.log("Data is already an array!");
+        subjects = data;
+      }
+      // Neither format found
+      else {
+        throw new Error("Invalid data format. Expected array or object with 'subjects' property.");
       }
       
-      if (data.length === 0) {
-        throw new Error("Data array is empty");
+      if (subjects.length === 0) {
+        throw new Error("No subjects found in file");
       }
       
-      subjects = data;
-      console.log("Subjects loaded successfully:", subjects);
+      console.log("Subjects loaded successfully!");
+      console.log("Number of subjects:", subjects.length);
+      console.log("Subjects:", subjects);
+      
       renderSubjects();
     })
     .catch(error => {
@@ -294,7 +302,7 @@ function renderSubjects() {
   container.style.cssText = "background:#fff; border-radius:16px; padding:20px; box-shadow:0 4px 12px rgba(0,0,0,0.08); margin-bottom:20px;";
 
   subjects.forEach((sub, index) => {
-    console.log("Rendering subject:", sub);
+    console.log("Rendering subject " + (index + 1) + ":", sub);
     
     const div = document.createElement("div");
     div.style.cssText = "display:flex; justify-content:space-between; align-items:center; padding:15px 10px; border-bottom:1px solid #f0f0f0;";
@@ -336,7 +344,7 @@ function renderSubjects() {
   
   console.log("Subjects rendered successfully!");
   
-  // Clear encouragement text
+// Clear encouragement text
   const encouragement = document.getElementById("encouragement-text");
   if (encouragement) {
     encouragement.innerText = "";
@@ -400,7 +408,7 @@ function calculateGPA() {
 function saveSemester(gpa) {
   console.log("Saving semester...");
   
-  // Remove existing entry
+  // Remove existing entry for same semester/department/stream
   savedSemesters = savedSemesters.filter(s => 
     !(s.semester === selectedSemester && 
       s.department === selectedDepartment && 
@@ -417,7 +425,7 @@ function saveSemester(gpa) {
     date: new Date().toLocaleDateString()
   });
 
-  // Sort
+  // Sort by stream, department, then semester
   savedSemesters.sort((a, b) => {
     if (a.stream !== b.stream) return a.stream.localeCompare(b.stream);
     if (a.department !== b.department) return a.department.localeCompare(b.department);
@@ -478,6 +486,7 @@ function showSaved() {
     return;
   }
 
+  // Group by stream and department
   let currentGroup = null;
   
   savedSemesters.forEach(s => {
@@ -552,8 +561,10 @@ function openGraph() {
 
   showPage("graph-page");
 
+  // Prepare data for all semesters (1-8)
   const data = Array(8).fill(null);
   
+  // Fill in the data for saved semesters
   const semesterData = {};
   savedSemesters.forEach(s => {
     if (!semesterData[s.semester]) {
@@ -562,6 +573,7 @@ function openGraph() {
     semesterData[s.semester].push(s.gpa);
   });
 
+  // Calculate average for each semester if multiple entries exist
   Object.keys(semesterData).forEach(sem => {
     const gpas = semesterData[sem];
     const avg = gpas.reduce((a, b) => a + b, 0) / gpas.length;
@@ -597,7 +609,9 @@ function openGraph() {
         pointBackgroundColor: "#6a11cb",
         pointBorderColor: "#fff",
         pointBorderWidth: 2,
-        pointHoverRadius: 8
+        pointHoverRadius: 8,
+        pointHoverBackgroundColor: "#2575fc",
+        pointHoverBorderWidth: 3
       }]
     },
     options: {
@@ -607,25 +621,71 @@ function openGraph() {
         y: {
           min: 0,
           max: 10,
-          ticks: { stepSize: 1 },
+          ticks: {
+            stepSize: 1
+          },
           title: {
             display: true,
             text: 'GPA',
-            font: { size: 14, weight: 'bold' }
+            font: {
+              size: 14,
+              weight: 'bold'
+            }
+          },
+          grid: {
+            color: 'rgba(0, 0, 0, 0.05)'
           }
         },
         x: {
           title: {
             display: true,
             text: 'Semester',
-            font: { size: 14, weight: 'bold' }
+            font: {
+              size: 14,
+              weight: 'bold'
+            }
+          },
+          grid: {
+            color: 'rgba(0, 0, 0, 0.05)'
           }
         }
       },
       plugins: {
         legend: {
           display: true,
-          position: 'top'
+          position: 'top',
+          labels: {
+            font: {
+              size: 14,
+              family: 'Poppins'
+            },
+            color: '#333'
+          }
+        },
+        tooltip: {
+          backgroundColor: 'rgba(106, 17, 203, 0.9)',
+          titleFont: {
+            size: 14,
+            family: 'Poppins'
+          },
+          bodyFont: {
+            size: 13,
+            family: 'Poppins'
+          },
+          padding: 12,
+          cornerRadius: 8,
+          callbacks: {
+            label: function(context) {
+              let label = context.dataset.label || '';
+              if (label) {
+                label += ': ';
+              }
+              if (context.parsed.y !== null) {
+                label += context.parsed.y.toFixed(2);
+              }
+              return label;
+            }
+          }
         }
       }
     }
