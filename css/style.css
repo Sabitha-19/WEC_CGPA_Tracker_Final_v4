@@ -59,6 +59,214 @@ body {
   align-items: center;
 }
 
+/* Hide header when landing page is active */
+body:has(#start-page.active) .fixed-header {
+  display: none;
+}
+
+/* ================== LANDING PAGE ================== */
+#start-page {
+  padding: 0 !important;
+  background: linear-gradient(135deg, #4285f4 0%, #5a7de8 100%);
+  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+}
+
+#start-page.active {
+  display: flex;
+}
+
+.landing-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 20px;
+  position: relative;
+}
+
+.landing-card {
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  padding: 40px 20px;
+}
+
+.landing-title {
+  font-size: 2.8rem;
+  font-weight: 400;
+  color: #000;
+  margin-bottom: 50px;
+  line-height: 1.2;
+}
+
+.highlight-text {
+  font-weight: 700;
+  font-size: 3.5rem;
+  display: inline-block;
+  color: #000;
+}
+
+.instantly-text {
+  font-style: italic;
+  font-weight: 400;
+  color: #000;
+}
+
+.calculate-now-btn {
+  background: #fff;
+  color: #4285f4;
+  border: none;
+  border-radius: 12px;
+  padding: 18px 40px;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: Poppins, sans-serif;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.calculate-now-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.calculate-now-btn:active {
+  transform: translateY(-1px);
+}
+
+.arrow-icon {
+  font-size: 20px;
+  transition: transform 0.3s ease;
+}
+
+.calculate-now-btn:hover .arrow-icon {
+  transform: translateX(5px);
+}
+
+/* Grade Reference Link */
+.grade-reference-link {
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  padding: 12px 30px;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: Poppins, sans-serif;
+  cursor: pointer;
+  display: inline-block;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.grade-reference-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #fff;
+  transform: translateY(-2px);
+}
+
+/* FAQ Toggle Button */
+.faq-toggle-btn {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: Poppins, sans-serif;
+  cursor: pointer;
+  margin-top: 30px;
+  transition: all 0.3s ease;
+}
+
+.faq-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* FAQ Overlay */
+.faq-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+.faq-overlay.hidden {
+  display: none;
+}
+
+.faq-content {
+  background: #fff;
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+.faq-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.faq-header h2 {
+  color: #6a11cb;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.faq-close-btn {
+  background: #f0f0f0;
+  border: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  color: #666;
+}
+
+.faq-close-btn:hover {
+  background: #e0e0e0;
+  transform: rotate(90deg);
+}
+
 /* ================== BUTTONS ================== */
 .primary-btn {
   padding: 14px 26px;
@@ -202,10 +410,6 @@ body {
 }
 
 /* ================== FAQ ================== */
-#faq-section {
-  animation: fadeIn 0.3s ease;
-}
-
 .faq-item {
   margin-bottom: 12px;
 }
@@ -375,112 +579,6 @@ body {
   margin-bottom: 20px;
 }
 
-/* ================== MOBILE RESPONSIVE ================== */
-@media (max-width: 600px) {
-  body {
-    padding-top: 65px;
-  }
-
-  .fixed-header {
-    height: 60px;
-  }
-
-  .fixed-header h3 {
-    font-size: 16px;
-  }
-
-  .nav-icons span {
-    font-size: 18px;
-    margin: 0 6px;
-  }
-
-  .grade-ref-grid {
-    grid-template-columns: 1fr;
-    max-width: 300px;
-  }
-
-  .cube-btn {
-    width: 120px;
-    height: 55px;
-    font-size: 14px;
-  }
-
-  .cube-grid {
-    gap: 10px;
-  }
-
-  .subject {
-    padding: 15px 10px;
-  }
-
-  .subject strong {
-    font-size: 14px;
-  }
-
-  .grade-btn {
-    width: 48px;
-    height: 48px;
-    font-size: 18px;
-  }
-
-  .grade-buttons {
-    gap: 8px;
-  }
-
-  #subjects-list {
-    padding: 15px;
-  }
-
-  .primary-btn {
-    padding: 12px 20px;
-    font-size: 14px;
-  }
-
-  .cgpa-box {
-    padding: 20px;
-    max-width: 280px;
-  }
-
-  .cgpa-box span {
-    font-size: 40px;
-  }
-}
-
-@media (max-width: 400px) {
-  .cube-grid {
-    gap: 8px;
-  }
-
-  .cube-btn {
-    width: 100px;
-    height: 50px;
-    font-size: 13px;
-  }
-
-  .grade-btn {
-    width: 45px;
-    height: 45px;
-    font-size: 16px;
-    border-radius: 14px;
-  }
-
-  .grade-buttons {
-    gap: 6px;
-  }
-
-  .subject strong {
-    font-size: 13px;
-  }
-}
-
-@media (max-width: 360px) {
-  .grade-btn {
-    width: 42px;
-    height: 42px;
-    font-size: 15px;
-  }
-}
-
 /* ================== SECTION TITLES ================== */
 .section-title {
   color: #6a11cb;
@@ -494,6 +592,7 @@ h2 {
   color: #6a11cb;
   font-weight: 600;
 }
+
 
 /* ================== RESULT PAGE ================== */
 .result-container {
@@ -552,210 +651,106 @@ h2 {
   transition: all 0.3s ease;
 }
 
-/* ================== LOADING STATES ================== */
-.loading {
-  text-align: center;
-  padding: 40px;
-  color: #6a11cb;
-}
-
-/* ================== ANIMATIONS ================== */
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.subject {
-  animation: slideIn 0.3s ease;
-}
-
-/* ================== UTILITY CLASSES ================== */
-.text-center {
-  text-align: center;
-}
-
-.mt-20 {
-  margin-top: 20px;
-}
-
-.mb-20 {
-  margin-bottom: 20px;
-}
-
-.p-20 {
-  padding: 20px;
-}
-
-/* ================== LANDING PAGE ================== */
-.landing-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 120px);
-  padding: 20px;
-}
-
-.landing-card {
-  background: linear-gradient(135deg, #4285f4 0%, #5a7de8 100%);
-  border-radius: 30px;
-  padding: 60px 40px;
-  text-align: center;
-  max-width: 500px;
-  width: 100%;
-  box-shadow: 0 20px 60px rgba(66, 133, 244, 0.4);
-  position: relative;
-  overflow: hidden;
-}
-
-.landing-card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-  animation: pulse 15s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(-10%, -10%);
-  }
-}
-
-.updated-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 25px;
-  padding: 8px 20px;
-  margin-bottom: 40px;
-  position: relative;
-  z-index: 1;
-}
-
-.check-icon {
-  width: 20px;
-  height: 20px;
-  background: #fff;
-  color: #4285f4;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.badge-text {
-  color: #fff;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 1px;
-  font-style: italic;
-}
-
-.landing-title {
-  font-size: 2.5rem;
-  font-weight: 400;
-  color: #fff;
-  margin-bottom: 50px;
-  line-height: 1.3;
-  position: relative;
-  z-index: 1;
-}
-
-.highlight-text {
-  font-weight: 700;
-  font-size: 3rem;
-  display: inline-block;
-  background: linear-gradient(45deg, #fff, #e3f2fd);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.instantly-text {
-  font-style: italic;
-  font-weight: 400;
-}
-
-.calculate-now-btn {
-  background: #fff;
-  color: #4285f4;
-  border: none;
-  border-radius: 50px;
-  padding: 18px 45px;
-  font-size: 18px;
-  font-weight: 600;
-  font-family: Poppins, sans-serif;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-  position: relative;
-  z-index: 1;
-}
-
-.calculate-now-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-}
-
-.calculate-now-btn:active {
-  transform: translateY(-1px);
-}
-
-.arrow-icon {
-  font-size: 20px;
-  transition: transform 0.3s ease;
-}
-
-.calculate-now-btn:hover .arrow-icon {
-  transform: translateX(5px);
-}
-
-/* Mobile Responsive for Landing Page */
+/* ================== MOBILE RESPONSIVE ================== */
 @media (max-width: 600px) {
-  .landing-card {
-    padding: 50px 30px;
-    border-radius: 25px;
+  body {
+    padding-top: 65px;
   }
-  
+
+  .fixed-header {
+    height: 60px;
+  }
+
+  .fixed-header h3 {
+    font-size: 16px;
+  }
+
+  .nav-icons span {
+    font-size: 18px;
+    margin: 0 6px;
+  }
+
+  /* Landing Page Mobile */
   .landing-title {
     font-size: 2rem;
   }
-  
+
   .highlight-text {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
   }
-  
+
   .calculate-now-btn {
     padding: 16px 35px;
     font-size: 16px;
   }
-  
-  .updated-badge {
-    padding: 6px 16px;
+
+  .grade-reference-link {
+    padding: 10px 25px;
+    font-size: 14px;
   }
-  
-  .badge-text {
-    font-size: 11px;
+
+  .faq-toggle-btn {
+    font-size: 13px;
+    padding: 10px 20px;
+  }
+
+  .faq-content {
+    padding: 25px 20px;
+  }
+
+  .faq-header h2 {
+    font-size: 1.3rem;
+  }
+
+  /* Other elements */
+  .grade-ref-grid {
+    grid-template-columns: 1fr;
+    max-width: 300px;
+  }
+
+  .cube-btn {
+    width: 120px;
+    height: 55px;
+    font-size: 14px;
+  }
+
+  .cube-grid {
+    gap: 10px;
+  }
+
+  .subject {
+    padding: 15px 10px;
+  }
+
+  .subject strong {
+    font-size: 14px;
+  }
+
+  .grade-btn {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+  }
+
+  .grade-buttons {
+    gap: 8px;
+  }
+
+  #subjects-list {
+    padding: 15px;
+  }
+
+  .primary-btn {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+
+  .cgpa-box {
+    padding: 20px;
+    max-width: 280px;
+  }
+.cgpa-box span {
+    font-size: 40px;
   }
 }
 
@@ -763,12 +758,46 @@ h2 {
   .landing-title {
     font-size: 1.7rem;
   }
-  
+
   .highlight-text {
-    font-size: 2.2rem;
+    font-size: 2.4rem;
   }
-  
-  .landing-card {
-    padding: 40px 25px;
+
+  .calculate-now-btn {
+    padding: 14px 30px;
+    font-size: 15px;
+  }
+
+  .cube-grid {
+    gap: 8px;
+  }
+
+  .cube-btn {
+    width: 100px;
+    height: 50px;
+    font-size: 13px;
+  }
+
+  .grade-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 16px;
+    border-radius: 14px;
+  }
+
+  .grade-buttons {
+    gap: 6px;
+  }
+
+  .subject strong {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 360px) {
+  .grade-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 15px;
   }
 }
