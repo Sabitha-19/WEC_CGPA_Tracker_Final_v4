@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>WEC CGPA Tracker</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>WEC CGPA Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
 
-<!-- HEADER -->
+<!-- ================= HEADER ================= -->
 <header class="fixed-header">
   <span onclick="showPage('start-page')">⬅</span>
-<div id="start-page" class="page active">
-  <!-- welcome content -->
-</div>
   <h3>WEC CGPA Tracker</h3>
+
   <div class="nav-icons">
     <span onclick="showPage('start-page')">🏠</span>
     <span onclick="openGraph()">📈</span>
@@ -27,11 +30,10 @@
   </div>
 </header>
 
-<!-- START PAGE -->
+<!-- ================= START PAGE ================= -->
 <section id="start-page" class="page active">
   <h2>Welcome to Women's Engineering College CGPA Tracker 👩🏻‍🎓</h2>
   <button class="primary-btn" onclick="showPage('stream-page')">Start Now</button>
-
 
   <!-- FAQ -->
   <section id="faq-section" class="hidden">
@@ -54,55 +56,54 @@
   </section>
 </section>
 
-<!-- STREAM -->
+<!-- ================= STREAM ================= -->
 <section id="stream-page" class="page">
   <h2>Select Stream</h2>
   <div class="cube-grid">
-    <button class="cube-btn" onclick="selectStream('engineering',this)">Engineering</button>
-    <button class="cube-btn" onclick="selectStream('bcom',this)">BCom</button>
+    <button class="cube-btn" onclick="selectStream('engineering', this)">Engineering</button>
+    <button class="cube-btn" onclick="selectStream('bcom', this)">BCom</button>
   </div>
 </section>
 
-<!-- DEPARTMENT -->
+<!-- ================= DEPARTMENT ================= -->
 <section id="department-page" class="page">
   <h2>Select Department</h2>
   <div id="department-grid" class="cube-grid"></div>
 </section>
 
-<!-- SEMESTER -->
+<!-- ================= SEMESTER ================= -->
 <section id="semester-page" class="page">
   <h2>Select Semester</h2>
   <div id="semester-grid" class="cube-grid"></div>
 </section>
 
-<!-- SUBJECTS -->
+<!-- ================= SUBJECTS ================= -->
 <section id="subjects-page" class="page">
   <h2>Enter Grades</h2>
   <div id="subjects-list"></div>
 
   <button class="primary-btn" onclick="calculateGPA()">Calculate GPA</button>
-
   <p id="encouragement-text" class="encourage"></p>
 </section>
 
-<!-- RESULT -->
+<!-- ================= RESULT ================= -->
 <section id="result-page" class="page">
   <p id="cgpa-display"></p>
   <p id="cgpa-message" class="encourage"></p>
 </section>
 
-<!-- GRAPH -->
+<!-- ================= GRAPH ================= -->
 <section id="graph-page" class="page">
   <canvas id="semesterChart"></canvas>
 </section>
 
-<!-- SAVED -->
+<!-- ================= SAVED ================= -->
 <section id="saved-page" class="page">
   <h2>Saved Semesters</h2>
   <div id="saved-list"></div>
 </section>
 
-<!-- GRADE REFERENCE -->
+<!-- ================= GRADE REFERENCE ================= -->
 <section id="grade-reference-page" class="page">
   <h2 class="section-title">Grade Point Reference</h2>
 
@@ -117,6 +118,7 @@
   </div>
 </section>
 
+<!-- ================= JS ================= -->
 <script src="js/script.js"></script>
 </body>
 </html>
