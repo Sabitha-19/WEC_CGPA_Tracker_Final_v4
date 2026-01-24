@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <title>WEC CGPA Tracker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   
   <!-- HEADER -->
   <header class="fixed-header">
-    <span style="cursor:pointer; font-size:24px;" onclick="showPage('start-page')">⬅</span>
+    <span class="back-btn" onclick="showPage('start-page')" style="cursor:pointer; font-size:24px;">⬅</span>
     <h3 style="color:#6a11cb; font-weight:600;">WEC CGPA Tracker</h3>
     <div class="nav-icons">
       <span onclick="showPage('start-page')" title="Home" style="cursor:pointer; font-size:20px; margin:0 8px;">🏠</span>
@@ -21,16 +21,30 @@
     </div>
   </header>
 
-  <!-- START PAGE -->
+  <!-- START PAGE / LANDING PAGE -->
   <section id="start-page" class="page active">
-    <div style="text-align:center; padding:30px 20px;">
-      <h1 style="color:#6a11cb; margin-bottom:15px;">Welcome to WEC CGPA Tracker 👩🏻‍🎓</h1>
-      <p style="color:#666; margin-bottom:30px; font-size:16px;">Track your semester GPA and overall CGPA with ease</p>
-      <button class="primary-btn" onclick="showPage('stream-page')" style="display:block; margin:15px auto; width:220px; font-size:16px; font-weight:600;">Start Now</button>
-      <button class="primary-btn" onclick="showPage('grade-reference-page')" style="display:block; margin:15px auto; width:220px; font-size:16px; font-weight:600; background:linear-gradient(135deg,#2575fc,#6a11cb);">View Grade Reference</button>
+    <div class="landing-container">
+      <div class="landing-card">
+        <!-- Updated Badge -->
+        <div class="updated-badge">
+          <span class="check-icon">✓</span>
+          <span class="badge-text">UPDATED FOR 2024-25</span>
+        </div>
+        
+        <!-- Main Heading -->
+        <h1 class="landing-title">
+          Calculate Your<br>
+          <span class="highlight-text">CGPA</span> <span class="instantly-text">Instantly</span>
+        </h1>
+        
+        <!-- Calculate Button -->
+        <button class="calculate-now-btn" onclick="showPage('stream-page')">
+          Calculate Now
+          <span class="arrow-icon">→</span>
+        </button>
+      </div>
     </div>
-    
-    <!-- FAQ SECTION -->
+ <!-- FAQ SECTION -->
     <section id="faq-section" class="hidden" style="margin-top:30px; padding:20px; background:#fff; border-radius:16px; max-width:600px; margin-left:auto; margin-right:auto;">
       <h2 style="text-align:center; color:#6a11cb; margin-bottom:20px;">Frequently Asked Questions</h2>
       
@@ -80,7 +94,7 @@
   <!-- SUBJECTS & GRADES -->
   <section id="subjects-page" class="page">
     <h2 style="text-align:center; color:#6a11cb; margin-bottom:20px;">Enter Grades</h2>
-    <div id="subjects-list" style="max-width:600px; margin:0 auto;"></div>
+    <div id="subjects-list" style="max-width:800px; margin:0 auto;"></div>
     <button class="primary-btn" onclick="calculateGPA()" style="display:block; margin:20px auto; width:220px; font-size:16px; font-weight:600;">Calculate GPA</button>
     <p id="encouragement-text" class="encourage"></p>
   </section>
@@ -95,8 +109,7 @@
       <button class="primary-btn" onclick="showPage('start-page')" style="margin:15px auto; width:220px; font-size:16px; background:linear-gradient(135deg,#2575fc,#6a11cb);">Back to Home</button>
     </div>
   </section>
-
-  <!-- GRAPH PAGE -->
+<!-- GRAPH PAGE -->
   <section id="graph-page" class="page">
     <h2 style="text-align:center; color:#6a11cb; margin-bottom:20px;">Semester Progress 📊</h2>
     <div style="background:#fff; padding:20px; border-radius:15px; max-width:700px; margin:0 auto 20px; box-shadow:0 4px 15px rgba(0,0,0,0.1);">
