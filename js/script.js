@@ -259,3 +259,25 @@ document.querySelectorAll(".faq-question").forEach(btn => {
       ans.style.display === "block" ? "none" : "block";
   });
 });
+
+/* ================= FAQ SECTION TOGGLE ================= */
+function toggleFAQ() {
+  const faq = document.getElementById("faq-section");
+  faq.classList.toggle("hidden");
+
+  // Always go to start page when FAQ opens
+  showPage("start-page");
+}
+
+document.querySelectorAll(".faq-question").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const ans = btn.nextElementSibling;
+
+    document.querySelectorAll(".faq-answer").forEach(a => {
+      if (a !== ans) a.style.display = "none";
+    });
+
+    ans.style.display =
+      ans.style.display === "block" ? "none" : "block";
+  });
+});
