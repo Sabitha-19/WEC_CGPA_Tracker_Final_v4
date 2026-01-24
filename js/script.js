@@ -232,3 +232,17 @@ function getEncouragement(score, type="GPA"){
   if(score >= 6) return `💪 You passed! Push a little more next time.`;
   return `🌱 Don’t give up. Every topper once struggled.`;
 }
+
+
+<script>
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(page => {
+    page.classList.remove('active');
+  });
+
+  const target = document.getElementById(pageId);
+  if (target) {
+    target.classList.add('active');
+  }
+}
+</script>
