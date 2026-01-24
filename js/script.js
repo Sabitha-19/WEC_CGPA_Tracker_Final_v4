@@ -1,5 +1,4 @@
-
-/* ================== GLOBAL VARIABLES ================== */
+/* ================= GLOBAL VARIABLES ================= */
 let selectedStream = "";
 let selectedDepartment = "";
 let selectedSemester = 0;
@@ -14,81 +13,102 @@ const departments = {
   bcom: ["bcom"]
 };
 
-const gradePoints = { S:10, A:9, B:8, C:7, D:6, E:5, F:0 };
+const gradePoints = {
+  S: 10, A: 9, B: 8, C: 7, D: 6, E: 5, F: 0
+};
 
-/* ================== PAGE NAVIGATION ================== */
-function showPage(id){
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
+/* ================= PAGE NAVIGATION ================= */
+function showPage(pageId) {
+  document.querySelectorAll(".page").forEach(p =>
+    p.classList.remove("active")
+  );
+  document.getElementById(pageId)?.classList.add("active");
 }
 
-/* ================== STREAM ================== */
-function selectStream(stream, btn){
+/* ================= STREAM ================= */
+function selectStream(stream, btn) {
   selectedStream = stream;
-  document.querySelectorAll("#stream-page .cube-btn").forEach(b => b.classList.remove("active"));
+  document.querySelectorAll("#stream-page .cube-btn")
+    .forEach(b => b.classList.remove("active"));
   btn.classList.add("active");
+
   showDepartments();
   showPage("department-page");
 }
 
-/* ================== DEPARTMENT ================== */
-function showDepartments(){
+/* ================= DEPARTMENT ================= */
+function showDepartments() {
   const grid = document.getElementById("department-grid");
   grid.innerHTML = "";
 
   departments[selectedStream].forEach(dep => {
-    const b = document.createElement("button");
-    b.className = "cube-btn";
-    b.textContent = dep.toUpperCase();
-    b.onclick = () => selectDepartment(dep, b);
-    grid.appendChild(b);
+    const btn = document.createElement("button");
+    btn.className = "cube-btn";
+    btn.textContent = dep.toUpperCase();
+    btn.onclick = () => selectDepartment(dep, btn);
+    grid.appendChild(btn);
   });
 }
 
-function selectDepartment(dep, btn){
+function selectDepartment(dep, btn) {
   selectedDepartment = dep;
-  document.querySelectorAll("#department-grid .cube-btn").forEach(b => b.classList.remove("active"));
+  document.querySelectorAll("#department-grid .cube-btn")
+    .forEach(b => b.classList.remove("active"));
   btn.classList.add("active");
+
   showSemesters();
   showPage("semester-page");
 }
 
-/* ================== SEMESTER ================== */
-function showSemesters(){
+/* ================= SEMESTER ================= */
+function showSemesters() {
   const grid = document.getElementById("semester-grid");
   grid.innerHTML = "";
 
-  for(let i = 1; i <= 8; i++){
-    const b = document.createElement("button");
-    b.className = "cube-btn";
-    b.textContent = "Semester " + i;
-    b.onclick = () => selectSemester(i, b);
-    grid.appendChild(b);
+  for (let i = 1; i <= 8; i++) {
+    const btn = document.createElement("button");
+    btn.className = "cube-btn";
+    btn.textContent = `Semester ${i}`;
+    btn.onclick = () => selectSemester(i, btn);
+    grid.appendChild(btn);
   }
 }
 
-function selectSemester(sem, btn){
+function selectSemester(sem, btn) {
   selectedSemester = sem;
-  document.querySelectorAll("#semester-grid .cube-btn").forEach(b => b.classList.remove("active"));
+  document.querySelectorAll("#semester-grid .cube-btn")
+    .forEach(b => b.classList.remove("active"));
   btn.classList.add("active");
+
   loadSubjects();
 }
 
-/* ================== SUBJECTS ================== */
-function loadSubjects(){
+/* ================= SUBJECT LOADING (GITHUB SAFE) ================= */
+function loadSubjects() {
   grades = {};
 
-  fetch(`data/${selectedDepartment}_sem${selectedSemester}.json`)
-    .then(res => res.json())
+  const basePath = window.location.pathname.includes("WEC_CGPA_Tracker_Final_v4")
+    ? "/WEC_CGPA_Tracker_Final_v4/"
+    : "/";
+
+  fetch(`${basePath}data/${selectedDepartment}_sem${selectedSemester}.json`)
+    .then(res => {
+      if (!res.ok) throw new Error("JSON not found");
+      return res.json();
+    })
     .then(data => {
       subjects = data;
       renderSubjects();
       showPage("subjects-page");
     })
-    .catch(() => alert("Subject file not found"));
+    .catch(err => {
+      alert("Subject file not found!");
+      console.error(err);
+    });
 }
 
-function renderSubjects(){
+/* ================= SUBJECT RENDER ================= */
+function renderSubjects() {
   const box = document.getElementById("subjects-list");
   box.innerHTML = "";
 
@@ -107,13 +127,26 @@ function renderSubjects(){
   });
 }
 
-/* ================== GPA ================== */
-function calculateGPA(){
+/* ================= ENCOURAGEMENT ================= */
+function getEncouragement(score, type = "GPA") {
+  if (score >= 9)
+    return `🌟 Outstanding! Your ${type} is excellent. Keep shining!`;
+  if (score >= 8)
+    return `🔥 Very good! You're doing great. Aim even higher!`;
+  if (score >= 7)
+    return `👍 Good work! Stay consistent and improve.`;
+  if (score >= 6)
+    return `💪 You passed! Push a little harder next time.`;
+  return `🌱 Don’t give up. Every topper once struggled.`;
+}
+
+/* ================= GPA & CGPA ================= */
+function calculateGPA() {
   let total = 0, credits = 0;
 
   subjects.forEach(s => {
     const g = grades[s.code];
-    if(g){
+    if (g) {
       total += gradePoints[g] * s.credits;
       credits += s.credits;
     }
@@ -121,7 +154,9 @@ function calculateGPA(){
 
   const gpa = credits ? (total / credits).toFixed(2) : "0.00";
 
-  document.getElementById("cgpa-display").innerText = `Semester GPA: ${gpa}`;
+  document.getElementById("cgpa-display").innerText =
+    `Semester GPA: ${gpa}`;
+
   document.getElementById("encouragement-text").innerText =
     getEncouragement(parseFloat(gpa), "GPA");
 
@@ -129,9 +164,11 @@ function calculateGPA(){
   showPage("result-page");
 }
 
-/* ================== SAVE SEMESTER ================== */
-function saveSemester(gpa){
-  savedSemesters = savedSemesters.filter(s => s.semester !== selectedSemester);
+/* ================= SAVE SEMESTER ================= */
+function saveSemester(gpa) {
+  savedSemesters = savedSemesters.filter(
+    s => s.semester !== selectedSemester
+  );
 
   savedSemesters.push({
     semester: selectedSemester,
@@ -142,29 +179,28 @@ function saveSemester(gpa){
     getEncouragement(parseFloat(calculateCGPA()), "CGPA");
 }
 
-/* ================== CGPA ================== */
-function calculateCGPA(){
-  if(savedSemesters.length === 0) return "0.00";
+/* ================= CGPA ================= */
+function calculateCGPA() {
+  if (savedSemesters.length === 0) return "0.00";
 
   let total = 0;
   savedSemesters.forEach(s => total += s.gpa);
-
   return (total / savedSemesters.length).toFixed(2);
 }
 
-/* ================== SAVED ================== */
-function showSaved(){
+/* ================= SAVED LIST ================= */
+function showSaved() {
   showPage("saved-page");
-
   const list = document.getElementById("saved-list");
+
   list.innerHTML = `
     <div class="cgpa-box">
       <h3>Overall CGPA</h3>
-      <span id="cgpa-value">${calculateCGPA()}</span>
+      <span>${calculateCGPA()}</span>
     </div>
   `;
 
-  if(savedSemesters.length === 0){
+  if (savedSemesters.length === 0) {
     list.innerHTML += "<p>No CGPA data saved</p>";
     return;
   }
@@ -178,15 +214,15 @@ function showSaved(){
   });
 }
 
-/* ================== GRAPH ================== */
-function openGraph(){
+/* ================= GRAPH ================= */
+function openGraph() {
   showPage("graph-page");
 
   const data = Array(8).fill(null);
   savedSemesters.forEach(s => data[s.semester - 1] = s.gpa);
 
   const ctx = document.getElementById("semesterChart").getContext("2d");
-  if(semesterChart) semesterChart.destroy();
+  if (semesterChart) semesterChart.destroy();
 
   semesterChart = new Chart(ctx, {
     type: "line",
@@ -194,8 +230,9 @@ function openGraph(){
       labels: ["S1","S2","S3","S4","S5","S6","S7","S8"],
       datasets: [{
         label: "Semester GPA",
-        data: data,
-        borderWidth: 3,
+        data,
+        borderColor: "#6a11cb",
+        backgroundColor: "rgba(106,17,203,0.25)",
         fill: true,
         tension: 0.4,
         pointRadius: 6
@@ -209,40 +246,16 @@ function openGraph(){
   });
 }
 
-/* ================== FAQ ================== */
-function toggleFAQ(){
-  document.getElementById("faq-section").classList.toggle("hidden");
-}
-
+/* ================= FAQ TOGGLE ================= */
 document.querySelectorAll(".faq-question").forEach(btn => {
   btn.addEventListener("click", () => {
     const ans = btn.nextElementSibling;
+
     document.querySelectorAll(".faq-answer").forEach(a => {
-      if(a !== ans) a.style.display = "none";
+      if (a !== ans) a.style.display = "none";
     });
-    ans.style.display = ans.style.display === "block" ? "none" : "block";
+
+    ans.style.display =
+      ans.style.display === "block" ? "none" : "block";
   });
 });
-
-/* ================== ENCOURAGEMENT ================== */
-function getEncouragement(score, type="GPA"){
-  if(score >= 9) return `🌟 Outstanding! Your ${type} is excellent. Keep shining!`;
-  if(score >= 8) return `🔥 Very good! You're doing great. Aim higher!`;
-  if(score >= 7) return `👍 Good work! Stay consistent.`;
-  if(score >= 6) return `💪 You passed! Push a little more next time.`;
-  return `🌱 Don’t give up. Every topper once struggled.`;
-}
-
-
-<script>
-function showPage(pageId) {
-  document.querySelectorAll('.page').forEach(page => {
-    page.classList.remove('active');
-  });
-
-  const target = document.getElementById(pageId);
-  if (target) {
-    target.classList.add('active');
-  }
-}
-</script>
