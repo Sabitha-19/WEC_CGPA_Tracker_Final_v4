@@ -20,17 +20,10 @@
       <span onclick="showSaved()" title="Saved" style="cursor:pointer; font-size:20px; margin:0 8px;">💾</span>
     </div>
   </header>
-
-  <!-- START PAGE / LANDING PAGE -->
+<!-- START PAGE / LANDING PAGE -->
   <section id="start-page" class="page active">
     <div class="landing-container">
       <div class="landing-card">
-        <!-- Updated Badge -->
-        <div class="updated-badge">
-          <span class="check-icon">✓</span>
-          <span class="badge-text">UPDATED FOR 2024-25</span>
-        </div>
-        
         <!-- Main Heading -->
         <h1 class="landing-title">
           Calculate Your<br>
@@ -42,35 +35,51 @@
           Calculate Now
           <span class="arrow-icon">→</span>
         </button>
+        
+        <!-- View Grade Reference Link -->
+        <button class="grade-reference-link" onclick="showPage('grade-reference-page')">
+          📚 View Grade Reference
+        </button>
       </div>
+      
+      <!-- FAQ Toggle Button at Bottom -->
+      <button class="faq-toggle-btn" onclick="toggleFAQ()">
+        ❓ Frequently Asked Questions
+      </button>
     </div>
- <!-- FAQ SECTION -->
-    <section id="faq-section" class="hidden" style="margin-top:30px; padding:20px; background:#fff; border-radius:16px; max-width:600px; margin-left:auto; margin-right:auto;">
-      <h2 style="text-align:center; color:#6a11cb; margin-bottom:20px;">Frequently Asked Questions</h2>
-      
-      <div class="faq-item">
-        <button class="faq-question">What is CGPA?</button>
-        <div class="faq-answer">CGPA (Cumulative Grade Point Average) represents your overall academic performance across all semesters.</div>
-      </div>
-      
-      <div class="faq-item">
-        <button class="faq-question">How is CGPA calculated?</button>
-        <div class="faq-answer">CGPA = Σ(Credit × Grade Point) / Σ Credits. It's the weighted average of all your semester GPAs.</div>
-      </div>
-      
-      <div class="faq-item">
-        <button class="faq-question">Is this official?</button>
-        <div class="faq-answer">This tool is for student reference only and not an official college platform.</div>
-      </div>
-      
-      <div class="faq-item">
-        <button class="faq-question">How do I save my data?</button>
-        <div class="faq-answer">Your semester GPAs are automatically saved when you calculate them. View them by clicking the save icon (💾).</div>
+    
+    <!-- FAQ SECTION (Hidden by default) -->
+    <section id="faq-section" class="hidden faq-overlay">
+      <div class="faq-content">
+        <div class="faq-header">
+          <h2>Frequently Asked Questions</h2>
+          <button class="faq-close-btn" onclick="toggleFAQ()">✕</button>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-question">What is CGPA?</button>
+          <div class="faq-answer">CGPA (Cumulative Grade Point Average) represents your overall academic performance across all semesters.</div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-question">How is CGPA calculated?</button>
+          <div class="faq-answer">CGPA = Σ(Credit × Grade Point) / Σ Credits. It's the weighted average of all your semester GPAs.</div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-question">Is this official?</button>
+          <div class="faq-answer">This tool is for student reference only and not an official college platform.</div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-question">How do I save my data?</button>
+          <div class="faq-answer">Your semester GPAs are automatically saved when you calculate them. View them by clicking the save icon (💾).</div>
+        </div>
       </div>
     </section>
   </section>
 
-  <!-- STREAM SELECTION -->
+<!-- STREAM SELECTION -->
   <section id="stream-page" class="page">
     <h2 style="text-align:center; color:#6a11cb; margin-bottom:20px;">Select Stream</h2>
     <div class="cube-grid">
@@ -90,8 +99,7 @@
     <h2 style="text-align:center; color:#6a11cb; margin-bottom:20px;">Select Semester</h2>
     <div id="semester-grid" class="cube-grid"></div>
   </section>
-
-  <!-- SUBJECTS & GRADES -->
+ <!-- SUBJECTS & GRADES -->
   <section id="subjects-page" class="page">
     <h2 style="text-align:center; color:#6a11cb; margin-bottom:20px;">Enter Grades</h2>
     <div id="subjects-list" style="max-width:800px; margin:0 auto;"></div>
@@ -109,7 +117,8 @@
       <button class="primary-btn" onclick="showPage('start-page')" style="margin:15px auto; width:220px; font-size:16px; background:linear-gradient(135deg,#2575fc,#6a11cb);">Back to Home</button>
     </div>
   </section>
-<!-- GRAPH PAGE -->
+
+  <!-- GRAPH PAGE -->
   <section id="graph-page" class="page">
     <h2 style="text-align:center; color:#6a11cb; margin-bottom:20px;">Semester Progress 📊</h2>
     <div style="background:#fff; padding:20px; border-radius:15px; max-width:700px; margin:0 auto 20px; box-shadow:0 4px 15px rgba(0,0,0,0.1);">
@@ -125,8 +134,7 @@
     <button class="primary-btn" onclick="clearAllData()" style="display:block; margin:20px auto; width:220px; font-size:16px; background:#ef4444;">Clear All Data</button>
     <button class="primary-btn" onclick="showPage('start-page')" style="display:block; margin:10px auto; width:220px; font-size:16px; background:linear-gradient(135deg,#2575fc,#6a11cb);">Back to Home</button>
   </section>
-
-  <!-- GRADE REFERENCE -->
+<!-- GRADE REFERENCE -->
   <section id="grade-reference-page" class="page">
     <h2 style="text-align:center; color:#6a11cb; margin-bottom:25px;">Grade Point Reference 📚</h2>
     <div class="grade-ref-grid">
