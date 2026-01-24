@@ -591,3 +591,184 @@ h2 {
 .p-20 {
   padding: 20px;
 }
+
+/* ================== LANDING PAGE ================== */
+.landing-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 120px);
+  padding: 20px;
+}
+
+.landing-card {
+  background: linear-gradient(135deg, #4285f4 0%, #5a7de8 100%);
+  border-radius: 30px;
+  padding: 60px 40px;
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(66, 133, 244, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.landing-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  animation: pulse 15s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-10%, -10%);
+  }
+}
+
+.updated-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 25px;
+  padding: 8px 20px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.check-icon {
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  color: #4285f4;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.badge-text {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  font-style: italic;
+}
+
+.landing-title {
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: #fff;
+  margin-bottom: 50px;
+  line-height: 1.3;
+  position: relative;
+  z-index: 1;
+}
+
+.highlight-text {
+  font-weight: 700;
+  font-size: 3rem;
+  display: inline-block;
+  background: linear-gradient(45deg, #fff, #e3f2fd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.instantly-text {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.calculate-now-btn {
+  background: #fff;
+  color: #4285f4;
+  border: none;
+  border-radius: 50px;
+  padding: 18px 45px;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: Poppins, sans-serif;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.calculate-now-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.calculate-now-btn:active {
+  transform: translateY(-1px);
+}
+
+.arrow-icon {
+  font-size: 20px;
+  transition: transform 0.3s ease;
+}
+
+.calculate-now-btn:hover .arrow-icon {
+  transform: translateX(5px);
+}
+
+/* Mobile Responsive for Landing Page */
+@media (max-width: 600px) {
+  .landing-card {
+    padding: 50px 30px;
+    border-radius: 25px;
+  }
+  
+  .landing-title {
+    font-size: 2rem;
+  }
+  
+  .highlight-text {
+    font-size: 2.5rem;
+  }
+  
+  .calculate-now-btn {
+    padding: 16px 35px;
+    font-size: 16px;
+  }
+  
+  .updated-badge {
+    padding: 6px 16px;
+  }
+  
+  .badge-text {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 400px) {
+  .landing-title {
+    font-size: 1.7rem;
+  }
+  
+  .highlight-text {
+    font-size: 2.2rem;
+  }
+  
+  .landing-card {
+    padding: 40px 25px;
+  }
+}
